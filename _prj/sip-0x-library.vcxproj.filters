@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{1002323c-dccd-44b4-982a-53edd90de373}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="logic">
+      <UniqueIdentifier>{9e080e5a-7da6-4180-aab8-d6eec7101ddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser">
+      <UniqueIdentifier>{c289780e-ccf6-49e1-a063-3b115506e12f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\parser\Parser.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\CoreRules.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\Request.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\Response.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\Message.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\SIPGrammar.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\libs\Sip0x.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\docs\SIP_ABNF.txt">
+      <Filter>parser</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
