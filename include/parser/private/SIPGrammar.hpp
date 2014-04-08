@@ -3,6 +3,14 @@
 
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/phoenix_core.hpp>
+#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/spirit/include/phoenix_fusion.hpp>
+#include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/spirit/include/phoenix_object.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+#include <boost/variant/recursive_variant.hpp>
+#include <boost/foreach.hpp>
 
 #include <iostream>
 #include <string>
@@ -14,19 +22,28 @@ namespace Sip0x
   {
     namespace qi = boost::spirit::qi;
     namespace ascii = boost::spirit::ascii;
+    namespace fusion = boost::fusion;
+    namespace phoenix = boost::phoenix;
 
     using qi::int_;
     using qi::lit;
     using qi::double_;
     using qi::repeat;
+    using ascii::char_;;
+    using qi::on_error;
+    using qi::fail;
     using ascii::char_;
+    using namespace qi::labels;
+
+    using phoenix::construct;
+    using phoenix::val;
  
 
     template <typename Iterator>
     struct SIPGrammar : qi::grammar<Iterator, std::string()>
     {
 
-      qi::rule<Iterator, std::string()> start;
+      qi::rule<Iterator, std::string()> root;
       // Core rules (from RFC 4234)
       qi::rule<Iterator, std::string()> CRLF;
       qi::rule<Iterator, std::string()> ALPHA;
@@ -384,7 +401,7 @@ namespace Sip0x
       qi::rule<Iterator, std::string()> message_body;    //=  *OCTET
 
 
-      SIPParser() : SIPParser::base_type(start)
+      SIPGrammar() : SIPGrammar::base_type(root)
       {
         // Initialization 
         // Core rules
@@ -749,7 +766,19 @@ namespace Sip0x
         header_value       =  *(TEXT_UTF8char | UTF8_CONT | LWS);
         message_body       =  *OCTET;
 
-        start = SIP_message;
+        root = SIP_message;
+
+        on_error<fail>
+          (
+          root
+          , std::cout
+          << val("Error! Expecting ")
+          << qi::_4                               // what failed?
+          << val(" here: \"")
+          << construct<std::string>(qi::_3, qi::_2)   // iterators to error-pos, end
+          << val("\"")
+          << std::endl
+          );
       }
     };
   }
