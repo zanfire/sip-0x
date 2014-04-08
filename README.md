@@ -1,4 +1,4 @@
 sip-0x
 ======
 
-A SIP stack impelemented with C++ 11
+A SIP stack implemented with C++ 11.
