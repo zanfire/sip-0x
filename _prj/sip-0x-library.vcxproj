@@ -11,7 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\parser\CoreRules.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
     <ClInclude Include="..\include\parser\SIPGrammar.hpp" />
     <ClInclude Include="..\include\protocol\Request.hpp" />
@@ -19,6 +18,7 @@
     <ClInclude Include="..\include\protocol\Message.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\libs\Parser.cpp" />
     <ClCompile Include="..\src\libs\Sip0x.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -10,12 +10,12 @@
     <Filter Include="parser">
       <UniqueIdentifier>{c289780e-ccf6-49e1-a063-3b115506e12f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="parser\private">
+      <UniqueIdentifier>{d04c0865-0ecf-4879-91be-642fbdb2e3bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\parser\Parser.hpp">
-      <Filter>parser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\CoreRules.hpp">
       <Filter>parser</Filter>
     </ClInclude>
     <ClInclude Include="..\include\protocol\Request.hpp">
@@ -28,11 +28,14 @@
       <Filter>protocol</Filter>
     </ClInclude>
     <ClInclude Include="..\include\parser\SIPGrammar.hpp">
-      <Filter>parser</Filter>
+      <Filter>parser\private</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\libs\Sip0x.cpp" />
+    <ClCompile Include="..\src\libs\Parser.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\docs\SIP_ABNF.txt">

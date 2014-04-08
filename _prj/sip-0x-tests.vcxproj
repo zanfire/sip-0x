@@ -13,6 +13,11 @@
   <ItemGroup>
     <ClCompile Include="..\src\tests\main.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="sip-0x-library.vcxproj">
+      <Project>{953272e9-fa48-47e4-ade1-f45467475b99}</Project>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90F1A38E-1AA7-433A-B7D6-9B4F4AAE8C7E}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
