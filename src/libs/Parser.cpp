@@ -1,6 +1,7 @@
 #include "parser/Parser.hpp"
 
 #include "parser/private/SIPGrammar.hpp"
+//#include "parser/private/TestGrammar.hpp"
 
 using namespace Sip0x::Parser;
 using namespace std;
@@ -27,12 +28,5 @@ bool ParserX::parse(string message) {
   bool r = qi::parse(message.begin(), message.end(), grammar, result);
 
   //if (first != last) // fail if we did not get a full match
-
-  if (r) {
-    std::cout << "OK\n";
-  }
-  else {
-    std::cout << "FAILED\n";
-  }
-  return 0;
+  return r;
 }

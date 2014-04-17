@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.30203.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-tests", "_prj\sip-0x-tests.vcxproj", "{90F1A38E-1AA7-433A-B7D6-9B4F4AAE8C7E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{953272E9-FA48-47E4-ADE1-F45467475B99} = {953272E9-FA48-47E4-ADE1-F45467475B99}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-library", "_prj\sip-0x-library.vcxproj", "{953272E9-FA48-47E4-ADE1-F45467475B99}"
 EndProject

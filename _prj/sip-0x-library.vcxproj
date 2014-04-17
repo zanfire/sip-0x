@@ -12,7 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\parser\Parser.hpp" />
-    <ClInclude Include="..\include\parser\SIPGrammar.hpp" />
+    <ClInclude Include="..\include\parser\private\SIPGrammar.hpp" />
+    <ClInclude Include="..\include\parser\private\TestGrammar.hpp" />
     <ClInclude Include="..\include\protocol\Request.hpp" />
     <ClInclude Include="..\include\protocol\Response.hpp" />
     <ClInclude Include="..\include\protocol\Message.hpp" />
@@ -69,6 +70,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\vendors\boost_1_55_0;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -85,6 +87,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\vendors\boost_1_55_0;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

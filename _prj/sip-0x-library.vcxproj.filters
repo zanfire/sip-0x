@@ -27,7 +27,10 @@
     <ClInclude Include="..\include\protocol\Message.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\parser\SIPGrammar.hpp">
+    <ClInclude Include="..\include\parser\private\SIPGrammar.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\TestGrammar.hpp">
       <Filter>parser\private</Filter>
     </ClInclude>
   </ItemGroup>
