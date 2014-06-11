@@ -18,6 +18,9 @@
 #include <string>
 #include <vector>
 
+
+#define Iterator std::string::const_iterator
+
 namespace Sip0x
 {
   namespace Parser
@@ -41,7 +44,6 @@ namespace Sip0x
     using phoenix::val;
  
 
-    template <typename Iterator>
     struct SIPGrammar : qi::grammar<Iterator, std::string()>
     {
 
@@ -125,42 +127,6 @@ namespace Sip0x
       qi::rule<Iterator, std::string()> hex4;               
       qi::rule<Iterator, std::string()> port;
 
-      qi::rule<Iterator, std::string()> uri_parameters;     // = *(";" uri - parameter)
-      qi::rule<Iterator, std::string()> uri_parameter;      // = transport - param / user - param / method - param / ttl - param / maddr - param / lr - param / other - param
-      qi::rule<Iterator, std::string()> transport_param;    // = "transport="  ("udp" / "tcp" / "sctp" / "tls" / other - transport)
-      qi::rule<Iterator, std::string()> other_transport;    // = token
-      qi::rule<Iterator, std::string()> user_param;        //= "user=" ("phone" / "ip" / other - user)
-      qi::rule<Iterator, std::string()> other_user;        // = token
-      qi::rule<Iterator, std::string()> method_param;      // = "method=" Method
-      qi::rule<Iterator, std::string()> ttl_param;         // = "ttl=" ttl
-      qi::rule<Iterator, std::string()> maddr_param;       // = "maddr=" host
-      qi::rule<Iterator, std::string()> lr_param;          // = "lr"
-      qi::rule<Iterator, std::string()> other_param;       // = pname["=" pvalue]
-      qi::rule<Iterator, std::string()> pname;             // = 1 * paramchar
-      qi::rule<Iterator, std::string()> pvalue;            // = 1 * paramchar
-      qi::rule<Iterator, std::string()> paramchar;         // = param - unreserved / unreserved / escaped
-      qi::rule<Iterator, std::string()> param_unreserved;  // = "[" / "]" / "/" / ":" / "&" / "+" / "$"
-
-      qi::rule<Iterator, std::string()> headers;           // = "?" header *("&" header)
-      qi::rule<Iterator, std::string()> header;            // = hname "=" hvalue
-      qi::rule<Iterator, std::string()> hname;             // = 1 * (hnv - unreserved / unreserved / escaped)
-      qi::rule<Iterator, std::string()> hvalue;            // = *(hnv - unreserved / unreserved / escaped)
-      qi::rule<Iterator, std::string()> hnv_unreserved;    // = "[" / "]" / "/" / "?" / ":" / "+" / "$"
-
-      qi::rule<Iterator, std::string()> Contact;   //=  ("Contact" | "m" ) HCOLON ( STAR | (contact_param *(COMMA contact_param)))
-      qi::rule<Iterator, std::string()> contact_param; //=  (name_addr | addr_spec) *(SEMI contact_params)
-      qi::rule<Iterator, std::string()> name_addr;   //=  [ display_name ] LAQUOT addr_spec RAQUOT
-      qi::rule<Iterator, std::string()> addr_spec;   //=  SIP_URI | SIPS_URI | absoluteURI
-      qi::rule<Iterator, std::string()> display_name;  //=  *(token LWS)| quoted_string
-
-
-      qi::rule<Iterator, std::string()> contact_params;   //=  c_p_q | c_p_expires | contact_extension
-      qi::rule<Iterator, std::string()> c_p_q;    //=  "q" EQUAL qvalue
-      qi::rule<Iterator, std::string()> c_p_expires;    //=  "expires" EQUAL delta_seconds
-      qi::rule<Iterator, std::string()> contact_extension;  //=  generic_param
-      qi::rule<Iterator, std::string()> delta_seconds;   //=  1*DIGIT
-
-
     
       SIPGrammar() : SIPGrammar::base_type(root)
       {
@@ -237,8 +203,8 @@ namespace Sip0x
 
         quoted_pair = '\"' > (char_(0x00, 0x09) | char_(0x0B, 0x0C) | char_(0x0E, 0x7F));
         
-        SIP_URI = lit("sip:") > -userinfo > hostport >> uri_parameters >> -headers;
-        SIPS_URI = lit("sips:") > -userinfo > hostport >> uri_parameters >> -headers;
+        SIP_URI = lit("sip:") > -userinfo > hostport; // >> uri_parameters >> -headers;
+        SIPS_URI = lit("sips:") > -userinfo > hostport; // >> uri_parameters >> -headers;
         // TELEPHONE_SUBSCRIBER is in RFC 2806
         domainlabel.name("domainlabel");
         domainlabel = alphanum >> *(alphanum | lit("-")) >> alphanum;
@@ -273,51 +239,9 @@ namespace Sip0x
         port.name("port");
         port = +DIGIT;
 
-        uri_parameters.name("uri_parameters");
-        uri_parameters = *(char_(';') >> uri_parameter);
-        uri_parameter.name("uri_parameter");
-        uri_parameter = transport_param | user_param | method_param | ttl_param | maddr_param | lr_param | other_param;
-        transport_param = lit("transport=") > (lit("udp") | lit("tcp") | lit("sctp") | lit("tls") | other_transport);
-        other_transport = token;
-        user_param = lit("user=") > (lit("phone") | lit("ip") | other_user);
-        other_user = token;
-        method_param = lit("method=") > Method;
-        ttl_param = lit("ttl=") >> ttl;
-        maddr_param = lit("maddr=") > host;
-        lr_param = lit("lr");
-        other_param = pname > -(char_('=') > pvalue);
-        pname = +paramchar;
-        pvalue = +paramchar;
-        paramchar = param_unreserved | unreserved | escaped;
-        param_unreserved = char_('[') | char_(']') | char_('|') | char_(':') | char_('&') | char_('+') | char_('$');
-
-        headers.name("headers");
-        headers = char_('?') > header > *(char_('&') > header);
-        header.name("header");
-        header = hname > char_('=') > hvalue;
-        hname = +(hnv_unreserved | unreserved | escaped);
-        hvalue = *(hnv_unreserved | unreserved | escaped);
-        hnv_unreserved = char_('[') | char_(']') | char_('|') | char_('?') | char_(':') | char_('+') | char_('$');
-
-        Contact.name("Contact");
-        Contact = (lit("Contact") | char_('m')) > HCOLON > (STAR | (contact_param >> *(COMMA >> contact_param)));
-        contact_param.name("contact_param");
-        contact_param = (name_addr | addr_spec) >> *(SEMI >> contact_params);
-        addr_spec.name("addr_spec");
-        addr_spec = SIP_URI | SIPS_URI | absoluteURI;
-        name_addr.name("");
-        name_addr = -display_name > LAQUOT > addr_spec > RAQUOT;
         
-        display_name.name("display_name");
-        display_name = *(token > LWS) | quoted_string;
 
-        contact_params = c_p_q | c_p_expires | contact_extension;
-        c_p_q = char_('q') > EQUAL > qvalue;
-        c_p_expires = lit("expires") > EQUAL > delta_seconds;
-        contact_extension = generic_param;
-        delta_seconds = repeat(1, 1)[DIGIT];
-
-        root = qi::eps > Contact;
+        root = qi::eps > SIP_URI;
 
         on_error<fail>
           (
