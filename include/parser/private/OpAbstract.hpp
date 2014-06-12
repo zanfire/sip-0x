@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <memory>
 
+
+#include "parser/private/TokenAbstract.hpp"
 #include "utils/log/Logger.hpp"
 
 namespace Sip0x
@@ -12,16 +14,20 @@ namespace Sip0x
   {
     using namespace Utils::Log;
 
-    class OpAbstract {
+    class OpAbstract : public TokenAbstract {
     protected:
-      std::shared_ptr<Logger> _logger;
-
+      
     public:
       OpAbstract(void) {}
 
       virtual ~OpAbstract(void) {}
 
-      virtual std::tuple<bool, void*>  parse(std::istringstream& iss) = 0;
+      virtual std::tuple<bool, void*>  parse(std::istringstream& iss) sealed {
+        return read(iss);
+      }
+
+    protected:
+      
     };
   }
 }

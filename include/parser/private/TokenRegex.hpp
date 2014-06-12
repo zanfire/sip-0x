@@ -14,13 +14,10 @@ namespace Sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x::Utils::Log;
-
     /// This parser expects a specific token and return an instance. 
     class TokenRegex : public TokenAbstract {
 
     protected:
-      std::shared_ptr<Logger> _logger;
       std::regex _regex;
     public:
 
@@ -38,10 +35,10 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual std::tuple<bool, void*> read(std::istringstream& iss) override {
+      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
         std::smatch pieces_match;
-        // Decleare here, because regexp doesn't copy this string. Keep a copy in the scope of this method call.
-        std::string input = iss.str();
+        std::string input;
+        iss >> input;
 
         DEBUG(_logger, "Regex processing input: \"%s\".", input.c_str());
 
@@ -52,7 +49,6 @@ namespace Sip0x
 
             std::string piece = sub_match.str();
             DEBUG(_logger, "Consuming token \"%s\", len %d.", piece.c_str(), piece.length());
-            iss.ignore(piece.length());
 
 
             return std::tuple<bool, void*>(true, nullptr);

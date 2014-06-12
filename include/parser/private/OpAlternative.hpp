@@ -31,7 +31,7 @@ namespace Sip0x
       }
 
 
-      virtual std::tuple<bool, void*> parse(std::istringstream& iss) override {
+      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
         for (auto op : _alternatives) {
           std::tuple<bool, void*> result = op->parse(iss);
           if (std::get<0>(result)) {

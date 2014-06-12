@@ -28,7 +28,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual std::tuple<bool, void*> read(std::istringstream& iss) {
+      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
         return std::tuple<bool, void*>(true, nullptr);
       }
     };

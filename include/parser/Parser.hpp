@@ -39,12 +39,14 @@ namespace Sip0x
         std::istringstream iss(text);
         std::tuple<bool, void*> result = _root->parse(iss);
 
-        if (!std::get<0>(result)) {
-          DEBUG(_logger, "Parsing failed.", text.c_str());
+        if (std::get<0>(result) && iss.eof()) {
+          DEBUG(_logger, "Parsing successes.");
+          return true;
+        }
+        else {
+          DEBUG(_logger, "Parsing failed.");
           return false;
         }
-        DEBUG(_logger, "Parsing successes.", text.c_str());
-        return true;
       }
     };
   }

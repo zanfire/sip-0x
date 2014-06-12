@@ -22,7 +22,6 @@ namespace Sip0x
     public:
       OpSequence(void) : OpAbstract() {
         _logger = LoggerManager::get_logger("Sip0x.Parser.OpSequence");
-
       }
 
       virtual ~OpSequence(void) {}
@@ -32,7 +31,7 @@ namespace Sip0x
       }
 
 
-      virtual std::tuple<bool, void*>  parse(std::istringstream& iss) override {
+      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
         /*for (auto op : _alternatives) {
           //std::tuple<bool, void*> result = rule->parse(iss);
           std::tuple<bool, void*> result = op->parse(iss);

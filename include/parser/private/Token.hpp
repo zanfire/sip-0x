@@ -24,7 +24,7 @@ namespace Sip0x
     protected:
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual std::tuple<bool, void*>  read(std::istringstream& iss) {
+      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
         std::string expected;
         expected.resize(_token.length() + 1); // size + \0.
         iss.getline(&expected[0], expected.length());

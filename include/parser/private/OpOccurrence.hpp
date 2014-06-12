@@ -24,7 +24,7 @@ namespace Sip0x
 
     public:
       OpOccurrence(std::shared_ptr<TokenAbstract> token, int min, int max) : OpAbstract() {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.OpSequence");
+        _logger = LoggerManager::get_logger("Sip0x.Parser.OpOccurrence");
 
         _token = token;
         _min = min;
@@ -38,9 +38,8 @@ namespace Sip0x
       }
 
 
-      virtual std::tuple<bool, void*> parse(std::istringstream& iss) override {
+      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
         int occurrence = 0;
-        int cur_pos = iss.cur;
         while ((_max >= 0 && occurrence <= _max) || _max == -1) {
           std::tuple<bool, void*> result = _token->read(iss);
 
@@ -50,11 +49,12 @@ namespace Sip0x
           occurrence++;
         }
 
-        if (occurrence >= _min && (_max >= 0 && occurrence <= _max) || _max == -1) {
+        if (occurrence >= _min && (occurrence <= _max || _max == -1)) {
+          DEBUG(_logger, "Successes OpOccurrence@%p, occurrence: %d in range [%d - %d].", this, occurrence, _min, _max);
           return std::tuple<bool, void*>(true, nullptr);
         }
         else {
-          // TODO: seek to cur.
+          DEBUG(_logger, "Failed OpOccurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
           return std::tuple<bool, void*>(false, nullptr);
         }
       }
