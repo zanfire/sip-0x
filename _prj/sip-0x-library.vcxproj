@@ -12,15 +12,32 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\parser\Parser.hpp" />
-    <ClInclude Include="..\include\parser\private\SIPGrammar.hpp" />
-    <ClInclude Include="..\include\parser\private\TestGrammar.hpp" />
+    <ClInclude Include="..\include\parser\private\OpAbstract.hpp" />
+    <ClInclude Include="..\include\parser\private\OpAlternative.hpp" />
+    <ClInclude Include="..\include\parser\private\OpOccurrence.hpp" />
+    <ClInclude Include="..\include\parser\private\OpSequence.hpp" />
+    <ClInclude Include="..\include\parser\private\TokenAbstract.hpp" />
+    <ClInclude Include="..\include\parser\private\TokenSIPURI.hpp" />
+    <ClInclude Include="..\include\parser\private\Token.hpp" />
+    <ClInclude Include="..\include\parser\private\TokenRegex.hpp" />
+    <ClInclude Include="..\include\parser\SIPGrammar.hpp" />
+    <ClInclude Include="..\include\parser\private\SIPGrammar.hpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\include\protocol\Request.hpp" />
     <ClInclude Include="..\include\protocol\Response.hpp" />
     <ClInclude Include="..\include\protocol\Message.hpp" />
+    <ClInclude Include="..\include\utils\IniFile.hpp" />
+    <ClInclude Include="..\include\utils\log\Logger.hpp" />
+    <ClInclude Include="..\include\utils\log\LoggerManager.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\libs\Parser.cpp" />
-    <ClCompile Include="..\src\libs\Sip0x.cpp" />
+    <ClCompile Include="..\src\libs\SIPGrammarTMP.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\lib\LoggerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\docs\SIP_ABNF.txt" />

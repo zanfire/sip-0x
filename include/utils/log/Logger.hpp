@@ -14,11 +14,11 @@
 #include <cstdio>
 
 
-#define FATAL(logger, format, ...) logger->log(Sip0x::Utils::Log::Logger::FATAL, __FILE__, __LINE__, format, __VA_ARGS__)
-#define ERROR(logger, format, ...) logger->log(Sip0x::Utils::Log::Logger::ERROR, __FILE__, __LINE__, format, __VA_ARGS__)
-#define WARN(logger, format, ...) logger->log(Sip0x::Utils::Log::Logger::WARN, __FILE__, __LINE__, format, __VA_ARGS__)
-#define INFO(logger, format, ...) logger->log(Sip0x::Utils::Log::Logger::INFO, __FILE__, __LINE__, format, __VA_ARGS__)
-#define DEBUG(logger, format, ...) logger->log(Sip0x::Utils::Log::Logger::DEBUG, __FILE__, __LINE__, format, __VA_ARGS__)
+#define FATAL(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::FATAL, __FILE__, __LINE__, format, __VA_ARGS__)
+#define ERROR(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::ERROR, __FILE__, __LINE__, format, __VA_ARGS__)
+#define WARN(logger, format, ...)   if (logger) logger->log(Sip0x::Utils::Log::Logger::WARN, __FILE__, __LINE__, format, __VA_ARGS__)
+#define INFO(logger, format, ...)   if (logger) logger->log(Sip0x::Utils::Log::Logger::INFO, __FILE__, __LINE__, format, __VA_ARGS__)
+#define DEBUG(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::DEBUG, __FILE__, __LINE__, format, __VA_ARGS__)
 
 
 namespace Sip0x

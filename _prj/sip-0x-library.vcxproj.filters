@@ -13,11 +13,17 @@
     <Filter Include="parser\private">
       <UniqueIdentifier>{d04c0865-0ecf-4879-91be-642fbdb2e3bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="parser\docs">
+      <UniqueIdentifier>{12089cca-26c9-44fb-984e-de5b754adb33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{0ec58865-95c3-4c34-b783-5ec4889e135f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils\log">
+      <UniqueIdentifier>{a6e7c8ca-deaa-4eea-b485-058038f2cd14}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\parser\Parser.hpp">
-      <Filter>parser</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\protocol\Request.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
@@ -30,19 +36,57 @@
     <ClInclude Include="..\include\parser\private\SIPGrammar.hpp">
       <Filter>parser\private</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\parser\private\TestGrammar.hpp">
+    <ClInclude Include="..\include\parser\SIPGrammar.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\TokenRegex.hpp">
       <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\log\Logger.hpp">
+      <Filter>utils\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\Token.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\TokenSIPURI.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\OpAlternative.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\log\LoggerManager.hpp">
+      <Filter>utils\log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\Parser.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\TokenAbstract.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\OpAbstract.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\OpSequence.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\private\OpOccurrence.hpp">
+      <Filter>parser\private</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\IniFile.hpp">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\libs\Sip0x.cpp" />
-    <ClCompile Include="..\src\libs\Parser.cpp">
-      <Filter>parser</Filter>
+    <ClCompile Include="..\src\libs\SIPGrammarTMP.cpp">
+      <Filter>parser\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\lib\LoggerManager.cpp">
+      <Filter>utils\log</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\docs\SIP_ABNF.txt">
-      <Filter>parser</Filter>
+      <Filter>parser\docs</Filter>
     </Text>
   </ItemGroup>
 </Project>

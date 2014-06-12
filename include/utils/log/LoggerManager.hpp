@@ -22,20 +22,23 @@ namespace Sip0x
         static LoggerManager* _instance;
         static std::once_flag _once;
 
-        std::mutex _mtx;
+        std::recursive_mutex _mtx;
         std::unordered_map<std::string, std::shared_ptr<Logger>> _loggers;
+
+        // Default values.
+        Logger::LoggerLevel _default_level;
 
       public:
         static std::shared_ptr<Logger> get_logger(char const* name) {
           LoggerManager* manager = get_instance();
 
-          std::lock_guard<std::mutex> lock(manager->_mtx);
+          std::lock_guard<std::recursive_mutex> lock(manager->_mtx);
 
           std::shared_ptr<Logger> logger = manager->_loggers[name];
           if (!logger) {
             // Load configuration details 
             logger.reset(new Logger(name, &std::cout));
-            logger->set_level(Logger::DEBUG);
+            logger->set_level(manager->_default_level);
 
             manager->_loggers[name] = logger;
           }
@@ -53,25 +56,27 @@ namespace Sip0x
           return LoggerManager::_instance;
         }
 
-        bool configure(std::string path) {
-          std::lock_guard<std::mutex> lock(_mtx);
-
-          // Destroy reconfigure all logger and pre-create described logger.
-          return false;
-        }
+        // Load configuration from a INI file.
+        bool configure(std::string path);
         
+        static Logger::LoggerLevel conv_logger_level_from_string(std::string level) {
+          if (level.compare("FATAL") == 0) return Logger::FATAL;
+          if (level.compare("ERROR") == 0) return Logger::ERROR;
+          if (level.compare("WARN") == 0) return Logger::WARN;
+          if (level.compare("INFO") == 0) return Logger::INFO;
+          if (level.compare("DEBUG") == 0) return Logger::DEBUG;
+          return Logger::DEBUG;
+        }
       protected:
-        LoggerManager(void) {}
+        LoggerManager(void) {
+          _default_level = Logger::WARN;
+        }
+
       public:
         virtual ~LoggerManager(void) {}
       };
-    
-
-      // No good!!!
-      std::once_flag  LoggerManager::_once;
-      LoggerManager*	LoggerManager::_instance = nullptr;
     }
   }
 }
 
-#endif // SIP0X_UTILS_LOGS_LOGGER_HPP__
+#endif // SIP0X_UTILS_LOGS_LOGGERMANAGER_HPP__

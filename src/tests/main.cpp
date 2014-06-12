@@ -8,66 +8,54 @@
 #include "parser/SIPGrammar.hpp"
 
 #include "parser/private/TokenRegex.hpp"
+#include "parser/private/OpAlternative.hpp"
+#include "parser/private/OpOccurrence.hpp"
 
+#include "parser/Parser.hpp"
 
-#include "utils/logs/Logger.hpp"
+#include "utils/log/LoggerManager.hpp"
+#include "utils/log/Logger.hpp"
+#include "utils/IniFile.hpp"
 
 using namespace Sip0x::Parser;
+using namespace Sip0x::Utils;
 using namespace Sip0x::Utils::Log;
 using namespace std;
 
 int main(int argc, char const* argv[]) {
   std::string str;
+  LoggerManager* loggermanager = LoggerManager::get_instance();
+  loggermanager->configure("..\\docs\\logger.ini");
 
-  Logger* logger = new Logger(&cout);
+  std::shared_ptr<Logger> logger = LoggerManager::get_logger("main");
 
-  LOGE(logger, "Initializing logger...");
 
-  delete logger;
+  std::shared_ptr<TokenAbstract> token1;
+  token1.reset(new TokenRegex("[a-z]+\\.txt"));
+  std::shared_ptr<OpAbstract> op1;
+  op1.reset(new OpOccurrence(token1, 1, 1));
+  
 
-  /*
-  // Simple regular expression matching
-  std::string fnames[] = { "foo.txt", "bar.txt", "baz.dat", "zoidberg" };
-  std::regex txt_regex("[a-z]+\\.txt");
+  std::shared_ptr<TokenAbstract> token2;
+  token2.reset(new TokenRegex("[a-z]+\\.doc"));
+  std::shared_ptr<OpAbstract> op2;
+  op2.reset(new OpOccurrence(token2, 1, 1));
 
-  for (const auto &fname : fnames) {
-    std::cout << fname << ": " << std::regex_match(fname, txt_regex) << '\n';
-  }
 
-  // Extraction of a sub-match
-  std::regex base_regex("([a-z]+)\\.txt");
-  std::smatch base_match;
+  std::shared_ptr<OpAbstract> op;
+  op.reset(new OpAlternative());
+  
+  dynamic_cast<OpAlternative*>(op.get())->add(op1);
+  dynamic_cast<OpAlternative*>(op.get())->add(op2);
 
-  for (const auto &fname : fnames) {
-    if (std::regex_match(fname, base_match, base_regex)) {
-      // The first sub_match is the whole string; the next
-      // sub_match is the first parenthesized expression.
-      if (base_match.size() == 2) {
-        std::ssub_match base_sub_match = base_match[1];
-        std::string base = base_sub_match.str();
-        std::cout << fname << " has a base of " << base << '\n';
-      }
-    }
-  }
 
-  // Extraction of several sub-matches
-  std::regex pieces_regex("([a-z]+)\\.([a-z]+)");
-  std::smatch pieces_match;
+  Parser parser(op);
+  parser.parse(std::string("subject.txt"));
+  parser.parse(std::string("subject.doc"));
+  parser.parse(std::string("aa aaa subject.txt"));
+  parser.parse(std::string("subject.txt dsfsdgsg"));
 
-  for (const auto &fname : fnames) {
-    if (std::regex_match(fname, pieces_match, pieces_regex)) {
-      std::cout << fname << '\n';
-      for (size_t i = 0; i < pieces_match.size(); ++i) {
-        std::ssub_match sub_match = pieces_match[i];
-        std::string piece = sub_match.str();
-        std::cout << "  submatch " << i << ": " << piece << '\n';
-      }
-    }
-  }
 
-  TokenRegex t("[a-z]+\\.txt");
-  t.parse("aa aaa subject.txt");
-  */
   SIPGrammar grammar;
   std::string result;
   

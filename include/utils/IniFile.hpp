@@ -23,33 +23,38 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-    // 
+    // Wrapper over an INI file.
     class IniFile {
 
     protected:
       std::shared_ptr<Logger> _logger;
       std::unordered_map<std::string, std::unordered_map<std::string, std::string>> _sections;
 
-    public:
+    protected:
       IniFile(void) {
         _logger = LoggerManager::get_logger("Sip0x.Utils.IniFile");
       }
 
-
+    public:
       virtual ~IniFile(void) {
       }
 
       static std::unique_ptr<IniFile> open(std::string path) {
-        std::regex section_regex("\\[.*\\]");
-        std::regex entry_regex(".*=.*");
-
         std::unique_ptr<IniFile> ini;
         ini.reset(new IniFile());
 
         std::ifstream ifs(path.c_str(), std::ifstream::in);
+        if (!ifs.is_open()) {
+          ERROR(ini->_logger, "Failed to open INI file [%s].", path.c_str());
+          ini.release();
+          ini.reset();
+          return ini;
+        }
 
+        std::regex section_regex("\\[.*\\]");
+        std::regex entry_regex(".*=.*");
+        
         std::string line;
-
         std::string cur_section = "[DEFAULT]";
         std::unordered_map<std::string, std::string> cur_entries;
 
@@ -59,7 +64,10 @@ namespace Sip0x
           line = trim(line);
 
           // Add section.
-          if (std::regex_match(line, section_regex)) {
+          if (line[0] == '#') {
+            DEBUG(ini->_logger, "Skipping comment: \"%s\".", line.c_str());
+          }
+          else if (std::regex_match(line, section_regex)) {
             DEBUG(ini->_logger, "Adding section \"%s\".", line.c_str());
 
             // Add current entires.
@@ -69,7 +77,7 @@ namespace Sip0x
               cur_entries.clear();
             }
 
-            cur_section = line;
+            cur_section = line.substr(1, line.length() - 2);
 
           }
           else if (std::regex_match(line, entry_regex)) {
@@ -104,7 +112,6 @@ namespace Sip0x
       }
 
       static std::string trim(const std::string &s) {
-        std::locale loc;
         auto  wsfront = std::find_if_not(s.begin(), s.end(), std::isspace);
         return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c){return std::isspace(c); }).base());
       }
@@ -130,7 +137,7 @@ namespace Sip0x
 
       void dump(std::ostream& out) {
         for (auto section : _sections) {
-          out << section.first << std::endl;
+          out << '[' << section.first << ']' << std::endl;
           for (auto entry : section.second) {
             out << entry.first << " = "<< entry.second << std::endl;
           }
