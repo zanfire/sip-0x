@@ -7,9 +7,9 @@
 
 #include "parser/SIPGrammar.hpp"
 
-#include "parser/private/TokenRegex.hpp"
-#include "parser/private/OpAlternative.hpp"
-#include "parser/private/OpOccurrence.hpp"
+#include "parser/base/TokenRegex.hpp"
+#include "parser/base/OpAlternative.hpp"
+#include "parser/base/OpOccurrence.hpp"
 
 #include "parser/Parser.hpp"
 

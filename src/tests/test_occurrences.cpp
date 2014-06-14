@@ -1,9 +1,11 @@
 #include "parser/SIPGrammar.hpp"
 
 
-#include "parser/private/TokenRegex.hpp"
-#include "parser/private/OpAlternative.hpp"
-#include "parser/private/OpOccurrence.hpp"
+#include "parser/base/TokenRegex.hpp"
+#include "parser/base/OpAlternative.hpp"
+#include "parser/base/OpOccurrence.hpp"
+#include "parser/common/TokenIPv4.hpp"
+
 
 #include "parser/Parser.hpp"
 
@@ -36,7 +38,7 @@ void test_occurrences() {
   op2.reset(new OpOccurrence(token2, 1, 1));
 
 
-  std::shared_ptr<OpAbstract> op;
+  std::shared_ptr<TokenAbstract> op;
   op.reset(new OpAlternative());
 
   dynamic_cast<OpAlternative*>(op.get())->add(op1);
@@ -45,11 +47,17 @@ void test_occurrences() {
 
   Parser parser(op);
   
-  //run(parser, std::string("subject.txt"));
-  //run(parser, std::string("subject.txtsubject.txtsubject.txt"));
-  //run(parser, std::string("subject.doc"));
+  run(parser, std::string("subject.doc"));
+  run(parser, std::string("subject.txt"));
+  run(parser, std::string("subject.txtsubject.txtsubject.txt"));
   run(parser, std::string("a aa aa subject.doc"));
   run(parser, std::string("subject.txt sedfsfsfs"));
+
+
+  std::shared_ptr<TokenAbstract> ipv4;
+  ipv4.reset(new TokenIPv4());
+  Parser parser2(ipv4);
+  run(parser2, std::string("10.0.2.13"));
 
   SIPGrammar grammar;
   std::string result;
