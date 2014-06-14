@@ -7,6 +7,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "parser/base/ReadResult.hpp"
+
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
@@ -27,37 +29,48 @@ namespace Sip0x
 
       virtual ~TokenAbstract(void) {}
 
-      // Read the expected token.
-      // returns true if encountered the expected token.  
-      virtual std::tuple<bool, void*>  read(std::istringstream& iss) sealed {
+
+      // Returns a tuple with:
+      //  0: result (true or false)
+      //  1: parsed string.
+      //  1: unique pointer to an allocated object.
+      virtual ReadResult  read(std::istringstream& iss) sealed {
+        ReadResult output;
+        
         if (iss.eof()) {
           DEBUG(_logger, "Stream is empty, skipping...");
-          return std::tuple<bool, void*>(false, nullptr);
+          return output;
         }
 
         std::streamoff initial_pos = iss.tellg();
         
         DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
         
-        std::tuple<bool, void*> result = handle_read(iss);
+        ReadResult result = handle_read(iss);
 
-        if (std::get<0>(result)) {
+        if (result.successes) {
+          std::string str = iss.str();
           // TODO: avoid this consumption ... 
-          long long delta = (long long)((iss.eof() ? iss.str().length() : iss.tellg()) - initial_pos);
-          DEBUG(_logger, "Consumed chars %lld during parsing.", delta);
+          long long delta = (long long)((iss.eof() ? str.length() : iss.tellg()) - initial_pos);
+          std::string parsed = str.substr((unsigned int)initial_pos, (unsigned int)delta);
+          DEBUG(_logger, "Consumed chars %lld during parsing, parsed %s.", delta, parsed.c_str());
+
+          output = result;
+          output.parsed = parsed;
         }
         else {
           iss.seekg(initial_pos);
           DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
         }
-        return result;
+        return output;
       }
 
       virtual char const* name(void) { return typeid(this).name(); }
 
-
-    protected:
-      virtual std::tuple<bool, void*>  handle_read(std::istringstream& iss) = 0;
+      // Returns a tuple with:
+      //  0: result (true or false)
+      //  1: unique pointer to an allocated object.
+      virtual ReadResult  handle_read(std::istringstream& iss) = 0;
     };
   }
 }

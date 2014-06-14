@@ -4,7 +4,7 @@
 #include <string>
 #include <regex>
 
-#include "parser/private/TokenAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
@@ -35,7 +35,7 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) override {
         std::smatch pieces_match;
         std::string input;
         iss >> input;
@@ -51,7 +51,7 @@ namespace Sip0x
             DEBUG(_logger, "Consuming token \"%s\", len %d.", piece.c_str(), piece.length());
 
 
-            return std::tuple<bool, void*>(true, nullptr);
+            return ReadResult(true, piece);
           }
           else {
             DEBUG(_logger, "Regexp failed constrains, count %d, pos: %d.", pieces_match.size(), pieces_match.position());
@@ -63,7 +63,7 @@ namespace Sip0x
         }
 
         // abort
-        return std::tuple<bool, void*>(false, nullptr);
+        return ReadResult(false);
       }
     };
   }

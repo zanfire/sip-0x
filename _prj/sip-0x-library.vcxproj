@@ -11,17 +11,18 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
-    <ClInclude Include="..\include\parser\private\OpAbstract.hpp" />
-    <ClInclude Include="..\include\parser\private\OpAlternative.hpp" />
-    <ClInclude Include="..\include\parser\private\OpOccurrence.hpp" />
-    <ClInclude Include="..\include\parser\private\OpSequence.hpp" />
-    <ClInclude Include="..\include\parser\private\TokenAbstract.hpp" />
-    <ClInclude Include="..\include\parser\private\TokenSIPURI.hpp" />
-    <ClInclude Include="..\include\parser\private\Token.hpp" />
-    <ClInclude Include="..\include\parser\private\TokenRegex.hpp" />
+    <ClInclude Include="..\include\parser\base\OpAbstract.hpp" />
+    <ClInclude Include="..\include\parser\base\OpAlternative.hpp" />
+    <ClInclude Include="..\include\parser\base\OpOccurrence.hpp" />
+    <ClInclude Include="..\include\parser\base\OpSequence.hpp" />
+    <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
+    <ClInclude Include="..\include\parser\base\Token.hpp" />
+    <ClInclude Include="..\include\parser\base\TokenRegex.hpp" />
     <ClInclude Include="..\include\parser\SIPGrammar.hpp" />
-    <ClInclude Include="..\include\parser\private\SIPGrammar.hpp">
+    <ClInclude Include="..\include\parser\base\SIPGrammar.hpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>

@@ -1,9 +1,9 @@
 #if !defined(SIP0X_PARSER_TOKENSIPURI_HPP__)
 #define SIP0X_PARSER_TOKENSIPURI_HPP__
 
-#include "parser/private/TokenAbstract.hpp"
-#include "parser/private/Token.hpp"
-#include "parser/private/TokenRegex.hpp"
+#include "parser/base/TokenAbstract.hpp"
+#include "parser/base/Token.hpp"
+#include "parser/base/TokenRegex.hpp"
 
 // ABNF: SIP_URI = lit("sip:") > -userinfo > hostport >> uri_parameters >> -headers;
 
@@ -28,8 +28,8 @@ namespace Sip0x
       }
 
     protected:
-      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
-        return std::tuple<bool, void*>(true, nullptr);
+      virtual std::tuple<bool, std::string, void*> handle_read(std::istringstream& iss) override {
+        return std::tuple<bool, std::string, void*>(true, std::string(), nullptr);
       }
     };
   }

@@ -6,7 +6,7 @@
 #include <memory>
 #include <algorithm>
 
-#include "parser/private/OpAbstract.hpp"
+#include "parser/base/OpAbstract.hpp"
 #include "utils/log/LoggerManager.hpp"
 
 namespace Sip0x
@@ -31,7 +31,7 @@ namespace Sip0x
       }
 
 
-      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) override {
         /*for (auto op : _alternatives) {
           //std::tuple<bool, void*> result = rule->parse(iss);
           std::tuple<bool, void*> result = op->parse(iss);
@@ -41,7 +41,7 @@ namespace Sip0x
           }
         }
         */
-        return std::tuple<bool, void*>(false, nullptr);
+        return ReadResult(false);
       }
     };
   }

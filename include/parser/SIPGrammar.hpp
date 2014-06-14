@@ -1,7 +1,7 @@
 #if !defined(SIP0X_PARSER_PARSERBASE_HPP__)
 #define SIP0X_PARSER_SIPGRAMMAR_HPP__
 
-#include "private/TokenSIPURI.hpp"
+#include <string>
 
 namespace Sip0x 
 {
@@ -9,7 +9,6 @@ namespace Sip0x
   {
     class SIPGrammar {
     protected:
-      TokenSIPURI _root;
       
     public:
       SIPGrammar(void) {

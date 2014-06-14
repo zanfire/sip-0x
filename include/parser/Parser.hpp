@@ -7,7 +7,7 @@
 #include <iostream>
 #include <memory>
 
-#include "parser/private/OpAbstract.hpp"
+#include "parser/base/OpAbstract.hpp"
 
 #include "utils/log/Logger.hpp"
 #include "utils/log/LoggerManager.hpp"
@@ -23,10 +23,10 @@ namespace Sip0x
     protected:
       std::shared_ptr<Logger> _logger;
       // Collections of rules.
-      std::shared_ptr<OpAbstract> _root;
+      std::shared_ptr<TokenAbstract> _root;
 
     public:
-      Parser(std::shared_ptr<OpAbstract>& root) : _root(root) {
+      Parser(std::shared_ptr<TokenAbstract>& root) : _root(root) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
       }
 
@@ -37,9 +37,9 @@ namespace Sip0x
         DEBUG(_logger, "Parsing string \"%s\".", text.c_str());
 
         std::istringstream iss(text);
-        std::tuple<bool, void*> result = _root->parse(iss);
+        ReadResult result = _root->read(iss);
 
-        if (std::get<0>(result) && iss.eof()) {
+        if (result.successes && iss.eof()) {
           DEBUG(_logger, "Parsing successes.");
           return true;
         }

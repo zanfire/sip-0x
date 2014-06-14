@@ -5,24 +5,21 @@
 #include <memory>
 
 
-#include "parser/private/TokenAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 #include "utils/log/Logger.hpp"
 
 namespace Sip0x
 {
   namespace Parser
   {
-    using namespace Utils::Log;
-
+    
     class OpAbstract : public TokenAbstract {
-    protected:
-      
     public:
       OpAbstract(void) {}
 
       virtual ~OpAbstract(void) {}
 
-      virtual std::tuple<bool, void*>  parse(std::istringstream& iss) sealed {
+      virtual ReadResult parse(std::istringstream& iss) sealed {
         return read(iss);
       }
 

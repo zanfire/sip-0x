@@ -5,8 +5,8 @@
 #include <vector>
 #include <memory>
 
-#include "parser/private/OpAbstract.hpp"
-#include "parser/private/TokenAbstract.hpp"
+#include "parser/base/OpAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 
@@ -38,12 +38,12 @@ namespace Sip0x
       }
 
 
-      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) override {
         int occurrence = 0;
         while ((_max >= 0 && occurrence <= _max) || _max == -1) {
-          std::tuple<bool, void*> result = _token->read(iss);
+          ReadResult result = _token->handle_read(iss);
 
-          if (!std::get<0>(result)) {
+          if (!result.successes) {
             break;
           }
           occurrence++;
@@ -51,11 +51,12 @@ namespace Sip0x
 
         if (occurrence >= _min && (occurrence <= _max || _max == -1)) {
           DEBUG(_logger, "Successes OpOccurrence@%p, occurrence: %d in range [%d - %d].", this, occurrence, _min, _max);
-          return std::tuple<bool, void*>(true, nullptr);
+          // TODO: Accumulate resulting object returned by each occurrence.
+          return ReadResult(true);
         }
         else {
           DEBUG(_logger, "Failed OpOccurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
-          return std::tuple<bool, void*>(false, nullptr);
+          return ReadResult(false);
         }
       }
     };

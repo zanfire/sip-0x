@@ -3,7 +3,7 @@
 
 #include <string>
 
-#include "parser/private/TokenAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 namespace Sip0x
 {
@@ -24,18 +24,18 @@ namespace Sip0x
     protected:
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual std::tuple<bool, void*> handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) override {
         std::string expected;
         expected.resize(_token.length() + 1); // size + \0.
         iss.getline(&expected[0], expected.length());
     
         if (expected.compare(0, _token.length(), _token) == 0) {
           iss.ignore(_token.length());
-          return std::tuple<bool, void*>(true, nullptr);
+          return ReadResult(true);
         }
         else {
           // abort
-          return std::tuple<bool, void*>(false, nullptr);
+          return ReadResult(false);
         }
       }
     };
