@@ -34,7 +34,8 @@ void test_token_sipuri() {
   t.reset(new TokenUserInfo());
   Parser parser(t);
 
+
+  run_test(parser, "matteo:password@", true);
   run_test(parser, "bhooo", false);
   run_test(parser, "matteo@", true);
-  run_test(parser, "matteo:password@", true);
 }

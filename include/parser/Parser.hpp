@@ -39,7 +39,7 @@ namespace Sip0x
         std::istringstream iss(text);
         ReadResult result = _root->read(iss);
 
-        if (result.successes && iss.eof()) {
+        if (result.successes && (iss.eof() || iss.gcount() == 0)) {
           DEBUG(_logger, "Parsing successes.");
 
           if (result.result != nullptr) {
@@ -48,7 +48,9 @@ namespace Sip0x
           return true;
         }
         else {
-          DEBUG(_logger, "Parsing failed.");
+          std::string r;
+          iss >> r;
+          DEBUG(_logger, "Parsing terminated without successes, remaining string: %s.", r.c_str());
           return false;
         }
       }
