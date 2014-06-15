@@ -7,6 +7,9 @@
 #include <algorithm>
 
 #include "parser/base/OpAbstract.hpp"
+#include "parser/base/OpOccurrence.hpp"
+#include "parser/base/Token.hpp"
+#include "parser/base/TokenRegex.hpp"
 #include "utils/log/LoggerManager.hpp"
 
 namespace Sip0x
@@ -16,7 +19,7 @@ namespace Sip0x
     class OpSequence : public OpAbstract {
 
     protected:
-      std::vector<std::shared_ptr<OpAbstract>> _sequence;
+      std::vector<std::shared_ptr<TokenAbstract>> _sequence;
 
 
     public:
@@ -26,22 +29,37 @@ namespace Sip0x
 
       virtual ~OpSequence(void) {}
 
-      void add(std::shared_ptr<OpAbstract> op) {
+      void add(std::shared_ptr<TokenAbstract> op) {
         _sequence.push_back(op);
+      }
+
+      void add_token(std::string token) {
+        std::shared_ptr<TokenAbstract> t(new Token(token));
+        add(t);
+      }
+
+      void add_regex(std::string regex) {
+        std::shared_ptr<TokenAbstract> t;
+        t.reset(new TokenRegex(regex));
+        add(t);
+      }
+
+      void add_occurrence(std::shared_ptr<TokenAbstract> t, int min, int max) {
+        std::shared_ptr<TokenAbstract> el(new OpOccurrence(t, min, max));
+        add(el);
       }
 
 
       virtual ReadResult handle_read(std::istringstream& iss) override {
-        /*for (auto op : _alternatives) {
-          //std::tuple<bool, void*> result = rule->parse(iss);
-          std::tuple<bool, void*> result = op->parse(iss);
+        // TODO: Improves 
+        for (auto op : _sequence) {
+          ReadResult result = op->read(iss);
 
-          if (std::get<0>(result)) {
-            return result;
+          if (!result.successes) {
+            return ReadResult(false);
           }
         }
-        */
-        return ReadResult(false);
+        return ReadResult(true);
       }
     };
   }

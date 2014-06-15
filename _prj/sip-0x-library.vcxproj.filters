@@ -78,19 +78,19 @@
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp">
       <Filter>parser\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\parser\base\SIPGrammar.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\parser\base\ReadResult.hpp">
       <Filter>parser\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenIPv6.hpp">
+      <Filter>parser\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenUserInfo.hpp">
+      <Filter>parser\sip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">
       <Filter>utils\log</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\libs\SIPGrammarTMP.cpp">
-      <Filter>parser\sip</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

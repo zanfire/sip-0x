@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenIPv6.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
     <ClInclude Include="..\include\parser\base\OpAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\OpAlternative.hpp" />
@@ -22,10 +23,7 @@
     <ClInclude Include="..\include\parser\base\Token.hpp" />
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp" />
     <ClInclude Include="..\include\parser\SIPGrammar.hpp" />
-    <ClInclude Include="..\include\parser\base\SIPGrammar.hpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenUserInfo.hpp" />
     <ClInclude Include="..\include\protocol\Request.hpp" />
     <ClInclude Include="..\include\protocol\Response.hpp" />
     <ClInclude Include="..\include\protocol\Message.hpp" />
@@ -34,10 +32,6 @@
     <ClInclude Include="..\include\utils\log\LoggerManager.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\libs\SIPGrammarTMP.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\src\lib\LoggerManager.cpp" />
   </ItemGroup>
   <ItemGroup>

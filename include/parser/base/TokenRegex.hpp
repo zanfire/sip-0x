@@ -21,10 +21,17 @@ namespace Sip0x
       std::regex _regex;
     public:
 
-      TokenRegex(std::string regex) : TokenAbstract(), _regex(regex) {
+      TokenRegex(std::string regex) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
 
         DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
+
+        try {
+          _regex = std::regex(regex);
+        }
+        catch (std::regex_error e) {
+          ERROR(_logger, "Regex %s contains an error (%s).", regex.c_str(), e.what());
+        }
       }
 
 
@@ -38,6 +45,7 @@ namespace Sip0x
       virtual ReadResult handle_read(std::istringstream& iss) override {
         std::smatch pieces_match;
         std::string input;
+        std::streamoff init_pos = iss.tellg();
         iss >> input;
 
         DEBUG(_logger, "Regex processing input: \"%s\".", input.c_str());
@@ -46,8 +54,9 @@ namespace Sip0x
           DEBUG(_logger, "Regex matched, found %d occurrences.", pieces_match.size());
           if (pieces_match.size() >= 1 && pieces_match.position() == 0) {
             std::ssub_match sub_match = pieces_match[0];
-
             std::string piece = sub_match.str();
+            iss.seekg(init_pos + piece.length());
+
             DEBUG(_logger, "Consuming token \"%s\", len %d.", piece.c_str(), piece.length());
 
 

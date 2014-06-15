@@ -41,6 +41,10 @@ namespace Sip0x
 
         if (result.successes && iss.eof()) {
           DEBUG(_logger, "Parsing successes.");
+
+          if (result.result != nullptr) {
+            result.result_dtor(result.result);
+          }
           return true;
         }
         else {

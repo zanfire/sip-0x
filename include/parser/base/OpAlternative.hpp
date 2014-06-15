@@ -19,7 +19,6 @@ namespace Sip0x
     protected:
       std::vector<std::shared_ptr<TokenAbstract>> _alternatives;
       
-
     public:
       OpAlternative(void) : OpAbstract() {
         _logger = LoggerManager::get_logger("Sip0x.Parser.OpAlternative");

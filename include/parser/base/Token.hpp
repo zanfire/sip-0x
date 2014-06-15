@@ -25,18 +25,15 @@ namespace Sip0x
       // Read the expected token.
       // returns true if encountered the expected token.  
       virtual ReadResult handle_read(std::istringstream& iss) override {
-        std::string expected;
-        expected.resize(_token.length() + 1); // size + \0.
-        iss.getline(&expected[0], expected.length());
-    
-        if (expected.compare(0, _token.length(), _token) == 0) {
-          iss.ignore(_token.length());
-          return ReadResult(true);
+        char c;
+        for (auto tc : _token) {
+          iss >> c;
+          if (c != tc) {
+            return ReadResult(false);
+          }
         }
-        else {
-          // abort
-          return ReadResult(false);
-        }
+         
+        return ReadResult(true);
       }
     };
   }

@@ -13,6 +13,8 @@
   <ItemGroup>
     <ClCompile Include="..\src\tests\main.cpp" />
     <ClCompile Include="..\src\tests\test_occurrences.cpp" />
+    <ClCompile Include="..\src\tests\test_tokens.cpp" />
+    <ClCompile Include="..\src\tests\test_utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="sip-0x-library.vcxproj">
@@ -21,6 +23,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\docs\logger.ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\tests\test_prototypes.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90F1A38E-1AA7-433A-B7D6-9B4F4AAE8C7E}</ProjectGuid>

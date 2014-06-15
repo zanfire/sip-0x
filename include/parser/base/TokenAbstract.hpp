@@ -42,6 +42,11 @@ namespace Sip0x
           return output;
         }
 
+        if (iss.fail()) {
+          WARN(_logger, "Stream is broken, skipping...");
+          return output;
+        }
+
         std::streamoff initial_pos = iss.tellg();
         
         DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
