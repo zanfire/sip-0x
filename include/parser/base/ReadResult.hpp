@@ -22,11 +22,19 @@ namespace Sip0x
       std::string parsed;
       void* result;
       std::function<void(void*)> result_dtor;
+      // Error position.
+      std::streamoff errorpos;
+      std::string errormessage;
 
-      ReadResult(void) : successes(false), parsed(), result(nullptr) {}
-      ReadResult(bool s) : successes(s), parsed(), result(nullptr) {}
-      ReadResult(bool s, std::string str) : successes(s), parsed(str), result(nullptr) {}
-      ReadResult(bool s, std::string str, void* r) : successes(s), parsed(str), result(r) {}
+      ReadResult(void) : successes(false), parsed(), result(nullptr), errorpos(-1) {}
+      ReadResult(bool s) : successes(s), parsed(), result(nullptr), errorpos(-1) {}
+      ReadResult(bool s, std::string str) : successes(s), parsed(str), result(nullptr), errorpos(-1) {}
+      ReadResult(bool s, std::string str, void* r) : successes(s), parsed(str), result(r), errorpos(-1) {}
+
+      void set_error(std::streamoff pos, std::string message) {
+        errorpos = pos;
+        errormessage = message;
+      }
 
       void dispose() {
         if (result != nullptr) {

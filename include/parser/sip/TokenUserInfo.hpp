@@ -6,6 +6,8 @@
 #include "parser/base/OpOccurrence.hpp"
 #include "parser/base/TokenRegex.hpp"
 
+// unreserved = alphanum / mark
+// mark = "-" / "_" / "." / "!" / "~" / "*" / "'" / "(" / ")"
 
 // ABNF
 // userinfo         =  ( user / telephone-subscriber ) [ ":" password ] "@"
@@ -27,11 +29,14 @@ namespace Sip0x
       TokenUserInfo(void) : TokenAbstract() {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenUserInfo");
         // User.
-        _sequence.add_regex("[a-z]*");
+        // unreserved ([A-Za-z-0-9]|(\-_|\.|\!|\~|\*|\'|\|))+
+        // escaped (%[0-9a-fA-F][0-9a-fA-F])
+        // user-unreserved (&|=|\\+|\\$|,|;|\\?|/|)
+        _sequence.add_regex("(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|"  + RegexConstStrings::sip_user_unreserved + ")+");
         // Password.
         OpSequence* password = new OpSequence();
         password->add_token(":");
-        password->add_regex("[a-z]*");
+        password->add_regex("(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|"  + RegexConstStrings::sip_password_unreserved + ")*");
         _sequence.add_occurrence(std::shared_ptr<TokenAbstract>(password), 0, 1);
         // @
         _sequence.add_token("@");

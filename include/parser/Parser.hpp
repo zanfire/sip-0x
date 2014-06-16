@@ -48,6 +48,10 @@ namespace Sip0x
           return true;
         }
         else {
+          if (result.errormessage.length() > 0) {
+            std::cout << "Parsing error (pos: " << result.errorpos << "): " << result.errormessage << std::endl;
+          }
+
           std::string r;
           iss >> r;
           DEBUG(_logger, "Parsing terminated without successes, remaining string: %s.", r.c_str());

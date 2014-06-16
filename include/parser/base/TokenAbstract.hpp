@@ -66,6 +66,10 @@ namespace Sip0x
         else {
           iss.seekg(initial_pos);
           DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
+
+          if (result.errorpos == -1) {
+            output.set_error(initial_pos, "Failed parsing token " + std::string(name()));
+          }
         }
         return output;
       }

@@ -56,23 +56,18 @@ namespace Sip0x
             std::ssub_match sub_match = pieces_match[0];
             std::string piece = sub_match.str();
             iss.seekg(init_pos + piece.length());
-
-            DEBUG(_logger, "Consuming token \"%s\", len %d.", piece.c_str(), piece.length());
-
-
             return ReadResult(true, piece);
           }
           else {
             DEBUG(_logger, "Regexp failed constrains, count %d, pos: %d.", pieces_match.size(), pieces_match.position());
           }
-          // Consume ...
         }
         else {
           DEBUG(_logger, "Regexp match no occurrence found.");
         }
 
-        // abort
-        return ReadResult(false);
+        ReadResult result(false);
+        return result;
       }
     };
   }
