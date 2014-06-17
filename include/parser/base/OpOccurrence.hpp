@@ -30,7 +30,7 @@ namespace Sip0x
         _min = min;
         _max = max;
 
-        DEBUG(_logger, "Creating OpOccurrence@%p for token %s range [%d, %d].", this, token->name(), _min, _max);
+        DEBUG(_logger, "Creating OpOccurrence@%p for token %s range [%d, %d].", this, token->get_name(), _min, _max);
       }
 
       virtual ~OpOccurrence(void) {
@@ -40,10 +40,11 @@ namespace Sip0x
 
       virtual ReadResult handle_read(std::istringstream& iss) override {
         int occurrence = 0;
+        ReadResult output(false);
         while ((_max >= 0 && occurrence <= _max) || _max == -1) {
-          ReadResult result = _token->read(iss);
+          output  = _token->read(iss);
 
-          if (!result.successes) {
+          if (!output.successes) {
             break;
           }
           occurrence++;
@@ -56,7 +57,7 @@ namespace Sip0x
         }
         else {
           DEBUG(_logger, "Failed OpOccurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
-          return ReadResult(false);
+          return output;
         }
       }
     };

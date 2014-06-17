@@ -21,6 +21,7 @@ namespace Sip0x
     class Parser {
 
     protected:
+      std::ostringstream _readable_error;
       std::shared_ptr<Logger> _logger;
       // Collections of rules.
       std::shared_ptr<TokenAbstract> _root;
@@ -34,13 +35,15 @@ namespace Sip0x
 
 
       bool parse(std::string& text) {
+        _readable_error.clear();
+        _readable_error.str("");
         DEBUG(_logger, "Parsing string \"%s\".", text.c_str());
 
         std::istringstream iss(text);
         ReadResult result = _root->read(iss);
 
-        if (result.successes && (iss.eof() || iss.gcount() == 0)) {
-          DEBUG(_logger, "Parsing successes.");
+        if (result.successes && (iss.eof() || ((long long)iss.tellg() == (long long)text.length()))) {
+          DEBUG(_logger, "Parsing successes, stream: %lld, gcount: %lld, tellg %lld.", (long long)iss.eof(), (long long)iss.gcount(), (long long)iss.tellg());
 
           if (result.result != nullptr) {
             result.result_dtor(result.result);
@@ -48,16 +51,30 @@ namespace Sip0x
           return true;
         }
         else {
-          if (result.errormessage.length() > 0) {
-            std::cout << "Parsing error (pos: " << result.errorpos << "): " << result.errormessage << std::endl;
-          }
-
+          std::streampos cur_pos = iss.tellg();
           std::string r;
           iss >> r;
+
+          if (result.errorpos == -2) {
+            result.set_error(cur_pos, "Remaining string: " + r);
+          }
+
+          _readable_error << "Parsing error (pos: ";
+          if (result.errorpos == -1) {
+            _readable_error << "eof";
+          }
+          else {
+            _readable_error << result.errorpos;
+          }
+          _readable_error << ") message: " << result.errormessage;
+
+
           DEBUG(_logger, "Parsing terminated without successes, remaining string: %s.", r.c_str());
           return false;
         }
       }
+
+      std::string get_readable_error() { return _readable_error.str(); }
     };
   }
 }

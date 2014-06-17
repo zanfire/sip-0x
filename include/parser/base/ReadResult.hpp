@@ -26,10 +26,10 @@ namespace Sip0x
       std::streamoff errorpos;
       std::string errormessage;
 
-      ReadResult(void) : successes(false), parsed(), result(nullptr), errorpos(-1) {}
-      ReadResult(bool s) : successes(s), parsed(), result(nullptr), errorpos(-1) {}
-      ReadResult(bool s, std::string str) : successes(s), parsed(str), result(nullptr), errorpos(-1) {}
-      ReadResult(bool s, std::string str, void* r) : successes(s), parsed(str), result(r), errorpos(-1) {}
+      ReadResult(void) : successes(false), parsed(), result(nullptr), errorpos(-2) {}
+      ReadResult(bool s) : successes(s), parsed(), result(nullptr), errorpos(-2) {}
+      ReadResult(bool s, std::string str) : successes(s), parsed(str), result(nullptr), errorpos(-2) {}
+      ReadResult(bool s, std::string str, void* r) : successes(s), parsed(str), result(r), errorpos(-2) {}
 
       void set_error(std::streamoff pos, std::string message) {
         errorpos = pos;

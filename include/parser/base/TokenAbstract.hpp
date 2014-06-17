@@ -21,10 +21,13 @@ namespace Sip0x
     class TokenAbstract {
 
     protected:
+      std::string _name;
       std::shared_ptr<Logger> _logger;
 
     public:
       TokenAbstract() {
+        // Default value.
+        _name = typeid(this).name();
       }
 
       virtual ~TokenAbstract(void) {}
@@ -51,30 +54,30 @@ namespace Sip0x
         
         DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
         
-        ReadResult result = handle_read(iss);
+        output = handle_read(iss);
 
-        if (result.successes) {
+        if (output.successes) {
           std::string str = iss.str();
           // TODO: avoid this consumption ... 
           long long delta = (long long)((iss.eof() ? str.length() : iss.tellg()) - initial_pos);
           std::string parsed = str.substr((unsigned int)initial_pos, (unsigned int)delta);
           DEBUG(_logger, "Consumed chars %lld during parsing, parsed %s.", delta, parsed.c_str());
 
-          output = result;
           output.parsed = parsed;
         }
         else {
           iss.seekg(initial_pos);
           DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
 
-          if (result.errorpos == -1) {
-            output.set_error(initial_pos, "Failed parsing token " + std::string(name()));
+          if (output.errorpos == -2) {
+            output.set_error(initial_pos, "Failed parsing token " + std::string(get_name()));
           }
         }
         return output;
       }
 
-      virtual char const* name(void) { return typeid(this).name(); }
+      void set_name(std::string const& name) { _name = name; }
+      std::string const& get_name(void) { return _name; }
 
       // Returns a tuple with:
       //  0: result (true or false)

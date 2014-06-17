@@ -6,6 +6,8 @@
 #include "parser/base/OpOccurrence.hpp"
 #include "parser/base/TokenRegex.hpp"
 
+#include "parser/common/RegexConstStrings.hpp"
+
 // unreserved = alphanum / mark
 // mark = "-" / "_" / "." / "!" / "~" / "*" / "'" / "(" / ")"
 
@@ -24,20 +26,20 @@ namespace Sip0x
     protected:
       OpSequence _sequence;
 
-
     public:
       TokenUserInfo(void) : TokenAbstract() {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenUserInfo");
+        _name = "TokenUserInfo";
         // User.
         // unreserved ([A-Za-z-0-9]|(\-_|\.|\!|\~|\*|\'|\|))+
         // escaped (%[0-9a-fA-F][0-9a-fA-F])
         // user-unreserved (&|=|\\+|\\$|,|;|\\?|/|)
-        _sequence.add_regex("(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|"  + RegexConstStrings::sip_user_unreserved + ")+");
+        _sequence.add_regex("user", "(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|"  + RegexConstStrings::sip_user_unreserved + ")+");
         // Password.
         OpSequence* password = new OpSequence();
         password->add_token(":");
-        password->add_regex("(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|"  + RegexConstStrings::sip_password_unreserved + ")*");
-        _sequence.add_occurrence(std::shared_ptr<TokenAbstract>(password), 0, 1);
+        password->add_regex("password", "(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|"  + RegexConstStrings::sip_password_unreserved + ")*");
+        _sequence.add_occurrence("password", std::shared_ptr<TokenAbstract>(password), 0, 1);
         // @
         _sequence.add_token("@");
       }

@@ -8,6 +8,9 @@
 
 
 #include "parser/base/OpAbstract.hpp"
+#include "parser/base/OpOccurrence.hpp"
+#include "parser/base/Token.hpp"
+#include "parser/base/TokenRegex.hpp"
 
 namespace Sip0x
 {
@@ -29,8 +32,24 @@ namespace Sip0x
         DEBUG(_logger, "Destroying OpAlternative@%p.", this);
       }
 
+      void add_token(std::string token) {
+        std::shared_ptr<TokenAbstract> t(new Token(token));
+        add(token, t);
+      }
+
+      void add_regex(std::string name, std::string regex) {
+        std::shared_ptr<TokenAbstract> t;
+        t.reset(new TokenRegex(regex));
+        add(name, t);
+      }
+
+      void add(std::string name, std::shared_ptr<TokenAbstract> op) {
+        op->set_name(name);
+        add(op);
+      }
+
       void add(std::shared_ptr<TokenAbstract> op) {
-        DEBUG(_logger, "Adding alternative %s.", op->name());
+        DEBUG(_logger, "Adding alternative %s.", op->get_name());
         _alternatives.push_back(op);
       }
 
@@ -39,7 +58,7 @@ namespace Sip0x
         for (auto op : _alternatives) {
           ReadResult result = op->read(iss);
           if (result.successes) {
-            DEBUG(_logger, "Alternative %s successes.", op->name());
+            DEBUG(_logger, "Alternative %s successes.", op->get_name());
             return result;
           }
         }

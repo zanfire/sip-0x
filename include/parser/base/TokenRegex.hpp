@@ -19,9 +19,11 @@ namespace Sip0x
 
     protected:
       std::regex _regex;
+
     public:
 
       TokenRegex(std::string regex) {
+        _name = "TokenRegex";
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
 
         DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());

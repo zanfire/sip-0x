@@ -29,24 +29,25 @@ namespace Sip0x
 
       virtual ~OpSequence(void) {}
 
-      void add(std::shared_ptr<TokenAbstract> op) {
+      void add(std::string name, std::shared_ptr<TokenAbstract> op) {
+        op->set_name(name);
         _sequence.push_back(op);
       }
 
       void add_token(std::string token) {
         std::shared_ptr<TokenAbstract> t(new Token(token));
-        add(t);
+        add(token, t);
       }
 
-      void add_regex(std::string regex) {
+      void add_regex(std::string name, std::string regex) {
         std::shared_ptr<TokenAbstract> t;
         t.reset(new TokenRegex(regex));
-        add(t);
+        add(name, t);
       }
 
-      void add_occurrence(std::shared_ptr<TokenAbstract> t, int min, int max) {
+      void add_occurrence(std::string name, std::shared_ptr<TokenAbstract> t, int min, int max) {
         std::shared_ptr<TokenAbstract> el(new OpOccurrence(t, min, max));
-        add(el);
+        add(name, el);
       }
 
 
@@ -56,7 +57,10 @@ namespace Sip0x
           ReadResult result = op->read(iss);
 
           if (!result.successes) {
-            return ReadResult(false);
+            if (result.errorpos == -2) {
+              result.set_error(iss.tellg(), "Expected token " + op->get_name());
+            }
+            return result;
           }
         }
         return ReadResult(true);
