@@ -18,9 +18,9 @@ namespace Sip0x
     }
 
 
-    template <typename... Args>
-    Occurrence<Args...> make_occurrence(Args&&... args) {
-      return Occurrence<Args...>((args)...);
+    template <class T>
+    Occurrence<T> make_occurrence(T& t, int min, int max) {
+      return Occurrence<T>(t, min, max);
     }
 
     template <typename... Args>

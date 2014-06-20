@@ -7,81 +7,44 @@ namespace Sip0x
 {
   namespace Parser
   {
-    // Generic definition.
-    template<typename... Arguments>
-    class Occurrence;
-
-    // Base definition.
-    template<typename First>
-    class Occurrence<First> : public OpAbstract {
-
+    template<class T>
+    class Occurrence : public OpAbstract {
     protected:
-      std::shared_ptr<Logger> _logger;
-      First member;
+      T _token;
+      int _min;
+      int _max;
 
-    public:
-      Occurrence(First f) : OpAbstract(), member(f) {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.Occurrence");
-      }
-
-      virtual ~Occurrence(void) {}
-
-      First const* first(void) const {
-        return &member;
-      }
-      
-      Occurrence<First> const& rest(void) const {
-        return *this;
-      }
-    };
-
-    /// Recursion definition...
-    template<typename First, typename ... Rest>
-    class Occurrence<First, Rest...> : public Occurrence<Rest...> {
-    protected:
-      // Reference to the first elemenet of the variadic template.
-      First member;
-    
-    public:
-      Occurrence(First& f, Rest&... rest) : Occurrence<Rest...>(rest...), member(f) {
+      Occurrence(T& f, int min = 0, int max = -1) : OpAbstract(), _token(f), _min(min), _max(max) {
+        _logger = LoggerManager::get_logger("Sip0x.Parser.OpOccurrence");
       }
 
       virtual ~Occurrence(void) {
-      }
-
-    
-      First const* first(void) const {
-        return &member;
-      }
-
-      Occurrence<Rest...> const& rest(void) const {
-        return *this;
+        DEBUG(_logger, "Destroying OpOccurrence@%p.", this);
       }
 
     protected:
+   
       virtual ReadResult handle_read(std::istringstream& iss) const override {
-        return processing(iss, first(), rest());
-      }
+        int occurrence = 0;
+        ReadResult output(false);
+        while ((_max >= 0 && occurrence <= _max) || _max == -1) {
+          output = _token->read(iss);
 
-      template<typename T>
-      ReadResult processing(std::istringstream& iss, First const* f, T const& r) const {
-        
-        DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
-
-        ReadResult result = f->read(iss);
-        if (result.successes) {
-          DEBUG(_logger, "Occurrence %s successes.", f->get_name().c_str());
-          return result;
+          if (!output.successes) {
+            break;
+          }
+          occurrence++;
         }
-        
-        if (f != r.first()) {
-          return processing(iss, r.first(), r.rest());
+
+        if (occurrence >= _min && (occurrence <= _max || _max == -1)) {
+          DEBUG(_logger, "Successes OpOccurrence@%p, occurrence: %d in range [%d - %d].", this, occurrence, _min, _max);
+          // TODO: Accumulate resulting object returned by each occurrence.
+          return ReadResult(true);
         }
         else {
-          DEBUG(_logger, "No alternative parsed correctly.");
-          return ReadResult(false);
+          DEBUG(_logger, "Failed OpOccurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
+          return output;
         }
-
       }
     };
   }

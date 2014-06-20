@@ -69,19 +69,20 @@ namespace Sip0x
         DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 
         ReadResult result = f->read(iss);
-        if (result.successes) {
-          DEBUG(_logger, "Sequence %s successes.", f->get_name().c_str());
+        if (!result.successes) {
+          if (result.errorpos == -2) {
+            result.set_error(iss.tellg(), "Expected token " + f->get_name());
+          }
           return result;
         }
         
+      
         if (f != r.first()) {
           return processing(iss, r.first(), r.rest());
         }
         else {
-          DEBUG(_logger, "No alternative parsed correctly.");
-          return ReadResult(false);
+          return ReadResult(true);
         }
-
       }
     };
   }

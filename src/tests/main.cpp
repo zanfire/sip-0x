@@ -17,8 +17,12 @@ int main(int argc, char const* argv[]) {
 
   //Sip0x::Parser::Alternative<Token, Token, Token> alternative(Token("tcp"), Token("udp"), Token("sctp"));
   auto alternative = Sip0x::Parser::make_alternative(Token("tcp"), Token("udp"), Token("sctp"));
-
   Sip0x::Parser::parse("sctss", alternative, std::cout);
+
+  auto seq = Sip0x::Parser::make_sequence(Token("tcp"), Token("udp"), Token("sctp"));
+
+  Sip0x::Parser::parse("tcpudpsctp", seq, std::cout);
+
 
   std::string str;
   LoggerManager* loggermanager = LoggerManager::get_instance();
