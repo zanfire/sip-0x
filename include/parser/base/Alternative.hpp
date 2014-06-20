@@ -91,12 +91,6 @@ namespace Sip0x
 
       }
     };
-
-
-    template <typename... Args>
-    Alternative<Args...> make_alternative(Args&&... args) {
-      return Alternative<Args...>((args)...);
-    }
   }
 }
 

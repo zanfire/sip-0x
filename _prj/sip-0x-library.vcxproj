@@ -12,7 +12,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\parser\base\Alternative.hpp" />
+    <ClInclude Include="..\include\parser\base\Occurrence.hpp" />
+    <ClInclude Include="..\include\parser\base\Operators.hpp" />
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
+    <ClInclude Include="..\include\parser\base\Sequence.hpp" />
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv6.hpp" />

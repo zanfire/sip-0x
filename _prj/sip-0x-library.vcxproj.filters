@@ -96,6 +96,15 @@
     <ClInclude Include="..\include\parser\base\Alternative.hpp">
       <Filter>parser\base</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\parser\base\Occurrence.hpp">
+      <Filter>parser\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\base\Operators.hpp">
+      <Filter>parser\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\base\Sequence.hpp">
+      <Filter>parser\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">
