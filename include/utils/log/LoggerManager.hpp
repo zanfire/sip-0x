@@ -69,7 +69,7 @@ namespace Sip0x
         }
       protected:
         LoggerManager(void) {
-          _default_level = Logger::WARN;
+          _default_level = Logger::DEBUG;
         }
 
       public:

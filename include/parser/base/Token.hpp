@@ -17,6 +17,7 @@ namespace Sip0x
 
     public:
       Token(std::string token) : TokenAbstract(), _token(token) {
+        set_name(token);
       }
 
       virtual ~Token(void) {}
@@ -24,7 +25,7 @@ namespace Sip0x
     protected:
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) const override {
         char c;
         for (auto tc : _token) {
           iss >> c;

@@ -51,7 +51,7 @@ namespace Sip0x
       }
 
 
-      virtual ReadResult handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) const override {
         // TODO: Improves 
         for (auto op : _sequence) {
           ReadResult result = op->read(iss);

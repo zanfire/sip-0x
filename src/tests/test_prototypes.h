@@ -8,8 +8,7 @@ using namespace Sip0x::Utils;
 using namespace Sip0x::Utils::Log;
 using namespace std;
 
-void run_test(std::shared_ptr<TokenAbstract> token, std::string input, bool expected);
-void run_test(Parser& parser, std::string input, bool expected);
+void run_test(TokenAbstract& token, std::string input, bool expected);
 
 // Test tokens common.
 void test_token_regexconststrings();

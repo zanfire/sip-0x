@@ -39,9 +39,6 @@
     <ClInclude Include="..\include\protocol\Message.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\parser\SIPGrammar.hpp">
-      <Filter>parser</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp">
       <Filter>parser\base</Filter>
     </ClInclude>
@@ -89,6 +86,15 @@
     </ClInclude>
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp">
       <Filter>parser\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPURI.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenURIParameter.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\base\Alternative.hpp">
+      <Filter>parser\base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

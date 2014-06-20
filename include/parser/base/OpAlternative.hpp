@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_ALTERNATIVE_HPP__)
-#define SIP0X_PARSER_ALTERNATIVE_HPP__
+#if !defined(SIP0X_PARSER_OPALTERNATIVE_HPP__)
+#define SIP0X_PARSER_OPALTERNATIVE_HPP__
 
 #include <string>
 #include <vector>
@@ -54,7 +54,7 @@ namespace Sip0x
       }
 
 
-      virtual ReadResult handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) const override {
         for (auto op : _alternatives) {
           ReadResult result = op->read(iss);
           if (result.successes) {
@@ -69,4 +69,4 @@ namespace Sip0x
   }
 }
 
-#endif // SIP0X_PARSER_ALTERNATIVE_HPP__
+#endif // SIP0X_PARSER_OPALTERNATIVE_HPP__

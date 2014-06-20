@@ -18,64 +18,46 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-    class Parser {
 
-    protected:
-      std::ostringstream _readable_error;
-      std::shared_ptr<Logger> _logger;
-      // Collections of rules.
-      std::shared_ptr<TokenAbstract> _root;
+    static bool parse(std::string text, TokenAbstract& root, std::ostream& readable_error) {
+      std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
 
-    public:
-      Parser(std::shared_ptr<TokenAbstract>& root) : _root(root) {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
+      DEBUG(logger, "Parsing string \"%s\".", text.c_str());
+
+      std::istringstream iss(text);
+      ReadResult result = root.read(iss);
+
+      if (result.successes && (iss.eof() || ((long long)iss.tellg() == (long long)text.length()))) {
+        DEBUG(logger, "Parsing successes, stream: %lld, gcount: %lld, tellg %lld.", (long long)iss.eof(), (long long)iss.gcount(), (long long)iss.tellg());
+
+        if (result.result != nullptr) {
+          result.result_dtor(result.result);
+        }
+        return true;
       }
+      else {
+        std::streampos cur_pos = iss.tellg();
+        std::string r;
+        iss >> r;
 
-      virtual ~Parser(void) {}
+        if (result.errorpos == -2) {
+          result.set_error(cur_pos, "Remaining string: " + r);
+        }
 
-
-      bool parse(std::string& text) {
-        _readable_error.clear();
-        _readable_error.str("");
-        DEBUG(_logger, "Parsing string \"%s\".", text.c_str());
-
-        std::istringstream iss(text);
-        ReadResult result = _root->read(iss);
-
-        if (result.successes && (iss.eof() || ((long long)iss.tellg() == (long long)text.length()))) {
-          DEBUG(_logger, "Parsing successes, stream: %lld, gcount: %lld, tellg %lld.", (long long)iss.eof(), (long long)iss.gcount(), (long long)iss.tellg());
-
-          if (result.result != nullptr) {
-            result.result_dtor(result.result);
-          }
-          return true;
+        readable_error << "Parsing error (pos: ";
+        if (result.errorpos == -1) {
+          readable_error << "eof";
         }
         else {
-          std::streampos cur_pos = iss.tellg();
-          std::string r;
-          iss >> r;
-
-          if (result.errorpos == -2) {
-            result.set_error(cur_pos, "Remaining string: " + r);
-          }
-
-          _readable_error << "Parsing error (pos: ";
-          if (result.errorpos == -1) {
-            _readable_error << "eof";
-          }
-          else {
-            _readable_error << result.errorpos;
-          }
-          _readable_error << ") message: " << result.errormessage;
-
-
-          DEBUG(_logger, "Parsing terminated without successes, remaining string: %s.", r.c_str());
-          return false;
+          readable_error << result.errorpos;
         }
-      }
+        readable_error << ") message: " << result.errormessage;
 
-      std::string get_readable_error() { return _readable_error.str(); }
-    };
+
+        DEBUG(logger, "Parsing terminated without successes, remaining string: %s.", r.c_str());
+        return false;
+      }
+    }
   }
 }
 

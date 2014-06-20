@@ -38,7 +38,7 @@ namespace Sip0x
       }
 
 
-      virtual ReadResult handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) const override {
         int occurrence = 0;
         ReadResult output(false);
         while ((_max >= 0 && occurrence <= _max) || _max == -1) {

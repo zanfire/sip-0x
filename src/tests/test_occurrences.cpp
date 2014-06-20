@@ -1,6 +1,3 @@
-#include "parser/SIPGrammar.hpp"
-
-
 #include "parser/base/TokenRegex.hpp"
 #include "parser/base/OpAlternative.hpp"
 #include "parser/base/OpOccurrence.hpp"
@@ -18,14 +15,9 @@ using namespace Sip0x::Utils;
 using namespace Sip0x::Utils::Log;
 using namespace std;
 
-void run(Parser& parser, std::string input) {
-
-  bool r = parser.parse(input);
-  cout << "Parsing string \"" << input << "\" .................. " << ((r) ? "passed" : "failed") << std::endl;
-}
 
 void test_occurrences() {
-
+  /*
   std::shared_ptr<TokenAbstract> token1;
   token1.reset(new TokenRegex("[a-z]+\\.txt"));
   std::shared_ptr<OpAbstract> op1;
@@ -58,10 +50,7 @@ void test_occurrences() {
   ipv4.reset(new TokenIPv4());
   Parser parser2(ipv4);
   run(parser2, std::string("10.0.2.13"));
-
-  SIPGrammar grammar;
-  std::string result;
-
+  */
   /*
   str = "ACK sip:bob@192.0.2.4 SIP/2.0\r\n";
   str += "Via: SIP/2.0/UDP pc33.atlanta.com;branch=z9hG4bKnashds9\r\n";

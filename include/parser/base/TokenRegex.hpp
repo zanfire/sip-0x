@@ -44,7 +44,7 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(std::istringstream& iss) override {
+      virtual ReadResult handle_read(std::istringstream& iss) const override {
         std::smatch pieces_match;
         std::string input;
         std::streamoff init_pos = iss.tellg();

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\parser\base\Alternative.hpp" />
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
@@ -23,7 +24,8 @@
     <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\Token.hpp" />
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp" />
-    <ClInclude Include="..\include\parser\SIPGrammar.hpp" />
+    <ClInclude Include="..\include\parser\sip\TokenSIPURI.hpp" />
+    <ClInclude Include="..\include\parser\sip\TokenURIParameter.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenUserInfo.hpp" />
     <ClInclude Include="..\include\protocol\Request.hpp" />
     <ClInclude Include="..\include\protocol\Response.hpp" />

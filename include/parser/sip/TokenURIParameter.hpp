@@ -45,6 +45,7 @@ namespace Sip0x
         std::shared_ptr<OpSequence> seq(new OpSequence());
         seq->add_token("transport=");
         std::shared_ptr<OpAlternative> alt(new OpAlternative());
+        OpAlternative<Token, Token, Token>("udp", "tcp", "sctp", "tls", )
         alt->add_token("udp");
         alt->add_token("tcp");
         alt->add_token("sctp");

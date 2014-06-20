@@ -18,38 +18,42 @@ using namespace Sip0x::Utils::Log;
 using namespace std;
 
 void test_token_regexconststrings() {
+  {
+    TokenRegex token(RegexConstStrings::unreserved + "+");
+    run_test(token, "pippo@dom.cnx", true);
+    run_test(token, "pipp*o@dom.cnx", true);
+    run_test(token, "@dom.cnx", false);
+    run_test(token, " @", false);
+  }
+  {
+    TokenRegex token(RegexConstStrings::token);
+    run_test(token, "pippo", true);
+    run_test(token, "~pipp*o", true);
+    //csfsgsdg questo non dovrebbe passare
+    run_test(token, "~pi@pp*o", false);
 
-  std::shared_ptr<TokenAbstract> token(new TokenRegex(RegexConstStrings::unreserved + "+"));
-  run_test(token, "pippo@dom.cnx", true);
-  run_test(token, "pipp*o@dom.cnx", true);
-  run_test(token, "@dom.cnx", false);
-  run_test(token, " @", false);
-
+  }
   //run_test(token, "10.0.2.13x", false);
   //run_test(token, "10.0.2", false);
 }
 
 void test_token_ipv4() {
-  std::shared_ptr<TokenAbstract> ipv4;
-  ipv4.reset(new TokenIPv4());
-  Parser parser(ipv4);
-
-  run_test(parser, "10.0.2.13", true);
-  run_test(parser, "10.0.2.13x", false);
-  run_test(parser, "10.0.2", false);
-  run_test(parser, "0.0.0.0", true);
-  run_test(parser, "255.255.255.255", true);
-  run_test(parser, "255.255.255.258", false);
+  TokenIPv4 ipv4;
+  
+  run_test(ipv4, "10.0.2.13", true);
+  run_test(ipv4, "10.0.2.13x", false);
+  run_test(ipv4, "10.0.2", false);
+  run_test(ipv4, "0.0.0.0", true);
+  run_test(ipv4, "255.255.255.255", true);
+  run_test(ipv4, "255.255.255.258", false);
 }
 
 
 void test_token_sipuri() {
-  std::shared_ptr<TokenAbstract> t;
-  t.reset(new TokenUserInfo());
-  Parser parser(t);
+  TokenUserInfo t;
 
-  run_test(parser, "mat%20%23teo:password@", true);
-  run_test(parser, "matteo:password@", true);
-  run_test(parser, "bhooo", false);
-  run_test(parser, "matteo@", true);
+  run_test(t, "bhooo", false);
+  run_test(t, "mat%20%23teo:password@", true);
+  run_test(t, "matteo:password@", true);
+  run_test(t, "matteo@", true);
 }

@@ -37,7 +37,7 @@ namespace Sip0x
       //  0: result (true or false)
       //  1: parsed string.
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  read(std::istringstream& iss) sealed {
+      virtual ReadResult  read(std::istringstream& iss) const {
         ReadResult output;
         
         if (iss.eof()) {
@@ -77,12 +77,12 @@ namespace Sip0x
       }
 
       void set_name(std::string const& name) { _name = name; }
-      std::string const& get_name(void) { return _name; }
+      std::string const& get_name(void) const { return _name; }
 
       // Returns a tuple with:
       //  0: result (true or false)
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  handle_read(std::istringstream& iss) = 0;
+      virtual ReadResult  handle_read(std::istringstream& iss) const = 0;
     };
   }
 }
