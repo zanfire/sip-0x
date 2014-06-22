@@ -17,13 +17,11 @@
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
     <ClInclude Include="..\include\parser\base\Sequence.hpp" />
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenHostport.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv6.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
     <ClInclude Include="..\include\parser\base\OpAbstract.hpp" />
-    <ClInclude Include="..\include\parser\base\OpAlternative.hpp" />
-    <ClInclude Include="..\include\parser\base\OpOccurrence.hpp" />
-    <ClInclude Include="..\include\parser\base\OpSequence.hpp" />
     <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\Token.hpp" />
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp" />
@@ -33,6 +31,7 @@
     <ClInclude Include="..\include\protocol\Request.hpp" />
     <ClInclude Include="..\include\protocol\Response.hpp" />
     <ClInclude Include="..\include\protocol\Message.hpp" />
+    <ClInclude Include="..\include\protocol\UserInfo.hpp" />
     <ClInclude Include="..\include\utils\IniFile.hpp" />
     <ClInclude Include="..\include\utils\log\Logger.hpp" />
     <ClInclude Include="..\include\utils\log\LoggerManager.hpp" />

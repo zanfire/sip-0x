@@ -24,10 +24,15 @@ namespace Sip0x
       std::string _name;
       std::shared_ptr<Logger> _logger;
 
+      // Set a parent token.
+      // This reference is needed to create a sub-peace of an larger structure provided by the parent.
+      TokenAbstract* _parent;
+
     public:
       TokenAbstract() {
         // Default value.
         _name = typeid(this).name();
+        _parent = nullptr;
       }
 
       virtual ~TokenAbstract(void) {}
@@ -37,7 +42,7 @@ namespace Sip0x
       //  0: result (true or false)
       //  1: parsed string.
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  read(std::istringstream& iss) const {
+      virtual ReadResult  read(std::istringstream& iss, void* ctx = nullptr) const {
         ReadResult output;
         
         if (iss.eof()) {
@@ -54,7 +59,7 @@ namespace Sip0x
         
         DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
         
-        output = handle_read(iss);
+        output = handle_read(iss, ctx);
 
         if (output.successes) {
           std::string str = iss.str();
@@ -64,6 +69,10 @@ namespace Sip0x
           DEBUG(_logger, "Consumed chars %lld during parsing, parsed %s.", delta, parsed.c_str());
 
           output.parsed = parsed;
+
+          if (_parent != nullptr) {
+            _parent->handle_on_success(this, output, ctx);
+          }
         }
         else {
           iss.seekg(initial_pos);
@@ -79,10 +88,18 @@ namespace Sip0x
       void set_name(std::string const& name) { _name = name; }
       std::string const& get_name(void) const { return _name; }
 
+
+      virtual void set_parent(TokenAbstract* parent) {
+        _parent = parent;
+      }
+
       // Returns a tuple with:
       //  0: result (true or false)
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  handle_read(std::istringstream& iss) const = 0;
+      virtual ReadResult  handle_read(std::istringstream& iss, void* ctx) const = 0;
+
+
+      virtual void handle_on_success(TokenAbstract const* token, ReadResult const& result, void* ctx) {}
     };
   }
 }

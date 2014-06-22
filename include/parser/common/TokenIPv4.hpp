@@ -17,7 +17,7 @@ namespace Sip0x
       TokenRegex _regex;
 
     public:
-      TokenIPv4(void) : TokenAbstract(), _regex("\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b") {
+      TokenIPv4(void) : TokenAbstract(), _regex("ipv4", "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b") {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenIPv4");
       }
 
@@ -25,9 +25,9 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(std::istringstream& iss) const override {
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
         //
-        ReadResult result = _regex.read(iss);
+        ReadResult result = _regex.read(iss, ctx);
 
         if (result.successes) {
           std::stringstream s(result.parsed);

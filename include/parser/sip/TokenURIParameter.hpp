@@ -2,9 +2,9 @@
 #define SIP0X_PARSER_TOKENUIRPARAMETER_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
-#include "parser/base/OpSequence.hpp"
-#include "parser/base/OpOccurrence.hpp"
-#include "parser/base/OpAlternative.hpp"
+#include "parser/base/Operators.hpp"
+
+#include "parser/base/Token.hpp"
 #include "parser/base/TokenRegex.hpp"
 
 #include "parser/common/RegexConstStrings.hpp"
@@ -34,34 +34,149 @@ namespace Sip0x
 {
   namespace Parser
   {
-    class TokenURIParameter : public OpAlternative {
+    template<class Alt>
+    class TokenURIParam_base : public OpAbstract {
+    protected:
+      Sequence<Token, Alt> _sequence;
 
     public:
-      TokenURIParameter(void) : OpAlternative() {
+      TokenURIParam_base(std::string param, Alt& alternative) : _sequence(Token(param), alternative) {}
+
+    protected:
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+        ReadResult r = _sequence.read(iss, ctx);
+        return r;
+      }
+    };
+
+    class TokenURIParam_transport : public TokenURIParam_base<Alternative<Token, Token, Token, TokenRegex>> {
+    public:
+      TokenURIParam_transport(void) : TokenURIParam_base
+        (
+          "transport=", 
+          Alternative<Token, Token, Token, TokenRegex>
+          (
+            Token("udp"),
+            Token("tcp"),
+            Token("sctp"),
+            TokenRegex("other-transport", RegexConstStrings::token)
+          )
+        ) 
+      {
+      }
+    };
+
+    // user-param        =  "user=" ( "phone" / "ip" / other-user)
+    class TokenURIParam_user : public TokenURIParam_base<Alternative<Token, Token, TokenRegex>> {
+    public:
+      TokenURIParam_user(void) : TokenURIParam_base
+        (
+        "user=",
+        Alternative<Token, Token, TokenRegex>
+        (
+        Token("phone"),
+        Token("ip"),
+        TokenRegex("other-user", RegexConstStrings::token)
+        )
+        )
+      {
+      }
+    };
+    
+    // method-param      =  "method=" Method
+    // TODO: Complete.
+    class TokenURIParam_method : public TokenURIParam_base<Alternative<Token, TokenRegex>> {
+    public:
+      TokenURIParam_method(void) : TokenURIParam_base(
+        "method=",
+        Alternative<Token, TokenRegex>
+        (
+          Token("INVITE"),
+          TokenRegex("other-method", RegexConstStrings::token)
+        )
+        )
+      {
+      }
+    };
+
+    // ttl-param         =  "ttl=" ttl
+    // Complete
+    class TokenURIParam_ttl : public TokenURIParam_base<TokenRegex> {
+    public:
+      TokenURIParam_ttl(void) : TokenURIParam_base
+        (
+          "ttl=",
+          TokenRegex("other-method", RegexConstStrings::token)
+        )
+      {
+      }
+    };
+
+    // maddr-param       =  "maddr=" host
+    // TODO: Complete
+    class TokenURIParam_maddr : public TokenURIParam_base<TokenRegex> {
+    public:
+      TokenURIParam_maddr(void) : TokenURIParam_base
+        (
+          "maddr=",
+          TokenRegex("other-method", RegexConstStrings::token)
+        )
+      {
+      }
+    };
+
+    // lr-param          =  "lr"
+    // directlly the token ";r"
+
+
+    class TokenURIParam_other : public OpAbstract {
+    protected:
+      Sequence<TokenRegex, Token, TokenRegex> _sequence;
+    public:
+      TokenURIParam_other(void) : OpAbstract(), _sequence
+        (
+        TokenRegex("pname", "p"),
+        Token("="),
+        TokenRegex("pvalue", RegexConstStrings::token)
+        )
+      {
+      }
+    protected:
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+        ReadResult r = _sequence.read(iss, ctx);
+        return r;
+      }
+    };
+
+
+    // uri-parameter     =  transport-param / user-param / method-param / ttl-param / maddr-param / lr-param / other-param
+    class TokenURIParameter : public OpAbstract {
+    protected:
+      Alternative<TokenURIParam_transport, TokenURIParam_user, TokenURIParam_maddr, TokenURIParam_method, TokenURIParam_ttl, Token, TokenURIParam_other> _alternative;
+
+    public:
+      TokenURIParameter(void) : OpAbstract(), _alternative(
+          TokenURIParam_transport(), 
+          TokenURIParam_user(), 
+          TokenURIParam_maddr(), 
+          TokenURIParam_method(),
+          TokenURIParam_ttl(), 
+          Token("lr"), 
+          TokenURIParam_other()
+        ) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenURIParameter");
         _name = "TokenURIParameter";
 
-        // "transport=" ( "udp" / "tcp" / "sctp" / "tls" / other-transport)
-        std::shared_ptr<OpSequence> seq(new OpSequence());
-        seq->add_token("transport=");
-        std::shared_ptr<OpAlternative> alt(new OpAlternative());
-        OpAlternative<Token, Token, Token>("udp", "tcp", "sctp", "tls", )
-        alt->add_token("udp");
-        alt->add_token("tcp");
-        alt->add_token("sctp");
-        alt->add_token("tls");
-        alt->add_regex("other-transport", RegexConstStrings::token);
-        seq->add("transport", alt);
-
-        add(seq);
       }
 
       virtual ~TokenURIParameter(void) {
       }
 
     protected:
-      //void add(std::string field, )
-
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+        ReadResult r = _alternative.read(iss, ctx);
+        return r;
+      }
     };
   }
 }

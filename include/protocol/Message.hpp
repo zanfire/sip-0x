@@ -1,9 +1,9 @@
 #if !defined(SIP0X_PROTOCOL_MESSAGE_HPP__)
 #define SIP0X_PROTOCOL_MESSAGE_HPP__
 
-namespace Sip0x 
+namespace Sip0x
 {
-  namespace Protocol 
+  namespace Protocol
   {
     class Message {
 

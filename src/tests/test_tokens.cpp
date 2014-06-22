@@ -4,6 +4,7 @@
 #include "parser/common/RegexConstStrings.hpp"
 #include "parser/common/TokenIPv4.hpp"
 #include "parser/sip/TokenUserInfo.hpp"
+#include "parser/sip/TokenURIParameter.hpp"
 
 
 #include "parser/Parser.hpp"
@@ -19,7 +20,7 @@ using namespace std;
 
 void test_token_regexconststrings() {
   {
-    TokenRegex token(RegexConstStrings::unreserved + "+");
+    TokenRegex token("unreserved", RegexConstStrings::unreserved + "+");
     run_test(token, "pippo@dom.cnx", true);
     run_test(token, "pipp*o@dom.cnx", true);
     run_test(token, "@dom.cnx", false);
@@ -52,8 +53,11 @@ void test_token_ipv4() {
 void test_token_sipuri() {
   TokenUserInfo t;
 
+  run_test(t, "matteo:password@", true);
   run_test(t, "bhooo", false);
   run_test(t, "mat%20%23teo:password@", true);
-  run_test(t, "matteo:password@", true);
   run_test(t, "matteo@", true);
+
+  TokenURIParam_transport p;
+  run_test(p, "transport=PROTOCOLPIPPO", true);
 }

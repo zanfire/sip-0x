@@ -1,6 +1,4 @@
 #include "parser/base/TokenRegex.hpp"
-#include "parser/base/OpAlternative.hpp"
-#include "parser/base/OpOccurrence.hpp"
 #include "parser/common/TokenIPv4.hpp"
 
 

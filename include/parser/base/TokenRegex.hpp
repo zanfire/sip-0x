@@ -22,8 +22,11 @@ namespace Sip0x
 
     public:
 
-      TokenRegex(std::string regex) {
-        _name = "TokenRegex";
+      TokenRegex(std::string regex) : TokenRegex(regex, regex){
+      }
+
+      TokenRegex(std::string name, std::string regex) {
+        _name = name;
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
 
         DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
@@ -44,7 +47,7 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(std::istringstream& iss) const override {
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
         std::smatch pieces_match;
         std::string input;
         std::streamoff init_pos = iss.tellg();

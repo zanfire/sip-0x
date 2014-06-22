@@ -1,14 +1,7 @@
 #if !defined(SIP0X_PARSER_ALTERNATIVE_HPP__)
 #define SIP0X_PARSER_ALTERNATIVE_HPP__
 
-#include <string>
-#include <memory>
-#include <iostream>
-
 #include "parser/base/OpAbstract.hpp"
-#include "parser/base/OpOccurrence.hpp"
-#include "parser/base/Token.hpp"
-#include "parser/base/TokenRegex.hpp"
 
 namespace Sip0x
 {
@@ -27,7 +20,7 @@ namespace Sip0x
       First member;
 
     public:
-      Alternative(First f) : OpAbstract(), member(f) {
+      Alternative(First& f) : OpAbstract(), member(f) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.Alternative");
       }
 
@@ -46,7 +39,7 @@ namespace Sip0x
     template<typename First, typename ... Rest>
     class Alternative<First, Rest...> : public Alternative<Rest...> {
     protected:
-      // Reference to the first elemenet of the variadic template.
+      // Reference to the first element of the variadic template.
       First member;
     
     public:
@@ -66,23 +59,23 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(std::istringstream& iss) const override {
-        return processing(iss, first(), rest());
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+        return processing(iss, ctx, first(), rest());
       }
 
-      template<typename T>
-      ReadResult processing(std::istringstream& iss, First const* f, T const& r) const {
+      template<typename F, typename R>
+      ReadResult processing(std::istringstream& iss, void* ctx, F const* f, R const& r) const {
         
         DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 
-        ReadResult result = f->read(iss);
+        ReadResult result = f->read(iss, ctx);
         if (result.successes) {
           DEBUG(_logger, "Alternative %s successes.", f->get_name().c_str());
           return result;
         }
         
-        if (f != r.first()) {
-          return processing(iss, r.first(), r.rest());
+        if ((void*)f != (void*)r.first()) {
+          return processing(iss, ctx, r.first(), r.rest());
         }
         else {
           DEBUG(_logger, "No alternative parsed correctly.");

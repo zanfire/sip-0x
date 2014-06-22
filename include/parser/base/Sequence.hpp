@@ -43,6 +43,7 @@ namespace Sip0x
       First member;
     
     public:
+      
       Sequence(First& f, Rest&... rest) : Sequence<Rest...>(rest...), member(f) {
       }
 
@@ -58,17 +59,24 @@ namespace Sip0x
         return *this;
       }
 
-    protected:
-      virtual ReadResult handle_read(std::istringstream& iss) const override {
-        return processing(iss, first(), rest());
+      
+      virtual void set_parent(TokenAbstract* parent) override {
+        _parent = parent;
+        set_parent_variadic(parent, first(), rest());
+        // for each 
       }
 
-      template<typename T>
-      ReadResult processing(std::istringstream& iss, First const* f, T const& r) const {
+    protected:
+      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+        return processing(iss, ctx, first(), rest());
+      }
+
+      template<typename F, typename R>
+      ReadResult processing(std::istringstream& iss, void* ctx, F const* f, R const& r) const {
         
         DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 
-        ReadResult result = f->read(iss);
+        ReadResult result = f->read(iss, ctx);
         if (!result.successes) {
           if (result.errorpos == -2) {
             result.set_error(iss.tellg(), "Expected token " + f->get_name());
@@ -77,8 +85,8 @@ namespace Sip0x
         }
         
       
-        if (f != r.first()) {
-          return processing(iss, r.first(), r.rest());
+        if ((void*)f != (void*)r.first()) {
+          return processing(iss, ctx, r.first(), r.rest());
         }
         else {
           return ReadResult(true);

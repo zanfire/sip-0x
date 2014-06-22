@@ -48,9 +48,6 @@
     <ClInclude Include="..\include\parser\base\Token.hpp">
       <Filter>parser\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\parser\base\OpAlternative.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\utils\log\LoggerManager.hpp">
       <Filter>utils\log</Filter>
     </ClInclude>
@@ -61,12 +58,6 @@
       <Filter>parser\base</Filter>
     </ClInclude>
     <ClInclude Include="..\include\parser\base\OpAbstract.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\OpSequence.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\OpOccurrence.hpp">
       <Filter>parser\base</Filter>
     </ClInclude>
     <ClInclude Include="..\include\utils\IniFile.hpp">
@@ -104,6 +95,12 @@
     </ClInclude>
     <ClInclude Include="..\include\parser\base\Sequence.hpp">
       <Filter>parser\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\UserInfo.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenHostport.hpp">
+      <Filter>parser\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
