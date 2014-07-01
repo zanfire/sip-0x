@@ -19,7 +19,7 @@ namespace Sip0x
 
       virtual ~OpAbstract(void) {}
 
-      virtual ReadResult parse(std::istringstream& iss) sealed {
+      virtual ReadResult parse(Sip0x::Utils::InputTokenStream& iss) sealed {
         return read(iss);
       }
 

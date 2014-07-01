@@ -24,11 +24,11 @@ namespace Sip0x
 
       DEBUG(logger, "Parsing string \"%s\".", text.c_str());
 
-      std::istringstream iss(text);
+      Sip0x::Utils::InputTokenStream iss(text);
       ReadResult result = root.read(iss);
 
-      if (result.successes && (iss.eof() || ((long long)iss.tellg() == (long long)text.length()))) {
-        DEBUG(logger, "Parsing successes, stream: %lld, gcount: %lld, tellg %lld.", (long long)iss.eof(), (long long)iss.gcount(), (long long)iss.tellg());
+      if (result.successes && iss.eof()) {
+        DEBUG(logger, "Parsing successes, remains: %d, pos %d.", iss.remains(), iss.pos());
 
         if (result.result != nullptr) {
           result.result_dtor(result.result);
@@ -36,10 +36,9 @@ namespace Sip0x
         return true;
       }
       else {
-        std::streampos cur_pos = iss.tellg();
-        std::string r;
-        iss >> r;
-
+        int cur_pos = iss.pos();
+        std::string r = iss.get();
+        
         if (result.errorpos == -2) {
           result.set_error(cur_pos, "Remaining string: " + r);
         }
@@ -54,7 +53,7 @@ namespace Sip0x
         readable_error << ") message: " << result.errormessage;
 
 
-        DEBUG(logger, "Parsing terminated without successes, remaining string: %s.", r.c_str());
+        DEBUG(logger, "Parsing terminated without successes, remaining string: \"%s\".", r.c_str());
         return false;
       }
     }

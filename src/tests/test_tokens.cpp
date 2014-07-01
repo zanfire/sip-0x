@@ -3,7 +3,9 @@
 #include "parser/base/TokenRegex.hpp"
 #include "parser/common/RegexConstStrings.hpp"
 #include "parser/common/TokenIPv4.hpp"
-#include "parser/sip/TokenUserInfo.hpp"
+#include "parser/sip/TokenSIPURI.hpp"
+#include "parser/common/TokenHostport.hpp"
+
 #include "parser/sip/TokenURIParameter.hpp"
 
 
@@ -60,4 +62,18 @@ void test_token_sipuri() {
 
   TokenURIParam_transport p;
   run_test(p, "transport=PROTOCOLPIPPO", true);
+
+  TokenHostname host;
+  run_test(host, "domain.topdom", true);
+
+  TokenHostport hostport;
+  run_test(hostport, "domain.topdom:5060", true);
+
+
+  TokenSIPURI sipuri;
+  run_test(sipuri, "sip:matteo:password@domain.top:5060;transport=tcp", true);
+  run_test(sipuri, "sip:matteo@10.0.1.1:5060;transport=tcp", true);
+  run_test(sipuri, "sip:matteo@10.0.1.1", true);
+  run_test(sipuri, "sip:matteo@10.0.1.1:xy;transport=tcp", false);
+  run_test(sipuri, "matteo@10.0.1.1", false);
 }

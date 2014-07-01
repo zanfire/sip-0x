@@ -59,12 +59,12 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
         return processing(iss, ctx, first(), rest());
       }
 
       template<typename F, typename R>
-      ReadResult processing(std::istringstream& iss, void* ctx, F const* f, R const& r) const {
+      ReadResult processing(Sip0x::Utils::InputTokenStream& iss, void* ctx, F const* f, R const& r) const {
         
         DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 

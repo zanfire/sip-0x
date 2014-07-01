@@ -25,7 +25,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
         // TODO: Implements ...
         ReadResult result; // = _regex.read(iss);
         return result;

@@ -5,6 +5,8 @@
 
 #include "parser/base/Token.hpp"
 #include "parser/base/TokenRegex.hpp"
+#include "parser/sip/TokenUserInfo.hpp"
+#include "parser/common/TokenHostPort.hpp"
 #include "parser/sip/TokenURIParameter.hpp"
 
 // ABNF: SIP_URI = lit("sip:") > -userinfo > hostport >> uri_parameters >> -headers;
@@ -17,22 +19,30 @@ namespace Sip0x
     class TokenSIPURI : public OpAbstract {
 
     protected:
-      Sequence<Token, TokenUserInfo, Token, Occurrence<Token>, Occurrence<Sequence<Token, TokenURIParameter>>> _sequence;
+      Sequence<Token, TokenUserInfo, TokenHostport, Occurrence<Sequence<Token, TokenURIParameter>>> _sequence;
 
     public:
-      TokenSIPURI(void) : OpAbstract() {
-        //add_token("sip:");
-        //std::shared_ptr<TokenAbstract> userinfo(new TokenUserInfo());
-        //add_occurrence("userinfo", userinfo, 0, 1);
-        // hostport
-        // add uri_params
-        // header
+      TokenSIPURI(void) : OpAbstract(), _sequence(
+        Token("sip:"),
+        TokenUserInfo(),
+        TokenHostport(),
+        Occurrence<Sequence<Token, TokenURIParameter>>
+        (
+          Sequence<Token, TokenURIParameter>
+          (
+            Token(";"), 
+            TokenURIParameter()
+          ), 0, -1)
+        ) {
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPURI");
       }
 
       virtual ~TokenSIPURI(void) {
-        //for each (ParserAbstract* var in _rules) {
-        //    delete var;
-        //}
+      }
+
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+        ReadResult result = _sequence.read(iss, ctx);
+        return result;
       }
     };
   }

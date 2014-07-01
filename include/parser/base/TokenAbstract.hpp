@@ -11,6 +11,7 @@
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
+#include "utils/InputTokenStream.hpp"
 
 namespace Sip0x
 {
@@ -42,7 +43,7 @@ namespace Sip0x
       //  0: result (true or false)
       //  1: parsed string.
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  read(std::istringstream& iss, void* ctx = nullptr) const {
+      virtual ReadResult  read(Sip0x::Utils::InputTokenStream& iss, void* ctx = nullptr) const {
         ReadResult output;
         
         if (iss.eof()) {
@@ -50,23 +51,16 @@ namespace Sip0x
           return output;
         }
 
-        if (iss.fail()) {
-          WARN(_logger, "Stream is broken, skipping...");
-          return output;
-        }
-
-        std::streamoff initial_pos = iss.tellg();
+        int initial_pos = iss.pos();
         
         DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
         
         output = handle_read(iss, ctx);
 
         if (output.successes) {
-          std::string str = iss.str();
-          // TODO: avoid this consumption ... 
-          long long delta = (long long)((iss.eof() ? str.length() : iss.tellg()) - initial_pos);
-          std::string parsed = str.substr((unsigned int)initial_pos, (unsigned int)delta);
-          DEBUG(_logger, "Consumed chars %lld during parsing, parsed %s.", delta, parsed.c_str());
+          int delta = iss.pos() - initial_pos;
+          std::string parsed = iss.str(initial_pos, delta);
+          DEBUG(_logger, "Consumed chars %d during parsing, parsed %s.", delta, parsed.c_str());
 
           output.parsed = parsed;
 
@@ -96,8 +90,7 @@ namespace Sip0x
       // Returns a tuple with:
       //  0: result (true or false)
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  handle_read(std::istringstream& iss, void* ctx) const = 0;
-
+      virtual ReadResult  handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const = 0;
 
       virtual void handle_on_success(TokenAbstract const* token, ReadResult const& result, void* ctx) {}
     };

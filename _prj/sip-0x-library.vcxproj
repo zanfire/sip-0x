@@ -35,6 +35,7 @@
     <ClInclude Include="..\include\utils\IniFile.hpp" />
     <ClInclude Include="..\include\utils\log\Logger.hpp" />
     <ClInclude Include="..\include\utils\log\LoggerManager.hpp" />
+    <ClInclude Include="..\include\utils\InputTokenStream.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp" />

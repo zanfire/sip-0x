@@ -53,10 +53,12 @@ namespace Sip0x
       }
 
       virtual ~TokenUserInfo(void) {
+        // TODO: this line shouldn't needed because child token are destroyed before parent.
+        //_sequence.set_parent(nullptr);
       }
 
     protected:
-      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
         // If we create some instance hear we need to kept some sort of syncronization because it coldn't be used 
         // concurrently avoiding mutex.
         Sip0x::Protocol::UserInfo* ui = new Sip0x::Protocol::UserInfo();

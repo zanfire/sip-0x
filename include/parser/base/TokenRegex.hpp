@@ -47,11 +47,11 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(std::istringstream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
         std::smatch pieces_match;
         std::string input;
-        std::streamoff init_pos = iss.tellg();
-        iss >> input;
+        int init_pos = iss.pos();
+        input = iss.get();
 
         DEBUG(_logger, "Regex processing input: \"%s\".", input.c_str());
 
