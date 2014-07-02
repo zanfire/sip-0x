@@ -25,8 +25,7 @@ namespace Sip0x
       TokenRegex(std::string regex) : TokenRegex(regex, regex){
       }
 
-      TokenRegex(std::string name, std::string regex) {
-        _name = name;
+      TokenRegex(std::string name, std::string regex) : TokenAbstract(name) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
 
         DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
@@ -41,7 +40,6 @@ namespace Sip0x
 
 
       virtual ~TokenRegex(void) {
-        DEBUG(_logger, "Deleting TokenRegex@%p.", this);
       }
 
 

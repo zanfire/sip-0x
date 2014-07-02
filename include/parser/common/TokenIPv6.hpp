@@ -17,7 +17,7 @@ namespace Sip0x
       TokenRegex _regex;
 
     public:
-      TokenIPv6(void) : TokenAbstract(), _regex("\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b") {
+      TokenIPv6(void) : TokenAbstract("ipv6"), _regex("ipv6", "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b") {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenIPv6");
       }
 

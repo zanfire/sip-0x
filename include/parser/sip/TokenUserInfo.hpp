@@ -29,7 +29,7 @@ namespace Sip0x
       Sequence<TokenRegex, Occurrence<Sequence<Token, TokenRegex>>, Token> _sequence;
       
     public:
-      TokenUserInfo(void) : 
+      TokenUserInfo(void) : TokenAbstract("TokenUserInfo"),
         // Writing down the ABN for userinfo.
             _sequence(
             TokenRegex("username", "(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|" + RegexConstStrings::sip_user_unreserved + ")+"), 
@@ -45,17 +45,17 @@ namespace Sip0x
         ) 
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenUserInfo");
-        _name = "TokenUserInfo";
-        // User.
-
         // We must create a resulting object during the parsing procedure
         _sequence.set_parent(this);
       }
 
-      virtual ~TokenUserInfo(void) {
-        // TODO: this line shouldn't needed because child token are destroyed before parent.
-        //_sequence.set_parent(nullptr);
+      virtual ~TokenUserInfo(void) { }
+
+      TokenUserInfo(TokenUserInfo const& ui) : TokenAbstract(ui._name), _sequence(ui._sequence) {
+        _sequence.set_parent(this);
       }
+
+
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {

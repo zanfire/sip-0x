@@ -27,13 +27,10 @@ namespace Sip0x
 
       // Set a parent token.
       // This reference is needed to create a sub-peace of an larger structure provided by the parent.
-      TokenAbstract* _parent;
+      TokenAbstract* _parent = nullptr;
 
     public:
-      TokenAbstract() {
-        // Default value.
-        _name = typeid(this).name();
-        _parent = nullptr;
+      TokenAbstract(std::string name) : _name(name) {
       }
 
       virtual ~TokenAbstract(void) {}

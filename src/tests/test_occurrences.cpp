@@ -18,13 +18,13 @@ void test_occurrences() {
   /*
   std::shared_ptr<TokenAbstract> token1;
   token1.reset(new TokenRegex("[a-z]+\\.txt"));
-  std::shared_ptr<OpAbstract> op1;
+  std::shared_ptr<TokenAbstract> op1;
   op1.reset(new OpOccurrence(token1, 1, -1));
 
 
   std::shared_ptr<TokenAbstract> token2;
   token2.reset(new TokenRegex("[a-z]+\\.doc"));
-  std::shared_ptr<OpAbstract> op2;
+  std::shared_ptr<TokenAbstract> op2;
   op2.reset(new OpOccurrence(token2, 1, 1));
 
 

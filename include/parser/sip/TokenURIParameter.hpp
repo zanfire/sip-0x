@@ -35,12 +35,12 @@ namespace Sip0x
   namespace Parser
   {
     template<class Alt>
-    class TokenURIParam_base : public OpAbstract {
+    class TokenURIParam_base : public TokenAbstract {
     protected:
       Sequence<Token, Alt> _sequence;
 
     public:
-      TokenURIParam_base(std::string param, Alt& alternative) : _sequence(Token(param), alternative) {}
+      TokenURIParam_base(std::string name, std::string param, Alt& alternative) : TokenAbstract(name), _sequence(Token(param), alternative) {}
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
@@ -53,6 +53,7 @@ namespace Sip0x
     public:
       TokenURIParam_transport(void) : TokenURIParam_base
         (
+          "URIParam_transport",
           "transport=", 
           Alternative<Token, Token, Token, TokenRegex>
           (
@@ -71,6 +72,7 @@ namespace Sip0x
     public:
       TokenURIParam_user(void) : TokenURIParam_base
         (
+        "URIParam_user",
         "user=",
         Alternative<Token, Token, TokenRegex>
         (
@@ -88,6 +90,7 @@ namespace Sip0x
     class TokenURIParam_method : public TokenURIParam_base<Alternative<Token, TokenRegex>> {
     public:
       TokenURIParam_method(void) : TokenURIParam_base(
+        "URIParam_method",
         "method=",
         Alternative<Token, TokenRegex>
         (
@@ -105,6 +108,7 @@ namespace Sip0x
     public:
       TokenURIParam_ttl(void) : TokenURIParam_base
         (
+          "URIParam_ttl",
           "ttl=",
           TokenRegex("other-method", RegexConstStrings::token)
         )
@@ -118,6 +122,7 @@ namespace Sip0x
     public:
       TokenURIParam_maddr(void) : TokenURIParam_base
         (
+          "URIParam_maddr",
           "maddr=",
           TokenRegex("other-method", RegexConstStrings::token)
         )
@@ -126,14 +131,14 @@ namespace Sip0x
     };
 
     // lr-param          =  "lr"
-    // directlly the token ";r"
+    // directlly the token ";lr"
 
 
-    class TokenURIParam_other : public OpAbstract {
+    class TokenURIParam_other : public TokenAbstract {
     protected:
       Sequence<TokenRegex, Token, TokenRegex> _sequence;
     public:
-      TokenURIParam_other(void) : OpAbstract(), _sequence
+      TokenURIParam_other(void) : TokenAbstract("URIParam_other"), _sequence
         (
         TokenRegex("pname", "p"),
         Token("="),
@@ -150,12 +155,12 @@ namespace Sip0x
 
 
     // uri-parameter     =  transport-param / user-param / method-param / ttl-param / maddr-param / lr-param / other-param
-    class TokenURIParameter : public OpAbstract {
+    class TokenURIParameter : public TokenAbstract {
     protected:
       Alternative<TokenURIParam_transport, TokenURIParam_user, TokenURIParam_maddr, TokenURIParam_method, TokenURIParam_ttl, Token, TokenURIParam_other> _alternative;
 
     public:
-      TokenURIParameter(void) : OpAbstract(), _alternative(
+      TokenURIParameter(void) : TokenAbstract("URIParameter"), _alternative(
           TokenURIParam_transport(), 
           TokenURIParam_user(), 
           TokenURIParam_maddr(), 

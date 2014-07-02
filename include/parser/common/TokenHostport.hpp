@@ -19,7 +19,7 @@ namespace Sip0x
     protected:
       Sequence<Occurrence<Sequence<TokenRegex, Token>>, TokenRegex, Occurrence<Token>> _sequence;
     public:
-      TokenHostname(void) : TokenAbstract(), _sequence(
+      TokenHostname(void) : TokenAbstract("hostname"), _sequence(
         Occurrence<Sequence<TokenRegex, Token>>
         (
           Sequence<TokenRegex, Token>
@@ -48,9 +48,9 @@ namespace Sip0x
     class TokenHost : public TokenAbstract {
 
     protected:
-      Alternative<TokenIPv4, TokenIPv6, TokenHostname> _alternative;
+      Alternative<TokenHostname, TokenIPv6, TokenIPv4> _alternative;
     public:
-      TokenHost(void) : TokenAbstract(), _alternative(TokenIPv4(), TokenIPv6(), TokenHostname()) {
+      TokenHost(void) : TokenAbstract("host"), _alternative(TokenHostname(), TokenIPv6(), TokenIPv4()) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHost");
       }
 
@@ -72,7 +72,7 @@ namespace Sip0x
     protected:
       Sequence<TokenHost, Occurrence<Sequence<Token, TokenRegex>>> _sequence;
     public:
-      TokenHostport(void) : _sequence(TokenHost(), 
+      TokenHostport(void) : TokenAbstract("hostport"), _sequence(TokenHost(), 
         Occurrence<Sequence<Token, TokenRegex>>
         (
           Sequence<Token, TokenRegex>

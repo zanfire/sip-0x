@@ -16,8 +16,7 @@ namespace Sip0x
     std::string _token;
 
     public:
-      Token(std::string token) : TokenAbstract(), _token(token) {
-        set_name(token);
+      Token(std::string token) : TokenAbstract(token), _token(token) {
       }
 
       virtual ~Token(void) {}

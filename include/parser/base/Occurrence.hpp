@@ -1,22 +1,23 @@
 #if !defined(SIP0X_PARSER_OCCURRENCE_HPP__)
 #define SIP0X_PARSER_OCCURRENCE_HPP__
 
-#include "parser/base/OpAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 namespace Sip0x
 {
   namespace Parser
   {
     template<class T>
-    class Occurrence : public OpAbstract {
+    class Occurrence : public TokenAbstract {
     protected:
       T _token;
       int _min;
       int _max;
 
     public:
-      Occurrence(T& f, int min = 0, int max = -1) : OpAbstract(), _token(f), _min(min), _max(max) {
+      Occurrence(T& f, int min = 0, int max = -1) : TokenAbstract("Occurrence"), _token(f), _min(min), _max(max) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.OpOccurrence");
+        _name += "." + f.get_name(); // + "[" + std::string(_min) + "," + std::string(_max) + "]";
       }
 
       virtual ~Occurrence(void) {

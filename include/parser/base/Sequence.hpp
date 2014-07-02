@@ -1,7 +1,7 @@
 #if !defined(SIP0X_PARSER_SEQUENCE_HPP__)
 #define SIP0X_PARSER_SEQUENCE_HPP__
 
-#include "parser/base/OpAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 namespace Sip0x
 {
@@ -13,15 +13,16 @@ namespace Sip0x
 
     // Base definition.
     template<typename First>
-    class Sequence<First> : public OpAbstract {
+    class Sequence<First> : public TokenAbstract{
 
     protected:
       std::shared_ptr<Logger> _logger;
       First member;
 
     public:
-      Sequence(First f) : OpAbstract(), member(f) {
+      Sequence(First f) : TokenAbstract("Sequence"), member(f) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.Sequence");
+        _name += "..." + f.get_name();
       }
 
       virtual ~Sequence(void) {}
@@ -45,6 +46,7 @@ namespace Sip0x
     public:
       
       Sequence(First& f, Rest&... rest) : Sequence<Rest...>(rest...), member(f) {
+        _name += "," + f.get_name();
       }
 
       virtual ~Sequence(void) {

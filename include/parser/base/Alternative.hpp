@@ -1,7 +1,7 @@
 #if !defined(SIP0X_PARSER_ALTERNATIVE_HPP__)
 #define SIP0X_PARSER_ALTERNATIVE_HPP__
 
-#include "parser/base/OpAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 namespace Sip0x
 {
@@ -13,15 +13,16 @@ namespace Sip0x
 
     // Base definition.
     template<typename First>
-    class Alternative<First> : public OpAbstract {
+    class Alternative<First> : public TokenAbstract {
 
     protected:
       std::shared_ptr<Logger> _logger;
       First member;
 
     public:
-      Alternative(First& f) : OpAbstract(), member(f) {
+      Alternative(First& f) : TokenAbstract("Alternative"), member(f) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.Alternative");
+        _name += "..." + f.get_name();
       }
 
       virtual ~Alternative(void) {}
@@ -44,6 +45,7 @@ namespace Sip0x
     
     public:
       Alternative(First& f, Rest&... rest) : Alternative<Rest...>(rest...), member(f) {
+        _name += "," + f.get_name();
       }
 
       virtual ~Alternative(void) {

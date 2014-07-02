@@ -16,13 +16,13 @@ namespace Sip0x
 {
   namespace Parser
   {
-    class TokenSIPURI : public OpAbstract {
+    class TokenSIPURI : public TokenAbstract {
 
     protected:
       Sequence<Token, TokenUserInfo, TokenHostport, Occurrence<Sequence<Token, TokenURIParameter>>> _sequence;
 
     public:
-      TokenSIPURI(void) : OpAbstract(), _sequence(
+      TokenSIPURI(void) : TokenAbstract("SIPURI"), _sequence(
         Token("sip:"),
         TokenUserInfo(),
         TokenHostport(),

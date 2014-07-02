@@ -17,7 +17,7 @@ namespace Sip0x
       TokenRegex _regex;
 
     public:
-      TokenIPv4(void) : TokenAbstract(), _regex("ipv4", "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b") {
+      TokenIPv4(void) : TokenAbstract("ipv4"), _regex("ipv4", "\\b((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\\.|$)){4}\\b") {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenIPv4");
       }
 

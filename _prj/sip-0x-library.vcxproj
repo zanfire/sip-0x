@@ -21,7 +21,6 @@
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv6.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
-    <ClInclude Include="..\include\parser\base\OpAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\Token.hpp" />
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp" />

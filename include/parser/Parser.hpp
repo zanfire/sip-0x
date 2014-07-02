@@ -7,7 +7,7 @@
 #include <iostream>
 #include <memory>
 
-#include "parser/base/OpAbstract.hpp"
+#include "parser/base/TokenAbstract.hpp"
 
 #include "utils/log/Logger.hpp"
 #include "utils/log/LoggerManager.hpp"
@@ -18,8 +18,7 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-
-    static bool parse(std::string text, TokenAbstract& root, std::ostream& readable_error) {
+    static ReadResult parse(std::string text, TokenAbstract& root) {
       std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
 
       DEBUG(logger, "Parsing string \"%s\".", text.c_str());
@@ -33,7 +32,6 @@ namespace Sip0x
         if (result.result != nullptr) {
           result.result_dtor(result.result);
         }
-        return true;
       }
       else {
         int cur_pos = iss.pos();
@@ -42,20 +40,9 @@ namespace Sip0x
         if (result.errorpos == -2) {
           result.set_error(cur_pos, "Remaining string: " + r);
         }
-
-        readable_error << "Parsing error (pos: ";
-        if (result.errorpos == -1) {
-          readable_error << "eof";
-        }
-        else {
-          readable_error << result.errorpos;
-        }
-        readable_error << ") message: " << result.errormessage;
-
-
         DEBUG(logger, "Parsing terminated without successes, remaining string: \"%s\".", r.c_str());
-        return false;
       }
+      return result;
     }
   }
 }
