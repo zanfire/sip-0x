@@ -63,12 +63,14 @@ void test_token_sipuri() {
   TokenURIParam_transport p;
   run_test(p, "transport=PROTOCOLPIPPO", true);
 
-  TokenHostname host;
+  TokenHost host;
   run_test(host, "domain.topdom", true);
+  run_test(host, "10.0.6.11", true);
+
 
   TokenHostport hostport;
   run_test(hostport, "domain.topdom:5060", true);
-
+  run_test(hostport, "10.0.6.15:5060", true);
 
   TokenSIPURI sipuri;
   run_test(sipuri, "sip:matteo:password@domain.top:5060;transport=tcp", true);

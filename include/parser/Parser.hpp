@@ -34,6 +34,9 @@ namespace Sip0x
         }
       }
       else {
+        // No consumed all input.
+        result.successes = false;
+
         int cur_pos = iss.pos();
         std::string r = iss.get();
         

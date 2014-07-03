@@ -45,7 +45,7 @@ namespace Sip0x
         
         if (iss.eof()) {
           DEBUG(_logger, "Stream is empty, skipping...");
-          return output;
+          //return output;
         }
 
         int initial_pos = iss.pos();

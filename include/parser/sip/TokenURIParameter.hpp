@@ -170,8 +170,6 @@ namespace Sip0x
           TokenURIParam_other()
         ) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenURIParameter");
-        _name = "TokenURIParameter";
-
       }
 
       virtual ~TokenURIParameter(void) {
