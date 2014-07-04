@@ -102,6 +102,27 @@
     <ClInclude Include="..\include\utils\InputTokenStream.hpp">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPMessage.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPRequest.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPResponse.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPMessageHeader.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPRequestLine.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPMethod.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPVersion.hpp">
+      <Filter>parser\sip</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

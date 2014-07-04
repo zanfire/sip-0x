@@ -14,8 +14,8 @@ int main(int argc, char const* argv[]) {
   LoggerManager* loggermanager = LoggerManager::get_instance();
   loggermanager->configure("..\\docs\\logger.ini");
   
+  test_token_sip_message();
   test_token_sipuri();
-
   test_token_regexconststrings();
   test_token_ipv4();
   test_occurrences();

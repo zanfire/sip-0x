@@ -17,6 +17,7 @@ void test_token_ipv4();
 // Test tokens sip.
 void test_token_sipuri();
 
+void test_token_sip_message();
 
 void test_occurrences();
 

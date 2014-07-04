@@ -2,11 +2,8 @@
 
 #include "parser/base/TokenRegex.hpp"
 #include "parser/common/RegexConstStrings.hpp"
-#include "parser/common/TokenIPv4.hpp"
-#include "parser/sip/TokenSIPURI.hpp"
-#include "parser/common/TokenHostport.hpp"
 
-#include "parser/sip/TokenURIParameter.hpp"
+#include "parser/sip/TokenSIPMessage.hpp"
 
 
 #include "parser/Parser.hpp"
@@ -78,4 +75,16 @@ void test_token_sipuri() {
   run_test(sipuri, "sip:matteo@10.0.1.1", true);
   run_test(sipuri, "sip:matteo@10.0.1.1:xy;transport=tcp", false);
   run_test(sipuri, "matteo@10.0.1.1", false);
+}
+
+
+void test_token_sip_message() {
+  TokenSIPRequestLine rl;
+
+  run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.0\r\n", true);
+  run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.1\r\n", true);
+  run_test(rl, "INVITE   sip:matteo@domain.cmx SIP/2.0\r\n", false);
+  run_test(rl, "INVITE sip:matteo@domain.cmx XSIP/2.0\r\n", false);
+
+
 }
