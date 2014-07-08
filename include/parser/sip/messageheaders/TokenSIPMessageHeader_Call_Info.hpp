@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CALLINFO_HPP__)
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CALLINFO_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
@@ -14,15 +14,17 @@ namespace Sip0x
 {
   namespace Parser
   {
-
-    // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    // Call-Info   =  "Call-Info" HCOLON info *(COMMA info)
+    // info        =  LAQUOT absoluteURI RAQUOT *( SEMI info-param)
+    // info-param  =  ( "purpose" EQUAL ( "icon" / "info"
+    //                / "card" / token ) ) / generic-param
+    class TokenSIPMessageHeader_Call_Info : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
-      TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
+      TokenSIPMessageHeader_Call_Info() : TokenSIPMessageHeader_base("Call-Info", "Call\\-Info",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
           TokenRegex("[0-9]+"),
@@ -38,4 +40,4 @@ namespace Sip0x
   }
 }
 
-#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CALLINFO_HPP__

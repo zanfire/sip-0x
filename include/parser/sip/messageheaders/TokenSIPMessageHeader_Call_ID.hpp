@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CALL_ID_HPP__)
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CALL_ID_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
@@ -15,14 +15,14 @@ namespace Sip0x
   namespace Parser
   {
 
-    // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    // Call-ID  =  ( "Call-ID" / "i" ) HCOLON callid
+    // callid   =  word [ "@" word ]
+    class TokenSIPMessageHeader_Call_ID : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
 
     protected:
 
     public:
-      //
-      TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
+      TokenSIPMessageHeader_Call_ID() : TokenSIPMessageHeader_base("Call-ID", "(Call\\-ID|i)",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
           TokenRegex("[0-9]+"),
@@ -31,11 +31,10 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 
   }
 }
 
-#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CALL_ID_HPP__

@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_ALERT_INFO_HPP__)
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_ALERT_INFO_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
@@ -15,14 +15,15 @@ namespace Sip0x
   namespace Parser
   {
 
-    // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    // Alert-Info   =  "Alert-Info" HCOLON alert-param *(COMMA alert-param)
+    // alert-param  =  LAQUOT absoluteURI RAQUOT *( SEMI generic-param )
+    class TokenSIPMessageHeader_Alert_Info : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
-      TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
+      TokenSIPMessageHeader_Alert_Info() : TokenSIPMessageHeader_base("Alert-Info", "Alert\\-Info",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
           TokenRegex("[0-9]+"),
@@ -31,11 +32,11 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Alert_Info");
       }
     };
 
   }
 }
 
-#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_ALERT_INFO_HPP__

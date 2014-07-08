@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_AUTHENTICATION_INFO_HPP__)
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_AUTHENTICATION_INFO_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
@@ -15,14 +15,21 @@ namespace Sip0x
   namespace Parser
   {
 
-    // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    // Authentication-Info  =  "Authentication-Info" HCOLON ainfo
+    //                         *(COMMA ainfo)
+    // ainfo                =  nextnonce / message-qop
+    //                          / response-auth / cnonce
+    //                          / nonce-count
+    // nextnonce            =  "nextnonce" EQUAL nonce-value
+    // response-auth        =  "rspauth" EQUAL response-digest
+    // response-digest      =  LDQUOT *LHEX RDQUOT
+    class TokenSIPMessageHeader_Authentication_Info : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
-      TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
+      TokenSIPMessageHeader_Authentication_Info() : TokenSIPMessageHeader_base("Authentication-Info", "Authentication\\-Info",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
           TokenRegex("[0-9]+"),
@@ -31,11 +38,10 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 
   }
 }
 
-#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_AUTHENTICATION_INFO_HPP__
