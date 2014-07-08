@@ -4,54 +4,77 @@
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
 
-// SIP-message    =  Request / Response
-// Request        =  Request-Line
-//                   *( message-header )
-//                   CRLF
-//                   [ message-body ]
-// Request-Line   =  Method SP Request-URI SP SIP-Version CRLF
-// Request-URI    =  SIP-URI / SIPS-URI / absoluteURI
-// absoluteURI    =  scheme ":" ( hier-part / opaque-part )
-// hier-part      =  ( net-path / abs-path ) [ "?" query ]
-// net-path       =  "//" authority [ abs-path ]
-// abs-path       =  "/" path-segments
-// 
-// opaque-part    =  uric-no-slash *uric
-// uric           =  reserved / unreserved / escaped
-// uric-no-slash  =  unreserved / escaped / ";" / "?" / ":" / "@"
-//                   / "&" / "=" / "+" / "$" / ","
-// path-segments  =  segment *( "/" segment )
-// segment        =  *pchar *( ";" param )
-// param          =  *pchar
-// pchar          =  unreserved / escaped /
-//                   ":" / "@" / "&" / "=" / "+" / "$" / ","
-// scheme         =  ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
-// authority      =  srvr / reg-name
-// srvr           =  [ [ userinfo "@" ] hostport ]
-// reg-name       =  1*( unreserved / escaped / "$" / ","
-//                   / ";" / ":" / "@" / "&" / "=" / "+" )
-// query          =  *uric
-// SIP-Version    =  "SIP" "/" 1*DIGIT "." 1*DIGIT
-
-
+#include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
+#include "parser/sip/TokenSIPMessageHeader_CSeq.hpp"
 
 namespace Sip0x
 {
   namespace Parser
   {
 
-    // Request        =  Request-Line
-    //                   *( message-header )
-    //                   CRLF
-    //                   [ message-body ]
+    // message - header = (Accept
+    //   / Accept - Encoding
+    //   / Accept - Language
+    //   / Alert - Info
+    //   / Allow
+    //   / Authentication - Info
+    //   / Authorization
+    //   / Call - ID
+    //   / Call - Info
+    //   / Contact
+    //   / Content - Disposition
+    //   / Content - Encoding
+    //   / Content - Language
+    //   / Content - Length
+    //   / Content - Type
+    //   / CSeq
+    //   / Date
+    //   / Error - Info
+    //   / Expires
+    //   / From
+    //   / In - Reply - To
+    //   / Max - Forwards
+    //   / MIME - Version
+    //   / Min - Expires
+    //   / Organization
+    //   / Priority
+    //   / Proxy - Authenticate
+    //   / Proxy - Authorization
+    //   / Proxy - Require
+    //   / Record - Route
+    //   / Reply - To
+    //   / Require
+    //   / Retry - After
+    //   / Route
+    //   / Server
+    //   / Subject
+    //   / Supported
+    //   / Timestamp
+    //   / To
+    //   / Unsupported
+    //   / User - Agent
+    //   / Via
+    //   / Warning
+    //   / WWW - Authenticate
+    //   / extension - header) CRLF
+    
+
     class TokenSIPMessageHeader : public TokenAbstract {
 
     protected:
-      // it is magic ... no is nested template.
-      //Sequence<TokenSIPRequestLine, Occurrence<TokenSIPMessageHeader>, Token, TokenRegex> _sequence;
-      
+      Sequence<Alternative<TokenSIPMessageHeader_CSeq, Token>, Token> _sequence;
+
     public:
-      TokenSIPMessageHeader(void) : TokenAbstract("SIPMessageHeader")
+      TokenSIPMessageHeader(void) : TokenAbstract("SIPMessageHeader"),
+        _sequence
+        (
+        Alternative<TokenSIPMessageHeader_CSeq, Token>
+        (
+          TokenSIPMessageHeader_CSeq(),
+          Token("xxxx")
+        ),
+        Token("\r\n")
+        )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader");
       }
@@ -60,10 +83,11 @@ namespace Sip0x
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r; // = _sequence.read(iss, ui);
+        ReadResult r = _sequence.read(iss);
         return r;
       }
     };
+
   }
 }
 
