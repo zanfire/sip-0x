@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CONTENT_LENGTH_HPP__)
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CONTENT_LENGTH_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
@@ -15,27 +15,19 @@ namespace Sip0x
   namespace Parser
   {
 
-    // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    // Content-Length  =  ( "Content-Length" / "l" ) HCOLON 1*DIGIT
+    class TokenSIPMessageHeader_Content_Length : public TokenSIPMessageHeader_base<TokenRegex>{
 
     protected:
 
     public:
-      //
-      TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
-        (
-          TokenRegex("[0-9]+"),
-          TokenLWS(),
-          TokenSIPMethod()
-        )
-      )
+      TokenSIPMessageHeader_Content_Length() : TokenSIPMessageHeader_base("Content-Length", "(Content\\-Length)|(l)",TokenRegex("[0-9]+"))
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Content_Length");
       }
     };
 
   }
 }
 
-#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CONTENT_LENGTH_HPP__
