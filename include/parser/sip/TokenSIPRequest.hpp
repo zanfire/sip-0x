@@ -10,36 +10,6 @@
 #include "parser/sip/TokenSIPRequestLine.hpp"
 #include "parser/sip/TokenSIPMessageHeader.hpp"
 
-// SIP-message    =  Request / Response
-// Request        =  Request-Line
-//                   *( message-header )
-//                   CRLF
-//                   [ message-body ]
-// Request-Line   =  Method SP Request-URI SP SIP-Version CRLF
-// Request-URI    =  SIP-URI / SIPS-URI / absoluteURI
-// absoluteURI    =  scheme ":" ( hier-part / opaque-part )
-// hier-part      =  ( net-path / abs-path ) [ "?" query ]
-// net-path       =  "//" authority [ abs-path ]
-// abs-path       =  "/" path-segments
-// 
-// opaque-part    =  uric-no-slash *uric
-// uric           =  reserved / unreserved / escaped
-// uric-no-slash  =  unreserved / escaped / ";" / "?" / ":" / "@"
-//                   / "&" / "=" / "+" / "$" / ","
-// path-segments  =  segment *( "/" segment )
-// segment        =  *pchar *( ";" param )
-// param          =  *pchar
-// pchar          =  unreserved / escaped /
-//                   ":" / "@" / "&" / "=" / "+" / "$" / ","
-// scheme         =  ALPHA *( ALPHA / DIGIT / "+" / "-" / "." )
-// authority      =  srvr / reg-name
-// srvr           =  [ [ userinfo "@" ] hostport ]
-// reg-name       =  1*( unreserved / escaped / "$" / ","
-//                   / ";" / ":" / "@" / "&" / "=" / "+" )
-// query          =  *uric
-
-
-
 namespace Sip0x
 {
   namespace Parser
@@ -70,7 +40,7 @@ namespace Sip0x
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r; // = _sequence.read(iss, ui);
+        ReadResult r = _sequence.read(iss);
         return r;
       }
     };

@@ -22,10 +22,8 @@ namespace Sip0x
     public:
       TokenSIPMessage(void) : TokenAbstract("SIPMessage"), _alternative(TokenSIPRequest(), TokenSIPResponse())
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenUserInfo");
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessage");
       }
-
-      virtual ~TokenSIPMessage(void) { }
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
