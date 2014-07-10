@@ -10,10 +10,21 @@ void run_test(TokenAbstract& token, std::string input, bool exp) {
   cout << ", so: " << ((r.successes == exp) ? "OK" : "KO") << std::endl;
 
   if (!r.successes) {
-    cout << endl << input << endl;
-    cout.width(r.errorpos);
-    cout << '^' << endl;
+    cout << endl;
+    for (int i = 0; i < input.length(); i++) {
+      int x = i;
+      while (x < input.length()) {
+        cout << input[x];
+        if (input[x] == '\n') break;
+        x++;
+      }
 
+      if (i <= r.errorpos && r.errorpos <= x) {
+        cout.width(r.errorpos - i);
+        cout << endl << '^' << endl;
+      }
+      i = x;
+    }
 
     cout << "Parsing error (pos: " << r.errorpos << ") message: " << r.errormessage << endl;
   }

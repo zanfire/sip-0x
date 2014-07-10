@@ -19,3 +19,13 @@
 *.exe
 *.out
 *.app
+
+*.pdb
+*.ilk
+*.log
+*.tlog
+
+vendors/**
+*.suo
+*.sdf
+*.idb

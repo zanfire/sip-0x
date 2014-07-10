@@ -33,8 +33,6 @@ namespace Sip0x
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMethod");
       }
 
-      virtual ~TokenSIPMethod(void) { }
-
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
         ReadResult r = _alternative.read(iss);

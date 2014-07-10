@@ -270,6 +270,18 @@
     <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_WWW_Authenticate.hpp">
       <Filter>parser\sip\messageheaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenGenericParam.hpp">
+      <Filter>parser\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp">
+      <Filter>parser\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenSWS.hpp">
+      <Filter>parser\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenQuotedPair.hpp">
+      <Filter>parser\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

@@ -17,11 +17,15 @@
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
     <ClInclude Include="..\include\parser\base\Sequence.hpp" />
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenGenericParam.hpp" />
     <ClInclude Include="..\include\parser\common\TokenHCOLON.hpp" />
     <ClInclude Include="..\include\parser\common\TokenHostport.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv6.hpp" />
     <ClInclude Include="..\include\parser\common\TokenLWS.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenQuotedPair.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenSWS.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
     <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\Token.hpp" />
