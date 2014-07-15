@@ -4,6 +4,7 @@
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
 
+#include "parser/common/TokenPresets.hpp"
 
 #include "parser/sip/TokenSIPURI.hpp"
 #include "parser/sip/TokenSIPMethod.hpp"
@@ -20,7 +21,7 @@ namespace Sip0x
 
     protected:
       // TODO: SIPURI should be replaced by RequestURI.
-      Sequence<TokenSIPMethod, Token, TokenSIPURI , Token, TokenSIPVersion, Token> _sequence;
+      Sequence<TokenSIPMethod, Token, TokenSIPURI , Token, TokenSIPVersion, TokenCRLF> _sequence;
       
     public:
       TokenSIPRequestLine(void) : TokenAbstract("SIPRequestLine"), 
@@ -31,7 +32,7 @@ namespace Sip0x
           TokenSIPURI(),
           Token(" "),
           TokenSIPVersion(),
-          Token("\r\n")
+          TokenCRLF()
         )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPRequestLine");

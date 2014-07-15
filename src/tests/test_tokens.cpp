@@ -2,10 +2,9 @@
 
 #include "parser/base/TokenRegex.hpp"
 #include "parser/common/RegexConstStrings.hpp"
+#include "parser/common/TokenPresets.hpp"
 
 #include "parser/sip/TokenSIPMessage.hpp"
-
-
 #include "parser/Parser.hpp"
 
 #include "utils/log/LoggerManager.hpp"
@@ -85,6 +84,10 @@ void test_token_sip_message() {
   run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.1\r\n", true);
   run_test(rl, "INVITE   sip:matteo@domain.cmx SIP/2.0\r\n", false);
   run_test(rl, "INVITE sip:matteo@domain.cmx XSIP/2.0\r\n", false);
+
+  TokenSIPMessageHeader_From from;
+  run_test(from, "From: Alice <sip:alice@atlanta.com>;tag=1928301774", true);
+
 
   TokenSIPRequest sip;
   std::string str = "ACK sip:bob@192.0.2.4 SIP/2.0\r\n";

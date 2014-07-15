@@ -4,26 +4,25 @@
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
 
-#include "parser/common/TokenHCOLON.hpp"
-
+#include "parser/common/TokenPresets.hpp"
 
 namespace Sip0x
 {
   namespace Parser
   {
-    template<class Seq>
+    template<class Tok>
     class TokenSIPMessageHeader_base : public TokenAbstract {
 
     protected:
-      Sequence<TokenRegex, TokenHCOLON, Seq> _sequence;
+      Sequence<TokenRegex, TokenHCOLON, Tok> _sequence;
       
     public:
-      TokenSIPMessageHeader_base(std::string name, std::string fieldregex, Seq& sequence) : TokenAbstract(name),
+      TokenSIPMessageHeader_base(std::string name, std::string fieldregex, Tok& tok) : TokenAbstract(name),
         _sequence
         (
           TokenRegex(fieldregex),
           TokenHCOLON(),
-          sequence
+          tok
         )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader");

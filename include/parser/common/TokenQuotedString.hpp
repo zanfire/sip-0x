@@ -6,26 +6,26 @@
 #include "parser/base/TokenRegex.hpp"
 #include "parser/base/Operators.hpp"
 
-#include "parser/common/TokenSWS.hpp"
+#include "parser/common/RegexConstStrings.hpp"
 
 namespace Sip0x
 {
   namespace Parser
   {
-    // quoted-string  =  SWS DQUOTE *(qdtext / quoted-pair ) DQUOTE
+    // quoted-string  =  SWS DQUOTE *(qdtext / quoted-pair) DQUOTE
     // qdtext         =  LWS / %x21 / %x23-5B / %x5D-7E / UTF8-NONASCII
     // quoted-pair  =  "\" (%x00-09 / %x0B-0C / %x0E-7F)
     class TokenQuotedString : public TokenAbstract {
 
     protected:
-      Sequence<TokenSWS, Token, TokenRegex, Token> _sequence;
+      Sequence<TokenRegex, Token, TokenRegex, Token> _sequence;
 
     public:
       TokenQuotedString(void) : TokenAbstract("TokenQuotedString"), 
         _sequence(
-          TokenSWS(),
+          TokenRegex("SWS", RegexConstStrings::SWS),
           Token("\""),
-          TokenRegex(""),
+          TokenRegex("((" + RegexConstStrings::qdtext + ")|(" + RegexConstStrings::quoted_pair + "))*"),
           Token("\"")
          )
        {

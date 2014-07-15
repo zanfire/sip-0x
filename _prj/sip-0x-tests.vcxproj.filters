@@ -11,6 +11,9 @@
     <ClCompile Include="..\src\tests\test_occurrences.cpp">
       <Filter>tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\tests\test_sipmessages.cpp">
+      <Filter>tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\docs\logger.ini" />
@@ -24,5 +27,8 @@
     <ClInclude Include="..\src\tests\test_prototypes.h">
       <Filter>tests</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\tests\sip_requests.txt" />
   </ItemGroup>
 </Project>

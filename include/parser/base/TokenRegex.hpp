@@ -34,7 +34,7 @@ namespace Sip0x
           _regex = std::regex(regex);
         }
         catch (std::regex_error e) {
-          ERROR(_logger, "Regex %s contains an error (%s).", regex.c_str(), e.what());
+          ERROR(_logger, "Regex %s contains an error (%s).\nRegex:%s", name.c_str(), e.what(), regex.c_str());
         }
       }
 

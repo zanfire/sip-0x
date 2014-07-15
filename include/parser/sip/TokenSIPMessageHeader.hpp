@@ -127,9 +127,9 @@ namespace Sip0x
       //TokenSIPMessageHeader_Error_Info,
       //TokenSIPMessageHeader_Expires,
       //TokenSIPMessageHeader_extension_header,
-      //TokenSIPMessageHeader_From,
+      TokenSIPMessageHeader_From,
       //TokenSIPMessageHeader_In_Reply_To,
-      //TokenSIPMessageHeader_Max_Forwards,
+      TokenSIPMessageHeader_Max_Forwards,
       //TokenSIPMessageHeader_MIME_Version,
       //TokenSIPMessageHeader_Min_Expires,
       //TokenSIPMessageHeader_Organization,
@@ -146,13 +146,13 @@ namespace Sip0x
       //TokenSIPMessageHeader_Subject,
       //TokenSIPMessageHeader_Supported,
       //TokenSIPMessageHeader_Timestamp,
-      TokenSIPMessageHeader_To
+      TokenSIPMessageHeader_To,
       //TokenSIPMessageHeader_Unsupported,
       //TokenSIPMessageHeader_User_Agent,
-      //TokenSIPMessageHeader_Via,
+      TokenSIPMessageHeader_Via
       //TokenSIPMessageHeader_Warning,
       //TokenSIPMessageHeader_WWW_Authenticate
-    >, Token> _sequence;
+      >, TokenCRLF> _sequence;
 
     public:
       TokenSIPMessageHeader(void) : TokenAbstract("SIPMessageHeader"),
@@ -180,9 +180,9 @@ namespace Sip0x
         //TokenSIPMessageHeader_Error_Info,
         //TokenSIPMessageHeader_Expires,
         //TokenSIPMessageHeader_extension_header,
-        //TokenSIPMessageHeader_From,
+        TokenSIPMessageHeader_From,
         //TokenSIPMessageHeader_In_Reply_To,
-        //TokenSIPMessageHeader_Max_Forwards,
+        TokenSIPMessageHeader_Max_Forwards,
         //TokenSIPMessageHeader_MIME_Version,
         //TokenSIPMessageHeader_Min_Expires,
         //TokenSIPMessageHeader_Organization,
@@ -199,10 +199,10 @@ namespace Sip0x
         //TokenSIPMessageHeader_Subject,
         //TokenSIPMessageHeader_Supported,
         //TokenSIPMessageHeader_Timestamp,
-        TokenSIPMessageHeader_To
+        TokenSIPMessageHeader_To,
         //TokenSIPMessageHeader_Unsupported,
         //TokenSIPMessageHeader_User_Agent,
-        //TokenSIPMessageHeader_Via,
+        TokenSIPMessageHeader_Via
         //TokenSIPMessageHeader_Warning,
         //TokenSIPMessageHeader_WWW_Authenticate
         >
@@ -227,9 +227,9 @@ namespace Sip0x
       //TokenSIPMessageHeader_Error_Info(),
       //TokenSIPMessageHeader_Expires(),
       //TokenSIPMessageHeader_extension_header(),
-      //TokenSIPMessageHeader_From(),
+      TokenSIPMessageHeader_From(),
       //TokenSIPMessageHeader_In_Reply_To(),
-      //TokenSIPMessageHeader_Max_Forwards(),
+      TokenSIPMessageHeader_Max_Forwards(),
       //TokenSIPMessageHeader_MIME_Version(),
       //TokenSIPMessageHeader_Min_Expires(),
       //TokenSIPMessageHeader_Organization(),
@@ -246,14 +246,14 @@ namespace Sip0x
       //TokenSIPMessageHeader_Subject(),
       //TokenSIPMessageHeader_Supported(),
       //TokenSIPMessageHeader_Timestamp(),
-      TokenSIPMessageHeader_To()
+      TokenSIPMessageHeader_To(),
       //TokenSIPMessageHeader_Unsupported(),
       //TokenSIPMessageHeader_User_Agent(),
-      //TokenSIPMessageHeader_Via(),
+      TokenSIPMessageHeader_Via()
       //TokenSIPMessageHeader_Warning(),
       //TokenSIPMessageHeader_WWW_Authenticate()
         ),
-        Token("\r\n")
+        TokenCRLF()
         )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader");

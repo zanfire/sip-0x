@@ -5,7 +5,7 @@
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
 
-#include "parser/common/TokenLWS.hpp"
+
 
 #include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"

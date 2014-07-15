@@ -19,11 +19,11 @@ namespace Sip0x
     class TokenSIPURI : public TokenAbstract {
 
     protected:
-      Sequence<Token, TokenUserInfo, TokenHostport, Occurrence<Sequence<Token, TokenURIParameter>>> _sequence;
+      Sequence<TokenRegex, TokenUserInfo, TokenHostport, Occurrence<Sequence<Token, TokenURIParameter>>> _sequence;
 
     public:
       TokenSIPURI(void) : TokenAbstract("SIPURI"), _sequence(
-        Token("sip:"),
+        TokenRegex("sip[s]?:"),
         TokenUserInfo(),
         TokenHostport(),
         Occurrence<Sequence<Token, TokenURIParameter>>

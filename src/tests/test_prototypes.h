@@ -21,5 +21,6 @@ void test_token_sip_message();
 
 void test_occurrences();
 
- 
+void test_sipmessages_from_file(char const* path);
+
 #endif 

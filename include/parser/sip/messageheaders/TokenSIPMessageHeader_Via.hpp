@@ -5,7 +5,8 @@
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
 
-#include "parser/common/TokenLWS.hpp"
+
+#include "parser/common/TokenGenericParam.hpp"
 
 #include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
@@ -45,36 +46,6 @@ namespace Sip0x
       }
     };
 
-
-    // via-parm          =  sent-protocol LWS sent-by *( SEMI via-params )
-    class TokenSIPMessageHeader_Via_param : public TokenAbstract {
-
-    protected:
-      Sequence<TokenSIPMessageHeader_Via_param_sent_protocol, TokenLWS, TokenHostport, Occurrence<Token, TokenRegex>> _sequence;
-
-    public:
-      TokenSIPMessageHeader_Via_param(void) : TokenAbstract("SIPMethod"),
-        _sequence(
-        TokenSIPMessageHeader_Via_param_sent_protocol(),
-        TokenLWS(),
-        TokenHostport(),
-        Occurrence<Token, TokenRegex>(
-          Token(";"),
-          TokenRegex(),
-          0, -1
-        )
-        )
-      {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMethod");
-      }
-
-    protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
-        return r;
-      }
-    };
-
     // via-params        =  via-ttl / via-maddr
     //                      / via-received / via-branch
     //                      / via-extension
@@ -83,30 +54,58 @@ namespace Sip0x
     // via-received      =  "received" EQUAL (IPv4address / IPv6address)
     // via-branch        =  "branch" EQUAL token
     // via-extension     =  generic-param
-    class TokenSIPMessageHeader_Via_params: public TokenAbstract {
+    // ttl               =  1*3DIGIT ; 0 to 255
+    class TokenSIPMessageHeader_Via_params : public TokenAbstract {
 
     protected:
-      Alternative<
+      Alternative <
         Sequence<Token, Token, TokenRegex>,
         Sequence<Token, Token, TokenHost>,
-        Sequence<Token, Token, TokenHost>,
-        Sequence<Token, Token, TokenHost>,
-        TokenGenericParam
-      >
+        Sequence<Token, Token, TokenRegex>,
+        Sequence<Token, Token, Alternative<TokenIPv4, TokenIPv6>>,
+        TokenGenericParam> _alternative;
     public:
-      TokenSIPMessageHeader_Via_params(void) : TokenAbstract("SIPMethod"),
+      TokenSIPMessageHeader_Via_params(void) : TokenAbstract("TokenSIPMessageHeader_Via_params"),
+        _alternative(
+        Sequence<Token, Token, TokenRegex>(Token("ttl"), Token("="), TokenRegex("[0-5]{1,3}")),
+        Sequence<Token, Token, TokenHost>(Token("maddr"), Token("="), TokenHost()),
+        Sequence<Token, Token, TokenRegex>(Token("branch"), Token("="), TokenRegex(RegexConstStrings::token)),
+        Sequence<Token, Token, Alternative<TokenIPv4, TokenIPv6>>(Token("received"), Token("="), Alternative<TokenIPv4, TokenIPv6>(TokenIPv4(), TokenIPv6())),
+        TokenGenericParam()
+        )
+      {
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Via_params");
+      }
+
+    protected:
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+        ReadResult r = _alternative.read(iss);
+        return r;
+      }
+    };
+
+    // via-parm          =  sent-protocol LWS sent-by *( SEMI via-params )
+    class TokenSIPMessageHeader_Via_param : public TokenAbstract {
+
+    protected:
+      Sequence<TokenSIPMessageHeader_Via_param_sent_protocol, TokenLWS, TokenHostport, Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_params>>> _sequence;
+
+    public:
+      TokenSIPMessageHeader_Via_param(void) : TokenAbstract("SIPMethod"),
         _sequence(
         TokenSIPMessageHeader_Via_param_sent_protocol(),
         TokenLWS(),
         TokenHostport(),
-        Occurrence<Token, TokenRegex>(
-        Token(";"),
-        TokenRegex(),
-        0, -1
+        Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_params>>(
+          Sequence<Token, TokenSIPMessageHeader_Via_params>(
+            Token(";"),
+            TokenSIPMessageHeader_Via_params()
+          ),
+          0, -1
         )
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMethod");
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Via_param");
       }
 
     protected:
@@ -118,34 +117,21 @@ namespace Sip0x
 
     // Via: SIP/2.0/UDP pc33.atlanta.com;branch=z9hG4bKnashds9
     // Via               =  ( "Via" / "v" ) HCOLON via-parm *(COMMA via-parm)
-    // via-parm          =  sent-protocol LWS sent-by *( SEMI via-params )
-    // via-params        =  via-ttl / via-maddr
-    //                      / via-received / via-branch
-    //                      / via-extension
-    // via-ttl           =  "ttl" EQUAL ttl
-    // via-maddr         =  "maddr" EQUAL host
-    // via-received      =  "received" EQUAL (IPv4address / IPv6address)
-    // via-branch        =  "branch" EQUAL token
-    // via-extension     =  generic-param
-    // sent-protocol     =  protocol-name SLASH protocol-version
-    //                      SLASH transport
-    // protocol-name     =  "SIP" / token
-    // protocol-version  =  token
-    // transport         =  "UDP" / "TCP" / "TLS" / "SCTP"
-    //                      / other-transport
-    // sent-by           =  host [ COLON port ]
-    // ttl               =  1*3DIGIT ; 0 to 255
-    class TokenSIPMessageHeader_Via : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
-
-    protected:
+    class TokenSIPMessageHeader_Via : public TokenSIPMessageHeader_base<Sequence<TokenSIPMessageHeader_Via_param,  Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_param>>>> {
 
     public:
       TokenSIPMessageHeader_Via() : TokenSIPMessageHeader_base("Via", "(Via)|(v)",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
+        Sequence<TokenSIPMessageHeader_Via_param, Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_param>>>
         (
-          TokenRegex("[0-9]+"),
-          TokenLWS(),
-          TokenSIPMethod()
+          TokenSIPMessageHeader_Via_param(),
+          Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_param>>
+          (
+            Sequence<Token, TokenSIPMessageHeader_Via_param>
+            (
+              Token(","),
+              TokenSIPMessageHeader_Via_param()
+            ), 0, -1
+          )
         )
       )
       {

@@ -21,13 +21,22 @@ namespace Sip0x
       Sequence<TokenRegex, Token, Alternative<TokenRegex, TokenHost, TokenQuotedString>> _sequence;
 
     public:
-      TokenGenericParam(void) : TokenAbstract("TokenGenericParam"), _regex("LWS", "([ \\x09]*(\r\n){0,1}[ \\x09]+)") {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenLWS");
+      TokenGenericParam(void) : TokenAbstract("TokenGenericParam"), 
+        _sequence(
+          TokenRegex(RegexConstStrings::token),
+          Token("="),
+          Alternative<TokenRegex, TokenHost, TokenQuotedString>(
+            TokenRegex(RegexConstStrings::token),
+            TokenHost(),
+            TokenQuotedString()
+          )
+        ) {
+        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenGenericParam");
       }
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult result = _regex.read(iss, ctx);
+        ReadResult result = _sequence.read(iss, ctx);
         return result;
       }
     };

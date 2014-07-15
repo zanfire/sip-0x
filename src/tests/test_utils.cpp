@@ -11,7 +11,7 @@ void run_test(TokenAbstract& token, std::string input, bool exp) {
 
   if (!r.successes) {
     cout << endl;
-    for (int i = 0; i < input.length(); i++) {
+    for (int i = 0; i < (int)input.length(); i++) {
       int x = i;
       while (x < input.length()) {
         cout << input[x];
@@ -21,7 +21,10 @@ void run_test(TokenAbstract& token, std::string input, bool exp) {
 
       if (i <= r.errorpos && r.errorpos <= x) {
         cout.width(r.errorpos - i);
-        cout << endl << '^' << endl;
+        if (input[x] != '\n') {
+          cout << endl;
+        }
+        cout << '^' << endl;
       }
       i = x;
     }

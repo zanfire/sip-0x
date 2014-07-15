@@ -5,7 +5,7 @@
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
 
-#include "parser/common/TokenLWS.hpp"
+#include "parser/common/RegexConstStrings.hpp"
 
 #include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
@@ -27,17 +27,17 @@ namespace Sip0x
     //                   / ( "1" [ "." 0*3("0") ] )
     // generic-param  =  token [ EQUAL gen-value ]
     // gen-value      =  token / host / quoted-string
-    class TokenSIPMessageHeader_Accept : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    class TokenSIPMessageHeader_Accept : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenRegex, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
       TokenSIPMessageHeader_Accept() : TokenSIPMessageHeader_base("Accept", "CSeq",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
+        Sequence<TokenRegex, TokenRegex, TokenSIPMethod>
         (
           TokenRegex("[0-9]+"),
-          TokenLWS(),
+          TokenRegex("LWS", RegexConstStrings::LWS),
           TokenSIPMethod()
         )
       )

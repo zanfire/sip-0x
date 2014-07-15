@@ -22,14 +22,14 @@ namespace Sip0x
     class TokenSIPRequest : public TokenAbstract {
 
     protected:
-      Sequence<TokenSIPRequestLine, Occurrence<TokenSIPMessageHeader>, Token, TokenRegex> _sequence;
+      Sequence<TokenSIPRequestLine, Occurrence<TokenSIPMessageHeader>, TokenCRLF, TokenRegex> _sequence;
       
     public:
       TokenSIPRequest(void) : TokenAbstract("SIPRequest"),
         _sequence(
           TokenSIPRequestLine(), 
           Occurrence<TokenSIPMessageHeader>(TokenSIPMessageHeader(), 0, -1), 
-          Token("\r\n"), 
+          TokenCRLF(), 
           TokenRegex(".*")
          )
       {
