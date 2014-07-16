@@ -59,7 +59,7 @@ namespace Sip0x
 
       std::string get(int chars) {
         std::string str = _content.substr(_pos, chars);
-        _pos += _content.length();
+        _pos += str.length();
         return str;
       }
 

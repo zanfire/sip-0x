@@ -29,6 +29,8 @@ namespace Sip0x
       const static std::string unreserved;
       const static std::string escaped;
 
+      const static std::string qvalue;
+
       const static std::string sip_user_unreserved;
       const static std::string sip_password_unreserved;
       const static std::string sip_param_unreserved;

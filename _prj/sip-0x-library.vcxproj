@@ -16,12 +16,14 @@
     <ClInclude Include="..\include\parser\base\Operators.hpp" />
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
     <ClInclude Include="..\include\parser\base\Sequence.hpp" />
+    <ClInclude Include="..\include\parser\base\TokenOctects.hpp" />
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp" />
     <ClInclude Include="..\include\parser\common\TokenAbsoluteURI.hpp" />
     <ClInclude Include="..\include\parser\common\TokenGenericParam.hpp" />
     <ClInclude Include="..\include\parser\common\TokenHostport.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv4.hpp" />
     <ClInclude Include="..\include\parser\common\TokenIPv6.hpp" />
+    <ClInclude Include="..\include\parser\common\TokenMType.hpp" />
     <ClInclude Include="..\include\parser\common\TokenNameAddr.hpp" />
     <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp" />
     <ClInclude Include="..\include\parser\common\TokenPresets.hpp" />

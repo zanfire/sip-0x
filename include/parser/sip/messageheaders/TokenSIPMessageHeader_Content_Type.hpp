@@ -5,9 +5,9 @@
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
 
+#include "parser/common/TokenMType.hpp"
+#include "parser/common/TokenQuotedString.hpp"
 
-
-#include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
 
 namespace Sip0x
@@ -16,32 +16,36 @@ namespace Sip0x
   {
     // Content-Type     =  ( "Content-Type" / "c" ) HCOLON media-type
     // media-type       =  m-type SLASH m-subtype *(SEMI m-parameter)
-    // m-type           =  discrete-type / composite-type
-    // discrete-type    =  "text" / "image" / "audio" / "video"
-    //                     / "application" / extension-token
-    // composite-type   =  "message" / "multipart" / extension-token
-    // extension-token  =  ietf-token / x-token
-    // ietf-token       =  token
-    // x-token          =  "x-" token
     // m-subtype        =  extension-token / iana-token
     // iana-token       =  token
     // m-parameter      =  m-attribute EQUAL m-value
     // m-attribute      =  token
     // m-value          =  token / quoted-string
-    class TokenSIPMessageHeader_Content_Type : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>>{
-
-    protected:
+    class TokenSIPMessageHeader_Content_Type : public TokenSIPMessageHeader_base < Sequence<TokenMType, TokenSLASH, TokenRegex, Occurrence<Sequence<TokenSEMI, Sequence<TokenRegex, TokenEQUAL, Alternative<TokenRegex, TokenQuotedString>>>> > > {
 
     public:
       //
       TokenSIPMessageHeader_Content_Type() : TokenSIPMessageHeader_base("Content-Type", "(Content\\-Type)|(c)",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
+        Sequence<TokenMType, TokenSLASH, TokenRegex, Occurrence<Sequence<TokenSEMI, Sequence<TokenRegex, TokenEQUAL, Alternative<TokenRegex, TokenQuotedString>>>>>
         (
-          TokenRegex("[0-9]+"),
-          TokenLWS(),
-          TokenSIPMethod()
+          TokenMType(),
+          TokenSLASH(),
+          TokenRegex("(" + RegexConstStrings::token + ")|(x\\-" + RegexConstStrings::token + ")"),
+          Occurrence<Sequence<TokenSEMI, Sequence<TokenRegex, TokenEQUAL, Alternative<TokenRegex, TokenQuotedString>>>>
+          (
+            Sequence<TokenSEMI, Sequence<TokenRegex, TokenEQUAL, Alternative<TokenRegex, TokenQuotedString>>>
+            (
+              TokenSEMI(),
+              Sequence<TokenRegex, TokenEQUAL, Alternative<TokenRegex, TokenQuotedString>>
+              (
+                  TokenRegex(RegexConstStrings::token),
+                  TokenEQUAL(),
+                  Alternative<TokenRegex, TokenQuotedString>(TokenRegex(RegexConstStrings::token), TokenQuotedString())
+              )
+            ), 0, -1
+          )
         )
-      )
+        )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }

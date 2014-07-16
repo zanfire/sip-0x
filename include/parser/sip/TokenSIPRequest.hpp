@@ -22,15 +22,14 @@ namespace Sip0x
     class TokenSIPRequest : public TokenAbstract {
 
     protected:
-      Sequence<TokenSIPRequestLine, Occurrence<TokenSIPMessageHeader>, TokenCRLF, TokenRegex> _sequence;
+      Sequence<TokenSIPRequestLine, Occurrence<TokenSIPMessageHeader>, TokenCRLF> _sequence;
       
     public:
       TokenSIPRequest(void) : TokenAbstract("SIPRequest"),
         _sequence(
           TokenSIPRequestLine(), 
           Occurrence<TokenSIPMessageHeader>(TokenSIPMessageHeader(), 0, -1), 
-          TokenCRLF(), 
-          TokenRegex(".*")
+          TokenCRLF()
          )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPRequest");

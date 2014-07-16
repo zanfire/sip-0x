@@ -18,13 +18,13 @@ namespace Sip0x
     class TokenGenericParam : public TokenAbstract {
 
     protected:
-      Sequence<TokenRegex, Token, Alternative<TokenRegex, TokenHost, TokenQuotedString>> _sequence;
+      Sequence<TokenRegex, TokenEQUAL, Alternative<TokenRegex, TokenHost, TokenQuotedString>> _sequence;
 
     public:
       TokenGenericParam(void) : TokenAbstract("TokenGenericParam"), 
         _sequence(
           TokenRegex(RegexConstStrings::token),
-          Token("="),
+          TokenEQUAL(),
           Alternative<TokenRegex, TokenHost, TokenQuotedString>(
             TokenRegex(RegexConstStrings::token),
             TokenHost(),

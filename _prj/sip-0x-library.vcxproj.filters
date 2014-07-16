@@ -279,6 +279,12 @@
     <ClInclude Include="..\include\parser\common\TokenAbsoluteURI.hpp">
       <Filter>parser\common</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\parser\common\TokenMType.hpp">
+      <Filter>parser\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\base\TokenOctects.hpp">
+      <Filter>parser\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

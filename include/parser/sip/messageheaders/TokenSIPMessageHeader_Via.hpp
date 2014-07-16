@@ -88,17 +88,17 @@ namespace Sip0x
     class TokenSIPMessageHeader_Via_param : public TokenAbstract {
 
     protected:
-      Sequence<TokenSIPMessageHeader_Via_param_sent_protocol, TokenLWS, TokenHostport, Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_params>>> _sequence;
+      Sequence<TokenSIPMessageHeader_Via_param_sent_protocol, TokenLWS, TokenHostport, Occurrence<Sequence<TokenSEMI, TokenSIPMessageHeader_Via_params>>> _sequence;
 
     public:
-      TokenSIPMessageHeader_Via_param(void) : TokenAbstract("SIPMethod"),
+      TokenSIPMessageHeader_Via_param(void) : TokenAbstract("TokenSIPMessageHeader_Via_param_sent_protocol"),
         _sequence(
         TokenSIPMessageHeader_Via_param_sent_protocol(),
         TokenLWS(),
         TokenHostport(),
-        Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_params>>(
-          Sequence<Token, TokenSIPMessageHeader_Via_params>(
-            Token(";"),
+        Occurrence<Sequence<TokenSEMI, TokenSIPMessageHeader_Via_params>>(
+          Sequence<TokenSEMI, TokenSIPMessageHeader_Via_params>(
+            TokenSEMI(),
             TokenSIPMessageHeader_Via_params()
           ),
           0, -1

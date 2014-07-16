@@ -41,6 +41,28 @@ namespace Sip0x
       TokenSEMI() : TokenRegex("SEMI", RegexConstStrings::SEMI) {}
     };
 
+    class TokenSLASH : public TokenRegex {
+    public:
+      TokenSLASH() : TokenRegex("SLASH", RegexConstStrings::SLASH) {}
+    };
+
+    class TokenSTAR : public TokenRegex {
+    public:
+      TokenSTAR() : TokenRegex("STAR", RegexConstStrings::STAR) {}
+    };
+
+    class TokenCOMMA : public TokenRegex {
+    public:
+      TokenCOMMA() : TokenRegex("COMMA", RegexConstStrings::COMMA) {}
+    };
+
+
+    class TokenEQUAL : public TokenRegex {
+    public:
+      TokenEQUAL() : TokenRegex("EQUAL", RegexConstStrings::EQUAL) {}
+    };
+
+
     class TokenCRLF : public TokenRegex {
     public:
       TokenCRLF() : TokenRegex("CRLF", RegexConstStrings::CRLF) {}

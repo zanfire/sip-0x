@@ -13,7 +13,7 @@ using namespace std;
 void test_sipmessages_from_file(char const* path) {
   std::shared_ptr<Logger> logger = LoggerManager::get_logger("Test.sipmessages");
 
-  TokenSIPRequest sip;
+  TokenSIPMessage sip;
 
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.is_open()) {

@@ -88,6 +88,13 @@ void test_token_sip_message() {
   TokenSIPMessageHeader_From from;
   run_test(from, "From: Alice <sip:alice@atlanta.com>;tag=1928301774", true);
 
+  TokenSIPMessageHeader_Contact_param contact_param;
+  run_test(contact_param, "<sip:alice@pc33.atlanta.com>", true);
+
+  TokenSIPMessageHeader_Contact contact;
+  run_test(contact, "Contact: <sip:alice@pc33.atlanta.com>", true);
+
+
 
   TokenSIPRequest sip;
   std::string str = "ACK sip:bob@192.0.2.4 SIP/2.0\r\n";

@@ -12,11 +12,21 @@ namespace Sip0x
     const std::string RegexConstStrings::CRLF = "(\\r\\n)";
     const std::string RegexConstStrings::DQUOTE = "(\\x22)";
 
-    const std::string RegexConstStrings::STAR    = "(" + SWS + "*" + SWS + ")"; // asterisk
+    // LWS  =  [*WSP CRLF] 1*WSP ; linear whitespace
+    // SWS  =  [LWS] ; sep whitespace
+    const std::string RegexConstStrings::WSP = "(" + SP + "|" + HTAB + ")";
+    const std::string RegexConstStrings::LWS = "((" + WSP + "*" + CRLF + "){0,1}" + WSP + "+)";
+    const std::string RegexConstStrings::SWS = "(" + LWS + "{0,1})";
+
+    //qvalue         =  ( "0" [ "." 0*3DIGIT ] ) / ( "1" [ "." 0*3("0") ] )
+    const std::string RegexConstStrings::qvalue = "((0(.[0-9]{0,3})?)|(0(.0{0,3})?))";
+
+
+    const std::string RegexConstStrings::STAR    = "(" + SWS + "\\*" + SWS + ")"; // asterisk
     const std::string RegexConstStrings::SLASH   = "(" + SWS + "/" + SWS + ")"; // slash
     const std::string RegexConstStrings::EQUAL   = "(" + SWS + "=" + SWS + ")"; // equal
-    const std::string RegexConstStrings::LPAREN  = "(" + SWS + "(" + SWS + ")"; // left parenthesis
-    const std::string RegexConstStrings::RPAREN  = "(" + SWS + ")" + SWS + ")"; // right parenthesis
+    const std::string RegexConstStrings::LPAREN  = "(" + SWS + "\\(" + SWS + ")"; // left parenthesis
+    const std::string RegexConstStrings::RPAREN  = "(" + SWS + "\\)" + SWS + ")"; // right parenthesis
     const std::string RegexConstStrings::RAQUOT  = "(>" + SWS + ")";       // right angle quote
     const std::string RegexConstStrings::LAQUOT  = "(" + SWS + "<)";       // left angle quote
     const std::string RegexConstStrings::COMMA   = "(" + SWS + "," + SWS + ")"; // comma
@@ -24,15 +34,6 @@ namespace Sip0x
     const std::string RegexConstStrings::COLON   = "(" + SWS + ":" + SWS + ")"; // colon
     const std::string RegexConstStrings::LDQUOT  = "(" + SWS + DQUOTE + ")";    // open double quotation mark
     const std::string RegexConstStrings::RDQUOT  = "(" + DQUOTE + SWS + ")";    // close double quotation mark
-
-
-
-
-    // LWS  =  [*WSP CRLF] 1*WSP ; linear whitespace
-    // SWS  =  [LWS] ; sep whitespace
-    const std::string RegexConstStrings::WSP = "(" + SP + "|" + HTAB + ")";
-    const std::string RegexConstStrings::LWS = "((" + WSP + "*" + CRLF  + "){0,1}" + WSP + "+)";
-    const std::string RegexConstStrings::SWS = "(" + LWS + "{0,1})";
 
     // HCOLON = *(SP / HTAB) ":" SWS
     const std::string RegexConstStrings::HCOLON = "(" + WSP + "*:" + SWS + ")";

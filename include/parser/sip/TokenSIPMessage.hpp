@@ -4,6 +4,7 @@
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
+#include "parser/base/TokenOctects.hpp"
 
 #include "parser/common/RegexConstStrings.hpp"
 
@@ -17,17 +18,20 @@ namespace Sip0x
     class TokenSIPMessage : public TokenAbstract {
 
     protected:
-      Alternative<TokenSIPRequest, TokenSIPResponse> _alternative;
+      Sequence<Alternative<TokenSIPRequest, TokenSIPResponse>, Occurrence<TokenOctects>> _sequence;
       
     public:
-      TokenSIPMessage(void) : TokenAbstract("SIPMessage"), _alternative(TokenSIPRequest(), TokenSIPResponse())
+      TokenSIPMessage(void) : TokenAbstract("SIPMessage"),
+        _sequence(
+        Alternative<TokenSIPRequest, TokenSIPResponse>(TokenSIPRequest(), TokenSIPResponse()), 
+        Occurrence<TokenOctects>(TokenOctects(), 0, 1))
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessage");
       }
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _alternative.read(iss);
+        ReadResult r = _sequence.read(iss);
         return r;
       }
     };
