@@ -94,14 +94,4 @@ void test_token_sip_message() {
   TokenSIPMessageHeader_Contact contact;
   run_test(contact, "Contact: <sip:alice@pc33.atlanta.com>", true);
 
-
-
-  TokenSIPRequest sip;
-  std::string str = "ACK sip:bob@192.0.2.4 SIP/2.0\r\n";
-  str += "CSeq: 1 INVITE\r\n";
-  str += "Via: SIP/2.0/UDP pc33.atlanta.com;branch=z9hG4bKnashds9\r\n";
-  str += "Content-Length: 0\r\n";
-  str += "\r\n";
-
-  run_test(sip, str, true);
 }

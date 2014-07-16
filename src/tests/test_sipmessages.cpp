@@ -15,6 +15,8 @@ void test_sipmessages_from_file(char const* path) {
 
   TokenSIPMessage sip;
 
+  cout << "parser size: " << sizeof(sip) << endl;
+
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.is_open()) {
     ERROR(logger, "Failed to open INI file [%s].", path);

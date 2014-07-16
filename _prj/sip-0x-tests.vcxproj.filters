@@ -30,5 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\tests\sip_requests.txt" />
+    <Text Include="..\tests\sip_responses.txt" />
   </ItemGroup>
 </Project>

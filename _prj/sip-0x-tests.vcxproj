@@ -30,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\tests\sip_requests.txt" />
+    <Text Include="..\tests\sip_responses.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{90F1A38E-1AA7-433A-B7D6-9B4F4AAE8C7E}</ProjectGuid>

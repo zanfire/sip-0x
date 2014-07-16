@@ -8,8 +8,9 @@
 
 #include "parser/common/RegexConstStrings.hpp"
 
-#include "parser/sip/TokenSIPRequest.hpp"
-#include "parser/sip/TokenSIPResponse.hpp"
+#include "parser/sip/TokenSIPRequestLine.hpp"
+#include "parser/sip/TokenSIPStatusLine.hpp"
+#include "parser/sip/TokenSIPMessageHeader.hpp"
 
 namespace Sip0x
 {
@@ -18,12 +19,14 @@ namespace Sip0x
     class TokenSIPMessage : public TokenAbstract {
 
     protected:
-      Sequence<Alternative<TokenSIPRequest, TokenSIPResponse>, Occurrence<TokenOctects>> _sequence;
+      Sequence<Alternative<TokenSIPRequestLine, TokenSIPStatusLine>, Occurrence<TokenSIPMessageHeader>, TokenCRLF, Occurrence<TokenOctects>> _sequence;
       
     public:
       TokenSIPMessage(void) : TokenAbstract("SIPMessage"),
         _sequence(
-        Alternative<TokenSIPRequest, TokenSIPResponse>(TokenSIPRequest(), TokenSIPResponse()), 
+        Alternative<TokenSIPRequestLine, TokenSIPStatusLine>(TokenSIPRequestLine(), TokenSIPStatusLine()),
+        Occurrence<TokenSIPMessageHeader>(TokenSIPMessageHeader(), 0, -1),
+        TokenCRLF(),
         Occurrence<TokenOctects>(TokenOctects(), 0, 1))
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessage");

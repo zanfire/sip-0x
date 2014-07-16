@@ -108,12 +108,6 @@
     <ClInclude Include="..\include\parser\sip\TokenSIPMessage.hpp">
       <Filter>parser\sip</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPRequest.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPResponse.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\parser\sip\TokenSIPMessageHeader.hpp">
       <Filter>parser\sip</Filter>
     </ClInclude>
@@ -284,6 +278,9 @@
     </ClInclude>
     <ClInclude Include="..\include\parser\base\TokenOctects.hpp">
       <Filter>parser\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenSIPStatusLine.hpp">
+      <Filter>parser\sip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

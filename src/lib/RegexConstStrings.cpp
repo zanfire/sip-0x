@@ -60,7 +60,8 @@ namespace Sip0x
     const std::string RegexConstStrings::TEXT_UTF8_TRIM = "(" + TEXT_UTF8char + "+(" + LWS + "*" + TEXT_UTF8char + "*))";
 
     const std::string RegexConstStrings::token = "([A-Za-z-0-9\\-_\\.\\!\\%\\*\\+`\\'\\~]+)";
-
+    // ";" / "/" / "?" / ":" / "@" / "&" / "=" / "+" / "$" / ","
+    const std::string RegexConstStrings::reserved = "([\\;\\/\\?\\:\\@\\&\\=\\+\\$\\,])";
     const std::string RegexConstStrings::unreserved = "([A-Za-z-0-9]|[\\-_\\.\\!\\~\\*\\'\\|])";
     const std::string RegexConstStrings::escaped = "(%[0-9a-fA-F][0-9a-fA-F])";
 

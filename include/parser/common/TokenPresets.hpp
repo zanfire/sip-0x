@@ -62,6 +62,11 @@ namespace Sip0x
       TokenEQUAL() : TokenRegex("EQUAL", RegexConstStrings::EQUAL) {}
     };
 
+    class TokenSP : public TokenRegex {
+    public:
+      TokenSP() : TokenRegex("SP", RegexConstStrings::SP) {}
+    };
+
 
     class TokenCRLF : public TokenRegex {
     public:

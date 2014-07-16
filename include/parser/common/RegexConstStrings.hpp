@@ -26,6 +26,7 @@ namespace Sip0x
       //const static std::string separators;
       const static std::string word;
 
+      const static std::string reserved;
       const static std::string unreserved;
       const static std::string escaped;
 

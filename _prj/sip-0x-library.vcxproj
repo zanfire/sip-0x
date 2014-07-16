@@ -80,9 +80,8 @@
     <ClInclude Include="..\include\parser\sip\TokenSIPMessage.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenSIPMessageHeader.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenSIPMethod.hpp" />
-    <ClInclude Include="..\include\parser\sip\TokenSIPRequest.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenSIPRequestLine.hpp" />
-    <ClInclude Include="..\include\parser\sip\TokenSIPResponse.hpp" />
+    <ClInclude Include="..\include\parser\sip\TokenSIPStatusLine.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenSIPURI.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenSIPVersion.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenURIParameter.hpp" />
