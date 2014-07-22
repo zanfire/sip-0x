@@ -38,7 +38,7 @@ void test_sipmessages_from_file(char const* path) {
       reading_content = true;
     }
     else if (reading_content && line.compare(end_marker) == 0) {
-      run_test(sip, content, true);
+      run_test(sip, content, true, true);
       reading_content = false;
     }
     else if (reading_content) {

@@ -38,7 +38,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult result = _sequence.read(iss, ctx);
         return result;
       }
@@ -58,7 +58,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult result = _alternative.read(iss, ctx);
         return result;
       }
@@ -70,15 +70,15 @@ namespace Sip0x
     class TokenHostport: public TokenAbstract {
 
     protected:
-      Sequence<TokenHost, Occurrence<Sequence<Token, TokenRegex>>> _sequence;
+      Sequence<TokenHost, Occurrence<Sequence<Token, TokenDigits>>> _sequence;
     public:
       TokenHostport(void) : TokenAbstract("hostport"), _sequence(TokenHost(), 
-        Occurrence<Sequence<Token, TokenRegex>>
+        Occurrence<Sequence<Token, TokenDigits>>
         (
-          Sequence<Token, TokenRegex>
+        Sequence<Token, TokenDigits>
           (
             Token(":"),
-            TokenRegex("[0-9]+")
+            TokenDigits()
           ), 0, 1
         )
       ) {
@@ -89,7 +89,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult result = _sequence.read(iss, ctx);
         return result;
       }

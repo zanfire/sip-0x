@@ -6,6 +6,7 @@
 #include "parser/base/Token.hpp"
 #include "parser/base/TokenRegex.hpp"
 
+#include "parser/factory/FactoryContextSIPVersion.hpp"
 
 namespace Sip0x
 {
@@ -15,11 +16,11 @@ namespace Sip0x
     class TokenSIPVersion : public TokenAbstract {
 
     protected:
-      Sequence<Token, TokenRegex, Token, TokenRegex> _sequence;
+      Sequence<Token, TokenDigits, Token, TokenDigits> _sequence;
       
     public:
       TokenSIPVersion(void) : TokenAbstract("SIPResponse"), 
-        _sequence(Token("SIP/"), TokenRegex("[0-9]+"), Token("."), TokenRegex("[0-9]+"))
+        _sequence(Token("SIP/"), TokenDigits(), Token("."), TokenDigits())
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPVersion");
       }
@@ -27,9 +28,12 @@ namespace Sip0x
       virtual ~TokenSIPVersion(void) { }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
-        return r;
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        return _sequence.read(iss, ctx);
+      }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextSIPVersion();
       }
     };
   }

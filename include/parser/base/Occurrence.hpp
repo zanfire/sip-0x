@@ -24,15 +24,13 @@ namespace Sip0x
         DEBUG(_logger, "Destroying OpOccurrence@%p.", this);
       }
 
-      virtual void set_parent(TokenAbstract* parent) override {
-        _parent = parent;
-        _token.set_parent(parent);
-        // for each 
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override{
+        return nullptr;
       }
 
     protected:
    
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         
         int occurrence = 0;
         ReadResult output(false);

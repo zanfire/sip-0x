@@ -80,13 +80,13 @@ void test_token_sipuri() {
 void test_token_sip_message() {
   TokenSIPRequestLine rl;
 
-  run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.0\r\n", true);
+  run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.0\r\n", true, true);
   run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.1\r\n", true);
   run_test(rl, "INVITE   sip:matteo@domain.cmx SIP/2.0\r\n", false);
   run_test(rl, "INVITE sip:matteo@domain.cmx XSIP/2.0\r\n", false);
 
   TokenSIPMessageHeader_From from;
-  run_test(from, "From: Alice <sip:alice@atlanta.com>;tag=1928301774", true);
+  run_test(from, "From: Alice <sip:alice@atlanta.com>;tag=1928301774", true, true);
 
   TokenSIPMessageHeader_Contact_param contact_param;
   run_test(contact_param, "<sip:alice@pc33.atlanta.com>", true);

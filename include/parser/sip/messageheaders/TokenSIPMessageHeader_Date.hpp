@@ -35,7 +35,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Date() : TokenSIPMessageHeader_base("Date", "Date",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

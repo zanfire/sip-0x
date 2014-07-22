@@ -36,7 +36,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Accept() : TokenSIPMessageHeader_base("Accept", "CSeq",
         Sequence<TokenRegex, TokenRegex, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenRegex("LWS", RegexConstStrings::LWS),
           TokenSIPMethod()
         )

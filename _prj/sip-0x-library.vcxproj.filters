@@ -31,17 +31,11 @@
     <Filter Include="parser\sip\messageheaders">
       <UniqueIdentifier>{575f30cd-ed48-4a39-87e7-58ba9b4d06ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="parser\factory">
+      <UniqueIdentifier>{e0ea007a-235d-4039-9dde-df091498e4ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\protocol\Request.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\Response.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\Message.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp">
       <Filter>parser\base</Filter>
     </ClInclude>
@@ -281,6 +275,36 @@
     </ClInclude>
     <ClInclude Include="..\include\parser\sip\TokenSIPStatusLine.hpp">
       <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPMessage.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPRequest.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPResponse.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPMessageHeader.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPMethod.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIP.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContext.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContextValue.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPVersion.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPVersion.hpp">
+      <Filter>parser\factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -40,7 +40,7 @@ namespace Sip0x
       virtual ~TokenSIPURI(void) {
       }
 
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult result = _sequence.read(iss, ctx);
         return result;
       }

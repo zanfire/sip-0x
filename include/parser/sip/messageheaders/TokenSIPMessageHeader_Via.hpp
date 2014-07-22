@@ -40,8 +40,8 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ReadResult r = _sequence.read(iss, ctx);
         return r;
       }
     };
@@ -78,8 +78,8 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _alternative.read(iss);
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ReadResult r = _alternative.read(iss, ctx);
         return r;
       }
     };
@@ -109,8 +109,8 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ReadResult r = _sequence.read(iss, ctx);
         return r;
       }
     };

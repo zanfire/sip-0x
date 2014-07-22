@@ -1,9 +1,9 @@
 #include "test_prototypes.h"
 
-void run_test(TokenAbstract& token, std::string input, bool exp) {
+void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
   cout << "Parsing string \"" << input << "\" .................. ";
   
-  Sip0x::Parser::ReadResult r = Sip0x::Parser::parse(input, token);
+  Sip0x::Parser::ReadResult r = Sip0x::Parser::parse(input, token, factory);
 
   cout << "res: " << ((r.successes) ? "OK" : "KO");
   cout << ", exp: " << ((exp) ? "OK" : "KO");
@@ -13,7 +13,7 @@ void run_test(TokenAbstract& token, std::string input, bool exp) {
     cout << endl;
     for (int i = 0; i < (int)input.length(); i++) {
       int x = i;
-      while (x < input.length()) {
+      while (x < (int)input.length()) {
         cout << input[x];
         if (input[x] == '\n') break;
         x++;

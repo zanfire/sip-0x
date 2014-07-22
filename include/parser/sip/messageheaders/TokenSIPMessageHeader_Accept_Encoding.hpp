@@ -20,16 +20,16 @@ namespace Sip0x
     // encoding         =  codings *(SEMI accept-param)
     // codings          =  content-coding / "*"
     // content-coding   =  token
-    class TokenSIPMessageHeader_Accept_Encoding : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    class TokenSIPMessageHeader_Accept_Encoding : public TokenSIPMessageHeader_base<Sequence<TokenDigits, TokenLWS, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
       TokenSIPMessageHeader_Accept_Encoding() : TokenSIPMessageHeader_base("Accept-Encoding", "Accept\\-Encoding",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
+        Sequence<TokenDigits, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

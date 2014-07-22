@@ -25,7 +25,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Allow() : TokenSIPMessageHeader_base("Allow", "Allow",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

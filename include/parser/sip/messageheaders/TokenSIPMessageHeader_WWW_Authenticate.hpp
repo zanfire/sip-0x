@@ -16,16 +16,16 @@ namespace Sip0x
   {
 
     // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenDigits, TokenLWS, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
       TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
+        Sequence<TokenDigits, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

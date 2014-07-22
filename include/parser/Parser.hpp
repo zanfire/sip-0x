@@ -1,7 +1,6 @@
 #if !defined(SIP0X_PARSER_PARSER_HPP__)
 #define SIP0X_PARSER_PARSER_HPP__
 
-#include <tuple>
 #include <vector>
 #include <sstream>
 #include <iostream>
@@ -9,6 +8,7 @@
 
 #include "parser/base/TokenAbstract.hpp"
 
+#include "parser/factory/FactoryContext.hpp"
 #include "utils/log/Logger.hpp"
 #include "utils/log/LoggerManager.hpp"
 
@@ -18,13 +18,18 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-    static ReadResult parse(std::string text, TokenAbstract& root) {
+    static ReadResult parse(std::string text, TokenAbstract& root, bool factory = false) {
       std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
 
       DEBUG(logger, "Parsing string \"%s\".", text.c_str());
 
+      FactoryContext* ctx = nullptr;
+      if (factory) {
+        ctx = new FactoryContext();
+      }
+
       Sip0x::Utils::InputTokenStream iss(text);
-      ReadResult result = root.read(iss);
+      ReadResult result = root.read(iss, ctx);
 
       if (result.successes && iss.eof()) {
         DEBUG(logger, "Parsing successes, remains: %d, pos %d.", iss.remains(), iss.pos());

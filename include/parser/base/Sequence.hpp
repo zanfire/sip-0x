@@ -7,6 +7,8 @@ namespace Sip0x
 {
   namespace Parser
   {
+    /// 
+
     // Generic definition.
     template<typename... Arguments>
     class Sequence;
@@ -34,13 +36,17 @@ namespace Sip0x
       Sequence<First> const& rest(void) const {
         return *this;
       }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return nullptr;
+      }
     };
 
     /// Recursion definition...
     template<typename First, typename ... Rest>
     class Sequence<First, Rest...> : public Sequence<Rest...> {
     protected:
-      // Reference to the first elemenet of the variadic template.
+      // Reference to the first element of the variadic template.
       First member;
     
     public:
@@ -61,20 +67,14 @@ namespace Sip0x
         return *this;
       }
 
-      
-      virtual void set_parent(TokenAbstract* parent) override {
-        _parent = parent;
-        set_parent_variadic(parent, first(), rest());
-        // for each 
-      }
-
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+
         return processing(iss, ctx, first(), rest());
       }
 
       template<typename F, typename R>
-      ReadResult processing(Sip0x::Utils::InputTokenStream& iss, void* ctx, F const* f, R const& r) const {
+      ReadResult processing(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
         
         DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 
@@ -85,7 +85,6 @@ namespace Sip0x
           }
           return result;
         }
-        
       
         if ((void*)f != (void*)r.first()) {
           return processing(iss, ctx, r.first(), r.rest());

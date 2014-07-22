@@ -6,6 +6,8 @@
 #include "parser/base/Token.hpp"
 #include "parser/base/TokenRegex.hpp"
 
+#include "parser/factory/FactoryContextValue.hpp"
+
 
 namespace Sip0x
 {
@@ -15,7 +17,6 @@ namespace Sip0x
     class TokenSIPMethod : public TokenAbstract {
 
     protected:
-      // it is magic ... no is nested template.
       Alternative<Token, Token, Token, Token, Token, Token,  TokenRegex> _alternative;
       
     public:
@@ -34,9 +35,14 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _alternative.read(iss);
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ReadResult r = _alternative.read(iss, ctx);
         return r;
+      }
+
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextSIPMethod();
       }
     };
   }

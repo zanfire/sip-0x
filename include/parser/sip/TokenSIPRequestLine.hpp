@@ -10,27 +10,29 @@
 #include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/TokenSIPVersion.hpp"
 
+//#include "parser/factory/FactoryContextSIPRequestLine.hpp"
+
 namespace Sip0x
 {
   namespace Parser
   {
 
-    // Request-Line   =  Method SP Request-URI SP SIP-Version CRLF
     // Request-URI    =  SIP-URI / SIPS-URI / absoluteURI
+    // Request-Line   =  Method SP Request-URI SP SIP-Version CRLF
     class TokenSIPRequestLine : public TokenAbstract {
 
     protected:
       // TODO: SIPURI should be replaced by RequestURI.
-      Sequence<TokenSIPMethod, Token, TokenSIPURI , Token, TokenSIPVersion, TokenCRLF> _sequence;
+      Sequence<TokenSIPMethod, TokenSP, TokenSIPURI , TokenSP, TokenSIPVersion, TokenCRLF> _sequence;
       
     public:
-      TokenSIPRequestLine(void) : TokenAbstract("SIPRequestLine"), 
+      TokenSIPRequestLine() : TokenAbstract("SIPRequestLine"), 
         _sequence
         (
           TokenSIPMethod(),
-          Token(" "),
+          TokenSP(),
           TokenSIPURI(),
-          Token(" "),
+          TokenSP(),
           TokenSIPVersion(),
           TokenCRLF()
         )
@@ -41,10 +43,10 @@ namespace Sip0x
       virtual ~TokenSIPRequestLine(void) { }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
-        return r;
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        return _sequence.read(iss, ctx);
       }
+
     };
   }
 }

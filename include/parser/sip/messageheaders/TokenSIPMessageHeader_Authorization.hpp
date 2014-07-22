@@ -50,7 +50,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Authorization() : TokenSIPMessageHeader_base("Authorization", "Authorization",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

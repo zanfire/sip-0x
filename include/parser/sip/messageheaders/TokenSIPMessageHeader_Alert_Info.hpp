@@ -26,7 +26,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Alert_Info() : TokenSIPMessageHeader_base("Alert-Info", "Alert\\-Info",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

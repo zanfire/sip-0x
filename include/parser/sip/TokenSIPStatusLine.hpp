@@ -108,8 +108,8 @@ namespace Sip0x
       virtual ~TokenSIPStatusLine(void) { }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ReadResult r = _sequence.read(iss, ctx);
         return r;
       }
     };

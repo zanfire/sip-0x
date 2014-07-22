@@ -6,6 +6,8 @@
 #include "parser/base/TokenRegex.hpp"
 #include "parser/base/TokenOctects.hpp"
 
+
+
 #include "parser/common/RegexConstStrings.hpp"
 
 #include "parser/sip/TokenSIPRequestLine.hpp"
@@ -33,9 +35,8 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        ReadResult r = _sequence.read(iss);
-        return r;
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        return _sequence.read(iss, ctx);
       }
     };
   }

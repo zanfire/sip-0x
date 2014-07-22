@@ -1,16 +1,15 @@
-#if !defined(SIP0X_PARSER_PARSERABSTRACT_HPP__)
-#define SIP0X_PARSER_PARSERABSTRACT_HPP__
+#if !defined(SIP0X_PARSER_TOKENABSTRACT_HPP__)
+#define SIP0X_PARSER_TOKENABSTRACT_HPP__
 
-#include <tuple>
-#include <vector>
-#include <sstream>
-#include <iostream>
+#include <string>
 #include <algorithm>
 
 #include "parser/base/ReadResult.hpp"
+#include "parser/factory/FactoryContext.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
+
 #include "utils/InputTokenStream.hpp"
 
 namespace Sip0x
@@ -18,16 +17,13 @@ namespace Sip0x
   namespace Parser
   {
     using namespace Sip0x::Utils::Log;
+    class FactoryContext;
 
     class TokenAbstract {
 
     protected:
       std::string _name;
       std::shared_ptr<Logger> _logger;
-
-      // Set a parent token.
-      // This reference is needed to create a sub-peace of an larger structure provided by the parent.
-      TokenAbstract* _parent = nullptr;
 
     public:
       TokenAbstract(std::string name) : _name(name) {
@@ -40,7 +36,7 @@ namespace Sip0x
       //  0: result (true or false)
       //  1: parsed string.
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  read(Sip0x::Utils::InputTokenStream& iss, void* ctx = nullptr) const {
+      virtual ReadResult  read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx = nullptr) const {
         ReadResult output;
         
         if (iss.eof()) {
@@ -51,8 +47,9 @@ namespace Sip0x
         int initial_pos = iss.pos();
         
         DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
-        
-        output = handle_read(iss, ctx);
+
+        FactoryContext* factory = create_factory(ctx);
+        output = handle_read(iss, factory != nullptr ? factory : ctx);
 
         if (output.successes) {
           int delta = iss.pos() - initial_pos;
@@ -60,10 +57,6 @@ namespace Sip0x
           DEBUG(_logger, "Consumed chars %d during parsing, parsed %s.", delta, parsed.c_str());
 
           output.parsed = parsed;
-
-          if (_parent != nullptr) {
-            _parent->handle_on_success(this, output, ctx);
-          }
         }
         else {
           iss.seekg(initial_pos);
@@ -73,6 +66,16 @@ namespace Sip0x
             output.set_error(initial_pos, "Failed parsing token " + std::string(get_name()));
           }
         }
+
+        if (output.successes) {
+          if (factory != nullptr) {
+            factory->create(this, output);
+            ctx->add_child(factory);
+          }
+        }
+        else {
+          delete factory;
+        }
         return output;
       }
 
@@ -80,18 +83,18 @@ namespace Sip0x
       std::string const& get_name(void) const { return _name; }
 
 
-      virtual void set_parent(TokenAbstract* parent) {
-        _parent = parent;
-      }
-
       // Returns a tuple with:
       //  0: result (true or false)
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const = 0;
+      virtual ReadResult  handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const = 0;
 
-      virtual void handle_on_success(TokenAbstract const* token, ReadResult const& result, void* ctx) {}
+      // Factory event
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const {
+        return new FactoryContext();
+      }
     };
   }
 }
 
-#endif // SIP0X_PARSER_PARSERABSTRACT_HPP__
+#endif // SIP0X_PARSER_TOKENABSTRACT_HPP__

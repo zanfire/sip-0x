@@ -27,6 +27,9 @@
     <ClInclude Include="..\include\parser\common\TokenNameAddr.hpp" />
     <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp" />
     <ClInclude Include="..\include\parser\common\TokenPresets.hpp" />
+    <ClInclude Include="..\include\parser\factory\FactoryContext.hpp" />
+    <ClInclude Include="..\include\parser\factory\FactoryContextValue.hpp" />
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPVersion.hpp" />
     <ClInclude Include="..\include\parser\Parser.hpp" />
     <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\Token.hpp" />
@@ -86,9 +89,13 @@
     <ClInclude Include="..\include\parser\sip\TokenSIPVersion.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenURIParameter.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenUserInfo.hpp" />
-    <ClInclude Include="..\include\protocol\Request.hpp" />
-    <ClInclude Include="..\include\protocol\Response.hpp" />
-    <ClInclude Include="..\include\protocol\Message.hpp" />
+    <ClInclude Include="..\include\protocol\SIP.hpp" />
+    <ClInclude Include="..\include\protocol\SIPMessageHeader.hpp" />
+    <ClInclude Include="..\include\protocol\SIPMethod.hpp" />
+    <ClInclude Include="..\include\protocol\SIPRequest.hpp" />
+    <ClInclude Include="..\include\protocol\SIPResponse.hpp" />
+    <ClInclude Include="..\include\protocol\SIPMessage.hpp" />
+    <ClInclude Include="..\include\protocol\SIPVersion.hpp" />
     <ClInclude Include="..\include\protocol\UserInfo.hpp" />
     <ClInclude Include="..\include\utils\IniFile.hpp" />
     <ClInclude Include="..\include\utils\log\Logger.hpp" />

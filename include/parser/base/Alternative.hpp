@@ -34,6 +34,10 @@ namespace Sip0x
       Alternative<First> const& rest(void) const {
         return *this;
       }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override{
+        return nullptr;
+      }
     };
 
     /// Recursion definition...
@@ -61,12 +65,12 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return processing(iss, ctx, first(), rest());
       }
 
       template<typename F, typename R>
-      ReadResult processing(Sip0x::Utils::InputTokenStream& iss, void* ctx, F const* f, R const& r) const {
+      ReadResult processing(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
         
         DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 

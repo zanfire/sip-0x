@@ -32,7 +32,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Authentication_Info() : TokenSIPMessageHeader_base("Authentication-Info", "Authentication\\-Info",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

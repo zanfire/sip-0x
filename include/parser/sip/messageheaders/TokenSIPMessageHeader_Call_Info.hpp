@@ -27,7 +27,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Call_Info() : TokenSIPMessageHeader_base("Call-Info", "Call\\-Info",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

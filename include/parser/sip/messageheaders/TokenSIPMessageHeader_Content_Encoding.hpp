@@ -27,7 +27,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Content_Encoding() : TokenSIPMessageHeader_base("Content-Encoding", "Content\\-Encoding",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

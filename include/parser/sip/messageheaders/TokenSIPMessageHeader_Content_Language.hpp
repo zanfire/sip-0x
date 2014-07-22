@@ -29,7 +29,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Content_Language() : TokenSIPMessageHeader_base("Content-Language", "Content\\-Language",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

@@ -24,7 +24,7 @@ namespace Sip0x
     protected:
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         char c;
         for (auto tc : _token) {
           c = iss.get_char();

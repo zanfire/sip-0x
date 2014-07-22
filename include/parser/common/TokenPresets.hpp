@@ -3,6 +3,7 @@
 
 #include "parser/base/TokenRegex.hpp"
 #include "parser/common/RegexConstStrings.hpp"
+#include "parser/factory/FactoryContextValue.hpp"
 
 #include <string>
 
@@ -13,7 +14,12 @@ namespace Sip0x
     
     class TokenDigits : public TokenRegex {
     public:
-      TokenDigits() : TokenRegex("digits", "[0-9]+") {}
+      TokenDigits() : TokenRegex("digits", "[0-9]+") {
+      }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextDigits();
+      }
     };
 
     class TokenLWS : public TokenRegex {

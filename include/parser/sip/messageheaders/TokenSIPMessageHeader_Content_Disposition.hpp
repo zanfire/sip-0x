@@ -35,7 +35,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Content_Disposition() : TokenSIPMessageHeader_base("CSeq", "CSeq",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )

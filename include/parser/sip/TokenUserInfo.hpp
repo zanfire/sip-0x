@@ -25,7 +25,6 @@ namespace Sip0x
     class TokenUserInfo : public TokenAbstract {
 
     protected:
-      // it is magic ... no is nested template.
       Sequence<TokenRegex, Occurrence<Sequence<Token, TokenRegex>>, Token> _sequence;
       
     public:
@@ -45,48 +44,19 @@ namespace Sip0x
         ) 
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenUserInfo");
-        // We must create a resulting object during the parsing procedure
-        _sequence.set_parent(this);
       }
 
       virtual ~TokenUserInfo(void) { }
 
       TokenUserInfo(TokenUserInfo const& ui) : TokenAbstract(ui._name), _sequence(ui._sequence) {
-        _sequence.set_parent(this);
       }
 
 
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, void* ctx) const override {
-        // If we create some instance hear we need to kept some sort of syncronization because it coldn't be used 
-        // concurrently avoiding mutex.
-        Sip0x::Protocol::UserInfo* ui = new Sip0x::Protocol::UserInfo();
-        ReadResult r = _sequence.read(iss, ui);
-        if (r.successes) {
-          r.result = ui;
-          r.result_dtor = [](void* p) {
-            Sip0x::Protocol::UserInfo* ui = (Sip0x::Protocol::UserInfo*)p;
-            delete ui;
-          };
-        }
-        else {
-          delete ui;
-        }
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ReadResult r = _sequence.read(iss, ctx);
         return r;
-      }
-
-      virtual void handle_on_success(TokenAbstract const* token, ReadResult const& result, void* ctx) override {
-        Sip0x::Protocol::UserInfo* ui = (Sip0x::Protocol::UserInfo*)ctx;
-        DEBUG(_logger, "Successed parsed token: \"%s\", result: \"%s\".", token->get_name().c_str(), result.parsed.c_str());;
-        if (token->get_name().compare("username") == 0) {
-          //std::cout << "username: " << result.parsed << std::endl;
-          ui->username = result.parsed;
-        }
-        else if (token->get_name().compare("password") == 0) {
-          //std::cout << "password: " << result.parsed << std::endl;
-          ui->password = result.parsed;
-        }
       }
     };
   }

@@ -28,7 +28,7 @@ namespace Sip0x
       TokenSIPMessageHeader_Accept_Language() : TokenSIPMessageHeader_base("Accept-Language", "Accept\\-Language",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
-          TokenRegex("[0-9]+"),
+          TokenDigits(),
           TokenLWS(),
           TokenSIPMethod()
         )
