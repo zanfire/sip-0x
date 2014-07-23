@@ -71,12 +71,14 @@ namespace Sip0x
     class TokenSP : public TokenRegex {
     public:
       TokenSP() : TokenRegex("SP", RegexConstStrings::SP) {}
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override { return nullptr; }
     };
 
 
     class TokenCRLF : public TokenRegex {
     public:
       TokenCRLF() : TokenRegex("CRLF", RegexConstStrings::CRLF) {}
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override { return nullptr; }
     };
 
     class TokenWord : public TokenRegex {

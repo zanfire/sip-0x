@@ -24,8 +24,8 @@ namespace Sip0x
         DEBUG(_logger, "Destroying OpOccurrence@%p.", this);
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override{
-        return nullptr;
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContext();
       }
 
     protected:

@@ -37,15 +37,19 @@ namespace Sip0x
     template<class Alt>
     class TokenURIParam_base : public TokenAbstract {
     protected:
-      Sequence<Token, Alt> _sequence;
+      Sequence<Token, Token, Alt> _sequence;
 
     public:
-      TokenURIParam_base(std::string name, std::string param, Alt& alternative) : TokenAbstract(name), _sequence(Token(param), alternative) {}
+      TokenURIParam_base(std::string name, std::string param, Alt& alternative) : TokenAbstract(name), _sequence(Token(param), Token("="), alternative) {}
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _sequence.read(iss, ctx);
-        return r;
+        return _sequence.read(iss, ctx);
+      }
+
+
+      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
+        return new FactoryContextURIParameter();
       }
     };
 
@@ -54,7 +58,7 @@ namespace Sip0x
       TokenURIParam_transport(void) : TokenURIParam_base
         (
           "URIParam_transport",
-          "transport=", 
+          "transport", 
           Alternative<Token, Token, Token, TokenRegex>
           (
             Token("udp"),
@@ -73,7 +77,7 @@ namespace Sip0x
       TokenURIParam_user(void) : TokenURIParam_base
         (
         "URIParam_user",
-        "user=",
+        "user",
         Alternative<Token, Token, TokenRegex>
         (
         Token("phone"),
@@ -91,7 +95,7 @@ namespace Sip0x
     public:
       TokenURIParam_method(void) : TokenURIParam_base(
         "URIParam_method",
-        "method=",
+        "method",
         Alternative<Token, TokenRegex>
         (
           Token("INVITE"),
@@ -109,7 +113,7 @@ namespace Sip0x
       TokenURIParam_ttl(void) : TokenURIParam_base
         (
           "URIParam_ttl",
-          "ttl=",
+          "ttl",
           TokenRegex("other-method", RegexConstStrings::token)
         )
       {
@@ -123,7 +127,7 @@ namespace Sip0x
       TokenURIParam_maddr(void) : TokenURIParam_base
         (
           "URIParam_maddr",
-          "maddr=",
+          "maddr",
           TokenRegex("other-method", RegexConstStrings::token)
         )
       {
@@ -172,13 +176,30 @@ namespace Sip0x
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenURIParameter");
       }
 
-      virtual ~TokenURIParameter(void) {
+    protected:
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        return _alternative.read(iss, ctx);
+      }
+    };
+
+    // *(";" uri-parameter)
+    class TokenURIParameters : public TokenAbstract {
+    protected:
+      Occurrence<Sequence<Token, TokenURIParameter>> _occurrene;
+
+    public:
+      TokenURIParameters(void) : TokenAbstract("URIParameter"), _occurrene(
+        Sequence<Token, TokenURIParameter>(Token(";"), TokenURIParameter()), 0, -1) 
+      {
       }
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _alternative.read(iss, ctx);
-        return r;
+        return _occurrene.read(iss, ctx);
+      }
+
+      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
+        return new FactoryContextURIParameters();
       }
     };
   }

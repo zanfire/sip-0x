@@ -12,13 +12,13 @@ namespace Sip0x
   {
     using namespace Sip0x::Protocol;
 
-    class FactoryContextSIPVersion : public FactoryContextBase<SIPVersion> {
+    class FactoryContextSIPVersion : public FactoryContextValue<SIPVersion> {
     protected:
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
         if (_children.size() == 4) {
-          _type.major = ((FactoryContextDigits*)_children[1])->get();
-          _type.minor = ((FactoryContextDigits*)_children[3])->get();
+          _value.major = ((FactoryContextDigits*)_children[1])->get();
+          _value.minor = ((FactoryContextDigits*)_children[3])->get();
 
           for (auto c : _children) { delete c; }
           _children.clear();

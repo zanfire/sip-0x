@@ -7,7 +7,7 @@
 
 #include "parser/common/RegexConstStrings.hpp"
 
-#include "protocol/UserInfo.hpp"
+#include "parser/factory/FactoryContextSIPURI.hpp"
 
 // unreserved = alphanum / mark
 // mark = "-" / "_" / "." / "!" / "~" / "*" / "'" / "(" / ")"
@@ -22,6 +22,11 @@ namespace Sip0x
 {
   namespace Parser
   {
+    // userinfo         =  ( user / telephone-subscriber ) [ ":" password ] "@"
+    // user             =  1*( unreserved / escaped / user-unreserved )
+    // user-unreserved  =  "&" / "=" / "+" / "$" / "," / ";" / "?" / "/"
+    // password         =  *( unreserved / escaped /
+    //                     "&" / "=" / "+" / "$" / "," )
     class TokenUserInfo : public TokenAbstract {
 
     protected:
@@ -29,7 +34,6 @@ namespace Sip0x
       
     public:
       TokenUserInfo(void) : TokenAbstract("TokenUserInfo"),
-        // Writing down the ABN for userinfo.
             _sequence(
             TokenRegex("username", "(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|" + RegexConstStrings::sip_user_unreserved + ")+"), 
             Occurrence<Sequence<Token, TokenRegex>>
@@ -43,21 +47,17 @@ namespace Sip0x
             Token("@")
         ) 
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenUserInfo");
       }
-
-      virtual ~TokenUserInfo(void) { }
-
-      TokenUserInfo(TokenUserInfo const& ui) : TokenAbstract(ui._name), _sequence(ui._sequence) {
-      }
-
-
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _sequence.read(iss, ctx);
-        return r;
+        return _sequence.read(iss, ctx);
       }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextUserInfo();
+      }
+
     };
   }
 }

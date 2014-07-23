@@ -38,7 +38,7 @@ namespace Sip0x
       }
 
       virtual FactoryContext* create_factory(FactoryContext* parent) const override {
-        return nullptr;
+        return new FactoryContext();
       }
     };
 

@@ -13,30 +13,30 @@ namespace Sip0x
     using namespace Sip0x::Protocol;
 
     template<typename T>
-    class FactoryContextBase : public FactoryContext {
+    class FactoryContextValue : public FactoryContext {
     protected:
-      T _type;
+      T _value;
     public:
 
-      T get(void) { return _type; }
+      T get(void) { return _value; }
     
     };
 
     
 
-    class FactoryContextSIPMethod : public FactoryContextBase<SIPMethod> {
+    class FactoryContextSIPMethod : public FactoryContextValue<SIPMethod> {
     protected:
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        _type = convSIPMethodFromChars(result.parsed.c_str());
+        _value = convSIPMethodFromChars(result.parsed.c_str());
       }
     };
 
-    class FactoryContextDigits : public FactoryContextBase<long> {
+    class FactoryContextDigits : public FactoryContextValue<long> {
     protected:
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        _type = atol(result.parsed.c_str());
+        _value = atol(result.parsed.c_str());
       }
     };
 

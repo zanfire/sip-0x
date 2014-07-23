@@ -26,7 +26,7 @@ namespace Sip0x
       std::shared_ptr<Logger> _logger;
 
     public:
-      TokenAbstract(std::string name) : _name(name) {
+      TokenAbstract(std::string name, TokenAbstract* root = nullptr) : _name(name) {
       }
 
       virtual ~TokenAbstract(void) {}
@@ -36,7 +36,7 @@ namespace Sip0x
       //  0: result (true or false)
       //  1: parsed string.
       //  1: unique pointer to an allocated object.
-      virtual ReadResult  read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx = nullptr) const {
+      virtual ReadResult read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx = nullptr) const {
         ReadResult output;
         
         if (iss.eof()) {
@@ -91,7 +91,8 @@ namespace Sip0x
       // Factory event
 
       virtual FactoryContext* create_factory(FactoryContext* parent) const {
-        return new FactoryContext();
+        //return new FactoryContext();
+        return nullptr;
       }
     };
   }

@@ -1,21 +1,37 @@
-#if !defined(SIP0X_PROTOCOL_SIPMESSAGE_HPP__)
-#define SIP0X_PROTOCOL_SIPMESSAGE_HPP__
+#if !defined(SIP0X_PROTOCOL_SIPURI_HPP__)
+#define SIP0X_PROTOCOL_SIPURI_HPP__
 
-#include <cstdint>
+#include <string>
 #include <vector>
-
-#include "protocol/SIPMessageHeader.hpp"
 
 namespace Sip0x
 {
   namespace Protocol
   {
-    struct SIPMessage {
-      std::vector<SIPMessageHeader> headers;
-      uint8_t* _content = nullptr;
-      int _content_length = 0;
+    struct SIPURI {
+
+      struct UserInfo {
+        std::string username;
+        std::string password;
+      };
+
+      struct HostPort {
+        std::string host;
+        int port;
+      };
+
+      struct Param {
+        std::string param;
+        std::string value;
+      };
+      
+      bool secure;
+      UserInfo userinfo;
+      HostPort hostport;
+      std::vector<Param> uri_parameters;
+      std::vector<Param> headers;
     };
   }
 }
 
-#endif // SIP0X_PROTOCOL_SIPMESSAGE_HPP__
+#endif // SIP0X_PROTOCOL_SIPURI_HPP__

@@ -90,9 +90,6 @@
     <ClInclude Include="..\include\parser\base\Sequence.hpp">
       <Filter>parser\base</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\protocol\UserInfo.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\parser\common\TokenHostport.hpp">
       <Filter>parser\common</Filter>
     </ClInclude>
@@ -305,6 +302,15 @@
     </ClInclude>
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPVersion.hpp">
       <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\SIPURI.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPURI.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\sip\TokenURIHeaders.hpp">
+      <Filter>parser\sip</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,10 +11,17 @@ namespace Sip0x
     class TokenAbstract;
 
     class FactoryContext {
-    protected:
+    public:
       std::string _text;
       std::vector<FactoryContext*> _children;
     public:
+
+      FactoryContext(void) {}
+      virtual ~FactoryContext(void) {
+        for (auto f : _children) {
+          delete f;
+        }
+      }
 
       virtual void create(TokenAbstract const* token, ReadResult const& result) {
         _text = result.parsed;
@@ -23,7 +30,7 @@ namespace Sip0x
 
       void add_child(FactoryContext* child) { _children.push_back(child); }
 
-      void compact(void) {}
+      std::string text(void) { return _text; }
     };
   }
 }

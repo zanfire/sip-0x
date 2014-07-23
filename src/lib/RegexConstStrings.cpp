@@ -6,7 +6,6 @@ namespace Sip0x
 {
   namespace Parser
   {
-
     const std::string RegexConstStrings::SP = "(\\x20)";
     const std::string RegexConstStrings::HTAB = "(\\x09)";
     const std::string RegexConstStrings::CRLF = "(\\r\\n)";
@@ -64,6 +63,8 @@ namespace Sip0x
     const std::string RegexConstStrings::reserved = "([\\;\\/\\?\\:\\@\\&\\=\\+\\$\\,])";
     const std::string RegexConstStrings::unreserved = "([A-Za-z-0-9]|[\\-_\\.\\!\\~\\*\\'\\|])";
     const std::string RegexConstStrings::escaped = "(%[0-9a-fA-F][0-9a-fA-F])";
+
+    const std::string RegexConstStrings::hnv_unreserved = "([\\[\\]\\/\\?\\:\\+\\$])";
 
     // word        =  1*(alphanum / "-" / "." / "!" / "%" / "*" / "_" / "+" / "`" / "'" / "~" /
     //            "(" / ")" / "<" / ">" /

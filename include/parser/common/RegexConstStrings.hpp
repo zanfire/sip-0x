@@ -8,20 +8,7 @@ namespace Sip0x
   namespace Parser
   {
     struct RegexConstStrings {
-      /*
-      token       =  1*(alphanum / "-" / "." / "!" / "%" / "*"
-                     / "_" / "+" / "`" / "'" / "~" )
-      separators  =  "(" / ")" / "<" / ">" / "@" /
-                     "," / ";" / ":" / "\" / DQUOTE /
-                     "/" / "[" / "]" / "?" / "=" /
-                     "{" / "}" / SP / HTAB
-      word        =  1*(alphanum / "-" / "." / "!" / "%" / "*" /
-                     "_" / "+" / "`" / "'" / "~" /
-                     "(" / ")" / "<" / ">" /
-                     ":" / "\" / DQUOTE /
-                     "/" / "[" / "]" / "?" /
-                     "{" / "}" )
-      */
+      
       const static std::string token;
       //const static std::string separators;
       const static std::string word;
@@ -29,6 +16,8 @@ namespace Sip0x
       const static std::string reserved;
       const static std::string unreserved;
       const static std::string escaped;
+      
+      const static std::string hnv_unreserved;
 
       const static std::string qvalue;
 

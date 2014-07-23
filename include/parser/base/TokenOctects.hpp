@@ -25,6 +25,10 @@ namespace Sip0x
         // TODO: Copy to local buffer...
         return ReadResult(true);
       }
+
+      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
+        return new FactoryContext();
+      }
     };
   }
 }
