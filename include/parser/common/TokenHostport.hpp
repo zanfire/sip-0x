@@ -1,11 +1,13 @@
 #if !defined(SIP0X_PARSER_TOKENHOSTPORT_HPP__)
 #define SIP0X_PARSER_TOKENHOSTPORT_HPP__
 
-#include "parser/base/TokenAbstract.hpp"
+#include "parser/base/TokenContainer.hpp"
 #include "parser/common/TokenIPv4.hpp"
 #include "parser/common/TokenIPv6.hpp"
 #include "parser/base/TokenRegex.hpp"
 #include "parser/base/Operators.hpp"
+
+#include "parser/factory/FactoryContextSIPURI.hpp"
 
 namespace Sip0x
 {
@@ -14,53 +16,32 @@ namespace Sip0x
     // hostname         =  *( domainlabel "." ) toplabel [ "." ]
     // domainlabel      =  alphanum / alphanum *( alphanum / "-" ) alphanum
     // toplabel         =  ALPHA / ALPHA *( alphanum / "-" ) alphanum
-    class TokenHostname : public TokenAbstract {
+    class TokenHostname : public TokenContainer<Sequence<Occurrence<Sequence<TokenRegex, Token>>, TokenRegex, Occurrence<Token>>> {
 
-    protected:
-      Sequence<Occurrence<Sequence<TokenRegex, Token>>, TokenRegex, Occurrence<Token>> _sequence;
     public:
-      TokenHostname(void) : TokenAbstract("hostname"), _sequence(
+      TokenHostname(void) : TokenContainer("hostname", Sequence<Occurrence<Sequence<TokenRegex, Token>>, TokenRegex, Occurrence<Token>>(
         Occurrence<Sequence<TokenRegex, Token>>
         (
           Sequence<TokenRegex, Token>
           (
             TokenRegex("domain", "(([A-Za-z-0-9]+)|([A-Za-z-0-9]+\\-[A-Za-z-0-9]+))+"),
             Token(".")
-          ), 0, -1
+          ), 0, -1, true
         ),
         TokenRegex("top", "(([A-Za-z])|([A-Za-z]([A-Za-z-0-9]+\\-)+[A-Za-z-0-9]+))+"),
-        Occurrence<Token>(Token("."), 0, 1)
-      ) {
+        Occurrence<Token>(Token("."), 0, 1, true)
+        ), true)
+      {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHostname");
-      }
-
-      virtual ~TokenHostname(void) {
-      }
-
-    protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult result = _sequence.read(iss, ctx);
-        return result;
       }
     };
 
 
-    class TokenHost : public TokenAbstract {
+    class TokenHost : public TokenContainer<Alternative<TokenIPv4, TokenIPv6, TokenHostname>> {
 
-    protected:
-      Alternative<TokenHostname, TokenIPv6, TokenIPv4> _alternative;
     public:
-      TokenHost(void) : TokenAbstract("host"), _alternative(TokenHostname(), TokenIPv6(), TokenIPv4()) {
+      TokenHost(void) : TokenContainer("TokenHost", Alternative<TokenIPv4, TokenIPv6, TokenHostname>(TokenIPv4(), TokenIPv6(), TokenHostname()), true) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHost");
-      }
-
-      virtual ~TokenHost(void) {
-      }
-
-    protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult result = _alternative.read(iss, ctx);
-        return result;
       }
     };
    
@@ -79,7 +60,7 @@ namespace Sip0x
           (
             Token(":"),
             TokenDigits()
-          ), 0, 1
+          ), 0, 1, true
         )
       ) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHostport");
@@ -90,8 +71,11 @@ namespace Sip0x
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult result = _sequence.read(iss, ctx);
-        return result;
+        return _sequence.read(iss, ctx);
+      }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextHostPort();
       }
     };
   }

@@ -43,7 +43,7 @@ namespace Sip0x
                 Token(":"),
                 TokenRegex("password", "(" + RegexConstStrings::unreserved + "|" + RegexConstStrings::escaped + "|" + RegexConstStrings::sip_password_unreserved + ")*")
               ), 
-            0, 1),
+            0, 1, true),
             Token("@")
         ) 
       {

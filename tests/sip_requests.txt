@@ -1,5 +1,5 @@
 --BEGIN--
-ACK sip:bob:pwd@192.0.2.4;method=INVITE?in=true&out=false SIP/2.0
+ACK sip:bob:pwd@192.0.2.4:5060;method=INVITE?in=true&out=false SIP/2.0
 From: Alice <sip:alice@atlanta.com>;tag=1928301774
 
 --END--

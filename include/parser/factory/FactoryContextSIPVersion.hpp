@@ -13,7 +13,6 @@ namespace Sip0x
     using namespace Sip0x::Protocol;
 
     class FactoryContextSIPVersion : public FactoryContextValue<SIPVersion> {
-    protected:
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
         if (_children.size() == 4) {

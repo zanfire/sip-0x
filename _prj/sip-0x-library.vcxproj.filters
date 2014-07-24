@@ -276,12 +276,6 @@
     <ClInclude Include="..\include\protocol\SIPMessage.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPRequest.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPResponse.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\protocol\SIPMessageHeader.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
@@ -311,6 +305,15 @@
     </ClInclude>
     <ClInclude Include="..\include\parser\sip\TokenURIHeaders.hpp">
       <Filter>parser\sip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\base\TokenContainer.hpp">
+      <Filter>parser\base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessageHeader.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessage.hpp">
+      <Filter>parser\factory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

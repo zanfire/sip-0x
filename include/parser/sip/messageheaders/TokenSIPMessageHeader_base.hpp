@@ -6,6 +6,8 @@
 
 #include "parser/common/TokenPresets.hpp"
 
+#include "parser/factory/FactoryContextSIPMessageHeader.hpp"
+
 namespace Sip0x
 {
   namespace Parser
@@ -17,12 +19,12 @@ namespace Sip0x
       Sequence<TokenRegex, TokenHCOLON, Tok> _sequence;
       
     public:
-      TokenSIPMessageHeader_base(std::string name, std::string fieldregex, Tok& tok) : TokenAbstract(name),
+      TokenSIPMessageHeader_base(std::string name, std::string fieldregex, Tok& token) : TokenAbstract(name),
         _sequence
         (
           TokenRegex(fieldregex),
           TokenHCOLON(),
-          tok
+          token
         )
       {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader");
@@ -34,6 +36,10 @@ namespace Sip0x
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult r = _sequence.read(iss, ctx);
         return r;
+      }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextSIPMessageHeader();
       }
     };
   }

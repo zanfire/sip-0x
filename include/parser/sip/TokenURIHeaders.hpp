@@ -1,7 +1,7 @@
 #if !defined(SIP0X_PARSER_TOKENUIHYEADERS_HPP__)
 #define SIP0X_PARSER_TOKENUIHYEADERS_HPP__
 
-#include "parser/base/TokenAbstract.hpp"
+#include "parser/base/TokenContainer.hpp"
 #include "parser/base/Operators.hpp"
 
 #include "parser/base/Token.hpp"
@@ -17,55 +17,49 @@ namespace Sip0x
     // hname           =  1*( hnv-unreserved / unreserved / escaped )
     // hvalue          =  *( hnv-unreserved / unreserved / escaped )
     // hnv-unreserved  =  "[" / "]" / "/" / "?" / ":" / "+" / "$"
-    class TokenURIHeader : public TokenAbstract {
-    protected:
-      Sequence<TokenRegex, Token, TokenRegex> _sequence;
-
+    class TokenURIHeader : public TokenContainer<Sequence<TokenRegex, Token, TokenRegex>> {
+    
     public:
-      TokenURIHeader(void) : TokenAbstract("TokenURIHeader"), 
-        _sequence(
+      TokenURIHeader(void) : TokenContainer("TokenURIHeader", 
+        Sequence<TokenRegex, Token, TokenRegex>(
           TokenRegex("((" + RegexConstStrings::hnv_unreserved + ")|(" + RegexConstStrings::unreserved + ")|(" + RegexConstStrings::escaped + ")|)+"),
           Token("="), 
           TokenRegex("((" + RegexConstStrings::hnv_unreserved + ")|(" + RegexConstStrings::unreserved + ")|(" + RegexConstStrings::escaped + ")|)*")
-        ) {}
-
+        ), true) {}
+      
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        return _sequence.read(iss, ctx);
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextURIParameter();
       }
     };
 
     // headers         =  "?" header *( "&" header )
-    class TokenURIHeaders : public TokenAbstract {
-    protected:
-      Occurrence<Sequence<Token, TokenURIHeader, Occurrence<Sequence<Token, TokenURIHeader>>>> _occurrene;
-
+    class TokenURIHeaders : public TokenContainer<Occurrence<Sequence<Token, TokenURIHeader, Occurrence<Sequence<Token, TokenURIHeader>>>>> {
+    
     public:
-      TokenURIHeaders(void) : TokenAbstract("TokenURIHeaders"), 
-        _occurrene(
-        Sequence<Token, TokenURIHeader, Occurrence<Sequence<Token, TokenURIHeader>>>
+      TokenURIHeaders(void) : TokenContainer("TokenURIHeaders",
+        Occurrence<Sequence<Token, TokenURIHeader, Occurrence<Sequence<Token, TokenURIHeader>>>>
         (
-          Token("?"),
-          TokenURIHeader(),
-          Occurrence<Sequence<Token, TokenURIHeader>>
+          Sequence<Token, TokenURIHeader, Occurrence<Sequence<Token, TokenURIHeader>>>
           (
-            Sequence<Token, TokenURIHeader>
+            Token("?"),
+            TokenURIHeader(),
+            Occurrence<Sequence<Token, TokenURIHeader>>
             (
-              Token("&"),
-              TokenURIHeader()
-            )
-          , 0, -1)
-        ), 0, -1) 
+              Sequence<Token, TokenURIHeader>
+              (
+                Token("&"),
+                TokenURIHeader()
+              )
+            , 0, -1, true)
+          )
+        , 0, -1, true), true)
       {
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        return _occurrene.read(iss, ctx);
-      }
-
-      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
-        return nullptr;
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextURIParameters();
       }
     };
   }

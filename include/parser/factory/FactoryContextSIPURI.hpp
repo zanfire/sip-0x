@@ -30,11 +30,9 @@ namespace Sip0x
     class FactoryContextURIParameter : public FactoryContextValue<SIPURI::Param> {
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        if (_children.size() == 1) {
-          FactoryContext* tmp = _children[0];
-          _value.param = tmp->_children[0]->text();
-          _value.value = tmp->_children[2]->text();
-
+        if (_children.size() == 3) {
+          _value.param = _children[0]->text();
+          _value.value = _children[2]->text();
 
           for (auto c : _children) { delete c; }
           _children.clear();
@@ -45,9 +43,33 @@ namespace Sip0x
     class FactoryContextURIParameters : public FactoryContextValue<std::vector<SIPURI::Param>> {
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        if (_children.size() >= 2) {
-          SIPURI::Param param;
+        for (int i = 1; i < _children.size(); i++) {
+          FactoryContextValue<SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<SIPURI::Param>*>(_children[i]);
+          if (fcv != nullptr) {
+            _value.push_back(fcv->get());
+          }
         }
+
+        for (auto c : _children) { delete c; }
+        _children.clear();
+      }
+    };
+
+
+    class FactoryContextHostPort : public FactoryContextValue<SIPURI::HostPort> {
+    public:
+      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+        if (_children.size() >= 1) {
+          _value.host = _children[0]->text();
+        }
+        if (_children.size() == 3) {
+          FactoryContextDigits* digits = dynamic_cast<FactoryContextDigits*>(_children[2]);
+          if (digits != nullptr) {
+            _value.port = digits->get();
+          }
+        }
+        for (auto c : _children) { delete c; }
+        _children.clear();
       }
     };
 
@@ -56,12 +78,29 @@ namespace Sip0x
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
         if (_children.size() >= 3) {
           _value.secure = _children[0]->text().compare("sips:") == 0;
-          _value.userinfo = ((FactoryContextUserInfo*)_children[1])->get();
-          _value.hostport.host = _children[2]->text();
-          //_value.hostport - 
-          //for (auto c : _children) { delete c; }
-          //_children.clear();
+          FactoryContextUserInfo* userinfo = dynamic_cast<FactoryContextUserInfo*>(_children[1]);
+          if (userinfo != nullptr) {
+            _value.userinfo = userinfo->get();
+          }
+          FactoryContextHostPort* hostport = dynamic_cast<FactoryContextHostPort*>(_children[2]);
+          if (hostport != nullptr) {
+            _value.hostport = hostport->get();
+          }
         }
+        if (_children.size() >= 4) {
+          FactoryContextURIParameters* params = dynamic_cast<FactoryContextURIParameters*>(_children[3]);
+          if (params != nullptr) {
+            _value.uri_parameters = params->get();
+          }
+        }
+        if (_children.size() >= 5) {
+          FactoryContextURIParameters* params = dynamic_cast<FactoryContextURIParameters*>(_children[4]);
+          if (params != nullptr) {
+            _value.headers = params->get();
+          }
+        }
+        for (auto c : _children) { delete c; }
+        _children.clear();
       }
     };
   }

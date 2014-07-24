@@ -1,31 +1,22 @@
 #if !defined(SIP0X_PARSER_OCCURRENCE_HPP__)
 #define SIP0X_PARSER_OCCURRENCE_HPP__
 
-#include "parser/base/TokenAbstract.hpp"
+#include "parser/base/TokenContainer.hpp"
 
 namespace Sip0x
 {
   namespace Parser
   {
     template<class T>
-    class Occurrence : public TokenAbstract {
+    class Occurrence : public TokenContainer<T> {
     protected:
-      T _token;
       int _min;
       int _max;
 
     public:
-      Occurrence(T& f, int min = 0, int max = -1) : TokenAbstract("Occurrence"), _token(f), _min(min), _max(max) {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.OpOccurrence");
+      Occurrence(T& f, int min = 0, int max = -1, bool disable_factory = false) : TokenContainer("Occurrence", f, disable_factory), _min(min), _max(max) {
         _name += "." + f.get_name(); // + "[" + std::string(_min) + "," + std::string(_max) + "]";
-      }
-
-      virtual ~Occurrence(void) {
-        DEBUG(_logger, "Destroying OpOccurrence@%p.", this);
-      }
-
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
-        return new FactoryContext();
+        _logger = LoggerManager::get_logger("Sip0x.Parser.Occurrence");
       }
 
     protected:

@@ -6,13 +6,13 @@
 #include "parser/base/TokenRegex.hpp"
 #include "parser/base/TokenOctects.hpp"
 
-
-
 #include "parser/common/RegexConstStrings.hpp"
 
 #include "parser/sip/TokenSIPRequestLine.hpp"
 #include "parser/sip/TokenSIPStatusLine.hpp"
 #include "parser/sip/TokenSIPMessageHeader.hpp"
+
+#include "parser/factory/FactoryContextSIPMessage.hpp"
 
 namespace Sip0x
 {
@@ -27,16 +27,21 @@ namespace Sip0x
       TokenSIPMessage(void) : TokenAbstract("SIPMessage"),
         _sequence(
         Alternative<TokenSIPRequestLine, TokenSIPStatusLine>(TokenSIPRequestLine(), TokenSIPStatusLine()),
-        Occurrence<TokenSIPMessageHeader>(TokenSIPMessageHeader(), 0, -1),
+        Occurrence<TokenSIPMessageHeader>(TokenSIPMessageHeader(), 0, -1, true),
         TokenCRLF(),
-        Occurrence<TokenOctects>(TokenOctects(), 0, 1))
+        Occurrence<TokenOctects>(TokenOctects(), 0, 1, true))
       {
+        _sequence.disable_factory(true);
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessage");
       }
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return _sequence.read(iss, ctx);
+      }
+
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextSIPMessage();
       }
     };
   }

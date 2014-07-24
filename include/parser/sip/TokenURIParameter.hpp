@@ -189,7 +189,7 @@ namespace Sip0x
 
     public:
       TokenURIParameters(void) : TokenAbstract("URIParameter"), _occurrene(
-        Sequence<Token, TokenURIParameter>(Token(";"), TokenURIParameter()), 0, -1) 
+        Sequence<Token, TokenURIParameter>(Token(";"), TokenURIParameter()), 0, -1, true) 
       {
       }
 

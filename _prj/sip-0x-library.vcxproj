@@ -16,6 +16,7 @@
     <ClInclude Include="..\include\parser\base\Operators.hpp" />
     <ClInclude Include="..\include\parser\base\ReadResult.hpp" />
     <ClInclude Include="..\include\parser\base\Sequence.hpp" />
+    <ClInclude Include="..\include\parser\base\TokenContainer.hpp" />
     <ClInclude Include="..\include\parser\base\TokenOctects.hpp" />
     <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp" />
     <ClInclude Include="..\include\parser\common\TokenAbsoluteURI.hpp" />
@@ -28,6 +29,8 @@
     <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp" />
     <ClInclude Include="..\include\parser\common\TokenPresets.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContext.hpp" />
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessage.hpp" />
+    <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessageHeader.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPURI.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContextValue.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPVersion.hpp" />
@@ -94,8 +97,6 @@
     <ClInclude Include="..\include\protocol\SIP.hpp" />
     <ClInclude Include="..\include\protocol\SIPMessageHeader.hpp" />
     <ClInclude Include="..\include\protocol\SIPMethod.hpp" />
-    <ClInclude Include="..\include\protocol\SIPRequest.hpp" />
-    <ClInclude Include="..\include\protocol\SIPResponse.hpp" />
     <ClInclude Include="..\include\protocol\SIPMessage.hpp" />
     <ClInclude Include="..\include\protocol\SIPURI.hpp" />
     <ClInclude Include="..\include\protocol\SIPVersion.hpp" />

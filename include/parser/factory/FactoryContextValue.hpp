@@ -22,8 +22,7 @@ namespace Sip0x
     
     };
 
-    
-
+   
     class FactoryContextSIPMethod : public FactoryContextValue<SIPMethod> {
     protected:
     public:

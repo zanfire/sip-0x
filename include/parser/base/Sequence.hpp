@@ -15,11 +15,12 @@ namespace Sip0x
 
     // Base definition.
     template<typename First>
-    class Sequence<First> : public TokenAbstract{
+    class Sequence<First> : public TokenAbstract {
 
     protected:
       std::shared_ptr<Logger> _logger;
       First member;
+      bool _disable_factory;
 
     public:
       Sequence(First f) : TokenAbstract("Sequence"), member(f) {
@@ -37,8 +38,17 @@ namespace Sip0x
         return *this;
       }
 
+      void disable_factory(bool disable) {
+        _disable_factory = disable;
+      }
+
       virtual FactoryContext* create_factory(FactoryContext* parent) const override {
-        return new FactoryContext();
+        if (_disable_factory) {
+          return nullptr;
+        }
+        else {
+          return new FactoryContext();
+        }
       }
     };
 
