@@ -20,26 +20,18 @@ namespace Sip0x
     struct ReadResult {
       bool successes;
       std::string parsed;
-      void* result;
-      std::function<void(void*)> result_dtor;
       // Error position.
       std::streamoff errorpos;
       std::string errormessage;
 
-      ReadResult(void) : successes(false), parsed(), result(nullptr), errorpos(-2) {}
-      ReadResult(bool s) : successes(s), parsed(), result(nullptr), errorpos(-2) {}
-      ReadResult(bool s, std::string str) : successes(s), parsed(str), result(nullptr), errorpos(-2) {}
-      ReadResult(bool s, std::string str, void* r) : successes(s), parsed(str), result(r), errorpos(-2) {}
+      ReadResult(void) : successes(false), parsed(), errorpos(-2) {}
+      ReadResult(bool s) : successes(s), parsed(), errorpos(-2) {}
+      ReadResult(bool s, std::string str) : successes(s), parsed(str), errorpos(-2) {}
+      ReadResult(bool s, std::string str, void* r) : successes(s), parsed(str), errorpos(-2) {}
 
       void set_error(std::streamoff pos, std::string message) {
         errorpos = pos;
         errormessage = message;
-      }
-
-      void dispose() {
-        if (result != nullptr) {
-          result_dtor(result);
-        }
       }
     };
   }

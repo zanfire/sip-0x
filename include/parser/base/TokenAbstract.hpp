@@ -74,7 +74,9 @@ namespace Sip0x
           }
         }
         else {
-          delete factory;
+          if (factory != nullptr) {
+            delete factory;
+          }
         }
         return output;
       }

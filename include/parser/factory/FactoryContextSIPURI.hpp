@@ -43,7 +43,7 @@ namespace Sip0x
     class FactoryContextURIParameters : public FactoryContextValue<std::vector<SIPURI::Param>> {
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        for (int i = 1; i < _children.size(); i++) {
+        for (unsigned int i = 1; i < _children.size(); i++) {
           FactoryContextValue<SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<SIPURI::Param>*>(_children[i]);
           if (fcv != nullptr) {
             _value.push_back(fcv->get());

@@ -13,10 +13,6 @@ using namespace std;
 void test_sipmessages_from_file(char const* path) {
   std::shared_ptr<Logger> logger = LoggerManager::get_logger("Test.sipmessages");
 
-  TokenSIPMessage sip;
-
-  cout << "parser size: " << sizeof(sip) << endl;
-
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.is_open()) {
     ERROR(logger, "Failed to open INI file [%s].", path);
@@ -38,7 +34,7 @@ void test_sipmessages_from_file(char const* path) {
       reading_content = true;
     }
     else if (reading_content && line.compare(end_marker) == 0) {
-      run_test(sip, content, true, true);
+      run_sip(content);
       reading_content = false;
     }
     else if (reading_content) {

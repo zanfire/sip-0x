@@ -7,10 +7,14 @@
 #include <memory>
 
 #include "parser/base/TokenAbstract.hpp"
-
+#include "parser/sip/TokenSIPMessage.hpp"
 #include "parser/factory/FactoryContext.hpp"
+
 #include "utils/log/Logger.hpp"
 #include "utils/log/LoggerManager.hpp"
+
+#include "protocol/SIP.hpp"
+
 
 namespace Sip0x
 {
@@ -18,25 +22,17 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-    static ReadResult parse(std::string text, TokenAbstract& root, bool factory = false) {
+    static ReadResult parse(std::string text, TokenAbstract& root, FactoryContext* factory) {
       std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
 
       DEBUG(logger, "Parsing string \"%s\".", text.c_str());
 
-      FactoryContext* ctx = nullptr;
-      if (factory) {
-        ctx = new FactoryContext();
-      }
-
       Sip0x::Utils::InputTokenStream iss(text);
-      ReadResult result = root.read(iss, ctx);
+      ReadResult result = root.read(iss, factory);
 
       if (result.successes && iss.eof()) {
         DEBUG(logger, "Parsing successes, remains: %d, pos %d.", iss.remains(), iss.pos());
 
-        if (result.result != nullptr) {
-          result.result_dtor(result.result);
-        }
       }
       else {
         // No consumed all input.
@@ -51,6 +47,27 @@ namespace Sip0x
         DEBUG(logger, "Parsing terminated without successes, remaining string: \"%s\".", r.c_str());
       }
       return result;
+    }
+
+
+    static Sip0x::Protocol::SIPMessage* parse_sip_message(std::string text) {
+      static TokenSIPMessage sip; // Expensive to build
+      FactoryContext ctx;
+
+      ReadResult res = parse(text, sip, &ctx);
+      if (res.successes) {
+        FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
+        if (message != nullptr) {
+          if (message->is_request()) {
+            return new SIPRequest(message->request());
+          }
+          else {
+            return new SIPResponse(message->response());
+          }
+        }
+      }
+
+      return nullptr;
     }
   }
 }

@@ -14,21 +14,65 @@ namespace Sip0x
 
     class FactoryContextSIPMessage : public FactoryContext {
     protected:
-      bool create_request = false;
-      SIPRequest request;
-      bool create_response = false;
-      SIPResponse response;
+      bool _create_request = false;
+      SIPRequest _request;
+      SIPResponse _response;
     public:
-      
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        if (_children.size() == 4) {
-          //_value.major = ((FactoryContextDigits*)_children[1])->get();
-          //_value.minor = ((FactoryContextDigits*)_children[3])->get();
+        if (_children.size() >= 3) {
+          SIPMessage* message = nullptr;
+          FactoryContextSIPMethod* method = dynamic_cast<FactoryContextSIPMethod*>(_children[0]);
+          if (method != nullptr) {
+            // It is a request
+            _request.method = method->get();
 
-          for (auto c : _children) { delete c; }
-          _children.clear();
+            FactoryContextSIPURI* uri = dynamic_cast<FactoryContextSIPURI*>(_children[1]);
+            if (uri != nullptr) {
+              _request.uri = uri->get();
+            }
+
+            FactoryContextSIPVersion* version = dynamic_cast<FactoryContextSIPVersion*>(_children[2]);
+            if (version != nullptr) {
+              _request.version = version->get();
+            }
+
+            message = &_request;
+            _create_request = true;
+          }
+          else {
+            FactoryContextSIPVersion* version = dynamic_cast<FactoryContextSIPVersion*>(_children[0]);
+            if (version != nullptr) {
+              _response.version = version->get();
+            }
+
+            _response.status_code = atol(_children[1]->text().c_str());
+            _response.reason_phrase = _children[2]->text();
+
+            message = &_response;
+          }
+
+          unsigned int idx = 3;
+          while (idx < _children.size()) {
+            FactoryContextSIPMessageHeader* header = dynamic_cast<FactoryContextSIPMessageHeader*>(_children[idx]);
+            if (header != nullptr) {
+              message->headers.push_back(header->get());
+            }
+            else {
+              break;
+            }
+            idx++;
+          }
+
+          // Get content...
+
+          //for (auto c : _children) { delete c; }
+          //_children.clear();
         }
       }
+
+      bool is_request(void) { return _create_request; }
+      SIPRequest& request(void) { return _request; }
+      SIPResponse& response(void) { return _response; }
     };
   }
 }

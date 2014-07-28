@@ -66,7 +66,17 @@ namespace Sip0x
 
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        return processing(iss, ctx, first(), rest());
+        FactoryContext* tmp = new FactoryContext();
+        ReadResult res = processing(iss, tmp, first(), rest());
+
+        if (res.successes) {
+          for (unsigned int i = 0; i < tmp->_children.size(); i++) {
+            ctx->add_child(tmp->_children[i]);
+          }
+          tmp->_children.clear();
+        }
+        delete tmp;
+        return res;
       }
 
       template<typename F, typename R>

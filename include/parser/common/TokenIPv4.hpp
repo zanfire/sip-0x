@@ -44,13 +44,8 @@ namespace Sip0x
             return result;
           }
 
-
-          uint32_t* ipv4 = new uint32_t;
-          *ipv4 = (oct1 << 24 | oct2 << 16 | oct3 << 8 | oct4);
-          result.result = ipv4;
-          result.result_dtor = [](void* p) { 
-            int* ptr = (int*)p; delete ptr; 
-          };
+          //uint32_t* ipv4 = new uint32_t;
+          //*ipv4 = (oct1 << 24 | oct2 << 16 | oct3 << 8 | oct4);
         }
 
         return result;

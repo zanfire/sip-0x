@@ -40,8 +40,6 @@ namespace Sip0x
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPRequestLine");
       }
 
-      virtual ~TokenSIPRequestLine(void) { }
-
     protected:
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return _sequence.read(iss, ctx);

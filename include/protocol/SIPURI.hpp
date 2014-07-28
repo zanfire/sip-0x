@@ -30,6 +30,11 @@ namespace Sip0x
       HostPort hostport;
       std::vector<Param> uri_parameters;
       std::vector<Param> headers;
+
+
+      virtual int write(std::ostream& stream) const {
+        return 1;
+      }
     };
   }
 }
