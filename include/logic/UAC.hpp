@@ -44,11 +44,6 @@ namespace Sip0x
       void process(void) {
         _io_service.run();
       }
-
-
-      SIPRequest* crete_register(void) {
-        return nullptr;
-      }
     };
   }
 }
