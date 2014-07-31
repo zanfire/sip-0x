@@ -17,7 +17,7 @@ bool LoggerManager::configure(std::string path) {
     std::unordered_map<std::string, std::string> entries = ini->section("LOGGING");
 
     // Set default.
-    _default_level = conv_logger_level_from_string(ini->entry("LOGGING", "default", "WARN"));
+    _default_level = conv_logger_level_from_string(ini->entry("LOGGING", "default", "LOG_WARN"));
     for (auto logger : _loggers) {
       logger.second->set_level(_default_level);
     }

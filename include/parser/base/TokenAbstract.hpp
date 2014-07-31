@@ -40,13 +40,13 @@ namespace Sip0x
         ReadResult output;
         
         if (iss.eof()) {
-          DEBUG(_logger, "Stream is empty, skipping...");
+          LOG_DEBUG(_logger, "Stream is empty, skipping...");
           //return output;
         }
 
         int initial_pos = iss.pos();
         
-        DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
+        LOG_DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
 
         FactoryContext* factory = create_factory(ctx);
         output = handle_read(iss, factory != nullptr ? factory : ctx);
@@ -54,13 +54,13 @@ namespace Sip0x
         if (output.successes) {
           int delta = iss.pos() - initial_pos;
           std::string parsed = iss.str(initial_pos, delta);
-          DEBUG(_logger, "Consumed chars %d during parsing, parsed %s.", delta, parsed.c_str());
+          LOG_DEBUG(_logger, "Consumed chars %d during parsing, parsed %s.", delta, parsed.c_str());
 
           output.parsed = parsed;
         }
         else {
           iss.seekg(initial_pos);
-          DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
+          LOG_DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
 
           if (output.errorpos == -2) {
             output.set_error(initial_pos, "Failed parsing token " + std::string(get_name()));

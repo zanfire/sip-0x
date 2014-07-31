@@ -28,13 +28,13 @@ namespace Sip0x
       TokenRegex(std::string name, std::string regex) : TokenAbstract(name) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
 
-        DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
+        LOG_DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
 
         try {
           _regex = std::regex(regex);
         }
         catch (std::regex_error e) {
-          ERROR(_logger, "Regex %s contains an error (%s).\nRegex:%s", name.c_str(), e.what(), regex.c_str());
+          LOG_ERROR(_logger, "Regex %s contains an error (%s).\nRegex:%s", name.c_str(), e.what(), regex.c_str());
         }
       }
 
@@ -51,10 +51,10 @@ namespace Sip0x
         int init_pos = iss.pos();
         input = iss.get();
 
-        DEBUG(_logger, "Regex processing input: \"%s\".", input.c_str());
+        LOG_DEBUG(_logger, "Regex processing input: \"%s\".", input.c_str());
 
         if (std::regex_search(input, pieces_match, _regex)) {
-          DEBUG(_logger, "Regex matched, found %d occurrences.", pieces_match.size());
+          LOG_DEBUG(_logger, "Regex matched, found %d occurrences.", pieces_match.size());
           if (pieces_match.size() >= 1 && pieces_match.position() == 0) {
             std::ssub_match sub_match = pieces_match[0];
             std::string piece = sub_match.str();
@@ -62,11 +62,11 @@ namespace Sip0x
             return ReadResult(true, piece);
           }
           else {
-            DEBUG(_logger, "Regexp failed constrains, count %d, pos: %d.", pieces_match.size(), pieces_match.position());
+            LOG_DEBUG(_logger, "Regexp failed constrains, count %d, pos: %d.", pieces_match.size(), pieces_match.position());
           }
         }
         else {
-          DEBUG(_logger, "Regexp match no occurrence found.");
+          LOG_DEBUG(_logger, "Regexp match no occurrence found.");
         }
 
         ReadResult result(false);

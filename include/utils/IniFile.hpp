@@ -45,7 +45,7 @@ namespace Sip0x
 
         std::ifstream ifs(path.c_str(), std::ifstream::in);
         if (!ifs.is_open()) {
-          ERROR(ini->_logger, "Failed to open INI file [%s].", path.c_str());
+          LOG_ERROR(ini->_logger, "Failed to open INI file [%s].", path.c_str());
           ini.release();
           ini.reset();
           return ini;
@@ -65,10 +65,10 @@ namespace Sip0x
 
           // Add section.
           if (line[0] == '#') {
-            DEBUG(ini->_logger, "Skipping comment: \"%s\".", line.c_str());
+            LOG_DEBUG(ini->_logger, "Skipping comment: \"%s\".", line.c_str());
           }
           else if (std::regex_match(line, section_regex)) {
-            DEBUG(ini->_logger, "Adding section \"%s\".", line.c_str());
+            LOG_DEBUG(ini->_logger, "Adding section \"%s\".", line.c_str());
 
             // Add current entires.
             if (cur_entries.size() > 0) {
@@ -89,13 +89,13 @@ namespace Sip0x
 
             cur_entries[key] = value;
 
-            DEBUG(ini->_logger, "Adding entry \"%s\", key %s value %s.", line.c_str(), key.c_str(), value.c_str());
+            LOG_DEBUG(ini->_logger, "Adding entry \"%s\", key %s value %s.", line.c_str(), key.c_str(), value.c_str());
           }
           else if (line.empty()) {
             // nop ...
           }
           else {
-            WARN(ini->_logger, "Line \"%s\" wasn't recognized. Skipping line.", line.c_str());
+            LOG_WARN(ini->_logger, "Line \"%s\" wasn't recognized. Skipping line.", line.c_str());
           }
 
           line.clear();

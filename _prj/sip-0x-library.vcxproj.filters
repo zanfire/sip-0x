@@ -315,6 +315,36 @@
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessage.hpp">
       <Filter>parser\factory</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\logic\UA.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\Connection.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\utils\Listeners.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\UAS.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\ConnectionManager.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\UAC.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\asio_header.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\Transaction.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\MessageFactory.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\Dialog.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

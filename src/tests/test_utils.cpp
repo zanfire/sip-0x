@@ -42,6 +42,9 @@ void run_sip(std::string input) {
   cout << "res: " << ((successes) ? "OK" : "KO");
 
   if (message != nullptr) {
+    std::cout << std::endl;
+    message->write(std::cout);
+    std::cout << std::endl;
     delete message;
   }
 

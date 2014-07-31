@@ -95,7 +95,7 @@ namespace Sip0x
       template<typename F, typename R>
       ReadResult processing(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
         
-        DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
+        LOG_DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 
         ReadResult result = f->read(iss, ctx);
         if (!result.successes) {

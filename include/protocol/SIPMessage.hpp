@@ -15,13 +15,14 @@ namespace Sip0x
   namespace Protocol
   {
   
-    struct SIPMessage {
+    class SIPMessage {
+    public:
       std::vector<SIPMessageHeader> headers;
       std::vector<uint8_t> _content;
       
       virtual int write(std::ostream& stream) const {
         for (auto h : headers) {
-          //h.
+          h.write(stream);
         }
         stream.write("\r\n", 2);
         for (auto c : _content) {
@@ -31,7 +32,8 @@ namespace Sip0x
       }
     };
 
-    struct SIPRequest : public SIPMessage {
+    class SIPRequest : public SIPMessage {
+    public:
       SIPMethod method;
       SIPURI uri;
       SIPVersion version;
@@ -49,10 +51,22 @@ namespace Sip0x
       }
     };
 
-    struct SIPResponse : public SIPMessage {
+    class SIPResponse : public SIPMessage {
+    public:
       SIPVersion version;
       int status_code;
       std::string reason_phrase;
+
+      virtual int write(std::ostream& stream) const override {
+        version.write(stream);
+        stream.put(' ');
+        stream << status_code;
+        stream.put(' ');
+        stream << reason_phrase;
+        stream.write("\r\n", 2);
+
+        return SIPMessage::write(stream);
+      }
     };
   }
 }

@@ -38,7 +38,7 @@ namespace Sip0x
           s >> oct1 >> dot >> oct2 >> dot >> oct3 >> dot >> oct4;
           
           if (oct1 > 255 || oct2 > 255 || oct3 > 255 || oct4 > 255) {
-            DEBUG(_logger, "IPv4 out of range.");
+            LOG_DEBUG(_logger, "IPv4 out of range.");
             result.successes = false;
             result.parsed = "";
             return result;

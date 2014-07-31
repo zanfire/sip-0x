@@ -10,6 +10,11 @@ namespace Sip0x
     struct SIPMessageHeader {
       std::string name;
       std::string value;
+
+      virtual int write(std::ostream& stream) const {
+        stream << name << ": " << value << "\r\n";
+        return 1;
+      }
     };
   }
 }

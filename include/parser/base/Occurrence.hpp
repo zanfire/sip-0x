@@ -35,12 +35,12 @@ namespace Sip0x
         }
 
         if (occurrence >= _min && (occurrence <= _max || _max == -1)) {
-          DEBUG(_logger, "Successes Occurrence@%p, occurrence: %d in range [%d - %d].", this, occurrence, _min, _max);
+          LOG_DEBUG(_logger, "Successes Occurrence@%p, occurrence: %d in range [%d - %d].", this, occurrence, _min, _max);
           // TODO: Accumulate resulting object returned by each occurrence.
           return ReadResult(true);
         }
         else {
-          DEBUG(_logger, "Failed Occurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
+          LOG_DEBUG(_logger, "Failed Occurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
           return output;
         }
       }

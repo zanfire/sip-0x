@@ -10,13 +10,10 @@ namespace Sip0x
       int minor;
 
       virtual int write(std::ostream& stream) const {
-        char buf[254];
-        stream.write("SIP/", 4);
-        _itoa_s(major, buf, sizeof(buf), 10);
-        stream.write(buf, strlen(buf));
-        stream.put('.');
-        _itoa_s(minor, buf, sizeof(buf), 10);
-        stream.write(buf, strlen(buf));
+        stream << "SIP/";
+        stream << major;
+        stream << '.';
+        stream << minor;
         return 1;
       }
     };

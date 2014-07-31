@@ -18,15 +18,18 @@ namespace Sip0x
 
     protected:
       std::shared_ptr<Logger> _logger;
-      std::string _content;
-      int _pos;
+      uint8_t  const* _content;
+      std::size_t const _size;
+      int _pos = 0;
 
 
     public:
-      InputTokenStream(std::string& str) {
+      InputTokenStream(std::string& str) : _content((uint8_t const*)str.data()), _size(str.length()) {
         _logger = LoggerManager::get_logger("Sip0x.Utils.InputTokenStream");
-        _content = str;
-        _pos = 0;
+      }
+
+      InputTokenStream(uint8_t const* content, std::size_t const& size) : _content(content), _size(size) {
+        _logger = LoggerManager::get_logger("Sip0x.Utils.InputTokenStream");
       }
 
       virtual ~InputTokenStream(void) {
@@ -36,21 +39,21 @@ namespace Sip0x
       int pos(void) { return _pos; }
 
       // Returns the number of chars available to get.
-      int remains(void) { return _content.length() - _pos; }
+      int remains(void) { return _size - _pos; }
       
       char get_char(void) {
-        if (_pos + 1 > (int)_content.length()) {
+        if (_pos + 1 > _size) {
           return -1;
         }
-        return _content.at(_pos++);
+        return _content[_pos++];
       }
 
       std::string str(void) {
-        return _content;
+        return std::string((char const*)_content, _size);
       }
 
       std::string str(int pos, int chars) {
-        return _content.substr(pos, chars);;
+        return std::string((char const*)(_content + pos), chars);;
       }
 
       std::string get(void) {
@@ -58,9 +61,9 @@ namespace Sip0x
       }
 
       std::string get(int chars) {
-        std::string str = _content.substr(_pos, chars);
-        _pos += str.length();
-        return str;
+        std::string s = str(_pos, chars);
+        _pos += s.length();
+        return s;
       }
 
       std::string unget(int chars) {
@@ -72,7 +75,7 @@ namespace Sip0x
       }
 
       bool eof(void) {
-        return _pos >= (int)_content.length();
+        return _pos >= _size;
       }
     };
   }

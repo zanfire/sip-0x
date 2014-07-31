@@ -61,15 +61,15 @@ namespace Sip0x
         
         static Logger::LoggerLevel conv_logger_level_from_string(std::string level) {
           if (level.compare("FATAL") == 0) return Logger::FATAL;
-          if (level.compare("ERROR") == 0) return Logger::ERROR;
-          if (level.compare("WARN") == 0) return Logger::WARN;
+          if (level.compare("LOG_ERROR") == 0) return Logger::LOG_ERROR;
+          if (level.compare("LOG_WARN") == 0) return Logger::LOG_WARN;
           if (level.compare("INFO") == 0) return Logger::INFO;
-          if (level.compare("DEBUG") == 0) return Logger::DEBUG;
-          return Logger::DEBUG;
+          if (level.compare("LOG_DEBUG") == 0) return Logger::LOG_DEBUG;
+          return Logger::LOG_DEBUG;
         }
       protected:
         LoggerManager(void) {
-          _default_level = Logger::DEBUG;
+          _default_level = Logger::LOG_DEBUG;
         }
 
       public:

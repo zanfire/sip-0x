@@ -22,16 +22,15 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-    static ReadResult parse(std::string text, TokenAbstract& root, FactoryContext* factory) {
+    static ReadResult parse(Sip0x::Utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory) {
       std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
 
-      DEBUG(logger, "Parsing string \"%s\".", text.c_str());
+      LOG_DEBUG(logger, "Parsing string \"%s\".", iss.str());
 
-      Sip0x::Utils::InputTokenStream iss(text);
       ReadResult result = root.read(iss, factory);
 
       if (result.successes && iss.eof()) {
-        DEBUG(logger, "Parsing successes, remains: %d, pos %d.", iss.remains(), iss.pos());
+        LOG_DEBUG(logger, "Parsing successes, remains: %d, pos %d.", iss.remains(), iss.pos());
 
       }
       else {
@@ -44,17 +43,21 @@ namespace Sip0x
         if (result.errorpos == -2) {
           result.set_error(cur_pos, "Remaining string: " + r);
         }
-        DEBUG(logger, "Parsing terminated without successes, remaining string: \"%s\".", r.c_str());
+        LOG_DEBUG(logger, "Parsing terminated without successes, remaining string: \"%s\".", r.c_str());
       }
       return result;
     }
 
+    static ReadResult parse(std::string text, TokenAbstract& root, FactoryContext* factory) {
+      Sip0x::Utils::InputTokenStream iss(text);
+      return parse(iss, root, factory);
+    }
 
-    static Sip0x::Protocol::SIPMessage* parse_sip_message(std::string text) {
+    static Sip0x::Protocol::SIPMessage* parse_sip_message(Sip0x::Utils::InputTokenStream  iss) {
       static TokenSIPMessage sip; // Expensive to build
       FactoryContext ctx;
 
-      ReadResult res = parse(text, sip, &ctx);
+      ReadResult res = parse(iss, sip, &ctx);
       if (res.successes) {
         FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
         if (message != nullptr) {
@@ -68,6 +71,11 @@ namespace Sip0x
       }
 
       return nullptr;
+    }
+
+    static Sip0x::Protocol::SIPMessage* parse_sip_message(std::string text) {
+      Sip0x::Utils::InputTokenStream iss(text);
+      return parse_sip_message(iss);
     }
   }
 }

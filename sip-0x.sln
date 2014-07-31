@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30203.2
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-tests", "_prj\sip-0x-tests.vcxproj", "{90F1A38E-1AA7-433A-B7D6-9B4F4AAE8C7E}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -9,6 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-tests", "_prj\sip-0x
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-library", "_prj\sip-0x-library.vcxproj", "{953272E9-FA48-47E4-ADE1-F45467475B99}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-regclient", "_prj\sip-0x-regclient.vcxproj", "{62FC3684-6C06-4B40-BB62-BE0067F73D99}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sip-0x-testserver", "_prj\sip-0x-testserver.vcxproj", "{0F7DC61F-44DC-43B9-B86C-45292152C825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,14 @@ Global
 		{953272E9-FA48-47E4-ADE1-F45467475B99}.Debug|Win32.Build.0 = Debug|Win32
 		{953272E9-FA48-47E4-ADE1-F45467475B99}.Release|Win32.ActiveCfg = Release|Win32
 		{953272E9-FA48-47E4-ADE1-F45467475B99}.Release|Win32.Build.0 = Release|Win32
+		{62FC3684-6C06-4B40-BB62-BE0067F73D99}.Debug|Win32.ActiveCfg = Debug|Win32
+		{62FC3684-6C06-4B40-BB62-BE0067F73D99}.Debug|Win32.Build.0 = Debug|Win32
+		{62FC3684-6C06-4B40-BB62-BE0067F73D99}.Release|Win32.ActiveCfg = Release|Win32
+		{62FC3684-6C06-4B40-BB62-BE0067F73D99}.Release|Win32.Build.0 = Release|Win32
+		{0F7DC61F-44DC-43B9-B86C-45292152C825}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0F7DC61F-44DC-43B9-B86C-45292152C825}.Debug|Win32.Build.0 = Debug|Win32
+		{0F7DC61F-44DC-43B9-B86C-45292152C825}.Release|Win32.ActiveCfg = Release|Win32
+		{0F7DC61F-44DC-43B9-B86C-45292152C825}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
