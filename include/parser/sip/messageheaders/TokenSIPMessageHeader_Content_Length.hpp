@@ -5,9 +5,6 @@
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
 
-
-
-#include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
 
 namespace Sip0x
@@ -17,14 +14,8 @@ namespace Sip0x
 
     // Content-Length  =  ( "Content-Length" / "l" ) HCOLON 1*DIGIT
     class TokenSIPMessageHeader_Content_Length : public TokenSIPMessageHeader_base<TokenDigits>{
-
-    protected:
-
     public:
-      TokenSIPMessageHeader_Content_Length() : TokenSIPMessageHeader_base("Content-Length", "(Content\\-Length)|(l)",TokenDigits())
-      {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Content_Length");
-      }
+      TokenSIPMessageHeader_Content_Length() : TokenSIPMessageHeader_base("Content-Length", "(Content\\-Length)|(l)", TokenDigits()) {}
     };
 
   }

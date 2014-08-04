@@ -20,7 +20,7 @@ namespace Sip0x
       std::shared_ptr<Logger> _logger;
       uint8_t  const* _content;
       std::size_t const _size;
-      int _pos = 0;
+      unsigned long _pos = 0;
 
 
     public:

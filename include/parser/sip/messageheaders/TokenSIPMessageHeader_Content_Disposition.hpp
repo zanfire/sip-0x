@@ -32,7 +32,7 @@ namespace Sip0x
 
     public:
       //
-      TokenSIPMessageHeader_Content_Disposition() : TokenSIPMessageHeader_base("CSeq", "CSeq",
+      TokenSIPMessageHeader_Content_Disposition() : TokenSIPMessageHeader_base("Content-Disposition", "Content\\-Disposition",
         Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
         (
           TokenDigits(),
@@ -41,7 +41,6 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 

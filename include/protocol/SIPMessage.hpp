@@ -17,15 +17,15 @@ namespace Sip0x
   
     class SIPMessage {
     public:
-      std::vector<SIPMessageHeader> headers;
-      std::vector<uint8_t> _content;
+      std::vector<std::shared_ptr<SIPMessageHeaderBase>> headers;
+      std::vector<uint8_t> content;
       
       virtual int write(std::ostream& stream) const {
         for (auto h : headers) {
-          h.write(stream);
+          h->write(stream);
         }
         stream.write("\r\n", 2);
-        for (auto c : _content) {
+        for (auto c : content) {
           stream.put(c);
         }
         return 1;

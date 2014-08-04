@@ -345,6 +345,9 @@
     <ClInclude Include="..\include\logic\Dialog.hpp">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\protocol\NameAddr.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

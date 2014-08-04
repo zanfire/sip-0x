@@ -27,14 +27,14 @@ namespace Sip0x
     //                   / ( "1" [ "." 0*3("0") ] )
     // generic-param  =  token [ EQUAL gen-value ]
     // gen-value      =  token / host / quoted-string
-    class TokenSIPMessageHeader_Accept : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenRegex, TokenSIPMethod>> {
+    class TokenSIPMessageHeader_Accept : public TokenSIPMessageHeader_base<Sequence<TokenDigits, TokenRegex, TokenSIPMethod>> {
 
     protected:
 
     public:
       //
-      TokenSIPMessageHeader_Accept() : TokenSIPMessageHeader_base("Accept", "CSeq",
-        Sequence<TokenRegex, TokenRegex, TokenSIPMethod>
+      TokenSIPMessageHeader_Accept() : TokenSIPMessageHeader_base("Accept", "Accept",
+        Sequence<TokenDigits, TokenRegex, TokenSIPMethod>
         (
           TokenDigits(),
           TokenRegex("LWS", RegexConstStrings::LWS),
@@ -42,7 +42,6 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 

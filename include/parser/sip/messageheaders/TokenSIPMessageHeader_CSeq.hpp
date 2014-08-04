@@ -5,9 +5,6 @@
 #include "parser/base/Operators.hpp"
 #include "parser/base/TokenRegex.hpp"
 
-
-
-#include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
 
 namespace Sip0x
@@ -16,14 +13,12 @@ namespace Sip0x
   {
 
     // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
-
-    protected:
+    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenDigits, TokenLWS, TokenSIPMethod>> {
 
     public:
       //
       TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
+        Sequence<TokenDigits, TokenLWS, TokenSIPMethod>
         (
           TokenDigits(),
           TokenLWS(),
@@ -31,7 +26,6 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 

@@ -6,6 +6,7 @@
 #include "protocol/SIPURI.hpp"
 #include "protocol/SIPMessageHeader.hpp"
 #include "protocol/SIPVersion.hpp"
+#include "protocol/NameAddr.hpp"
 
 
 #endif // SIP0X_PROTOCOL_SIP_HPP__
