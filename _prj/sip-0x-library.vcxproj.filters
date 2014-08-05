@@ -348,6 +348,15 @@
     <ClInclude Include="..\include\protocol\NameAddr.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\parser\factory\FactoryContextNameAddr.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\parser\factory\Factory.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\protocol\HostPort.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

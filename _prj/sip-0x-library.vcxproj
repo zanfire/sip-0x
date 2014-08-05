@@ -37,7 +37,9 @@
     <ClInclude Include="..\include\parser\common\TokenNameAddr.hpp" />
     <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp" />
     <ClInclude Include="..\include\parser\common\TokenPresets.hpp" />
+    <ClInclude Include="..\include\parser\factory\Factory.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContext.hpp" />
+    <ClInclude Include="..\include\parser\factory\FactoryContextNameAddr.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessage.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessageHeader.hpp" />
     <ClInclude Include="..\include\parser\factory\FactoryContextSIPURI.hpp" />
@@ -103,6 +105,7 @@
     <ClInclude Include="..\include\parser\sip\TokenURIHeaders.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenURIParameter.hpp" />
     <ClInclude Include="..\include\parser\sip\TokenUserInfo.hpp" />
+    <ClInclude Include="..\include\protocol\HostPort.hpp" />
     <ClInclude Include="..\include\protocol\NameAddr.hpp" />
     <ClInclude Include="..\include\protocol\SIP.hpp" />
     <ClInclude Include="..\include\protocol\SIPMessageHeader.hpp" />

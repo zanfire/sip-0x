@@ -117,18 +117,18 @@ namespace Sip0x
 
     // Via: SIP/2.0/UDP pc33.atlanta.com;branch=z9hG4bKnashds9
     // Via               =  ( "Via" / "v" ) HCOLON via-parm *(COMMA via-parm)
-    class TokenSIPMessageHeader_Via : public TokenSIPMessageHeader_base<Sequence<TokenSIPMessageHeader_Via_param,  Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_param>>>> {
+    class TokenSIPMessageHeader_Via : public TokenSIPMessageHeader_base<Sequence<TokenSIPMessageHeader_Via_param, Occurrence<Sequence<TokenCOMMA, TokenSIPMessageHeader_Via_param>>>> {
 
     public:
       TokenSIPMessageHeader_Via() : TokenSIPMessageHeader_base("Via", "(Via)|(v)",
-        Sequence<TokenSIPMessageHeader_Via_param, Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_param>>>
+        Sequence<TokenSIPMessageHeader_Via_param, Occurrence<Sequence<TokenCOMMA, TokenSIPMessageHeader_Via_param>>>
         (
           TokenSIPMessageHeader_Via_param(),
-          Occurrence<Sequence<Token, TokenSIPMessageHeader_Via_param>>
+          Occurrence<Sequence<TokenCOMMA, TokenSIPMessageHeader_Via_param>>
           (
-            Sequence<Token, TokenSIPMessageHeader_Via_param>
+          Sequence<TokenCOMMA, TokenSIPMessageHeader_Via_param>
             (
-              Token(","),
+              TokenCOMMA(),
               TokenSIPMessageHeader_Via_param()
             ), 0, -1
           )

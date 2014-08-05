@@ -3,6 +3,7 @@
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/factory/FactoryContextValue.hpp"
+#include "parser/factory/FactoryContextNameAddr.hpp"
 
 #include "protocol/SIP.hpp"
 
@@ -19,7 +20,7 @@ namespace Sip0x
           std::string param = _children[0]->text();
           if (param.compare("Call-ID") == 0) {
             SIPMessageHeaderCall_ID* h = new SIPMessageHeaderCall_ID();
-            if (_children.size() == 3) {
+            if (_children.size() >= 3) {
               h->callID = _children[2]->text();
             }
             _value.reset(h);
@@ -50,13 +51,48 @@ namespace Sip0x
             extract_and_set_long(h->max);
             _value.reset(h);
           }
-          else if (param.compare("To") == 0) {
-            SIPMessageHeaderCSeq* h = new SIPMessageHeaderCSeq();
-            if (_children.size() == 5) {
-              extract_and_set_long(h->seq);
-              FactoryContextSIPMethod* method = dynamic_cast<FactoryContextSIPMethod*>(_children[4]);
-              if (method != nullptr) {
-                h->method = method->get();
+          else if (param.compare("To") == 0 || param.compare("From") == 0 || param.compare("Contact") == 0) {
+            SIPMessageHeaderWithNameAddr* h = nullptr;
+            if (param.compare("To") == 0) {
+              h = new SIPMessageHeaderTo();
+            }
+            else if (param.compare("From") == 0) {
+              h = new SIPMessageHeaderFrom();
+            }
+            else if (param.compare("Contact") == 0) {
+              h = new SIPMessageHeaderContact();
+            }
+            if (_children.size() >= 3) {
+              FactoryContextNameAddr* nameAddr = dynamic_cast<FactoryContextNameAddr*>(_children[2]);
+              if (nameAddr != nullptr) {
+                h->name_addr = nameAddr->get();
+              }
+            }
+            if (_children.size() == 4) {
+              FactoryContext* cur = _children[3];
+              for (int i = 0; i < cur->_children.size(); i += 4) {
+                auto pair = std::make_pair(cur->_children[i + 1]->text(), cur->_children[i + 3]->text());
+                h->params.push_back(pair);
+              }
+            }
+            _value.reset(h);
+          }
+          else if (param.compare("Via") == 0) {
+            SIPMessageHeaderVia* h = new SIPMessageHeaderVia();
+            if (_children.size() >= 9) {
+              h->protocol = _children[2]->text();
+              h->version = _children[4]->text();
+              h->transport = _children[6]->text();
+              FactoryContextHostPort* hostport = dynamic_cast<FactoryContextHostPort*>(_children[8]);
+              if (hostport != nullptr) {
+                h->hostport = hostport->get();
+              }
+            }
+            if (_children.size() >= 10) {
+              FactoryContext* cur = _children[9];
+              for (int i = 0; i < cur->_children.size(); i += 4) {
+                auto pair = std::make_pair(cur->_children[i + 1]->text(), cur->_children[i + 3]->text());
+                h->params.push_back(pair);
               }
             }
             _value.reset(h);

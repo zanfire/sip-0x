@@ -26,7 +26,9 @@ namespace Sip0x
               TokenNameAddr(),
               TokenAddrSpec()
             ),
-            Occurrence<Sequence<TokenSEMI, TokenGenericParam>>(Sequence<TokenSEMI, TokenGenericParam>(TokenSEMI(), TokenGenericParam()), 0, -1)
+            Occurrence<Sequence<TokenSEMI, TokenGenericParam>>
+            (
+              Sequence<TokenSEMI, TokenGenericParam>(TokenSEMI(), TokenGenericParam()), 0, -1)
             )
         )
       {

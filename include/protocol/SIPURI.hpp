@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "protocol/HostPort.hpp"
+
 namespace Sip0x
 {
   namespace Protocol
@@ -20,20 +22,6 @@ namespace Sip0x
           }
           else {
             return username + ":" + password + "@";
-          }
-        }
-      };
-
-      struct HostPort {
-        std::string host;
-        int port;
-
-        virtual std::string to_string(void) const {
-          if (port > 0) {
-            return host + ":" + std::to_string(port);
-          }
-          else {
-            return host;
           }
         }
       };
@@ -59,12 +47,21 @@ namespace Sip0x
       }
 
       virtual std::string to_string(void) const {
-        return '<' + secure ? "sips:" : "sip:" + userinfo.to_string() + hostport.to_string() + '>' + to_string_uri_parameters(uri_parameters) + to_string_headers(headers);
+        std::string out = "<sip";
+        if (secure) {
+          out += "s:";
+        }
+        else {
+          out += ":";
+        }
+        out += userinfo.to_string() + hostport.to_string() + ">" + to_string_uri_parameters(uri_parameters) + to_string_headers(headers);
+
+        return out;
       }
 
       static std::string to_string_uri_parameters(std::vector<Param> const& params) {
         std::string out;
-        for (int i = 0; i < params.size(); i++) {
+        for (std::size_t i = 0; i < params.size(); i++) {
           out += ";" + params[i].to_string();
         }
         return out;
@@ -72,7 +69,7 @@ namespace Sip0x
 
       static std::string to_string_headers(std::vector<Param> const& params) {
         std::string out;
-        for (int i = 0; i < params.size(); i++) {
+        for (std::size_t i = 0; i < params.size(); i++) {
           if (i == 0) {
             out += "?";
           }

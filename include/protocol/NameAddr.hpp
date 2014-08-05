@@ -25,7 +25,7 @@ namespace Sip0x
           return uri.to_string();
         }
         else {
-          return displayName + " " + uri.to_string();
+          return "\"" + displayName + "\" " + uri.to_string();
         }
       }
     };

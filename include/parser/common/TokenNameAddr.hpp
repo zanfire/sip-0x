@@ -1,7 +1,8 @@
 #if !defined(SIP0X_PARSER_TOKENNAMEADDR_HPP__)
 #define SIP0X_PARSER_TOKENNAMEADDR_HPP__
 
-#include "parser/base/TokenAbstract.hpp"
+
+#include "parser/base/TokenContainer.hpp"
 #include "parser/base/Token.hpp"
 #include "parser/base/TokenRegex.hpp"
 #include "parser/base/Operators.hpp"
@@ -12,6 +13,8 @@
 
 #include "parser/common/TokenAbsoluteURI.hpp"
 #include "parser/sip/TokenSIPURI.hpp"
+
+#include "parser/factory/Factory.hpp"
 
 namespace Sip0x
 {
@@ -41,13 +44,10 @@ namespace Sip0x
 
     // name-addr      =  [ display-name ] LAQUOT addr-spec RAQUOT
     // display-name   =  *(token LWS)/ quoted-string
-    class TokenNameAddr : public TokenAbstract {
-    protected:
-      Sequence<Occurrence<Alternative<TokenRegex, TokenQuotedString>>, TokenLAQUOT, TokenAddrSpec, TokenRAQUOT> _sequence;
-
+    class TokenNameAddr : public TokenContainer<Sequence<Occurrence<Alternative<TokenRegex, TokenQuotedString>>, TokenLAQUOT, TokenAddrSpec, TokenRAQUOT>> {
     public:
-      TokenNameAddr(void) : TokenAbstract("TokenNameAddr"), 
-        _sequence(
+      TokenNameAddr(void) : TokenContainer("TokenNameAddr", 
+        Sequence<Occurrence<Alternative<TokenRegex, TokenQuotedString>>, TokenLAQUOT, TokenAddrSpec, TokenRAQUOT>(
         Occurrence<Alternative<TokenRegex, TokenQuotedString>>(
           Alternative<TokenRegex, TokenQuotedString>(
             TokenRegex("(" + RegexConstStrings::token + RegexConstStrings::LWS + ")*"),
@@ -57,15 +57,12 @@ namespace Sip0x
           TokenLAQUOT(), 
           TokenAddrSpec(),
           TokenRAQUOT()
-         )
+         ), false)
       {
       }
 
-
-    protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult result = _sequence.read(iss, ctx);
-        return result;
+      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+        return new FactoryContextNameAddr();
       }
     };
   }

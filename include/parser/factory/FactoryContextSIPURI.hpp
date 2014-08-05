@@ -56,14 +56,18 @@ namespace Sip0x
     };
 
 
-    class FactoryContextHostPort : public FactoryContextValue<SIPURI::HostPort> {
+    class FactoryContextHostPort : public FactoryContextValue<HostPort> {
     public:
       virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        if (_children.size() >= 1) {
-          _value.host = _children[0]->text();
+        int idx = 0;
+        _value.host.clear();
+        while (idx < _children.size()) {
+          if (_children[idx]->text().compare(":") == 0) break;
+          _value.host += _children[idx]->text();
+          ++idx;
         }
-        if (_children.size() == 3) {
-          FactoryContextDigits* digits = dynamic_cast<FactoryContextDigits*>(_children[2]);
+        if (idx + 1 < _children.size()) {
+          FactoryContextDigits* digits = dynamic_cast<FactoryContextDigits*>(_children[idx + 1]);
           if (digits != nullptr) {
             _value.port = digits->get();
           }

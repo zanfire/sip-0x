@@ -126,7 +126,6 @@ namespace Sip0x
       TokenSIPMessageHeader_Date,
       //TokenSIPMessageHeader_Error_Info,
       //TokenSIPMessageHeader_Expires,
-      TokenSIPMessageHeader_extension_header,
       TokenSIPMessageHeader_From,
       //TokenSIPMessageHeader_In_Reply_To,
       TokenSIPMessageHeader_Max_Forwards,
@@ -149,9 +148,10 @@ namespace Sip0x
       TokenSIPMessageHeader_To,
       //TokenSIPMessageHeader_Unsupported,
       //TokenSIPMessageHeader_User_Agent,
-      TokenSIPMessageHeader_Via
+      TokenSIPMessageHeader_Via,
       //TokenSIPMessageHeader_Warning,
-      //TokenSIPMessageHeader_WWW_Authenticate
+      //TokenSIPMessageHeader_WWW_Authenticate,
+      TokenSIPMessageHeader_extension_header
       >, TokenCRLF> _sequence;
 
     public:
@@ -179,7 +179,6 @@ namespace Sip0x
         TokenSIPMessageHeader_Date,
         //TokenSIPMessageHeader_Error_Info,
         //TokenSIPMessageHeader_Expires,
-        TokenSIPMessageHeader_extension_header,
         TokenSIPMessageHeader_From,
         //TokenSIPMessageHeader_In_Reply_To,
         TokenSIPMessageHeader_Max_Forwards,
@@ -202,9 +201,10 @@ namespace Sip0x
         TokenSIPMessageHeader_To,
         //TokenSIPMessageHeader_Unsupported,
         //TokenSIPMessageHeader_User_Agent,
-        TokenSIPMessageHeader_Via
+        TokenSIPMessageHeader_Via,
         //TokenSIPMessageHeader_Warning,
-        //TokenSIPMessageHeader_WWW_Authenticate
+        //TokenSIPMessageHeader_WWW_Authenticate,
+        TokenSIPMessageHeader_extension_header
         >
         (
       TokenSIPMessageHeader_Accept(),
@@ -226,7 +226,6 @@ namespace Sip0x
       TokenSIPMessageHeader_Date(),
       //TokenSIPMessageHeader_Error_Info(),
       //TokenSIPMessageHeader_Expires(),
-      TokenSIPMessageHeader_extension_header(),
       TokenSIPMessageHeader_From(),
       //TokenSIPMessageHeader_In_Reply_To(),
       TokenSIPMessageHeader_Max_Forwards(),
@@ -249,9 +248,10 @@ namespace Sip0x
       TokenSIPMessageHeader_To(),
       //TokenSIPMessageHeader_Unsupported(),
       //TokenSIPMessageHeader_User_Agent(),
-      TokenSIPMessageHeader_Via()
+      TokenSIPMessageHeader_Via(),
       //TokenSIPMessageHeader_Warning(),
-      //TokenSIPMessageHeader_WWW_Authenticate()
+      //TokenSIPMessageHeader_WWW_Authenticate(),
+      TokenSIPMessageHeader_extension_header()
         ),
         TokenCRLF()
         )

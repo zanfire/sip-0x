@@ -17,7 +17,7 @@ namespace Sip0x
     // To        =  ( "To" / "t" ) HCOLON ( name-addr
     //          / addr-spec ) *( SEMI to-param )
     // to-param  =  tag-param / generic-param
-    class TokenSIPMessageHeader_To : public TokenSIPMessageHeader_base < Sequence<Alternative<TokenNameAddr, TokenAddrSpec>, Occurrence<Sequence<TokenSEMI, TokenGenericParam>>> > {
+    class TokenSIPMessageHeader_To : public TokenSIPMessageHeader_base<Sequence<Alternative<TokenNameAddr, TokenAddrSpec>, Occurrence<Sequence<TokenSEMI, TokenGenericParam>>> > {
     public:
       TokenSIPMessageHeader_To() : TokenSIPMessageHeader_base("To", "(To)|(t)",
         Sequence<Alternative<TokenNameAddr, TokenAddrSpec>, Occurrence<Sequence<TokenSEMI, TokenGenericParam>>>(

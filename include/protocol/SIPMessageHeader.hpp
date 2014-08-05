@@ -67,20 +67,57 @@ namespace Sip0x
       virtual std::string value(void) const override { return std::to_string(length); }
     };
 
-    struct SIPMessageHeaderTo : public SIPMessageHeaderBase {
+    struct SIPMessageHeaderWithNameAddr : public SIPMessageHeaderBase {
       NameAddr name_addr;
+      std::vector<std::pair<std::string, std::string>> params;
 
-      virtual std::string param(void) const override { return "To"; }
-      virtual std::string value(void) const override { 
-        return name_addr.to_string(); 
+      virtual std::string value(void) const override {
+        return name_addr.to_string() + to_string_params(params);
+      }
+
+      static std::string to_string_params(std::vector<std::pair<std::string, std::string>> const& params) {
+        std::string out;
+        for (auto p : params) {
+          out += ";" + p.first + "=" + p.second;
+        }
+        return out;
       }
     };
 
-    //To: Bob <sip:bob@biloxi.com>       
-    //Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7
-    //From: Bob <sip:bob@biloxi.com>;tag=456248       
-    //Contact: <sip:bob@192.0.2.4> 
+    struct SIPMessageHeaderTo : public SIPMessageHeaderWithNameAddr {
+      virtual std::string param(void) const override { return "To"; }
+    };
 
+    struct SIPMessageHeaderFrom : public SIPMessageHeaderWithNameAddr {
+      virtual std::string param(void) const override { return "From"; }
+    };
+
+    struct SIPMessageHeaderContact : public SIPMessageHeaderWithNameAddr {
+      virtual std::string param(void) const override { return "Contact"; }
+    };
+
+    //Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7 
+    struct SIPMessageHeaderVia : public SIPMessageHeaderBase {
+      std::string protocol;
+      std::string version;
+      std::string transport;
+      HostPort hostport;
+      std::vector<std::pair<std::string, std::string>> params;
+
+      virtual std::string param(void) const override { return "Via"; }
+      virtual std::string value(void) const override { 
+        return protocol + "/" + version + "/" + transport + " " + hostport.to_string() + to_string_params(params);
+      }
+
+      static std::string to_string_params(std::vector<std::pair<std::string, std::string>> const& params) {
+        std::string out;
+        for (auto p : params) {
+          out += ";" + p.first + "=" + p.second;
+        }
+        return out;
+      }
+
+    };
   }
 }
 
