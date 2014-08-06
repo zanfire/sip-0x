@@ -54,7 +54,7 @@ namespace Sip0x
         return _sequence.read(iss, ctx);
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContextUserInfo();
       }
 

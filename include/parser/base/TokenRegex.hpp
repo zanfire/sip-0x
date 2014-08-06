@@ -72,7 +72,7 @@ namespace Sip0x
         return ReadResult();
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContext();
       }
     };

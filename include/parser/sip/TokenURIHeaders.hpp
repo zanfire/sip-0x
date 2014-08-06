@@ -28,7 +28,7 @@ namespace Sip0x
         ), true) {}
       
     protected:
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContextURIParameter();
       }
     };
@@ -58,7 +58,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContextURIParameters();
       }
     };

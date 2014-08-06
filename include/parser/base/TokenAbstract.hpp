@@ -48,7 +48,7 @@ namespace Sip0x
         
         LOG_DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
 
-        FactoryContext* factory = create_factory(ctx);
+        FactoryContext* factory = create_factory();
         output = handle_read(iss, factory != nullptr ? factory : ctx);
 
         if (output.successes) {
@@ -88,8 +88,7 @@ namespace Sip0x
 
       // Factory event
 
-      virtual FactoryContext* create_factory(FactoryContext* parent) const {
-        //return new FactoryContext();
+      virtual FactoryContext* create_factory(void) const {
         return nullptr;
       }
     };

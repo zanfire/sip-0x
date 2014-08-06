@@ -48,7 +48,7 @@ namespace Sip0x
       }
 
 
-      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContextURIParameter();
       }
     };
@@ -198,7 +198,7 @@ namespace Sip0x
         return _occurrene.read(iss, ctx);
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* factory) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContextURIParameters();
       }
     };

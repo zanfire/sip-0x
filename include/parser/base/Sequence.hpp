@@ -42,7 +42,7 @@ namespace Sip0x
         _disable_factory = disable;
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+      virtual FactoryContext* create_factory(void) const override {
         if (_disable_factory) {
           return nullptr;
         }

@@ -17,7 +17,7 @@ namespace Sip0x
       TokenContainer(std::string name, T token, bool disable_factory) : TokenAbstract(name), _token(token), _disable_factory(disable_factory) {
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+      virtual FactoryContext* create_factory(void) const override {
         if (_disable_factory) {
           return nullptr;
         }

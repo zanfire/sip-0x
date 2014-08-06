@@ -17,7 +17,7 @@ namespace Sip0x
       TokenDigits() : TokenRegex("digits", "[0-9]+") {
       }
 
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override {
+      virtual FactoryContext* create_factory(void) const override {
         return new FactoryContextDigits();
       }
     };
@@ -71,14 +71,14 @@ namespace Sip0x
     class TokenSP : public TokenRegex {
     public:
       TokenSP() : TokenRegex("SP", RegexConstStrings::SP) {}
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override { return nullptr; }
+      virtual FactoryContext* create_factory(void) const override { return nullptr; }
     };
 
 
     class TokenCRLF : public TokenRegex {
     public:
       TokenCRLF() : TokenRegex("CRLF", RegexConstStrings::CRLF) {}
-      virtual FactoryContext* create_factory(FactoryContext* parent) const override { return nullptr; }
+      virtual FactoryContext* create_factory(void) const override { return nullptr; }
     };
 
     class TokenWord : public TokenRegex {
