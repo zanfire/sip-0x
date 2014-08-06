@@ -16,6 +16,7 @@
     <ClInclude Include="..\include\logic\ConnectionManager.hpp" />
     <ClInclude Include="..\include\logic\Dialog.hpp" />
     <ClInclude Include="..\include\logic\MessageFactory.hpp" />
+    <ClInclude Include="..\include\logic\RegisterClient.hpp" />
     <ClInclude Include="..\include\logic\Transaction.hpp" />
     <ClInclude Include="..\include\logic\UA.hpp" />
     <ClInclude Include="..\include\logic\UAC.hpp" />
@@ -114,7 +115,6 @@
     <ClInclude Include="..\include\protocol\SIPURI.hpp" />
     <ClInclude Include="..\include\protocol\SIPVersion.hpp" />
     <ClInclude Include="..\include\utils\IniFile.hpp" />
-    <ClInclude Include="..\include\utils\Listeners.hpp" />
     <ClInclude Include="..\include\utils\log\Logger.hpp" />
     <ClInclude Include="..\include\utils\log\LoggerManager.hpp" />
     <ClInclude Include="..\include\utils\InputTokenStream.hpp" />
@@ -167,7 +167,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\vendors\asio-1.10.1\include;..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -180,7 +180,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>

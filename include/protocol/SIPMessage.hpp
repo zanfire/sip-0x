@@ -39,13 +39,10 @@ namespace Sip0x
       SIPVersion version;
 
       virtual int write(std::ostream& stream) const override {
-        char const* m = convCharsFromSIPMethod(method);
-        stream.write(m, strlen(m));
-        stream.put(' ');
-        uri.write(stream);
-        stream.put(' ');
+        stream << convCharsFromSIPMethod(method) << ' ' << uri.to_string();
+        stream << ' ';
         version.write(stream);
-        stream.write("\r\n", 2);
+        stream << "\r\n";
 
         return SIPMessage::write(stream);
       }

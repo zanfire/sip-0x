@@ -47,14 +47,14 @@ namespace Sip0x
       }
 
       virtual std::string to_string(void) const {
-        std::string out = "<sip";
+        std::string out = "sip";
         if (secure) {
           out += "s:";
         }
         else {
           out += ":";
         }
-        out += userinfo.to_string() + hostport.to_string() + ">" + to_string_uri_parameters(uri_parameters) + to_string_headers(headers);
+        out += userinfo.to_string() + hostport.to_string() + "" + to_string_uri_parameters(uri_parameters) + to_string_headers(headers);
 
         return out;
       }

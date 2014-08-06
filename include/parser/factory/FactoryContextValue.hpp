@@ -26,16 +26,16 @@ namespace Sip0x
     class FactoryContextSIPMethod : public FactoryContextValue<SIPMethod> {
     protected:
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        _value = convSIPMethodFromChars(result.parsed.c_str());
+      virtual void create(std::string const& text) override {
+        _value = convSIPMethodFromChars(text.c_str());
       }
     };
 
     class FactoryContextDigits : public FactoryContextValue<long> {
     protected:
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        _value = atol(result.parsed.c_str());
+      virtual void create(std::string const& text) override {
+        _value = atol(text.c_str());
       }
     };
 

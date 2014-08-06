@@ -14,7 +14,7 @@ namespace Sip0x
 
     class FactoryContextNameAddr : public FactoryContextValue<NameAddr> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+      virtual void create(std::string const& text) override {
         int idx = 1;
         if (_children.size() == 4) {
           _value.displayName = _children[0]->text();

@@ -15,7 +15,7 @@ namespace Sip0x
 
     class FactoryContextSIPMessageHeader : public FactoryContextValue<std::shared_ptr<SIPMessageHeaderBase>> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+      virtual void create(std::string const& text) override {
         if (_children.size() >= 1) {
           std::string param = _children[0]->text();
           if (param.compare("Call-ID") == 0) {
@@ -70,7 +70,7 @@ namespace Sip0x
             }
             if (_children.size() == 4) {
               FactoryContext* cur = _children[3];
-              for (int i = 0; i < cur->_children.size(); i += 4) {
+              for (std::size_t i = 0; i < cur->_children.size(); i += 4) {
                 auto pair = std::make_pair(cur->_children[i + 1]->text(), cur->_children[i + 3]->text());
                 h->params.push_back(pair);
               }
@@ -90,7 +90,7 @@ namespace Sip0x
             }
             if (_children.size() >= 10) {
               FactoryContext* cur = _children[9];
-              for (int i = 0; i < cur->_children.size(); i += 4) {
+              for (std::size_t i = 0; i < cur->_children.size(); i += 4) {
                 auto pair = std::make_pair(cur->_children[i + 1]->text(), cur->_children[i + 3]->text());
                 h->params.push_back(pair);
               }

@@ -13,19 +13,12 @@ namespace Sip0x
       std::string displayName;
       SIPURI uri;
 
-      virtual int write(std::ostream& stream) const {
-        stream << displayName << '<';
-        uri.write(stream);
-        stream << '>';
-        return 1;
-      }
-
       virtual std::string to_string(void) const {
         if (displayName.empty()) {
           return uri.to_string();
         }
         else {
-          return "\"" + displayName + "\" " + uri.to_string();
+          return "\"" + displayName + "\" <" + uri.to_string() + '>';
         }
       }
     };

@@ -46,31 +46,30 @@ namespace Sip0x
       // Read the expected token.
       // returns true if encountered the expected token.  
       virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        std::smatch pieces_match;
-        std::string input;
+        //std::smatch pieces_match;
+        std::cmatch pieces_match;
         int init_pos = iss.pos();
-        input = iss.get();
+        char const* input = iss.get_cstr();
 
-        LOG_DEBUG(_logger, "Regex processing input: \"%s\".", input.c_str());
+        //LOG_DEBUG(_logger, "Regex processing input: \"%s\".", input);
 
+        //if (std::regex_search(input, pieces_match, _regex)) {
         if (std::regex_search(input, pieces_match, _regex)) {
           LOG_DEBUG(_logger, "Regex matched, found %d occurrences.", pieces_match.size());
           if (pieces_match.size() >= 1 && pieces_match.position() == 0) {
-            std::ssub_match sub_match = pieces_match[0];
-            std::string piece = sub_match.str();
-            iss.seekg(init_pos + piece.length());
-            return ReadResult(true, piece);
+            //std::string piece = sub_match.str(); // TODO: length instead of string.
+            iss.seekg(init_pos + pieces_match.length());
+            return ReadResult(true, init_pos, pieces_match.length());
           }
           else {
             LOG_DEBUG(_logger, "Regexp failed constrains, count %d, pos: %d.", pieces_match.size(), pieces_match.position());
           }
         }
         else {
-          LOG_DEBUG(_logger, "Regexp match no occurrence found.");
+          //LOG_DEBUG(_logger, "Regexp match no occurrence found.");
         }
 
-        ReadResult result(false);
-        return result;
+        return ReadResult();
       }
 
       virtual FactoryContext* create_factory(FactoryContext* factory) const override {

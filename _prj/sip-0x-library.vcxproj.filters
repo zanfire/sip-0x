@@ -321,9 +321,6 @@
     <ClInclude Include="..\include\logic\Connection.hpp">
       <Filter>logic</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\utils\Listeners.hpp">
-      <Filter>utils</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\logic\UAS.hpp">
       <Filter>logic</Filter>
     </ClInclude>
@@ -356,6 +353,9 @@
     </ClInclude>
     <ClInclude Include="..\include\protocol\HostPort.hpp">
       <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\RegisterClient.hpp">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

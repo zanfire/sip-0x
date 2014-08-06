@@ -1,6 +1,7 @@
 #include <thread>
 
 #include "logic\UAC.hpp"
+#include "logic\RegisterClient.hpp"
 
 #include "logic\Connection.hpp"
 

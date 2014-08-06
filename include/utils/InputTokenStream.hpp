@@ -53,7 +53,7 @@ namespace Sip0x
       }
 
       std::string str(int pos, int chars) {
-        return std::string((char const*)(_content + pos), chars);;
+        return std::string((char const*)(_content + pos), chars);
       }
 
       std::string get(void) {
@@ -64,6 +64,10 @@ namespace Sip0x
         std::string s = str(_pos, chars);
         _pos += s.length();
         return s;
+      }
+
+      char const* get_cstr(void) {
+        return (char const*)(_content + _pos);
       }
 
       std::string unget(int chars) {

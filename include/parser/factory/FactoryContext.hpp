@@ -23,8 +23,8 @@ namespace Sip0x
         }
       }
 
-      virtual void create(TokenAbstract const* token, ReadResult const& result) {
-        _text = result.parsed;
+      virtual void create(std::string const& text) {
+        _text = text;
       }
       virtual void destroy(void) {}
 

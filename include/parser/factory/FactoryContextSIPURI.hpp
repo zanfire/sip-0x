@@ -14,7 +14,7 @@ namespace Sip0x
 
     class FactoryContextUserInfo : public FactoryContextValue<SIPURI::UserInfo> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+      virtual void create(std::string const& text) override {
         if (_children.size() >= 2) {
           _value.username = _children[0]->text();
         }
@@ -29,7 +29,7 @@ namespace Sip0x
 
     class FactoryContextURIParameter : public FactoryContextValue<SIPURI::Param> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+      virtual void create(std::string const& text) override {
         if (_children.size() == 3) {
           _value.param = _children[0]->text();
           _value.value = _children[2]->text();
@@ -42,7 +42,7 @@ namespace Sip0x
 
     class FactoryContextURIParameters : public FactoryContextValue<std::vector<SIPURI::Param>> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+      virtual void create(std::string const& text) override {
         for (unsigned int i = 1; i < _children.size(); i++) {
           FactoryContextValue<SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<SIPURI::Param>*>(_children[i]);
           if (fcv != nullptr) {
@@ -58,8 +58,8 @@ namespace Sip0x
 
     class FactoryContextHostPort : public FactoryContextValue<HostPort> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
-        int idx = 0;
+      virtual void create(std::string const& text) override {
+        std::size_t idx = 0;
         _value.host.clear();
         while (idx < _children.size()) {
           if (_children[idx]->text().compare(":") == 0) break;
@@ -79,7 +79,7 @@ namespace Sip0x
 
     class FactoryContextSIPURI : public FactoryContextValue<SIPURI> {
     public:
-      virtual void create(TokenAbstract const* token, ReadResult const& result) override {
+      virtual void create(std::string const& text) override {
         if (_children.size() >= 3) {
           _value.secure = _children[0]->text().compare("sips:") == 0;
           FactoryContextUserInfo* userinfo = dynamic_cast<FactoryContextUserInfo*>(_children[1]);

@@ -32,7 +32,7 @@ namespace Sip0x
         ReadResult result = _regex.read(iss, ctx);
 
         if (result.successes) {
-          std::stringstream s(result.parsed);
+          std::stringstream s(iss.str(result.pos, result.len));
           int oct1, oct2, oct3, oct4;
           char dot;
           s >> oct1 >> dot >> oct2 >> dot >> oct3 >> dot >> oct4;
@@ -40,7 +40,6 @@ namespace Sip0x
           if (oct1 > 255 || oct2 > 255 || oct3 > 255 || oct4 > 255) {
             LOG_DEBUG(_logger, "IPv4 out of range.");
             result.successes = false;
-            result.parsed = "";
             return result;
           }
 
