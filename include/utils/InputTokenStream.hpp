@@ -35,6 +35,10 @@ namespace Sip0x
       virtual ~InputTokenStream(void) {
       }
 
+      // Delete copy constructor.
+      InputTokenStream& operator=(InputTokenStream const&) = delete;
+      InputTokenStream(InputTokenStream const&) = delete;
+
       // Returns the current position in the content.
       int pos(void) { return _pos; }
 

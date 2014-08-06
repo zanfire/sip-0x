@@ -51,13 +51,8 @@ namespace Sip0x
         FactoryContext* factory = create_factory(ctx);
         output = handle_read(iss, factory != nullptr ? factory : ctx);
 
-        std::string parsed;
-
         if (output.successes) {
-          int delta = iss.pos() - initial_pos;
-          parsed = iss.str(initial_pos, delta);
           //LOG_DEBUG(_logger, "Consumed chars %d during parsing, parsed %s.", delta, parsed.c_str());
-
         }
         else {
           iss.seekg(initial_pos);
@@ -70,7 +65,7 @@ namespace Sip0x
 
         if (output.successes) {
           if (factory != nullptr) {
-            factory->create(parsed);
+            factory->create(iss.str(initial_pos, iss.pos() - initial_pos));
             ctx->add_child(factory);
           }
         }

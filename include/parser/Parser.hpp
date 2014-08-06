@@ -53,7 +53,7 @@ namespace Sip0x
       return parse(iss, root, factory);
     }
 
-    static Sip0x::Protocol::SIPMessage* parse_sip_message(Sip0x::Utils::InputTokenStream  iss) {
+    static Sip0x::Protocol::SIPMessage* parse_sip_message(Sip0x::Utils::InputTokenStream&  iss) {
       static TokenSIPMessage sip; // Expensive to build
       FactoryContext ctx;
 

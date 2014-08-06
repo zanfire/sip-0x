@@ -45,7 +45,7 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* /*ctx*/) const override {
         //std::smatch pieces_match;
         std::cmatch pieces_match;
         int init_pos = iss.pos();
