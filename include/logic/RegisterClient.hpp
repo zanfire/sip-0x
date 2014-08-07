@@ -17,22 +17,11 @@
 //! limitations under the License.
 //!
 
-#include "asio_header.hpp"
-
-#include <string>
-#include <memory>
-
-#include "parser/Parser.hpp"
-
-#include "logic/UAC.hpp"
-#include "logic/Connection.hpp"
-#include "logic/ConnectionManager.hpp"
-
-#include "logic/Transaction.hpp"
-#include "logic/MessageFactory.hpp"
-
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
+
+#include "logic/UAC.hpp"
+
 
 namespace Sip0x
 {
@@ -59,7 +48,7 @@ namespace Sip0x
 
     protected:
       std::shared_ptr<Logger> _logger;
-      std::shared_ptr<UAC> _uac;
+      UAC* _uac;
       //! Desired REGISTER duration in seconds.
       //! \note Default 7200 seconds.
       uint32_t _desired_expires = 7200;
@@ -76,7 +65,7 @@ namespace Sip0x
       //Transaction _curren_transaction;
 
     public:
-      RegisterClient(std::shared_ptr<UAC>& uac) : _uac(uac) {
+      RegisterClient(UAC* uac) : _uac(uac) {
         _logger = LoggerManager::get_logger("Sip0x.Logic.RegisterClient");
       }
 
@@ -90,12 +79,13 @@ namespace Sip0x
 
       //! Starts the registration process and keep refresh.
       void start(void) {
-        // TODO: Enqueue in a processing queue!!!
-
-
       }
 
     protected:
+
+      bool send_REGISTER(void) {
+        std::unique_ptr<SIPRequest> req = _uac->create_REGISTER();
+      }
 
       //std::unique_ptr<SIPRequest> create_REGISTER(void) {
       //  std::unique_ptr<SIPRequest> req = _uac->create_REQUEST();

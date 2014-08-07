@@ -12,7 +12,7 @@ namespace Sip0x
   namespace Logic
   {
     using namespace Sip0x::Utils::Log;
-    using namespace Sip0x::Protocol;
+    using namespace Sip0x;
 
     class Dialog;
 

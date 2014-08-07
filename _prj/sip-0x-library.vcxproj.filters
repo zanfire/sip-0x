@@ -357,6 +357,16 @@
     <ClInclude Include="..\include\logic\RegisterClient.hpp">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\logic\Endpoint.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\TransactionLayer.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\TransportLayer.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\sip-0x.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

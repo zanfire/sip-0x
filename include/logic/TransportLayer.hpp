@@ -44,6 +44,34 @@ namespace Sip0x
         }
       }
     };
+
+    class UAC : public UA {
+    protected:
+      // Network
+      std::shared_ptr<Connection> _connection;
+      // SIP stuff
+      std::string _callID;
+      std::string _contact;
+
+    public:
+      UAC(asio::io_service& io_service, std::string useragent) : UA(io_service, useragent) {
+        _logger = LoggerManager::get_logger("Sip0x.Logic.UAC");
+        _connection = std::make_shared<Connection>(std::move(_tcp_socket), nullptr, this);
+      }
+
+      virtual ~UAC(void) {
+      }
+
+      void connect(asio::ip::tcp::resolver::iterator endpoint_iterator) {
+        _connection->connect(endpoint_iterator);
+      }
+
+      void process(void) {
+        _io_service.run();
+      }
+
+    };
+
   }
 }
 

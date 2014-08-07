@@ -58,7 +58,7 @@ namespace Sip0x
     private:
       virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
         InputTokenStream iss(buffer, size);
-        Sip0x::Protocol::SIPMessage* message = Sip0x::Parser::parse_sip_message(iss);
+        Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(iss);
         if (message != nullptr) {
           message->write(std::cout);
         }

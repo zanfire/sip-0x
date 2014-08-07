@@ -15,9 +15,12 @@
     <ClInclude Include="..\include\logic\Connection.hpp" />
     <ClInclude Include="..\include\logic\ConnectionManager.hpp" />
     <ClInclude Include="..\include\logic\Dialog.hpp" />
+    <ClInclude Include="..\include\logic\Endpoint.hpp" />
     <ClInclude Include="..\include\logic\MessageFactory.hpp" />
     <ClInclude Include="..\include\logic\RegisterClient.hpp" />
     <ClInclude Include="..\include\logic\Transaction.hpp" />
+    <ClInclude Include="..\include\logic\TransactionLayer.hpp" />
+    <ClInclude Include="..\include\logic\TransportLayer.hpp" />
     <ClInclude Include="..\include\logic\UA.hpp" />
     <ClInclude Include="..\include\logic\UAC.hpp" />
     <ClInclude Include="..\include\logic\UAS.hpp" />
@@ -114,6 +117,7 @@
     <ClInclude Include="..\include\protocol\SIPMessage.hpp" />
     <ClInclude Include="..\include\protocol\SIPURI.hpp" />
     <ClInclude Include="..\include\protocol\SIPVersion.hpp" />
+    <ClInclude Include="..\include\sip-0x.hpp" />
     <ClInclude Include="..\include\utils\IniFile.hpp" />
     <ClInclude Include="..\include\utils\log\Logger.hpp" />
     <ClInclude Include="..\include\utils\log\LoggerManager.hpp" />

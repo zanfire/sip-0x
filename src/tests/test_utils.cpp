@@ -41,7 +41,7 @@ void run_sip(std::string input) {
   FactoryContext ctx;
   
   auto t1 = std::chrono::high_resolution_clock::now();
-  Sip0x::Protocol::SIPMessage* message = Sip0x::Parser::parse_sip_message(input);
+  Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(input);
   auto t2 = std::chrono::high_resolution_clock::now();
 
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);

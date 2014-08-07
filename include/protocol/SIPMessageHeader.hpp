@@ -7,118 +7,115 @@
 
 namespace Sip0x
 {
-  namespace Protocol
-  {
-    struct SIPMessageHeaderBase {
-      virtual std::string param(void) const = 0;
-      virtual std::string value(void) const = 0;
+  struct SIPMessageHeaderBase {
+    virtual std::string param(void) const = 0;
+    virtual std::string value(void) const = 0;
       
-      virtual int write(std::ostream& stream) const {
-        stream << param() << ": " << value() << "\r\n";
-        return 1;
-      }
-    };
+    virtual int write(std::ostream& stream) const {
+      stream << param() << ": " << value() << "\r\n";
+      return 1;
+    }
+  };
 
 
-    struct SIPMessageHeaderGeneric : public SIPMessageHeaderBase {
-      std::string _name;
-      std::string _value;
+  struct SIPMessageHeaderGeneric : public SIPMessageHeaderBase {
+    std::string _name;
+    std::string _value;
 
-      SIPMessageHeaderGeneric(void) {}
+    SIPMessageHeaderGeneric(void) {}
 
-      virtual std::string param(void) const override { return _name.c_str(); }
-      virtual std::string value(void) const override { return _value.c_str(); }
-    };
+    virtual std::string param(void) const override { return _name.c_str(); }
+    virtual std::string value(void) const override { return _value.c_str(); }
+  };
 
-    struct SIPMessageHeaderCSeq : public SIPMessageHeaderBase {
-      unsigned long seq;
-      SIPMethod method;
+  struct SIPMessageHeaderCSeq : public SIPMessageHeaderBase {
+    unsigned long seq;
+    SIPMethod method;
 
-      virtual std::string param(void) const override { return "CSeq"; }
-      virtual std::string value(void) const override { return std::to_string(seq) + " " + convCharsFromSIPMethod(method); }
-    };
+    virtual std::string param(void) const override { return "CSeq"; }
+    virtual std::string value(void) const override { return std::to_string(seq) + " " + convCharsFromSIPMethod(method); }
+  };
 
-    struct SIPMessageHeaderMax_Forwards : public SIPMessageHeaderBase {
-      unsigned long max = 0;
+  struct SIPMessageHeaderMax_Forwards : public SIPMessageHeaderBase {
+    unsigned long max = 0;
 
-      virtual std::string param(void) const override { return "Max-Forwards"; }
-      virtual std::string value(void) const override { return std::to_string(max); }
-    };
+    virtual std::string param(void) const override { return "Max-Forwards"; }
+    virtual std::string value(void) const override { return std::to_string(max); }
+  };
 
-    struct SIPMessageHeaderCall_ID : public SIPMessageHeaderBase {
-      std::string callID;
+  struct SIPMessageHeaderCall_ID : public SIPMessageHeaderBase {
+    std::string callID;
 
-      virtual std::string param(void) const override { return "Call-ID"; }
-      virtual std::string value(void) const override { return callID;
-      }
-    };
+    virtual std::string param(void) const override { return "Call-ID"; }
+    virtual std::string value(void) const override { return callID;
+    }
+  };
     
-    struct SIPMessageHeaderExpires : public SIPMessageHeaderBase {
-      unsigned long expires = 0;
+  struct SIPMessageHeaderExpires : public SIPMessageHeaderBase {
+    unsigned long expires = 0;
 
-      virtual std::string param(void) const override { return "Expires"; }
-      virtual std::string value(void) const override { return std::to_string(expires); }
-    };
+    virtual std::string param(void) const override { return "Expires"; }
+    virtual std::string value(void) const override { return std::to_string(expires); }
+  };
     
-    struct SIPMessageHeaderContent_Length : public SIPMessageHeaderBase {
-      unsigned long length = 0;
+  struct SIPMessageHeaderContent_Length : public SIPMessageHeaderBase {
+    unsigned long length = 0;
 
-      virtual std::string param(void) const override { return "Content-Length"; }
-      virtual std::string value(void) const override { return std::to_string(length); }
-    };
+    virtual std::string param(void) const override { return "Content-Length"; }
+    virtual std::string value(void) const override { return std::to_string(length); }
+  };
 
-    struct SIPMessageHeaderWithNameAddr : public SIPMessageHeaderBase {
-      NameAddr name_addr;
-      std::vector<std::pair<std::string, std::string>> params;
+  struct SIPMessageHeaderWithNameAddr : public SIPMessageHeaderBase {
+    NameAddr name_addr;
+    std::vector<std::pair<std::string, std::string>> params;
 
-      virtual std::string value(void) const override {
-        return name_addr.to_string() + to_string_params(params);
+    virtual std::string value(void) const override {
+      return name_addr.to_string() + to_string_params(params);
+    }
+
+    static std::string to_string_params(std::vector<std::pair<std::string, std::string>> const& params) {
+      std::string out;
+      for (auto p : params) {
+        out += ";" + p.first + "=" + p.second;
       }
+      return out;
+    }
+  };
 
-      static std::string to_string_params(std::vector<std::pair<std::string, std::string>> const& params) {
-        std::string out;
-        for (auto p : params) {
-          out += ";" + p.first + "=" + p.second;
-        }
-        return out;
+  struct SIPMessageHeaderTo : public SIPMessageHeaderWithNameAddr {
+    virtual std::string param(void) const override { return "To"; }
+  };
+
+  struct SIPMessageHeaderFrom : public SIPMessageHeaderWithNameAddr {
+    virtual std::string param(void) const override { return "From"; }
+  };
+
+  struct SIPMessageHeaderContact : public SIPMessageHeaderWithNameAddr {
+    virtual std::string param(void) const override { return "Contact"; }
+  };
+
+  //Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7 
+  struct SIPMessageHeaderVia : public SIPMessageHeaderBase {
+    std::string protocol;
+    std::string version;
+    std::string transport;
+    HostPort hostport;
+    std::vector<std::pair<std::string, std::string>> params;
+
+    virtual std::string param(void) const override { return "Via"; }
+    virtual std::string value(void) const override { 
+      return protocol + "/" + version + "/" + transport + " " + hostport.to_string() + to_string_params(params);
+    }
+
+    static std::string to_string_params(std::vector<std::pair<std::string, std::string>> const& params) {
+      std::string out;
+      for (auto p : params) {
+        out += ";" + p.first + "=" + p.second;
       }
-    };
+      return out;
+    }
 
-    struct SIPMessageHeaderTo : public SIPMessageHeaderWithNameAddr {
-      virtual std::string param(void) const override { return "To"; }
-    };
-
-    struct SIPMessageHeaderFrom : public SIPMessageHeaderWithNameAddr {
-      virtual std::string param(void) const override { return "From"; }
-    };
-
-    struct SIPMessageHeaderContact : public SIPMessageHeaderWithNameAddr {
-      virtual std::string param(void) const override { return "Contact"; }
-    };
-
-    //Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7 
-    struct SIPMessageHeaderVia : public SIPMessageHeaderBase {
-      std::string protocol;
-      std::string version;
-      std::string transport;
-      HostPort hostport;
-      std::vector<std::pair<std::string, std::string>> params;
-
-      virtual std::string param(void) const override { return "Via"; }
-      virtual std::string value(void) const override { 
-        return protocol + "/" + version + "/" + transport + " " + hostport.to_string() + to_string_params(params);
-      }
-
-      static std::string to_string_params(std::vector<std::pair<std::string, std::string>> const& params) {
-        std::string out;
-        for (auto p : params) {
-          out += ";" + p.first + "=" + p.second;
-        }
-        return out;
-      }
-
-    };
-  }
+  };
 }
 
 #endif // SIP0X_PROTOCOL_SIPMESSAGEHEADER_HPP__

@@ -11,7 +11,7 @@ namespace Sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x::Protocol;
+    using namespace Sip0x;
 
     class FactoryContextSIPMessageHeader : public FactoryContextValue<std::shared_ptr<SIPMessageHeaderBase>> {
     public:

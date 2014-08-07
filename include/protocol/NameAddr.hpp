@@ -7,22 +7,19 @@
 
 namespace Sip0x
 {
-  namespace Protocol
-  {
-    struct NameAddr {
-      std::string displayName;
-      SIPURI uri;
+  struct NameAddr {
+    std::string displayName;
+    SIPURI uri;
 
-      virtual std::string to_string(void) const {
-        if (displayName.empty()) {
-          return uri.to_string();
-        }
-        else {
-          return "\"" + displayName + "\" <" + uri.to_string() + '>';
-        }
+    virtual std::string to_string(void) const {
+      if (displayName.empty()) {
+        return uri.to_string();
       }
-    };
-  }
+      else {
+        return "\"" + displayName + "\" <" + uri.to_string() + '>';
+      }
+    }
+  };
 }
 
 #endif // SIP0X_PROTOCOL_SIPVERSION_HPP__

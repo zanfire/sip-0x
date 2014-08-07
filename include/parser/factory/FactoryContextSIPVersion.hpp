@@ -10,7 +10,7 @@ namespace Sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x::Protocol;
+    using namespace Sip0x;
 
     class FactoryContextSIPVersion : public FactoryContextValue<SIPVersion> {
     public:

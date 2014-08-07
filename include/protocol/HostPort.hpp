@@ -6,22 +6,19 @@
 
 namespace Sip0x
 {
-  namespace Protocol
-  {
-    struct HostPort {
-      std::string host;
-      int port = 0;
+  struct HostPort {
+    std::string host;
+    int port = 0;
 
-      virtual std::string to_string(void) const {
-        if (port > 0) {
-          return host + ":" + std::to_string(port);
-        }
-        else {
-          return host;
-        }
+    virtual std::string to_string(void) const {
+      if (port > 0) {
+        return host + ":" + std::to_string(port);
       }
-    };
-  }
+      else {
+        return host;
+      }
+    }
+  };
 }
 
 #endif // SIP0X_PROTOCOL_HOSTPORT_HPP__
