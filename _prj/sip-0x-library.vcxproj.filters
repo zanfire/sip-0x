@@ -10,9 +10,6 @@
     <Filter Include="parser">
       <UniqueIdentifier>{c289780e-ccf6-49e1-a063-3b115506e12f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="parser\docs">
-      <UniqueIdentifier>{12089cca-26c9-44fb-984e-de5b754adb33}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utils">
       <UniqueIdentifier>{0ec58865-95c3-4c34-b783-5ec4889e135f}</UniqueIdentifier>
     </Filter>
@@ -33,6 +30,9 @@
     </Filter>
     <Filter Include="parser\factory">
       <UniqueIdentifier>{e0ea007a-235d-4039-9dde-df091498e4ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="docs">
+      <UniqueIdentifier>{12089cca-26c9-44fb-984e-de5b754adb33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -368,7 +368,21 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\docs\SIP_ABNF.txt">
-      <Filter>parser\docs</Filter>
+      <Filter>docs</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\LICENSE">
+      <Filter>docs</Filter>
+    </None>
+    <None Include="..\README.md">
+      <Filter>docs</Filter>
+    </None>
+    <None Include="..\docs\CodeStyle.md">
+      <Filter>docs</Filter>
+    </None>
+    <None Include="..\docs\ProjectDesign.md">
+      <Filter>docs</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -46,7 +46,6 @@ namespace Sip0x
       std::string* errormessage = nullptr;
 
       ReadResult(bool s = false, uint32_t pos_ = 0, uint32_t len_ = 0) : successes(s), pos(pos_), len(len_) {
-
       }
       
       void set_error(std::streamoff pos, std::string message) {
