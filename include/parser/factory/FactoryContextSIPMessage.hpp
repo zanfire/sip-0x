@@ -18,7 +18,7 @@ namespace Sip0x
       SIPRequest _request;
       SIPResponse _response;
     public:
-      virtual void create(std::string const& text) override {
+      virtual void create(std::string const& /*text*/) override {
         if (_children.size() >= 3) {
           SIPMessage* message = nullptr;
           FactoryContextSIPMethod* method = dynamic_cast<FactoryContextSIPMethod*>(_children[0]);

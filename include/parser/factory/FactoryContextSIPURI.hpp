@@ -14,7 +14,7 @@ namespace Sip0x
 
     class FactoryContextUserInfo : public FactoryContextValue<SIPURI::UserInfo> {
     public:
-      virtual void create(std::string const& text) override {
+      virtual void create(std::string const& /*text*/) override {
         if (_children.size() >= 2) {
           _value.username = _children[0]->text();
         }
@@ -42,7 +42,7 @@ namespace Sip0x
 
     class FactoryContextURIParameters : public FactoryContextValue<std::vector<SIPURI::Param>> {
     public:
-      virtual void create(std::string const& text) override {
+      virtual void create(std::string const& /*text*/) override {
         for (unsigned int i = 1; i < _children.size(); i++) {
           FactoryContextValue<SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<SIPURI::Param>*>(_children[i]);
           if (fcv != nullptr) {
@@ -58,7 +58,7 @@ namespace Sip0x
 
     class FactoryContextHostPort : public FactoryContextValue<HostPort> {
     public:
-      virtual void create(std::string const& text) override {
+      virtual void create(std::string const& /*text*/) override {
         std::size_t idx = 0;
         _value.host.clear();
         while (idx < _children.size()) {

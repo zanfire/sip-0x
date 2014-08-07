@@ -22,16 +22,16 @@ namespace Sip0x
 
     public:
 
-      TokenRegex(std::string regex) : TokenRegex(regex, regex){
+      TokenRegex(std::string const& regex) : TokenRegex(regex, regex){
       }
 
-      TokenRegex(std::string name, std::string regex) : TokenAbstract(name) {
+      TokenRegex(std::string const& name, std::string regex) : TokenAbstract(name) {
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
 
         LOG_DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
 
         try {
-          _regex = std::regex(regex);
+          _regex = std::regex("^(" + regex + ")");
         }
         catch (std::regex_error e) {
           LOG_ERROR(_logger, "Regex %s contains an error (%s).\nRegex:%s", name.c_str(), e.what(), regex.c_str());

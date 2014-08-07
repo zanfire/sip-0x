@@ -41,11 +41,6 @@ namespace Sip0x
       std::vector<Param> uri_parameters;
       std::vector<Param> headers;
 
-
-      virtual int write(std::ostream& stream) const {
-        return 1;
-      }
-
       virtual std::string to_string(void) const {
         std::string out = "sip";
         if (secure) {
