@@ -5,31 +5,34 @@
 int main(int argc, char* argv[]) {
   std::cout << "REGISTER client\n\n";
 
+  // Give a configuration to this params.
+  std::string registrar_server = "127.0.0.1";
+  int registrar_port = 5060;
+
   Sip0x::Logic::Endpoint endpoint;
+  
+  Sip0x::Logic::Endpoint::EndpointConfig config;
 
-  //endpoint.register_to();
+  config.bind_address = "127.0.0.1";
+  config.bind_port = 55060;
+  config.username = "client";
+  config.domainname = "127.0.0.1";
+  
+  // Initialize.
+  endpoint.initialize(config);
+  endpoint.register_to("regclient_1", registrar_server, registrar_port, 3600);
 
+  std::chrono::milliseconds ms(3000);
+  // Never ending loops.
+  while (true) {
+    std::cout << "Status: " << endpoint.describe_status() << '\n';
+    std::this_thread::sleep_for(ms);
+  }
 
-  //std::string address = "127.0.0.1";
-  //std::string port = "5060";
-  //if (argc >= 2) {
-  //  address = argv[1];
-  //}
-  //if (argc >= 3) {
-  //  port = argv[2];
-  //}
   //
   //asio::io_service io_service;
   //
-  //asio::ip::tcp::resolver resolver(io_service);
-  //auto endpoint_iterator = resolver.resolve({ address, port });
-  //
   //std::thread t([&io_service](){ while (1) { io_service.run(); } });
-  //
-  //Sip0x::Logic::UAC uac(io_service, "sip0x-uac");
-  //
-  //uac.connect(endpoint_iterator);
-  //
   //t.join();
 
   return 0;

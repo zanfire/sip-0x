@@ -20,6 +20,8 @@
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
+#include "logic/Transaction.hpp"
+#include "logic/TransactionLayer.hpp"
 #include "protocol/SIP.hpp"
 
 namespace Sip0x
@@ -35,15 +37,44 @@ namespace Sip0x
     //! 
     //! \author Matteo Valdina  
     //!
-    class UAC {
+    class UAC : public TransactionListener {
     protected:
       std::string _address;
-    public:
-      UAC(void) {
-      }
+      // Transaction layer notify 
+      TransactionLayer _transaction_layer;
+      //TransportLayer* _transport;
 
+    public:
+      UAC(void) : _transaction_layer(this) {
+      }
       virtual ~UAC(void) {
       }
+
+      bool process(SIPRequest* request) {
+        _transaction_layer.process(request);
+      }
+
+      //!
+      //! Transaction listener impl.
+      //!
+
+      virtual void on_trying(Transaction* tran) override {
+        // Trying needs to be sent trough transport layer
+        //_transport_layer.process(tran->request);
+      }
+
+      virtual void on_processing(Transaction* tran) override {
+
+      }
+
+      virtual void on_completed(Transaction* tran) override {
+
+      }
+
+      virtual void on_terminated(Transaction* tran) override {
+
+      }
+
 
       //!
       //! Request creation.
@@ -91,6 +122,7 @@ namespace Sip0x
         SIPURI requestURI;
         requestURI.hostport.host = "requestURI@todo"; // TODO: Provide a parsing method for on the fly request.
         std::unique_ptr<SIPRequest> request = create_REQUEST(callID, requestURI, SIPMethod::SIPMETHOD_REGISTER);
+
         /*
         REGISTER sip:registrar.biloxi.com SIP/2.0
         Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7
@@ -104,18 +136,13 @@ namespace Sip0x
         Content-Length: 0
         */
 
-        request->method = SIPMethod::SIPMETHOD_REGISTER;
-        
         // Add Expires header entry.
-        // NOTO: Currently we place an hader entry but we can update the Contact.
+        // NOTO: Currently we place an header entry but we can update the Contact.
         std::shared_ptr<SIPMessageHeaderExpires> expires = std::make_shared<SIPMessageHeaderExpires>();
         expires->expires = 3;
         request->headers.push_back(expires);
-
-
         return request;
       }
-
 
       //!
       //! Utils

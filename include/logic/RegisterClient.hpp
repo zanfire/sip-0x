@@ -49,6 +49,9 @@ namespace Sip0x
     protected:
       std::shared_ptr<Logger> _logger;
       UAC* _uac;
+      // TODO: Needed it is a network stuff?
+      std::string _registrar_server;
+      int _registrar_port;
       //! Desired REGISTER duration in seconds.
       //! \note Default 7200 seconds.
       uint32_t _desired_expires = 7200;
@@ -65,7 +68,9 @@ namespace Sip0x
       //Transaction _curren_transaction;
 
     public:
-      RegisterClient(UAC* uac) : _uac(uac) {
+      RegisterClient(UAC* uac, std::string remote_server, int remote_port) : 
+        _uac(uac), _registrar_server(remote_server), _registrar_port(remote_port)
+      {
         _logger = LoggerManager::get_logger("Sip0x.Logic.RegisterClient");
       }
 
@@ -79,12 +84,19 @@ namespace Sip0x
 
       //! Starts the registration process and keep refresh.
       void start(void) {
+        auto request = _uac->create_REGISTER();
+        // process 
+      }
+
+      std::string describe_status(void) {
+        return "uniniplemented!!!";
       }
 
     protected:
 
       bool send_REGISTER(void) {
         std::unique_ptr<SIPRequest> req = _uac->create_REGISTER();
+        _uac->process(req.get());
       }
 
       //std::unique_ptr<SIPRequest> create_REGISTER(void) {

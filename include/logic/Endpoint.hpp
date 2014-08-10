@@ -17,7 +17,6 @@
 //! limitations under the License.
 //!
 
-
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
@@ -27,6 +26,7 @@
 #include "logic/TransportLayer.hpp"
 #include "logic/TransactionLayer.hpp"
 
+#include "asio_header.hpp" // TODO: Remove hpp and repalce h.
 #include <set>
 
 namespace Sip0x
@@ -58,10 +58,10 @@ namespace Sip0x
     protected:
       std::shared_ptr<Logger> _logger;
       bool _initialized = false;
+      asio::io_service _io_service;
       UAC _uac;
       //UAS _uas;
-      //TransactionLayer _transaction;
-      //TransportLayer _transport;
+      TransportLayer* _transport = nullptr;
       std::set<RegisterClient*> _register_clients;
       //std::set<Call> _calls;
       //UserService _location_service;
@@ -86,11 +86,29 @@ namespace Sip0x
           LOG_WARN(_logger, "Skipping initialization because Endpoint was initialized.");
           return false;
         }
+        // Initialize transport layer.
+        _transport = new TransportLayer(configuration.bind_address, configuration.bind_port);
+        _transport->start();
+
+        //_uac = new UAC()
+        // Setup TCP
+        //
+        //
+        //Sip0x::Logic::UAC uac(io_service, "sip0x-uac");
+        //
+        //uac.connect(endpoint_iterator);
+        //
+        //t.join();
+
+
+
         // Assign to subcomponents the configuration.
+        //_uac.
         //_configuration = configuration;
 
         //
 
+        _initialized = true;
         return true;
       }
 
@@ -110,7 +128,7 @@ namespace Sip0x
         // TODO: Check if a registration was established.
         
         // Create a register client and start processing.
-        RegisterClient* reg = new RegisterClient(&_uac);
+        RegisterClient* reg = new RegisterClient(&_uac, remote_server, remote_port);
         _register_clients.insert(reg);
 
         reg->set_desired_expires(refresh_timeout_secs);
@@ -123,6 +141,22 @@ namespace Sip0x
 
       //! \return Returns Endpoint configuration.
       //EndpointConfig const& configuration(void) const { return _configuration; }
+
+      //! Returns a friendly description of endpoint status.
+      std::string describe_status() {
+        std::string out;
+        out += "Initialized: ";
+        if (_initialized) {
+          out += "true";
+        }
+        else {
+          out += "false";
+        }
+        for (auto r : _register_clients) {
+          out += ", register client: " + r->describe_status();
+        }
+        return out;
+      }
     };
   }
 }
