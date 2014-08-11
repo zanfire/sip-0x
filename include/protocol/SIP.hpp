@@ -9,5 +9,4 @@
 #include "protocol/NameAddr.hpp"
 #include "protocol/HostPort.hpp"
 
-
 #endif // SIP0X_PROTOCOL_SIP_HPP__

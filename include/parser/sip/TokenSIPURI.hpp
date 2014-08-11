@@ -24,12 +24,12 @@ namespace Sip0x
     class TokenSIPURI : public TokenAbstract {
 
     protected:
-      Sequence<TokenRegex, TokenUserInfo, TokenHostport, TokenURIParameters, TokenURIHeaders> _sequence;
+      Sequence<TokenRegex, Occurrence<TokenUserInfo>, TokenHostport, TokenURIParameters, TokenURIHeaders> _sequence;
 
     public:
       TokenSIPURI(void) : TokenAbstract("SIPURI"), _sequence(
         TokenRegex("sip[s]?:"),
-        TokenUserInfo(),
+        Occurrence<TokenUserInfo>(TokenUserInfo(), 0, 1),
         TokenHostport(),
         TokenURIParameters(),
         TokenURIHeaders())
