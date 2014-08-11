@@ -367,6 +367,9 @@
       <Filter>logic</Filter>
     </ClInclude>
     <ClInclude Include="..\include\sip-0x.hpp" />
+    <ClInclude Include="..\include\parser\SIPParser.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">

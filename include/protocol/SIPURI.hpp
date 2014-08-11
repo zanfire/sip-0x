@@ -15,7 +15,10 @@ namespace Sip0x
       std::string password;
 
       virtual std::string to_string(void) const {
-        if (password.empty()) {
+        if (username.empty() && password.empty()) {
+          return "";
+        }
+        else if (password.empty()) {
           return username + "@";
         }
         else {
@@ -33,7 +36,7 @@ namespace Sip0x
       }
     };
       
-    bool secure;
+    bool secure = false;
     UserInfo userinfo;
     HostPort hostport;
     std::vector<Param> uri_parameters;

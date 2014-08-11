@@ -60,7 +60,7 @@ namespace Sip0x
         InputTokenStream iss(buffer, size);
         Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(iss);
         if (message != nullptr) {
-          message->write(std::cout);
+         // message->write(std::cout);
         }
       }
     };

@@ -4,8 +4,12 @@
 namespace Sip0x
 {
   struct SIPVersion {
-    int major;
-    int minor;
+    int major = 0;
+    int minor = 0;
+
+    virtual std::string to_string(void) const {
+      return "SIP/" + std::to_string(major) + '.' + std::to_string(minor);
+    }
 
     virtual int write(std::ostream& stream) const {
       stream << "SIP/";

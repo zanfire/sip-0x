@@ -8,6 +8,9 @@
 #include <thread>
 
 #include "logic/Connection.hpp"
+#include "logic/ConnectionManager.hpp"
+
+#include "parser/SIPParser.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
@@ -33,6 +36,8 @@ namespace Sip0x
       //asio::ip::udp::socket _udp_socket; 
       asio::ip::tcp::acceptor _acceptor;
       ConnectionManager _connection_manager;
+      // Parser
+      Sip0x::Parser::SIPParser parser;
 
     public:
       //! \todo Use bind address
@@ -50,32 +55,43 @@ namespace Sip0x
       }
 
       virtual ~TransportLayer(void) {
+        stop();
+
+        delete _thread;
       }
 
-      virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
-        InputTokenStream iss(buffer, size);
-        Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(iss);
-        if (message != nullptr) {
-          message->write(std::cout);
+      //! Start transport layer. 
+      //! \returns true if transport layer was in
+      void start(void) {
+        if (_thread == nullptr) {
+          _thread = new std::thread([this](){ process(); });
         }
       }
-    
-      void connect(std::string address, int port) {
-        asio::ip::tcp::resolver resolver(_io_service);
-        auto endpoint_iterator = resolver.resolve({address, std::to_string(port) });
 
-        std::shared_ptr<Connection> connection = std::make_shared<Connection>(std::move(_tcp_socket), nullptr, this);
-        connection->connect(endpoint_iterator);
-        _connection_manager.add(connection);
+      //! Stop transport layer.
+      //! \remark Returns in a synchronous way.
+      void stop(void) {
+        if (_thread != nullptr) {
+          _thread_must_stop = true;
+          if (_thread->joinable())_thread->join();
+        }
+      }
+
+      void handle(SIPRequest* request) {
+        // Get destination from ReqeustURI.
+        std::string host = request->uri.hostport.host;
+        int port = request->uri.hostport.port;
+        // Check if for this destination is present a connection.
+        // Try to connect.
+        std::shared_ptr<Connection> conn = connect(host, port);
+        std::string msg = request->to_string();
+        // TODO: Revise this invokation!!!
+        conn->async_write((unsigned char*)msg.c_str(), msg.length());
+        // Fail-back on UDP.
       }
 
 
-      void start(void) {
-        //TODO: don't start and foget this thread!!!
-        _thread = new std::thread([this](){ process(); });
-      }
-
-      
+      //! Process network stuff.
       void process(void) {
         // TODO: logging
         std::cout << "Process thread started.\n";
@@ -95,6 +111,25 @@ namespace Sip0x
           }
           async_accept();
         });
+      }
+
+
+      virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
+        InputTokenStream iss(buffer, size);
+        Sip0x::SIPMessage* message = parser.parse(iss);
+        if (message != nullptr) {
+          //message->write(std::cout);
+        }
+      }
+
+      std::shared_ptr<Connection> connect(std::string address, int port) {
+        asio::ip::tcp::resolver resolver(_io_service);
+        auto endpoint_iterator = resolver.resolve({ address, std::to_string(port) });
+
+        std::shared_ptr<Connection> connection = std::make_shared<Connection>(std::move(_tcp_socket), nullptr, this);
+        connection->connect(endpoint_iterator);
+        _connection_manager.add(connection);
+        return connection;
       }
     };
   }

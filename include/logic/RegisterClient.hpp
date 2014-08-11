@@ -43,7 +43,8 @@ namespace Sip0x
       enum RegisterStatus {
         REG_STATUS_NOT_REGISTERED,
         REG_STATUS_REGISTERING,
-        REG_STATUS_REGISTERED
+        REG_STATUS_REGISTERED,
+        REG_STATUS_REGISTER_FAILED,
       };
 
     protected:
@@ -83,25 +84,30 @@ namespace Sip0x
       }
 
       //! Starts the registration process and keep refresh.
-      void start(void) {
-        auto request = _uac->create_REGISTER();
-        // process 
+      void on_process(void) {
+        if (_status == REG_STATUS_NOT_REGISTERED) {
+          // RegClient is not registered, so try to register.
+
+          auto request = _uac->create_REGISTER();
+          request->uri.hostport.host = _registrar_server;
+          request->uri.hostport.port = _registrar_port;
+
+          _uac->handle(request);
+
+          _status = REG_STATUS_REGISTERING;
+        }
+        else if (_status == REG_STATUS_REGISTERING) {
+        }
+        else if (_status == REG_STATUS_REGISTERED) {
+        }
+        else if (_status == REG_STATUS_REGISTER_FAILED) {
+        }
       }
 
       std::string describe_status(void) {
         return "uniniplemented!!!";
       }
 
-    protected:
-
-      bool send_REGISTER(void) {
-        std::unique_ptr<SIPRequest> req = _uac->create_REGISTER();
-        _uac->process(req.get());
-      }
-
-      //std::unique_ptr<SIPRequest> create_REGISTER(void) {
-      //  std::unique_ptr<SIPRequest> req = _uac->create_REQUEST();
-      //}
     };
   }
 }

@@ -17,15 +17,16 @@ namespace Sip0x
     std::vector<std::shared_ptr<SIPMessageHeaderBase>> headers;
     std::vector<uint8_t> content;
       
-    virtual int write(std::ostream& stream) const {
+    virtual std::string to_string(void) const {
+      std::string out;
       for (auto h : headers) {
-        h->write(stream);
+        out += h->to_string();
       }
-      stream.write("\r\n", 2);
-      for (auto c : content) {
-        stream.put(c);
-      }
-      return 1;
+      out += "\r\n";
+      //for (auto c : content) {
+      //  stream.put(c);
+      //}
+      return out;
     }
 
     //! Get or create an occurrence of given header line
@@ -52,13 +53,8 @@ namespace Sip0x
     SIPURI uri;
     SIPVersion version;
 
-    virtual int write(std::ostream& stream) const override {
-      stream << convCharsFromSIPMethod(method) << ' ' << uri.to_string();
-      stream << ' ';
-      version.write(stream);
-      stream << "\r\n";
-
-      return SIPMessage::write(stream);
+    virtual std::string to_string(void) const override {
+      return Sip0x::to_string(method) + ' ' + uri.to_string() + ' ' + version.to_string() + "\r\n" + SIPMessage::to_string(); 
     }
   };
 
@@ -68,16 +64,10 @@ namespace Sip0x
     int status_code;
     std::string reason_phrase;
 
-    virtual int write(std::ostream& stream) const override {
-      version.write(stream);
-      stream.put(' ');
-      stream << status_code;
-      stream.put(' ');
-      stream << reason_phrase;
-      stream.write("\r\n", 2);
-
-      return SIPMessage::write(stream);
+    virtual std::string to_string(void) const override {
+      return version.to_string() + ' ' + std::to_string(status_code) + ' ' + reason_phrase + "\r\n" + SIPMessage::to_string();
     }
+
   };
 }
 

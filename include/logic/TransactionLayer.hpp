@@ -42,7 +42,7 @@ namespace Sip0x
       TransactionListener* _listener;
 
       // Transactions.
-      std::set<Transaction> _transactions;
+      std::vector<Transaction> _transactions;
 
     public:
       TransactionLayer(TransactionListener* listener) : _listener(listener) {
@@ -52,20 +52,19 @@ namespace Sip0x
       virtual ~TransactionLayer(void) {
       }
 
-      void process(SIPRequest* request) {
-        // Look in transaction set.
-        // Create a transaction.
+      void handle(std::shared_ptr<SIPRequest> request) {
+        // Is a retrasmission?
 
-        // Process
+        // Is not,
+        Transaction tran;
+        tran.request = request;
 
-        // After that i need to decide if give then to the trasport layer or
-        // give to the UAS.
-        // This depends if it is from 
+        _transactions.push_back(tran);
 
-        // Could by nice if each transaction is handled by the UAC or UAS?
+        _listener->on_trying(&tran);
       }
 
-      void process(SIPResponse* response) {
+      void handle(SIPResponse* response) {
 
       }
     };

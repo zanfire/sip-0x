@@ -28,6 +28,9 @@
 
 #include "asio_header.hpp" // TODO: Remove hpp and repalce h.
 #include <set>
+#include <thread>
+#include <condition_variable>
+#include <mutex>
 
 namespace Sip0x
 {
@@ -40,10 +43,10 @@ namespace Sip0x
     //! 
     //! TODO.................
     //! 
+    //! \remarks This class is thread safe.
     //! \author Matteo Valdina  
     //!
     class Endpoint {
-
     public:
       //! \brief Endpoint configuration.
       struct EndpointConfig {
@@ -59,13 +62,19 @@ namespace Sip0x
       std::shared_ptr<Logger> _logger;
       bool _initialized = false;
       asio::io_service _io_service;
-      UAC _uac;
-      //UAS _uas;
+      UAC* _uac = nullptr;
+      UAS* _uas = nullptr;
       TransportLayer* _transport = nullptr;
       std::set<RegisterClient*> _register_clients;
       //std::set<Call> _calls;
       //UserService _location_service;
       //RoutingService
+      
+      // Threading stuff.
+      std::thread* _thread = nullptr;
+      bool _thread_must_stop = false;
+      const int _thread_min_resolution_ms = 20;
+      std::recursive_mutex _mtx;
       
     public:
       Endpoint(void) {
@@ -77,7 +86,7 @@ namespace Sip0x
 
       //! Initialize Endpoint with the current configuration.
       //!
-      //! \arg configuration is new configuration that are applyed to endpoint
+      //! \arg configuration is new configuration that are applied to endpoint
       //!
       //! \remarks If Endpoint was initialized caller must un-initialize 
       //!   Endpoint before call initialize.
@@ -90,23 +99,9 @@ namespace Sip0x
         _transport = new TransportLayer(configuration.bind_address, configuration.bind_port);
         _transport->start();
 
-        //_uac = new UAC()
-        // Setup TCP
-        //
-        //
-        //Sip0x::Logic::UAC uac(io_service, "sip0x-uac");
-        //
-        //uac.connect(endpoint_iterator);
-        //
-        //t.join();
+        _uac = new UAC(_transport);
 
-
-
-        // Assign to subcomponents the configuration.
-        //_uac.
-        //_configuration = configuration;
-
-        //
+        _thread = new std::thread(&Endpoint::process, this);
 
         _initialized = true;
         return true;
@@ -116,7 +111,17 @@ namespace Sip0x
       bool unitialize(void) {
         // TODO: Unregister RegisterClients.
 
-        _initialized = false;
+        // TODO: Delete transport
+        delete _transport;
+        _transport = nullptr;
+        // TODO: delete thread
+        delete _thread;
+        _thread = nullptr;
+        // TODO: delete UAC and move to the right place.
+        delete _uac;
+        _uac = nullptr;
+
+       _initialized = false;
         return true;
       }
 
@@ -128,11 +133,13 @@ namespace Sip0x
         // TODO: Check if a registration was established.
         
         // Create a register client and start processing.
-        RegisterClient* reg = new RegisterClient(&_uac, remote_server, remote_port);
+        
+        RegisterClient* reg = new RegisterClient(_uac, remote_server, remote_port);
+        reg->set_desired_expires(refresh_timeout_secs); // TODO:  Move to ctor.
+        
+        _mtx.lock();
         _register_clients.insert(reg);
-
-        reg->set_desired_expires(refresh_timeout_secs);
-        reg->start();
+        _mtx.unlock();
       }
 
       //!
@@ -157,6 +164,28 @@ namespace Sip0x
         }
         return out;
       }
+
+    private:
+
+      void process(void) {
+        LOG_INFO(_logger, "Processing thread started.");
+        // Min resolution.
+        std::chrono::milliseconds ms(_thread_min_resolution_ms);
+        while (!_thread_must_stop) {
+          _mtx.lock();
+          // Handle registration.
+          for (auto reg : _register_clients) {
+            reg->on_process();
+          }
+          // Handle UAC?
+          // Handle UAS?
+          _mtx.unlock();
+
+          std::this_thread::sleep_for(ms); // TODO: Implement with a cond_var.
+        }
+        LOG_INFO(_logger, "Processing thread terminated.");
+      }
+
     };
   }
 }

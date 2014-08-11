@@ -35,12 +35,13 @@ namespace Sip0x
       std::string id;
       TransactionStatus status;
 
-      SIPRequest* request;
-      SIPResponse response;
+      std::shared_ptr<SIPRequest> request;
+      std::shared_ptr<SIPResponse> response;
     };
 
     //! \brief Transaction callbacks.
     class TransactionListener {
+    public:
       virtual void on_trying(Transaction* tran) = 0;
       virtual void on_processing(Transaction* tran) = 0;
       virtual void on_completed(Transaction* tran) = 0;

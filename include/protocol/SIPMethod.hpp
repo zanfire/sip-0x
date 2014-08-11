@@ -35,6 +35,16 @@ namespace Sip0x
     else if (method == SIPMETHOD_REGISTER) return "REGISTER";
     else return "?? extension ??";
   }
+
+  static std::string to_string(SIPMethod const& method) {
+    if (method == SIPMETHOD_INVITE) return "INVITE";
+    else if (method == SIPMETHOD_ACK) return "ACK";
+    else if (method == SIPMETHOD_OPTIONS) return "OPTIONS";
+    else if (method == SIPMETHOD_BYE) return "BYE";
+    else if (method == SIPMETHOD_CANCEL) return "CANCEL";
+    else if (method == SIPMETHOD_REGISTER) return "REGISTER";
+    else return "?? extension ??";
+  }
 }
 
 #endif // SIP0X_PROTOCOL_SIPMETHOD_HPP__

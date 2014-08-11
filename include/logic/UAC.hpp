@@ -22,6 +22,7 @@
 
 #include "logic/Transaction.hpp"
 #include "logic/TransactionLayer.hpp"
+#include "logic/TransportLayer.hpp"
 #include "protocol/SIP.hpp"
 
 namespace Sip0x
@@ -42,16 +43,17 @@ namespace Sip0x
       std::string _address;
       // Transaction layer notify 
       TransactionLayer _transaction_layer;
-      //TransportLayer* _transport;
+      TransportLayer* _transport_layer;
 
     public:
-      UAC(void) : _transaction_layer(this) {
+      UAC(TransportLayer* transport) : _transaction_layer(this), _transport_layer(transport) {
       }
       virtual ~UAC(void) {
       }
 
-      bool process(SIPRequest* request) {
-        _transaction_layer.process(request);
+      //! Handle a SIP request.
+      void handle(std::shared_ptr<SIPRequest> request) {
+        _transaction_layer.handle(request);
       }
 
       //!
@@ -60,7 +62,7 @@ namespace Sip0x
 
       virtual void on_trying(Transaction* tran) override {
         // Trying needs to be sent trough transport layer
-        //_transport_layer.process(tran->request);
+        _transport_layer->handle(tran->request.get());
       }
 
       virtual void on_processing(Transaction* tran) override {
@@ -81,8 +83,8 @@ namespace Sip0x
       //!
 
       //! Create a generic REQUEST for this UAC.
-      std::unique_ptr<SIPRequest> create_REQUEST(std::string const& callID, SIPURI request_URI, SIPMethod method) {
-        std::unique_ptr<SIPRequest> request = std::make_unique<SIPRequest>();
+      std::shared_ptr<SIPRequest> create_REQUEST(std::string const& callID, SIPURI request_URI, SIPMethod method) {
+        std::shared_ptr<SIPRequest> request = std::make_shared<SIPRequest>();
         request->method = method;
         request->version.major = 2;
         request->uri = request_URI;
@@ -117,11 +119,11 @@ namespace Sip0x
       }
 
       //! Create a REGISTER request for this UAC.
-      std::unique_ptr<SIPRequest> create_REGISTER() {
+      std::shared_ptr<SIPRequest> create_REGISTER() {
         std::string callID = generate_CallID();
         SIPURI requestURI;
         requestURI.hostport.host = "requestURI@todo"; // TODO: Provide a parsing method for on the fly request.
-        std::unique_ptr<SIPRequest> request = create_REQUEST(callID, requestURI, SIPMethod::SIPMETHOD_REGISTER);
+        std::shared_ptr<SIPRequest> request = create_REQUEST(callID, requestURI, SIPMethod::SIPMETHOD_REGISTER);
 
         /*
         REGISTER sip:registrar.biloxi.com SIP/2.0

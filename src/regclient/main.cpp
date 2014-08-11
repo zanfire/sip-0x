@@ -28,12 +28,5 @@ int main(int argc, char* argv[]) {
     std::cout << "Status: " << endpoint.describe_status() << '\n';
     std::this_thread::sleep_for(ms);
   }
-
-  //
-  //asio::io_service io_service;
-  //
-  //std::thread t([&io_service](){ while (1) { io_service.run(); } });
-  //t.join();
-
   return 0;
 }

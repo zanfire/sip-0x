@@ -1,26 +1,28 @@
+#include <thread>
 
-#include "logic\UAS.hpp"
+#include "sip-0x.hpp"
 
+int main(int argc, char* argv[]) {
+  std::cout << "SIP server\n\n";
+;
 
-int main(int argc, char* argv[])
-{
-  try
-  {
-    asio::io_service io_service;
-    Sip0x::Logic::UAS uas("sip0x-uas", io_service, 5060);
+  Sip0x::Logic::Endpoint endpoint;
 
-    uas.process();
-    //
-    //
-    //
-    //server s(io_service, std::atoi(argv[1]));
-    //
-    //io_service.run();
+  Sip0x::Logic::Endpoint::EndpointConfig config;
+
+  config.bind_address = "127.0.0.1";
+  config.bind_port = 5060;
+  config.username = "server";
+  config.domainname = "127.0.0.1";
+
+  // Initialize.
+  endpoint.initialize(config);
+  
+  std::chrono::milliseconds ms(3000);
+  // Never ending loops.
+  while (true) {
+    std::cout << "Status: " << endpoint.describe_status() << '\n';
+    std::this_thread::sleep_for(ms);
   }
-  catch (std::exception& e)
-  {
-    std::cerr << "Exception: " << e.what() << "\n";
-  }
-
   return 0;
 }

@@ -47,7 +47,7 @@ namespace Sip0x
       }
 
       void connect(asio::ip::tcp::resolver::iterator endpoint_iterator) {
-        async_connect(endpoint_iterator);
+        asio::connect(_socket, endpoint_iterator);
       }
 
       void close(void) {
@@ -75,7 +75,8 @@ namespace Sip0x
         });
       }
 
-      void async_write(std::size_t length) {
+      void async_write(unsigned char* buffer, std::size_t length) {
+        std::memcpy(_wbuffer, buffer, length);
         auto self(shared_from_this());
         asio::async_write(_socket, asio::buffer(_wbuffer, length),
         [this, self](std::error_code ec, std::size_t /*length*/) {

@@ -53,6 +53,7 @@
     <ClInclude Include="..\include\parser\base\TokenAbstract.hpp" />
     <ClInclude Include="..\include\parser\base\Token.hpp" />
     <ClInclude Include="..\include\parser\base\TokenRegex.hpp" />
+    <ClInclude Include="..\include\parser\SIPParser.hpp" />
     <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Accept.hpp" />
     <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Accept_Encoding.hpp" />
     <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Accept_Language.hpp" />

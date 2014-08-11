@@ -36,13 +36,6 @@ namespace Sip0x
       virtual ~UA(void) {
       }
 
-      virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
-        InputTokenStream iss(buffer, size);
-        Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(iss);
-        if (message != nullptr) {
-          message->write(std::cout);
-        }
-      }
     };
   }
 }

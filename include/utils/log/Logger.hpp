@@ -14,10 +14,10 @@
 #include <cstdio>
 
 
-#define LOG_FATAL(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::FATAL, __FILE__, __LINE__, format, __VA_ARGS__)
+#define LOG_FATAL(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::LOG_FATAL, __FILE__, __LINE__, format, __VA_ARGS__)
 #define LOG_ERROR(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::LOG_ERROR, __FILE__, __LINE__, format, __VA_ARGS__)
 #define LOG_WARN(logger, format, ...)   if (logger) logger->log(Sip0x::Utils::Log::Logger::LOG_WARN, __FILE__, __LINE__, format, __VA_ARGS__)
-#define LOG_INFO(logger, format, ...)   if (logger) logger->log(Sip0x::Utils::Log::Logger::INFO, __FILE__, __LINE__, format, __VA_ARGS__)
+#define LOG_INFO(logger, format, ...)   if (logger) logger->log(Sip0x::Utils::Log::Logger::LOG_INFO, __FILE__, __LINE__, format, __VA_ARGS__)
 #define LOG_DEBUG(logger, format, ...)  if (logger) logger->log(Sip0x::Utils::Log::Logger::LOG_DEBUG, __FILE__, __LINE__, format, __VA_ARGS__)
 
 
@@ -32,10 +32,10 @@ namespace Sip0x
 
       public:
         enum LoggerLevel {
-          FATAL = 0,
+          LOG_FATAL = 0,
           LOG_ERROR = 1,
           LOG_WARN  = 2,
-          INFO  = 3,
+          LOG_INFO = 3,
           LOG_DEBUG = 4
         };
 
@@ -96,11 +96,11 @@ namespace Sip0x
         }
 
         static char const* conv_level_to_chars(LoggerLevel const& level) {
-          if (level == Logger::LOG_DEBUG) return "LOG_DEBUG";
-          if (level == Logger::INFO) return "INFO";
-          if (level == Logger::LOG_WARN) return "LOG_WARN";
-          if (level == Logger::LOG_ERROR) return "LOG_ERROR";
-          if (level == Logger::FATAL) return "FATAL";
+          if (level == Logger::LOG_DEBUG) return "DEBUG";
+          if (level == Logger::LOG_INFO) return "INFO";
+          if (level == Logger::LOG_WARN) return "WARN";
+          if (level == Logger::LOG_ERROR) return "ERROR";
+          if (level == Logger::LOG_FATAL) return "FATAL";
           return "UNKNOWN";
         }
       };

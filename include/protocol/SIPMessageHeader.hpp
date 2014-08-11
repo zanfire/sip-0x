@@ -10,7 +10,11 @@ namespace Sip0x
   struct SIPMessageHeaderBase {
     virtual std::string param(void) const = 0;
     virtual std::string value(void) const = 0;
-      
+    
+    virtual std::string to_string(void) const {
+      return param() + ": " + value() + "\r\n";
+    }
+
     virtual int write(std::ostream& stream) const {
       stream << param() << ": " << value() << "\r\n";
       return 1;
