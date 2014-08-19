@@ -33,11 +33,11 @@
 
 #include "utils/InputTokenStream.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
     class FactoryContext;
 
     class TokenAbstract {
@@ -59,7 +59,7 @@ namespace Sip0x
       //  0: result (true or false)
       //  1: parsed string.
       //  1: unique pointer to an allocated object.
-      virtual ReadResult read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx = nullptr) const {
+      virtual ReadResult read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx = nullptr) const {
         int initial_pos = iss.pos();
 #if defined(ENABLE_PARSER_LOGGING)
         LOG_DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
@@ -98,7 +98,7 @@ namespace Sip0x
       void set_name(std::string const& name) { _name = name; }
       std::string const& get_name(void) const { return _name; }
 
-      virtual ReadResult  handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const = 0;
+      virtual ReadResult  handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const = 0;
 
       virtual FactoryContext* create_factory(void) const {
         return nullptr;

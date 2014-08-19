@@ -10,7 +10,7 @@
 #include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -31,7 +31,7 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
+        _logger = LoggerManager::get_logger("sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 

@@ -19,7 +19,7 @@
 
 #include "protocol/SIP.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {

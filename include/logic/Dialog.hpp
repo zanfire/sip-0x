@@ -7,12 +7,12 @@
 #include "utils/log/Logger.hpp"
 #include "utils/InputTokenStream.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
-    using namespace Sip0x;
+    using namespace sip0x::Utils::Log;
+    using namespace sip0x;
 
     class Dialog;
 
@@ -26,7 +26,7 @@ namespace Sip0x
 
     public:
       Dialog(void) {
-        _logger = LoggerManager::get_logger("Sip0x.Logic.Dialog");
+        _logger = LoggerManager::get_logger("sip0x.Logic.Dialog");
       }
 
       virtual ~Dialog(void) {

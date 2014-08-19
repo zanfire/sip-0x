@@ -6,11 +6,11 @@
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Utils
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     // Helper class that handle a string as a seekable stream.
     // This class is not thread safe.
@@ -25,11 +25,11 @@ namespace Sip0x
 
     public:
       InputTokenStream(std::string& str) : _content((uint8_t const*)str.data()), _size(str.length()) {
-        _logger = LoggerManager::get_logger("Sip0x.Utils.InputTokenStream");
+        _logger = LoggerManager::get_logger("sip0x.Utils.InputTokenStream");
       }
 
       InputTokenStream(uint8_t const* content, std::size_t const& size) : _content(content), _size(size) {
-        _logger = LoggerManager::get_logger("Sip0x.Utils.InputTokenStream");
+        _logger = LoggerManager::get_logger("sip0x.Utils.InputTokenStream");
       }
 
       virtual ~InputTokenStream(void) {

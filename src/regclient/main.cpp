@@ -9,9 +9,9 @@ int main(int argc, char* argv[]) {
   std::string registrar_server = "127.0.0.1";
   int registrar_port = 5060;
 
-  Sip0x::Logic::Endpoint endpoint;
+  sip0x::Logic::Endpoint endpoint;
   
-  Sip0x::Logic::Endpoint::EndpointConfig config;
+  sip0x::Logic::Endpoint::EndpointConfig config;
 
   config.bind_address = "127.0.0.1";
   config.bind_port = 55060;

@@ -14,5 +14,5 @@ currently are:
 This project come with of a set of demo that would provide a set of stress test
 tool using this stack.
 
-Sip0x would be provided as header only library. NOTE: Now this library has a 
+sip0x would be provided as header only library. NOTE: Now this library has a 
 two cpp file... grrr 

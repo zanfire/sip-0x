@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <vector>
 
-namespace Sip0x
+namespace sip0x
 {
   enum SIPMethod {
     SIPMETHOD_INVITE = 0,

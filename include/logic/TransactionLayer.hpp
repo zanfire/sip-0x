@@ -26,12 +26,12 @@
 
 #include <set>
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
-    using namespace Sip0x;
+    using namespace sip0x::Utils::Log;
+    using namespace sip0x;
 
     //! \brief Provides handling and processing for bunch of Transaction.
     //! 
@@ -54,7 +54,7 @@ namespace Sip0x
           _act_has_server(act_has_server),
           _listener(listener), 
           _transport(transport) {
-        _logger = LoggerManager::get_logger("Sip0x.Logic.TransactionLayer");
+        _logger = LoggerManager::get_logger("sip0x.Logic.TransactionLayer");
 
         if (_act_has_server) {
           _transport->set_response_listener(this);

@@ -16,15 +16,15 @@
 #include "protocol/SIP.hpp"
 
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
-    static ReadResult parse(Sip0x::Utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory) {
+    static ReadResult parse(sip0x::Utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory) {
 #if defined(ENABLE_PARSER_LOGGING)
-      std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
+      std::shared_ptr<Logger> logger = LoggerManager::get_logger("sip0x.Parser.Parser");
       LOG_DEBUG(logger, "Parsing string \"%s\".", iss.str());
 #endif
 
@@ -53,11 +53,11 @@ namespace Sip0x
     }
 
     static ReadResult parse(std::string text, TokenAbstract& root, FactoryContext* factory) {
-      Sip0x::Utils::InputTokenStream iss(text);
+      sip0x::Utils::InputTokenStream iss(text);
       return parse(iss, root, factory);
     }
 
-    static Sip0x::SIPMessage* parse_sip_message(Sip0x::Utils::InputTokenStream&  iss) {
+    static sip0x::SIPMessage* parse_sip_message(sip0x::Utils::InputTokenStream&  iss) {
       static TokenSIPMessage sip; // Expensive to build
       FactoryContext ctx;
 
@@ -77,8 +77,8 @@ namespace Sip0x
       return nullptr;
     }
 
-    static Sip0x::SIPMessage* parse_sip_message(std::string text) {
-      Sip0x::Utils::InputTokenStream iss(text);
+    static sip0x::SIPMessage* parse_sip_message(std::string text) {
+      sip0x::Utils::InputTokenStream iss(text);
       return parse_sip_message(iss);
     }
   }

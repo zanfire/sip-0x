@@ -25,11 +25,11 @@
 #include "logic/TransportLayer.hpp"
 #include "protocol/SIP.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     //!
     //! \brief Models a SIP UAC (User Agent Client). 

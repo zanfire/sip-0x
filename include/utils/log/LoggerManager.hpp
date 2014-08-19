@@ -9,7 +9,7 @@
 #include <utils/log/Logger.hpp>
 
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Utils
   {

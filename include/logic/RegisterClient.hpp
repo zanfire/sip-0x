@@ -23,11 +23,11 @@
 #include "logic/UAC.hpp"
 
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     //!
     //! \brief Keeps a registration to a REGISTRAR server
@@ -72,7 +72,7 @@ namespace Sip0x
       RegisterClient(UAC* uac, std::string remote_server, int remote_port) : 
         _uac(uac), _registrar_server(remote_server), _registrar_port(remote_port)
       {
-        _logger = LoggerManager::get_logger("Sip0x.Logic.RegisterClient");
+        _logger = LoggerManager::get_logger("sip0x.Logic.RegisterClient");
       }
 
       virtual ~RegisterClient(void) {

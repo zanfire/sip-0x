@@ -6,7 +6,7 @@
 
 #include "protocol/HostPort.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   struct SIPURI {
 

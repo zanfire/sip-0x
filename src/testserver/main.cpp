@@ -6,9 +6,9 @@ int main(int argc, char* argv[]) {
   std::cout << "SIP server\n\n";
 ;
 
-  Sip0x::Logic::Endpoint endpoint;
+  sip0x::Logic::Endpoint endpoint;
 
-  Sip0x::Logic::Endpoint::EndpointConfig config;
+  sip0x::Logic::Endpoint::EndpointConfig config;
 
   config.bind_address = "127.0.0.1";
   config.bind_port = 5060;

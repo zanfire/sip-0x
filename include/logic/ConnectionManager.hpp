@@ -13,12 +13,12 @@
 #include "utils/log/Logger.hpp"
 //#include "utils/Listeners.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils;
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils;
+    using namespace sip0x::Utils::Log;
 
     class ConnectionManager {
     protected:

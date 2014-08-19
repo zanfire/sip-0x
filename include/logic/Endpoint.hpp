@@ -32,11 +32,11 @@
 #include <condition_variable>
 #include <mutex>
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     //!
     //! \brief Models an endpoint.

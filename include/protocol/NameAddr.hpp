@@ -5,7 +5,7 @@
 
 #include "protocol/SIPURI.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   struct NameAddr {
     std::string displayName;

@@ -3,7 +3,7 @@
 
 #include "parser/base/TokenContainer.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -17,13 +17,13 @@ namespace Sip0x
       Occurrence(T& f, int min = 0, int max = -1, bool disable_factory = false) : TokenContainer("Occurrence", f, disable_factory), _min(min), _max(max) {
         _name += "." + f.get_name(); // + "[" + std::string(_min) + "," + std::string(_max) + "]";
 #if defined(ENABLE_PARSER_LOGGING)
-        _logger = LoggerManager::get_logger("Sip0x.Parser.Occurrence");
+        _logger = LoggerManager::get_logger("sip0x.Parser.Occurrence");
 #endif
       }
 
     protected:
    
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         
         int occurrence = 0;
         ReadResult output(false);

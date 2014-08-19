@@ -10,7 +10,7 @@
 #include "protocol/SIPVersion.hpp"
 #include "protocol/SIPMessageHeader.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   class SIPMessage {
   public:
@@ -54,7 +54,7 @@ namespace Sip0x
     SIPVersion version;
 
     virtual std::string to_string(void) const override {
-      return Sip0x::to_string(method) + ' ' + uri.to_string() + ' ' + version.to_string() + "\r\n" + SIPMessage::to_string(); 
+      return sip0x::to_string(method) + ' ' + uri.to_string() + ' ' + version.to_string() + "\r\n" + SIPMessage::to_string(); 
     }
   };
 

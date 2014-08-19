@@ -9,7 +9,7 @@
 
 #include "parser/common/RegexConstStrings.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {

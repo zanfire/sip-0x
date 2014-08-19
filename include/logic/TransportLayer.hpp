@@ -16,11 +16,11 @@
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     class TransportLayer : public ConnectionListener  {
     protected:
@@ -38,7 +38,7 @@ namespace Sip0x
       asio::ip::tcp::acceptor _acceptor;
       ConnectionManager _connection_manager;
       // Parser
-      Sip0x::Parser::SIPParser parser;
+      sip0x::Parser::SIPParser parser;
       // Callbakcs
       TransportRequestListener* _request_listener = nullptr;
       TransportResponseListener* _response_listener = nullptr;
@@ -123,7 +123,7 @@ namespace Sip0x
 
       virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
         InputTokenStream iss(buffer, size);
-        std::shared_ptr<Sip0x::SIPMessage> message = parser.parse(iss);
+        std::shared_ptr<sip0x::SIPMessage> message = parser.parse(iss);
 
         if (message != nullptr) {
           SIPRequest* request = dynamic_cast<SIPRequest*>(message.get());

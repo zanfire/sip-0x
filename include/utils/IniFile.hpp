@@ -17,11 +17,11 @@
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Utils
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     // Wrapper over an INI file.
     class IniFile {
@@ -32,7 +32,7 @@ namespace Sip0x
 
     protected:
       IniFile(void) {
-        _logger = LoggerManager::get_logger("Sip0x.Utils.IniFile");
+        _logger = LoggerManager::get_logger("sip0x.Utils.IniFile");
       }
 
     public:

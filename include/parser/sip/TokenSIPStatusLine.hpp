@@ -10,7 +10,7 @@
 #include "parser/sip/TokenSIPMethod.hpp"
 #include "parser/sip/TokenSIPVersion.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -107,7 +107,7 @@ namespace Sip0x
       virtual ~TokenSIPStatusLine(void) { }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return _sequence.read(iss, ctx);
       }
     };

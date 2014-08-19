@@ -5,7 +5,7 @@
 #include "utils/log/LoggerManager.hpp"
 
 
-using namespace Sip0x::Utils::Log;
+using namespace sip0x::Utils::Log;
 using namespace std;
 
 

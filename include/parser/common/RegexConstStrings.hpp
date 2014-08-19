@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {

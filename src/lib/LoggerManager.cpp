@@ -2,7 +2,7 @@
 
 #include <utils/IniFile.hpp>
 
-using namespace Sip0x::Utils::Log;
+using namespace sip0x::Utils::Log;
 
 std::once_flag  LoggerManager::_once;
 LoggerManager*	LoggerManager::_instance = nullptr;

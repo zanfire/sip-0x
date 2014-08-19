@@ -30,7 +30,7 @@
 // paramchar         =  param-unreserved / unreserved / escaped
 // param-unreserved  =  "[" / "]" / "/" / ":" / "&" / "+" / "$"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -43,7 +43,7 @@ namespace Sip0x
       TokenURIParam_base(std::string name, std::string param, Alt& alternative) : TokenAbstract(name), _sequence(Token(param), Token("="), alternative) {}
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return _sequence.read(iss, ctx);
       }
 
@@ -151,7 +151,7 @@ namespace Sip0x
       {
       }
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult r = _sequence.read(iss, ctx);
         return r;
       }
@@ -177,7 +177,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return _alternative.read(iss, ctx);
       }
     };
@@ -194,7 +194,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         return _occurrene.read(iss, ctx);
       }
 

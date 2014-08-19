@@ -22,11 +22,11 @@
 
 #include "logic/TransportListener.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     //!
     //! \brief Models a SIP UAS (User Agent Server). 
@@ -40,7 +40,7 @@ namespace Sip0x
       
     public:
       UAS(TransportLayer* transport) : TransactionListener(), _transaction_layer(this, transport, true)  {
-        _logger = LoggerManager::get_logger("Sip0x.Logic.UAS");
+        _logger = LoggerManager::get_logger("sip0x.Logic.UAS");
       }
 
       virtual ~UAS(void) {

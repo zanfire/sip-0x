@@ -10,7 +10,7 @@
 #include "utils/log/Logger.hpp"
 
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -30,7 +30,7 @@ namespace Sip0x
         TokenAbstract(name), 
         _create_factory(create_factory) {
 #if defined(ENABLE_PARSER_LOGGING)
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
+        _logger = LoggerManager::get_logger("sip0x.Parser.TokenRegex");
         LOG_DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
 #endif
         try {
@@ -50,7 +50,7 @@ namespace Sip0x
 
       // Read the expected token.
       // returns true if encountered the expected token.  
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* /*ctx*/) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* /*ctx*/) const override {
         //std::smatch pieces_match;
         std::cmatch pieces_match;
         int init_pos = iss.pos();

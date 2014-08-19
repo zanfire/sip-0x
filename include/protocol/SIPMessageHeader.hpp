@@ -5,7 +5,7 @@
 
 #include "protocol/NameAddr.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   struct SIPMessageHeaderBase {
     virtual std::string param(void) const = 0;

@@ -28,11 +28,11 @@
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace sip0x::Utils::Log;
 
     //! 
     //! \brief

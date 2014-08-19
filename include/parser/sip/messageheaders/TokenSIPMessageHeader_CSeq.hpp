@@ -7,7 +7,7 @@
 
 #include "parser/sip/messageheaders/TokenSIPMessageHeader_base.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {

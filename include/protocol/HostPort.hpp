@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace Sip0x
+namespace sip0x
 {
   struct HostPort {
     std::string host;

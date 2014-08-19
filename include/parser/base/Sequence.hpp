@@ -3,7 +3,7 @@
 
 #include "parser/base/TokenAbstract.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -24,7 +24,7 @@ namespace Sip0x
     public:
       Sequence(First f) : TokenAbstract("Sequence"), member(f) {
 #if defined(ENABLE_PARSER_LOGGING)
-        _logger = LoggerManager::get_logger("Sip0x.Parser.Sequence");
+        _logger = LoggerManager::get_logger("sip0x.Parser.Sequence");
 #endif
         _name += "..." + f.get_name();
       }
@@ -79,7 +79,7 @@ namespace Sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         FactoryContext* tmp = new FactoryContext();
         ReadResult res = processing(iss, tmp, first(), rest());
 
@@ -94,7 +94,7 @@ namespace Sip0x
       }
 
       template<typename F, typename R>
-      ReadResult processing(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
+      ReadResult processing(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
 #if defined(ENABLE_PARSER_LOGGING)
         LOG_DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 #endif

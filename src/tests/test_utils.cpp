@@ -5,7 +5,7 @@
 void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
   cout << "Parsing string \"" << input << "\" .................. ";
   FactoryContext ctx;
-  Sip0x::Parser::ReadResult r = Sip0x::Parser::parse(input, token, &ctx);
+  sip0x::Parser::ReadResult r = sip0x::Parser::parse(input, token, &ctx);
 
   cout << "res: " << ((r.successes) ? "OK" : "KO");
   cout << ", exp: " << ((exp) ? "OK" : "KO");
@@ -41,7 +41,7 @@ void run_sip(std::string input) {
   FactoryContext ctx;
   
   auto t1 = std::chrono::high_resolution_clock::now();
-  Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(input);
+  sip0x::SIPMessage* message = sip0x::Parser::parse_sip_message(input);
   auto t2 = std::chrono::high_resolution_clock::now();
 
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);

@@ -5,9 +5,9 @@
 #include <fstream>
 
 
-using namespace Sip0x::Parser;
-using namespace Sip0x::Utils;
-using namespace Sip0x::Utils::Log;
+using namespace sip0x::Parser;
+using namespace sip0x::Utils;
+using namespace sip0x::Utils::Log;
 using namespace std;
 
 void test_sipmessages_from_file(char const* path) {

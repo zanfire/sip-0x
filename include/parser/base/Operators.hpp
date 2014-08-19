@@ -6,7 +6,7 @@
 #include "parser/base/Sequence.hpp"
 
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {

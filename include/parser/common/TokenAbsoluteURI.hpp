@@ -10,7 +10,7 @@
 #include "parser/common/TokenPresets.hpp"
 #include "parser/common/TokenQuotedString.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
@@ -53,7 +53,7 @@ namespace Sip0x
 
 
     protected:
-      virtual ReadResult handle_read(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         ReadResult result = _sequence.read(iss, ctx);
         return result;
       }

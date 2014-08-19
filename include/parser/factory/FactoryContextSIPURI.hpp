@@ -6,11 +6,11 @@
 
 #include "protocol/SIP.hpp"
 
-namespace Sip0x
+namespace sip0x
 {
   namespace Parser
   {
-    using namespace Sip0x;
+    using namespace sip0x;
 
     class FactoryContextUserInfo : public FactoryContextValue<SIPURI::UserInfo> {
     public:
