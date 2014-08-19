@@ -19,22 +19,27 @@ namespace Sip0x
 
     protected:
       std::regex _regex;
+      bool _create_factory = true;
 
     public:
 
       TokenRegex(std::string const& regex) : TokenRegex(regex, regex){
       }
 
-      TokenRegex(std::string const& name, std::string regex) : TokenAbstract(name) {
+      TokenRegex(std::string const& name, std::string regex, bool create_factory = true) : 
+        TokenAbstract(name), 
+        _create_factory(create_factory) {
+#if defined(ENABLE_PARSER_LOGGING)
         _logger = LoggerManager::get_logger("Sip0x.Parser.TokenRegex");
-
         LOG_DEBUG(_logger, "Creating TokenRegex%p with regex: %s.", this, regex.c_str());
-
+#endif
         try {
           _regex = std::regex("^(" + regex + ")");
         }
         catch (std::regex_error e) {
+#if defined(ENABLE_PARSER_LOGGING)
           LOG_ERROR(_logger, "Regex %s contains an error (%s).\nRegex:%s", name.c_str(), e.what(), regex.c_str());
+#endif
         }
       }
 
@@ -55,14 +60,18 @@ namespace Sip0x
 
         //if (std::regex_search(input, pieces_match, _regex)) {
         if (std::regex_search(input, pieces_match, _regex)) {
+#if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "Regex matched, found %d occurrences.", pieces_match.size());
+#endif
           if (pieces_match.size() >= 1 && pieces_match.position() == 0) {
             //std::string piece = sub_match.str(); // TODO: length instead of string.
             iss.seekg(init_pos + pieces_match.length());
             return ReadResult(true, init_pos, pieces_match.length());
           }
           else {
+#if defined(ENABLE_PARSER_LOGGING)
             LOG_DEBUG(_logger, "Regexp failed constrains, count %d, pos: %d.", pieces_match.size(), pieces_match.position());
+#endif
           }
         }
         else {
@@ -73,7 +82,12 @@ namespace Sip0x
       }
 
       virtual FactoryContext* create_factory(void) const override {
-        return new FactoryContext();
+        if (_create_factory) {
+          return new FactoryContext();
+        }
+        else {
+          return nullptr;
+        }
       }
     };
   }

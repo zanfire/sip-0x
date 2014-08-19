@@ -1,5 +1,5 @@
-#if !defined(SIP0X_LOGIC_TRANSACTIONLAYER_HPP__)
-#define SIP0X_LOGIC_TRANSACTIONLAYER_HPP__
+#if !defined(SIP0X_LOGIC_TRANSPORTLISTENER_HPP__)
+#define SIP0X_LOGIC_TRANSPORTLISTENER_HPP__
 
 //!
 //! Copyright 2014 Matteo Valdina
@@ -17,25 +17,24 @@
 //! limitations under the License.
 //!
 
-
-#include "utils/log/LoggerManager.hpp"
-#include "utils/log/Logger.hpp"
+#include "protocol/SIP.hpp"
 
 namespace Sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
-    using namespace Sip0x;
+    //! \brief Transport callbacks
+    class TransportRequestListener {
+    public:
+      virtual void on_receive(std::shared_ptr<SIPRequest> request) = 0;
+    };
 
-    class Transaction;
+    class TransportResponseListener {
+    public:
+      virtual void on_receive(std::shared_ptr<SIPResponse> response) = 0;
+    };
 
-    class TransactionListener {
-      virtual void onCreated(Transaction* tran, SIPRequest* request) = 0;
-      virtual void onTimedout(Transaction* tran) = 0;
-      virtual void onCompleted(Transaction* tran, SIPResponse* response) = 0;
-    };    
   }
 }
 
-#endif // SIP0X_LOGIC_TRANSACTIONLAYER_HPP__
+#endif // SIP0X_LOGIC_TRANSPORTLISTENER_HPP__

@@ -23,7 +23,6 @@ namespace Sip0x
       //
       TokenSIPMessageHeader_extension_header() : TokenSIPMessageHeader_base("header-name", RegexConstStrings::token, TokenRegex("header-value", "((" + RegexConstStrings::TEXT_UTF8char + ")|(" + RegexConstStrings::UTF8_CONT + ")|(" + RegexConstStrings::LWS + "))*"))
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_extension_header");
       }
     };
   }

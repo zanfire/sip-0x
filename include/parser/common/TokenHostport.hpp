@@ -32,7 +32,6 @@ namespace Sip0x
         Occurrence<Token>(Token("."), 0, 1, true)
         ), true)
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHostname");
       }
     };
 
@@ -41,7 +40,6 @@ namespace Sip0x
 
     public:
       TokenHost(void) : TokenContainer("TokenHost", Alternative<TokenIPv4, TokenIPv6, TokenHostname>(TokenIPv4(), TokenIPv6(), TokenHostname()), true) {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHost");
       }
     };
    
@@ -63,7 +61,6 @@ namespace Sip0x
           ), 0, 1, true
         )
       ) {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenHostport");
       }
 
       virtual ~TokenHostport(void) {

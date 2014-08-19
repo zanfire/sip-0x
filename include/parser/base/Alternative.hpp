@@ -16,12 +16,13 @@ namespace Sip0x
     class Alternative<First> : public TokenAbstract {
 
     protected:
-      std::shared_ptr<Logger> _logger;
       First member;
 
     public:
       Alternative(First& f) : TokenAbstract("Alternative"), member(f) {
+#if defined(ENABLE_PARSER_LOGGING)
         _logger = LoggerManager::get_logger("Sip0x.Parser.Alternative");
+#endif
         _name += "..." + f.get_name();
       }
 
@@ -81,12 +82,14 @@ namespace Sip0x
 
       template<typename F, typename R>
       ReadResult processing(Sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
-        
+#if defined(ENABLE_PARSER_LOGGING)
         LOG_DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
-
+#endif
         ReadResult result = f->read(iss, ctx);
         if (result.successes) {
+#if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "Alternative %s successes.", f->get_name().c_str());
+#endif
           return result;
         }
         
@@ -94,7 +97,9 @@ namespace Sip0x
           return processing(iss, ctx, r.first(), r.rest());
         }
         else {
+#if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "No alternative parsed correctly.");
+#endif
           return ReadResult(false);
         }
 

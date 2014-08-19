@@ -27,7 +27,6 @@ namespace Sip0x
           token
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader");
       }
 
       virtual ~TokenSIPMessageHeader_base(void) { }

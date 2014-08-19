@@ -1,19 +1,26 @@
 #if !defined(SIP0X_LOGIC_UAS_HPP__)
 #define SIP0X_LOGIC_UAS_HPP__
 
-#include "asio_header.hpp"
-
-#include <string>
-#include <memory>
-
-#include "parser/Parser.hpp"
-
-#include "logic/UA.hpp"
-#include "logic/ConnectionManager.hpp"
+//!
+//! Copyright 2014 Matteo Valdina
+//!
+//! Licensed under the Apache License, Version 2.0 (the "License");
+//! you may not use this file except in compliance with the License.
+//! You may obtain a copy of the License at
+//!
+//!     http://www.apache.org/licenses/LICENSE-2.0
+//!
+//! Unless required by applicable law or agreed to in writing, software
+//! distributed under the License is distributed on an "AS IS" BASIS,
+//! WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//! See the License for the specific language governing permissions and
+//! limitations under the License.
+//!
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
-#include "utils/InputTokenStream.hpp"
+
+#include "logic/TransportListener.hpp"
 
 namespace Sip0x
 {
@@ -21,48 +28,59 @@ namespace Sip0x
   {
     using namespace Sip0x::Utils::Log;
 
-    /// Implement basic logic of a SIP User-Agent.
-    class UAS : public UA {
+    //!
+    //! \brief Models a SIP UAS (User Agent Server). 
+    //! 
+    //! \author Matteo Valdina  
+    //! 
+    class UAS : TransactionListener {
     protected:
-      // Network
-      asio::ip::tcp::socket _socket;
-      asio::ip::tcp::acceptor _acceptor;
-      ConnectionManager _connection_manager;
-
+      std::shared_ptr<Logger> _logger;
+      TransactionLayer _transaction_layer;
+      
     public:
-      UAS(std::string useragent, asio::io_service& io_service, int port) : UA(io_service, useragent),
-        _socket(io_service),
-        _acceptor(io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), port)) {
+      UAS(TransportLayer* transport) : TransactionListener(), _transaction_layer(this, transport, true)  {
         _logger = LoggerManager::get_logger("Sip0x.Logic.UAS");
       }
 
       virtual ~UAS(void) {
       }
 
-      void process(void) {
-        // Install async operation.
-        async_accept();
-        // process async operation.
-        _io_service.run();
-      }
-    
-      void async_accept(void) {
-        _acceptor.async_accept(_socket, [this](std::error_code ec) {
-          if (!ec) {
-            _connection_manager.add(std::make_shared<Connection>(std::move(_socket), &_connection_manager, this));
+      virtual void on_trying(Transaction* tran) override {
+        SIPRequest* request = tran->request.get();
+
+        switch (request->method) {
+          case SIPMethod::SIPMETHOD_REGISTER:
+          {
+            process_REGISTER(request);
+            break;
           }
-          async_accept();
-        });
+
+        }
+      }
+
+      virtual void on_processing(Transaction* tran) override {
+
+      }
+
+      virtual void on_completed(Transaction* tran) override {
+
+      }
+
+      virtual void on_terminated(Transaction* tran) override {
+
       }
 
     private:
-      virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
-        InputTokenStream iss(buffer, size);
-        Sip0x::SIPMessage* message = Sip0x::Parser::parse_sip_message(iss);
-        if (message != nullptr) {
-         // message->write(std::cout);
-        }
+
+      void process_REGISTER(SIPRequest* request) {
+        // TODO: process and notify the Application of the register method.
+
+        // Ask to the application layer if accept register from client
+
+
       }
+
     };
   }
 }

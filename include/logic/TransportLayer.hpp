@@ -9,6 +9,7 @@
 
 #include "logic/Connection.hpp"
 #include "logic/ConnectionManager.hpp"
+#include "logic/TransportListener.hpp"
 
 #include "parser/SIPParser.hpp"
 
@@ -38,6 +39,9 @@ namespace Sip0x
       ConnectionManager _connection_manager;
       // Parser
       Sip0x::Parser::SIPParser parser;
+      // Callbakcs
+      TransportRequestListener* _request_listener = nullptr;
+      TransportResponseListener* _response_listener = nullptr;
 
     public:
       //! \todo Use bind address
@@ -59,6 +63,9 @@ namespace Sip0x
 
         delete _thread;
       }
+
+      void set_request_listener(TransportRequestListener* l)  { _request_listener  = l; }
+      void set_response_listener(TransportResponseListener* l) { _response_listener = l; }
 
       //! Start transport layer. 
       //! \returns true if transport layer was in
@@ -116,9 +123,23 @@ namespace Sip0x
 
       virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
         InputTokenStream iss(buffer, size);
-        Sip0x::SIPMessage* message = parser.parse(iss);
+        std::shared_ptr<Sip0x::SIPMessage> message = parser.parse(iss);
+
         if (message != nullptr) {
-          //message->write(std::cout);
+          SIPRequest* request = dynamic_cast<SIPRequest*>(message.get());
+          if (request != nullptr) {
+            if (_request_listener != nullptr) {
+              std::shared_ptr<SIPRequest> req = std::static_pointer_cast<SIPRequest, SIPMessage>(message);
+              _request_listener->on_receive(req);
+            }
+          }
+          else {
+            SIPResponse* response = dynamic_cast<SIPResponse*>(message.get());
+            if (_response_listener != nullptr) {
+              std::shared_ptr<SIPResponse> res = std::static_pointer_cast<SIPResponse, SIPMessage>(message);
+              _response_listener->on_receive(res);
+            }
+          }
         }
       }
 

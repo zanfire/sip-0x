@@ -23,15 +23,17 @@ namespace Sip0x
     using namespace Sip0x::Utils::Log;
 
     static ReadResult parse(Sip0x::Utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory) {
+#if defined(ENABLE_PARSER_LOGGING)
       std::shared_ptr<Logger> logger = LoggerManager::get_logger("Sip0x.Parser.Parser");
-
       LOG_DEBUG(logger, "Parsing string \"%s\".", iss.str());
+#endif
 
       ReadResult result = root.read(iss, factory);
 
       if (result.successes && iss.eof()) {
+#if defined(ENABLE_PARSER_LOGGING)
         LOG_DEBUG(logger, "Parsing successes, remains: %d, pos %d.", iss.remains(), iss.pos());
-
+#endif
       }
       else {
         // No consumed all input.
@@ -43,7 +45,9 @@ namespace Sip0x
         if (result.errorpos == -2) {
           result.set_error(cur_pos, "Remaining string: " + r);
         }
+#if defined(ENABLE_PARSER_LOGGING)
         LOG_DEBUG(logger, "Parsing terminated without successes, remaining string: \"%s\".", r.c_str());
+#endif
       }
       return result;
     }

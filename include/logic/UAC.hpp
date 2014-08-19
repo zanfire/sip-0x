@@ -40,13 +40,11 @@ namespace Sip0x
     //!
     class UAC : public TransactionListener {
     protected:
-      std::string _address;
-      // Transaction layer notify 
+      std::string _address; 
       TransactionLayer _transaction_layer;
-      TransportLayer* _transport_layer;
 
     public:
-      UAC(TransportLayer* transport) : _transaction_layer(this), _transport_layer(transport) {
+      UAC(TransportLayer* transport) : _transaction_layer(this, transport, false) {
       }
       virtual ~UAC(void) {
       }
@@ -61,8 +59,6 @@ namespace Sip0x
       //!
 
       virtual void on_trying(Transaction* tran) override {
-        // Trying needs to be sent trough transport layer
-        _transport_layer->handle(tran->request.get());
       }
 
       virtual void on_processing(Transaction* tran) override {

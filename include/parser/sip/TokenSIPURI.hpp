@@ -34,7 +34,6 @@ namespace Sip0x
         TokenURIParameters(),
         TokenURIHeaders())
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPURI");
       }
 
       virtual ~TokenSIPURI(void) {

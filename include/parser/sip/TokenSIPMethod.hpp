@@ -31,7 +31,6 @@ namespace Sip0x
           TokenRegex(RegexConstStrings::token)
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMethod");
       }
 
     protected:

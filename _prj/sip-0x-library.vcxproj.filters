@@ -336,9 +336,6 @@
     <ClInclude Include="..\include\logic\Transaction.hpp">
       <Filter>logic</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\logic\MessageFactory.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\logic\Dialog.hpp">
       <Filter>logic</Filter>
     </ClInclude>
@@ -369,6 +366,12 @@
     <ClInclude Include="..\include\sip-0x.hpp" />
     <ClInclude Include="..\include\parser\SIPParser.hpp">
       <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\TransportListener.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\logic\ApplicationListener.hpp">
+      <Filter>logic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

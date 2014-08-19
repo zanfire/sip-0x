@@ -29,7 +29,6 @@ namespace Sip0x
           Token("\"")
          )
        {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenQuotedString");
       }
 
       virtual ~TokenQuotedString(void) {

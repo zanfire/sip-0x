@@ -30,7 +30,7 @@ namespace Sip0x
       SIPParser(void) {}
       virtual ~SIPParser(void) {}
 
-      Sip0x::SIPMessage* parse(Sip0x::Utils::InputTokenStream& iss) {
+      std::shared_ptr<Sip0x::SIPMessage> parse(Sip0x::Utils::InputTokenStream& iss) {
         FactoryContext ctx;
 
         ReadResult res = Sip0x::Parser::parse(iss, grammar, &ctx);
@@ -38,14 +38,13 @@ namespace Sip0x
           FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
           if (message != nullptr) {
             if (message->is_request()) {
-              return new SIPRequest(message->request());
+              return std::shared_ptr<Sip0x::SIPMessage>(new SIPRequest(message->request()));
             }
             else {
-              return new SIPResponse(message->response());
+              return std::shared_ptr<Sip0x::SIPMessage>(new SIPResponse(message->response()));
             }
           }
         }
-
         return nullptr;
       }
     };

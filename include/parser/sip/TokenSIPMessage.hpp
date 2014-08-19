@@ -32,7 +32,6 @@ namespace Sip0x
         Occurrence<TokenOctects>(TokenOctects(), 0, 1, true))
       {
         _sequence.disable_factory(true);
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessage");
       }
 
     protected:

@@ -172,8 +172,8 @@ namespace Sip0x
           TokenURIParam_ttl(), 
           Token("lr"), 
           TokenURIParam_other()
-        ) {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenURIParameter");
+        ) 
+      {
       }
 
     protected:

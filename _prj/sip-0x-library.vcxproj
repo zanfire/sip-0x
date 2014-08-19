@@ -11,16 +11,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\logic\ApplicationListener.hpp" />
     <ClInclude Include="..\include\logic\asio_header.hpp" />
     <ClInclude Include="..\include\logic\Connection.hpp" />
     <ClInclude Include="..\include\logic\ConnectionManager.hpp" />
     <ClInclude Include="..\include\logic\Dialog.hpp" />
     <ClInclude Include="..\include\logic\Endpoint.hpp" />
-    <ClInclude Include="..\include\logic\MessageFactory.hpp" />
     <ClInclude Include="..\include\logic\RegisterClient.hpp" />
     <ClInclude Include="..\include\logic\Transaction.hpp" />
     <ClInclude Include="..\include\logic\TransactionLayer.hpp" />
     <ClInclude Include="..\include\logic\TransportLayer.hpp" />
+    <ClInclude Include="..\include\logic\TransportListener.hpp" />
     <ClInclude Include="..\include\logic\UA.hpp" />
     <ClInclude Include="..\include\logic\UAC.hpp" />
     <ClInclude Include="..\include\logic\UAS.hpp" />

@@ -19,7 +19,10 @@
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
+
 #include "logic/Transaction.hpp"
+#include "logic/TransportLayer.hpp"
+#include "logic/TransportListener.hpp"
 
 #include <set>
 
@@ -30,42 +33,79 @@ namespace Sip0x
     using namespace Sip0x::Utils::Log;
     using namespace Sip0x;
 
-    //! \brief Provides handling and processfor bunch of Transaction.
+    //! \brief Provides handling and processing for bunch of Transaction.
     //! 
     //! Process REQUEST and RESPONSE. 
-    class TransactionLayer {
+    class TransactionLayer : TransportRequestListener, TransportResponseListener {
     
     protected:
       std::shared_ptr<Logger> _logger;
-
+      bool _act_has_server;
       // Listener
       TransactionListener* _listener;
-
       // Transactions.
-      std::vector<Transaction> _transactions;
+      std::vector<Transaction*> _transactions;
+      // Transport
+      TransportLayer* _transport;
 
     public:
-      TransactionLayer(TransactionListener* listener) : _listener(listener) {
-        _logger = LoggerManager::get_logger("Sip0x.Logic.Transaction");
+      TransactionLayer(TransactionListener* listener, TransportLayer* transport, bool act_has_server) :
+          TransportRequestListener(), TransportResponseListener(),
+          _act_has_server(act_has_server),
+          _listener(listener), 
+          _transport(transport) {
+        _logger = LoggerManager::get_logger("Sip0x.Logic.TransactionLayer");
+
+        if (_act_has_server) {
+          _transport->set_response_listener(this);
+        }
+        else {
+          _transport->set_request_listener(this);
+        }
       }
 
       virtual ~TransactionLayer(void) {
       }
 
-      void handle(std::shared_ptr<SIPRequest> request) {
-        // Is a retrasmission?
+      void handle(std::shared_ptr<SIPRequest>& request) {
+        // Is a retransmission?
+        Transaction* tran = create_transaction(request);
+        
+        if (!_act_has_server) {
+          _transport->handle(request.get());
+        }
 
-        // Is not,
-        Transaction tran;
-        tran.request = request;
-
-        _transactions.push_back(tran);
-
-        _listener->on_trying(&tran);
+        _listener->on_trying(tran);
       }
 
       void handle(SIPResponse* response) {
 
+      }
+
+
+      virtual void on_receive(std::shared_ptr<SIPRequest> request) override {
+        if (_act_has_server) {
+          // TODO: handling retransmission.
+          Transaction* tran = create_transaction(request);
+          // Notify the UA of the new transaction.
+          _listener->on_trying(tran);
+        }
+        else {
+          // TODO: This case should be ignored. Log dropping
+        }
+      }
+
+      virtual void on_receive(std::shared_ptr<SIPResponse> response) override {
+
+      }
+
+    private:
+
+      Transaction* create_transaction(std::shared_ptr<SIPRequest>& request) {
+        Transaction* tran = new Transaction();
+        tran->request = request;
+        _transactions.push_back(tran);
+        return tran;
       }
     };
   }

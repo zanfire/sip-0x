@@ -257,7 +257,6 @@ namespace Sip0x
         )
       {
           _sequence.disable_factory(true);
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader");
       }
 
     protected:

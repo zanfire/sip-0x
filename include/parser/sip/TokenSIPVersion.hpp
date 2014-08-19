@@ -22,7 +22,6 @@ namespace Sip0x
       TokenSIPVersion(void) : TokenAbstract("SIPResponse"), 
         _sequence(Token("SIP/"), TokenDigits(), Token("."), TokenDigits())
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPVersion");
       }
 
       virtual ~TokenSIPVersion(void) { }

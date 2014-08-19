@@ -47,7 +47,6 @@ namespace Sip0x
         )
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 

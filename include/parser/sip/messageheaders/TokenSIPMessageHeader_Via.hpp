@@ -36,7 +36,6 @@ namespace Sip0x
           TokenRegex(RegexConstStrings::token)
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Via_param_sent_protocol");
       }
 
     protected:
@@ -74,7 +73,6 @@ namespace Sip0x
         TokenGenericParam()
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Via_params");
       }
 
     protected:
@@ -105,7 +103,6 @@ namespace Sip0x
         )
         )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Via_param");
       }
 
     protected:
@@ -135,7 +132,6 @@ namespace Sip0x
         )
       )
       {
-        _logger = LoggerManager::get_logger("Sip0x.Parser.TokenSIPMessageHeader_Via");
       }
     };
 
