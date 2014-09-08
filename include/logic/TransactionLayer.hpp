@@ -36,7 +36,7 @@ namespace sip0x
     //! \brief Provides handling and processing for bunch of Transaction.
     //! 
     //! Process REQUEST and RESPONSE. 
-    class TransactionLayer : TransportRequestListener, TransportResponseListener {
+    class TransactionLayer : TransportListener {
     
     protected:
       std::shared_ptr<Logger> _logger;
@@ -44,68 +44,148 @@ namespace sip0x
       // Listener
       TransactionListener* _listener;
       // Transactions.
-      std::vector<Transaction*> _transactions;
+      std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
       // Transport
       TransportLayer* _transport;
 
     public:
       TransactionLayer(TransactionListener* listener, TransportLayer* transport, bool act_has_server) :
-          TransportRequestListener(), TransportResponseListener(),
+          TransportListener(),
           _act_has_server(act_has_server),
           _listener(listener), 
           _transport(transport) {
         _logger = LoggerManager::get_logger("sip0x.Logic.TransactionLayer");
 
-        if (_act_has_server) {
-          _transport->set_response_listener(this);
-        }
-        else {
-          _transport->set_request_listener(this);
-        }
+        _transport->set_listener(this);
       }
 
       virtual ~TransactionLayer(void) {
       }
 
+      /*
       void handle(std::shared_ptr<SIPRequest>& request) {
         // Is a retransmission?
-        Transaction* tran = create_transaction(request);
+        std::shared_ptr<Transaction> tran = create_transaction(request);
         
-        if (!_act_has_server) {
+        tran
+
+        if (_act_has_server) {
+          // Callback 
+        }
+        else {
           _transport->handle(request.get());
         }
 
         _listener->on_trying(tran);
       }
 
-      void handle(SIPResponse* response) {
-
-      }
-
-
-      virtual void on_receive(std::shared_ptr<SIPRequest> request) override {
+      void handle(Transaction* transaction, std::shared_ptr<SIPResponse>& response) {
+        
         if (_act_has_server) {
-          // TODO: handling retransmission.
-          Transaction* tran = create_transaction(request);
-          // Notify the UA of the new transaction.
-          _listener->on_trying(tran);
         }
         else {
-          // TODO: This case should be ignored. Log dropping
+          
+        }
+
+        // Inject this method in the state machine handler.
+      }
+
+      void handle(SIPResponse* response) {
+      }
+      */
+
+      virtual void on_receive(std::shared_ptr<SIPMessage>& message, void* opaque_data) override {
+        if (message->is_request) {
+          std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
+          process_request(request, true, opaque_data);
+        }
+        else {
+          std::shared_ptr<SIPResponse> response = std::dynamic_pointer_cast<SIPResponse>(message);
+          process_response(response, true, opaque_data);
         }
       }
 
-      virtual void on_receive(std::shared_ptr<SIPResponse> response) override {
+      virtual void process_request(std::shared_ptr<SIPRequest>& request, bool from_remote, void* opaque_data) {
+        std::shared_ptr<Transaction> tran = get_transaction(request);
+        if (tran != nullptr) {
+          // is it a retransmission?
+        }
+        else {
+          tran = create_transaction(request);
+        }
+        bool accepted = tran->update_state_machine(request, false, false);
+        if (accepted) {
+          tran->opaque_data = opaque_data;
+          // TODO: handling retransmission.
+          // Notify the UA of the new transaction.
+          if (from_remote) {
+            _listener->on_trying(tran.get());
+          }
+          else {
+            // Send to the NETWORK!!!
+            _transport->send(request, opaque_data);
+          }
+        }
+      }
 
+      void process_response(std::shared_ptr<SIPResponse>& response, bool from_remote, void* opaque_data) {
+        std::shared_ptr<Transaction> tran = get_transaction(response);
+        if (tran != nullptr) {
+          tran->update_state_machine(response, false, false);
+          // Notify the UA of the new transaction.
+          // Move listener in state machine.
+          //_listener->on_trying(tran.get());
+        }
+        if (from_remote) {
+          _listener->on_trying(tran.get());
+        }
+        else {
+          // Send to the NETWORK!!!
+          _transport->send(response, opaque_data);
+        }
       }
 
     private:
 
-      Transaction* create_transaction(std::shared_ptr<SIPRequest>& request) {
-        Transaction* tran = new Transaction();
-        tran->request = request;
-        _transactions.push_back(tran);
+      std::shared_ptr<Transaction> create_transaction(std::shared_ptr<SIPRequest> const& request) {
+        std::shared_ptr<Transaction> tran;
+        //tran->request = request;
+        // get from via the brach tag.
+        std::string branch = request->get_Via_branch();
+        if (!branch.empty()) {
+          tran = std::make_shared<Transaction>();
+          tran->id = sip0x::to_string(request->method) + "_" + branch;
+          // TODO: Add check against present branch
+          _transactions[tran->id] = tran;
+        }
+        else {
+          // TODO: Add logging.
+        }
         return tran;
+      }
+
+      std::shared_ptr<Transaction> get_transaction(std::shared_ptr<SIPMessage> const& message) {
+        std::shared_ptr<Transaction> tran;
+        std::string branch = message->get_Via_branch();
+        if (!branch.empty()) {
+          std::string method;
+          if (message->is_request) {
+            SIPRequest const* req = dynamic_cast<SIPRequest const*>(message.get());
+            method = sip0x::to_string(req->method);
+          }
+          else {
+            std::shared_ptr<SIPMessageHeaderCSeq> cseq = message->get_first<SIPMessageHeaderCSeq>();
+            if (cseq != nullptr) {
+              method = sip0x::to_string(cseq->method);
+            }
+          }
+          if (!method.empty()) {
+            std::string id = method + "_" + branch;
+            // TODO: Add check against present branch
+            tran = _transactions[id];
+          }
+        }
+        return tran; // correct or empty.
       }
     };
   }

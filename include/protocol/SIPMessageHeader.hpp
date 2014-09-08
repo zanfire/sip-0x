@@ -118,8 +118,17 @@ namespace sip0x
       }
       return out;
     }
-
   };
+
+  struct SIPMessageHeaderUser_Agent : public SIPMessageHeaderBase {
+    std::string user_agent;
+
+    virtual std::string param(void) const override { return "User-Agent"; }
+    virtual std::string value(void) const override {
+      return user_agent;
+    }
+  };
+
 }
 
 #endif // SIP0X_PROTOCOL_SIPMESSAGEHEADER_HPP__

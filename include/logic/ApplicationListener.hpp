@@ -25,7 +25,7 @@ namespace sip0x
 {
   namespace Logic
   {
-    //! \brief Signaling callback. 
+    //! Signaling callback. 
     class SignalingListener {
     public:
       //!
@@ -35,13 +35,14 @@ namespace sip0x
       virtual bool on_receive(std::shared_ptr<SIPResponse> response) = 0;
     };
 
-    //! \brief Logic callback
+    //! Registration callback
     class RegistrationListener {
     public:
       virtual void on_registered() = 0;
       virtual void on_registration_failed(int error_code) = 0;
     };
 
+    //! Registrar Listener
     class RegistrarListener {
     public:
       virtual void on_registering(std::shared_ptr<SIPResponse> response) = 0;

@@ -6,8 +6,7 @@
 #include <string>
 #include <memory>
 
-
-#include "logic/Connection.hpp"
+#include "logic/ApplicationDelegate.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
@@ -19,23 +18,76 @@ namespace sip0x
     using namespace sip0x::Utils::Log;
 
     /// Implement basic logic of a SIP User-Agent.
-    class UA : public ConnectionListener  {
+    class UA  {
     protected:
-      // Infrastructure
       std::shared_ptr<Logger> _logger;
-      // Network
-      asio::io_service& _io_service;
-      asio::ip::tcp::socket _tcp_socket;
+      ApplicationDelegate* _application_delegate;
       // SIP
+      std::string _domain;
       std::string _useragent;
 
     public:
-      UA(asio::io_service& io_service, std::string useragent) : _io_service(io_service), _tcp_socket(io_service), _useragent(useragent) {
+      UA(ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
+        _application_delegate(application_delegate),
+        _domain(domain),
+        _useragent(useragent) {
       }
 
       virtual ~UA(void) {
       }
 
+    protected:
+
+      
+      //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
+      void add_default_header_lines(SIPMessage* message) {
+        // Max-Forwards: 70
+        std::shared_ptr<SIPMessageHeaderMax_Forwards> max_forward = std::make_shared<SIPMessageHeaderMax_Forwards>();
+        max_forward->max = 70;
+        message->headers.push_back(max_forward);
+
+        std::shared_ptr<SIPMessageHeaderUser_Agent> user_agent = std::make_shared<SIPMessageHeaderUser_Agent>();
+        user_agent->user_agent = _useragent;
+        message->headers.push_back(user_agent);
+      }
+
+      void add_header_cseq(SIPMessage* message, SIPMethod method, int seq) {
+        std::shared_ptr<SIPMessageHeaderCSeq> cseq = std::make_shared<SIPMessageHeaderCSeq>();
+        cseq->seq = seq;
+        cseq->method = method;
+
+        message->headers.push_back(cseq);
+      }
+
+      void add_header_call_ID(SIPMessage* message, std::string const& callID) {
+        std::shared_ptr<SIPMessageHeaderCall_ID> call_ID = std::make_shared<SIPMessageHeaderCall_ID>();
+        call_ID->callID = callID;
+        message->headers.push_back(call_ID);
+      }
+
+      void add_header_via(SIPMessage* message, char const* transport, char const* branch) {
+        // Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7
+        std::shared_ptr<SIPMessageHeaderVia> via = std::make_shared<SIPMessageHeaderVia>();
+        via->protocol = "SIP";
+        via->version = "2.0";
+        via->transport = transport; // TODO: Should be updated by the transport layer.
+        via->hostport.host = _domain; // It should be the nat or local IP.
+        via->params.push_back(std::make_pair("branch", branch)); // TODO: Implement a create branch.
+        message->headers.push_back(via);
+
+      }
+
+      void add_content(SIPMessage* message, uint8_t* content, std::size_t size) {
+        // Content-Length: 0
+        std::shared_ptr<SIPMessageHeaderContent_Length> content_length = std::make_shared<SIPMessageHeaderContent_Length>();
+        content_length->length = size;
+        message->headers.push_back(content_length);
+        
+        if (content != nullptr) {
+          // TODO: Implements.
+          //message->content = nullptr;
+        }
+      }
     };
   }
 }

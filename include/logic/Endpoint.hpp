@@ -25,6 +25,7 @@
 #include "logic/UAS.hpp"
 #include "logic/TransportLayer.hpp"
 #include "logic/TransactionLayer.hpp"
+#include "logic/ApplicationDelegate.hpp"
 
 #include "asio_header.hpp" // TODO: Remove hpp and repalce h.
 #include <set>
@@ -46,7 +47,7 @@ namespace sip0x
     //! \remarks This class is thread safe.
     //! \author Matteo Valdina  
     //!
-    class Endpoint {
+    class Endpoint : public ApplicationDelegate {
     public:
       //! \brief Endpoint configuration.
       struct EndpointConfig {
@@ -69,7 +70,7 @@ namespace sip0x
       //std::set<Call> _calls;
       //UserService _location_service;
       //RoutingService
-      
+
       // Threading stuff.
       std::thread* _thread = nullptr;
       bool _thread_must_stop = false;
@@ -99,11 +100,13 @@ namespace sip0x
         _transport = new TransportLayer(configuration.bind_address, configuration.bind_port);
         _transport->start();
 
-        _uac = new UAC(_transport);
+        _uac = new UAC(_transport, this, configuration.domainname, "sip0x-ua");
+        _uas = new UAS(_transport, this, configuration.domainname, "sip0x-ua");
 
         _thread = new std::thread(&Endpoint::process, this);
 
         _initialized = true;
+        LOG_INFO(_logger, "Endpoint initialized.");
         return true;
       }
 
@@ -166,7 +169,6 @@ namespace sip0x
       }
 
     private:
-
       void process(void) {
         LOG_INFO(_logger, "Processing thread started.");
         // Min resolution.

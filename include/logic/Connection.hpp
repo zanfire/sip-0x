@@ -18,10 +18,11 @@ namespace sip0x
     using namespace sip0x::Utils;
     using namespace sip0x::Utils::Log;
     class ConnectionManager;
+    class Connection;
 
     class ConnectionListener {
     public:
-      virtual void onIncomingData(uint8_t* buffer, std::size_t size) = 0;
+      virtual void on_incoming_data(Connection* conn, uint8_t* buffer, std::size_t size) = 0;
     };
 
     /// Implement basic logic of a SIP User-Agent.
@@ -70,7 +71,7 @@ namespace sip0x
         _socket.async_read_some(asio::buffer(_rbuffer, sizeof(_rbuffer)),
         [this, self](std::error_code error, std::size_t length) {
           if (!error) {
-            _listener->onIncomingData(_rbuffer, length);
+            _listener->on_incoming_data(this, _rbuffer, length);
           }
         });
       }

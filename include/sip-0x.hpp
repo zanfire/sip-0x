@@ -23,7 +23,6 @@
 //!
 
 #include "logic/Endpoint.hpp"
-
 #include "protocol/SIP.hpp"
 
 #endif // SIP0X_HPP__

@@ -105,7 +105,7 @@ namespace sip0x
       }
 
       std::string describe_status(void) {
-        return "uniniplemented!!!";
+        return "unimplemented!!!";
       }
 
     };

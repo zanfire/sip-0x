@@ -40,8 +40,7 @@ namespace sip0x
       // Parser
       sip0x::Parser::SIPParser parser;
       // Callbakcs
-      TransportRequestListener* _request_listener = nullptr;
-      TransportResponseListener* _response_listener = nullptr;
+      TransportListener* _listener = nullptr;
 
     public:
       //! \todo Use bind address
@@ -64,8 +63,7 @@ namespace sip0x
         delete _thread;
       }
 
-      void set_request_listener(TransportRequestListener* l)  { _request_listener  = l; }
-      void set_response_listener(TransportResponseListener* l) { _response_listener = l; }
+      void set_listener(TransportListener* l)  { _listener  = l; }
 
       //! Start transport layer. 
       //! \returns true if transport layer was in
@@ -84,14 +82,30 @@ namespace sip0x
         }
       }
 
-      void handle(SIPRequest* request) {
-        // Get destination from ReqeustURI.
-        std::string host = request->uri.hostport.host;
-        int port = request->uri.hostport.port;
-        // Check if for this destination is present a connection.
-        // Try to connect.
-        std::shared_ptr<Connection> conn = connect(host, port);
-        std::string msg = request->to_string();
+      void send(std::shared_ptr<SIPMessage> message, void* opaque_data) {
+        std::string msg = message->to_string();
+        Connection* conn;
+
+        if (message->is_request) {
+          std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
+          // Get destination from ReqeustURI.
+          std::string host = request->uri.hostport.host;
+          int port = request->uri.hostport.port;
+          // Check if for this destination is present a connection.
+          // Try to connect.
+          conn = connect(host, port).get();
+        }
+        else {
+          std::shared_ptr<SIPResponse> request = std::dynamic_pointer_cast<SIPResponse>(message);
+          // Get destination from ReqeustURI.
+          //std::string host = request->uri.hostport.host;
+          //int port = request->uri.hostport.port;
+          // Check if for this destination is present a connection.
+          // Try to connect.
+          
+          conn = (Connection*)opaque_data;
+
+        }
         // TODO: Revise this invokation!!!
         conn->async_write((unsigned char*)msg.c_str(), msg.length());
         // Fail-back on UDP.
@@ -121,25 +135,12 @@ namespace sip0x
       }
 
 
-      virtual void onIncomingData(uint8_t* buffer, std::size_t size) override {
+      virtual void on_incoming_data(Connection* conn, uint8_t* buffer, std::size_t size) override {
         InputTokenStream iss(buffer, size);
         std::shared_ptr<sip0x::SIPMessage> message = parser.parse(iss);
 
-        if (message != nullptr) {
-          SIPRequest* request = dynamic_cast<SIPRequest*>(message.get());
-          if (request != nullptr) {
-            if (_request_listener != nullptr) {
-              std::shared_ptr<SIPRequest> req = std::static_pointer_cast<SIPRequest, SIPMessage>(message);
-              _request_listener->on_receive(req);
-            }
-          }
-          else {
-            SIPResponse* response = dynamic_cast<SIPResponse*>(message.get());
-            if (_response_listener != nullptr) {
-              std::shared_ptr<SIPResponse> res = std::static_pointer_cast<SIPResponse, SIPMessage>(message);
-              _response_listener->on_receive(res);
-            }
-          }
+        if (message != nullptr && _listener != nullptr) {
+          _listener->on_receive(message, conn); 
         }
       }
 

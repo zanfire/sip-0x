@@ -20,10 +20,13 @@
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
 
+#include "logic/UA.hpp"
 #include "logic/Transaction.hpp"
 #include "logic/TransactionLayer.hpp"
 #include "logic/TransportLayer.hpp"
 #include "protocol/SIP.hpp"
+
+#include <random>
 
 namespace sip0x
 {
@@ -38,20 +41,29 @@ namespace sip0x
     //! 
     //! \author Matteo Valdina  
     //!
-    class UAC : public TransactionListener {
+    class UAC : public TransactionListener, UA {
     protected:
-      std::string _address; 
       TransactionLayer _transaction_layer;
+      std::default_random_engine _random_engine;
+      std::uniform_int_distribution<int> _uniform_dist_Az;
 
     public:
-      UAC(TransportLayer* transport) : _transaction_layer(this, transport, false) {
+        UAC(TransportLayer* transport, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) 
+          : _transaction_layer(this, transport, false), _uniform_dist_Az('A', 'z'),
+          UA(application_delegate, domain, useragent) {
+
+          // Seed with a real random value, if available
+          std::random_device rd;
+          _random_engine = std::default_random_engine(rd());
       }
+
+
       virtual ~UAC(void) {
       }
 
       //! Handle a SIP request.
       void handle(std::shared_ptr<SIPRequest> request) {
-        _transaction_layer.handle(request);
+        _transaction_layer.process_request(request, false, nullptr);
       }
 
       //!
@@ -86,30 +98,11 @@ namespace sip0x
         request->uri = request_URI;
 
         // Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7
-        std::shared_ptr<SIPMessageHeaderVia> via = std::make_shared<SIPMessageHeaderVia>();
-        via->protocol = "SIP";
-        via->version = "2.0";
-        via->transport = "TCP"; // TODO: Should be updated by the transport layer.
-        via->hostport.host = _address; // TODO: Check this value
-        via->params.push_back(std::make_pair("branch", "z9hG4bKnashds7")); // TODO: Implement a create branch.
-        request->headers.push_back(via);
-
-        // Max-Forwards: 70
-        std::shared_ptr<SIPMessageHeaderMax_Forwards> max_forward = std::make_shared<SIPMessageHeaderMax_Forwards>();
-        max_forward->max = 70;
-        request->headers.push_back(max_forward);
-        std::shared_ptr<SIPMessageHeaderCall_ID> call_ID = std::make_shared<SIPMessageHeaderCall_ID>();
-        call_ID->callID = callID;
-        request->headers.push_back(call_ID);
-
-        std::shared_ptr<SIPMessageHeaderCSeq> cseq = std::make_shared<SIPMessageHeaderCSeq>();
-        cseq->seq = 1;
-        cseq->method = method;
-
-        // Content-Length: 0
-        std::shared_ptr<SIPMessageHeaderContent_Length> content_length = std::make_shared<SIPMessageHeaderContent_Length>();
-        content_length->length = 0;
-        request->headers.push_back(content_length);
+        add_header_via(request.get(), "TCP", generate_branch().c_str());
+        add_default_header_lines(request.get());
+        add_header_cseq(request.get(), method, 1);
+        add_header_call_ID(request.get(), callID);
+        add_content(request.get(), nullptr, 0);
 
         return request;
       }
@@ -148,10 +141,45 @@ namespace sip0x
 
       //! Generate a callID for this UAC.
       std::string generate_CallID(void) {
-        // TODO: Implements.
-        return "dfsf-123fsf-423-f-sf-r4-3444@sip0x";
+        char buffer[16];
+
+        buffer[sizeof(buffer) - 1] = 0x00;
+        int idx = 0;
+        while (idx < (sizeof(buffer) - 1)) {
+          int value = _uniform_dist_Az(_random_engine);
+          // Accept this value
+          if ((value >= 'A' && value <= 'Z') || (value >= '0' && value <= '9') || (value >= 'a' && value <= 'z')) {
+            buffer[idx] = (char)value;
+            idx++;
+          }
+        }
+
+        if (_domain.empty()) {
+          return std::string(buffer);
+        }
+        else {
+          return std::string(buffer) + '@' + _domain;
+        }
+      }
+   
+      std::string generate_branch(void) {
+        char buffer[32];
+
+        buffer[sizeof(buffer) - 1] = 0x00;
+        int idx = 0;
+        while (idx < (sizeof(buffer) - 1)) {
+          int value = _uniform_dist_Az(_random_engine);
+          // Accept this value
+          if ((value >= 'A' && value <= 'Z') || (value >= '0' && value <= '9') || (value >= 'a' && value <= 'z')) {
+            buffer[idx] = (char)value;
+            idx++;
+          }
+        }
+
+        return "z9hG4bK_" + std::string(buffer);
       }
     };
+
   }
 }
 

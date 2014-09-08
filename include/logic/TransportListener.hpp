@@ -24,16 +24,10 @@ namespace sip0x
   namespace Logic
   {
     //! \brief Transport callbacks
-    class TransportRequestListener {
+    class TransportListener {
     public:
-      virtual void on_receive(std::shared_ptr<SIPRequest> request) = 0;
+      virtual void on_receive(std::shared_ptr<SIPMessage>& message, void* opaque_data) = 0;
     };
-
-    class TransportResponseListener {
-    public:
-      virtual void on_receive(std::shared_ptr<SIPResponse> response) = 0;
-    };
-
   }
 }
 

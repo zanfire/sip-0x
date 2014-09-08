@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\logic\ApplicationDelegate.hpp" />
     <ClInclude Include="..\include\logic\ApplicationListener.hpp" />
     <ClInclude Include="..\include\logic\asio_header.hpp" />
     <ClInclude Include="..\include\logic\Connection.hpp" />

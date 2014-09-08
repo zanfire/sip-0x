@@ -21,6 +21,7 @@
 #include "utils/log/Logger.hpp"
 
 #include "logic/TransportListener.hpp"
+#include "logic/UA.hpp"
 
 namespace sip0x
 {
@@ -33,13 +34,15 @@ namespace sip0x
     //! 
     //! \author Matteo Valdina  
     //! 
-    class UAS : TransactionListener {
+    class UAS : public TransactionListener, public UA {
     protected:
-      std::shared_ptr<Logger> _logger;
       TransactionLayer _transaction_layer;
       
     public:
-      UAS(TransportLayer* transport) : TransactionListener(), _transaction_layer(this, transport, true)  {
+      UAS(TransportLayer* transport, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
+        TransactionListener(), 
+        UA(application_delegate, domain, useragent),
+        _transaction_layer(this, transport, true)  {
         _logger = LoggerManager::get_logger("sip0x.Logic.UAS");
       }
 
@@ -47,7 +50,7 @@ namespace sip0x
       }
 
       virtual void on_trying(Transaction* tran) override {
-        SIPRequest* request = tran->request.get();
+        std::shared_ptr<SIPRequest>& request = tran->request;
 
         switch (request->method) {
           case SIPMethod::SIPMETHOD_REGISTER:
@@ -73,14 +76,39 @@ namespace sip0x
 
     private:
 
-      void process_REGISTER(SIPRequest* request) {
+      void process_REGISTER(std::shared_ptr<SIPRequest>& request) {
         // TODO: process and notify the Application of the register method.
 
         // Ask to the application layer if accept register from client
 
-
+        bool accepted = _application_delegate->raise_cb_registrar_update(request);
+        if (accepted) {
+          // Create a valid response.
+          std::shared_ptr<SIPResponse> response = create_RESPONSE_for(request.get(), 200, "OK");
+          _transaction_layer.process_response(response, false, nullptr);
+        }
+        else {
+          // Create an reject response
+        }
       }
 
+
+      std::shared_ptr<SIPResponse> create_RESPONSE_for(SIPRequest* request, int code, char const* phrase) {
+        std::shared_ptr<SIPResponse> response = std::make_shared<SIPResponse>();
+        response->status_code = code;
+        response->reason_phrase = phrase;
+        response->version.major = 2;
+        
+        add_default_header_lines(response.get());
+        std::shared_ptr<SIPMessageHeaderCall_ID> callID = request->get_first<SIPMessageHeaderCall_ID>();
+        response->headers.push_back(callID);
+        
+        add_header_via(response.get(), "TCP", request->get_Via_branch().c_str());
+        add_header_cseq(response.get(), request->method, 1);
+
+
+        return response;
+      }
     };
   }
 }
