@@ -55,7 +55,7 @@ namespace sip0x
         switch (request->method) {
           case SIPMethod::SIPMETHOD_REGISTER:
           {
-            process_REGISTER(request);
+            process_REGISTER(tran);
             break;
           }
 
@@ -76,16 +76,16 @@ namespace sip0x
 
     private:
 
-      void process_REGISTER(std::shared_ptr<SIPRequest>& request) {
+      void process_REGISTER(Transaction* transaction) {
         // TODO: process and notify the Application of the register method.
 
         // Ask to the application layer if accept register from client
 
-        bool accepted = _application_delegate->raise_cb_registrar_update(request);
+        bool accepted = _application_delegate->raise_cb_registrar_update(transaction->request);
         if (accepted) {
           // Create a valid response.
-          std::shared_ptr<SIPResponse> response = create_RESPONSE_for(request.get(), 200, "OK");
-          _transaction_layer.process_response(response, false, nullptr);
+          std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 200, "OK");
+          _transaction_layer.process_response(response, false, transaction->opaque_data);
         }
         else {
           // Create an reject response
