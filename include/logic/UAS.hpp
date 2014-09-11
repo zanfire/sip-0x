@@ -106,6 +106,7 @@ namespace sip0x
         add_header_via(response.get(), "TCP", request->get_Via_branch().c_str());
         add_header_cseq(response.get(), request->method, 1);
 
+        add_content(response.get(), nullptr, 0);
 
         return response;
       }
