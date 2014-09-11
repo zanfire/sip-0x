@@ -22,6 +22,9 @@ namespace sip0x
             SIPMessageHeaderCall_ID* h = new SIPMessageHeaderCall_ID();
             if (_children.size() >= 3) {
               h->callID = _children[2]->text();
+              if (_children.size() == 4) {
+                h->callID += _children[3]->text();
+              }
             }
             _value.reset(h);
           }
