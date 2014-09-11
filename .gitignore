@@ -30,3 +30,5 @@ vendors/**
 *.sdf
 *.idb
 *.opensdf
+obj/
+bin/
