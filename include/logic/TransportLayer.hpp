@@ -26,6 +26,7 @@ namespace sip0x
     protected:
       // Infrastructure
       std::shared_ptr<Logger> _logger;
+      std::shared_ptr<Logger> _logger_siptrace;
       std::string _bind_address;
       int _bind_port;
       bool _thread_must_stop = false;
@@ -53,6 +54,8 @@ namespace sip0x
         _tcp_socket(_io_service), 
         _acceptor(_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), bind_port)) {
 
+        _logger = LoggerManager::get_logger("sip0x.transport");
+        _logger_siptrace = LoggerManager::get_logger("sip0x.siptrace");
         //asio::ip::tcp::resolver resolver(_io_service);
         //auto endpoint_iterator = resolver.resolve( { _bind_address, std::to_string(_bind_port) } );
       }
@@ -85,6 +88,8 @@ namespace sip0x
       void send(std::shared_ptr<SIPMessage> message, void* opaque_data) {
         std::string msg = message->to_string();
         Connection* conn;
+
+        LOG_INFO(_logger_siptrace, "Send\n----\n%s\n----", message->to_string().c_str());
 
         if (message->is_request) {
           std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
@@ -138,6 +143,10 @@ namespace sip0x
       virtual void on_incoming_data(Connection* conn, uint8_t* buffer, std::size_t size) override {
         InputTokenStream iss(buffer, size);
         std::shared_ptr<sip0x::SIPMessage> message = parser.parse(iss);
+
+        if (message != nullptr) {
+          LOG_INFO(_logger_siptrace, "Recv\n----\n%s\n----", message->to_string().c_str());
+        }
 
         if (message != nullptr && _listener != nullptr) {
           _listener->on_receive(message, conn); 

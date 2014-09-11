@@ -25,4 +25,7 @@
 #include "logic/Endpoint.hpp"
 #include "protocol/SIP.hpp"
 
+// Utils
+#include "utils/log/LoggerManager.hpp"
+
 #endif // SIP0X_HPP__

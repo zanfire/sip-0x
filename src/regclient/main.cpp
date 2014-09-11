@@ -3,6 +3,9 @@
 #include "sip-0x.hpp"
 
 int main(int argc, char* argv[]) {
+  sip0x::Utils::Log::LoggerManager* loggermanager = sip0x::Utils::Log::LoggerManager::get_instance();
+  loggermanager->configure("..\\..\\..\\docs\\logger.ini");
+
   std::cout << "REGISTER client\n\n";
 
   // Give a configuration to this params.

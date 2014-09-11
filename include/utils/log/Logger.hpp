@@ -93,6 +93,7 @@ namespace sip0x
           va_end(args);
 
           *_out << buffer << '\n';
+          _out->flush();
         }
 
         static char const* conv_level_to_chars(LoggerLevel const& level) {

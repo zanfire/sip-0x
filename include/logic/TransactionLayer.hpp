@@ -137,7 +137,7 @@ namespace sip0x
           //_listener->on_trying(tran.get());
         }
         if (from_remote) {
-          _listener->on_trying(tran.get());
+          //_listener->on_trying(tran.get());
         }
         else {
           // Send to the NETWORK!!!
