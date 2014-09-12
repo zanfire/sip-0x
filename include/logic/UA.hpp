@@ -7,6 +7,7 @@
 #include <memory>
 
 #include "logic/ApplicationDelegate.hpp"
+#include "logic/TransactionLayer.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
@@ -15,12 +16,20 @@ namespace sip0x
 {
   namespace Logic
   {
+    class UAListener {
+    public:
+      // success
+      virtual void on_request(UAListener* listener, std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPRequest>& request) {}
+      virtual void on_response(UAListener* listener, std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {}
+    };
+
     using namespace sip0x::Utils::Log;
 
     /// Implement basic logic of a SIP User-Agent.
-    class UA  {
+    class UA : public TransactionLayerListener  {
     protected:
       std::shared_ptr<Logger> _logger;
+      std::set<UAListener*> _listeners;
       ApplicationDelegate* _application_delegate;
       // SIP
       std::string _domain;
@@ -28,6 +37,7 @@ namespace sip0x
 
     public:
       UA(ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
+        TransactionLayerListener(), 
         _application_delegate(application_delegate),
         _domain(domain),
         _useragent(useragent) {
@@ -36,9 +46,23 @@ namespace sip0x
       virtual ~UA(void) {
       }
 
+      void add_listener(UAListener* listener) {
+        _listeners.insert(listener);
+      }
+
+      void remove_listener(UAListener* listener) {
+        _listeners.erase(listener);
+      }
+
     protected:
 
-      
+      void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {
+        for (auto listener : _listeners) {
+          listener->on_response(listener, tran, response);
+        }
+      }
+
+
       //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
       void add_default_header_lines(SIPMessage* message) {
         // Max-Forwards: 70

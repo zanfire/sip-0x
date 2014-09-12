@@ -34,13 +34,12 @@ namespace sip0x
     //! 
     //! \author Matteo Valdina  
     //! 
-    class UAS : public TransactionListener, public UA {
+    class UAS : public UA {
     protected:
       TransactionLayer _transaction_layer;
       
     public:
       UAS(TransportLayer* transport, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
-        TransactionListener(), 
         UA(application_delegate, domain, useragent),
         _transaction_layer(this, transport, true)  {
         _logger = LoggerManager::get_logger("sip0x.Logic.UAS");
@@ -49,29 +48,15 @@ namespace sip0x
       virtual ~UAS(void) {
       }
 
-      virtual void on_trying(Transaction* tran) override {
-        std::shared_ptr<SIPRequest>& request = tran->request;
-
+      virtual void on_incoming_request(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPRequest>& request) override {
         switch (request->method) {
           case SIPMethod::SIPMETHOD_REGISTER:
           {
-            process_REGISTER(tran);
+            process_REGISTER(tran.get());
             break;
           }
 
         }
-      }
-
-      virtual void on_processing(Transaction* tran) override {
-
-      }
-
-      virtual void on_completed(Transaction* tran) override {
-
-      }
-
-      virtual void on_terminated(Transaction* tran) override {
-
       }
 
     private:

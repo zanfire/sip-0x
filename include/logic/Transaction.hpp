@@ -19,6 +19,11 @@
 
 #include "protocol/SIP.hpp"
 
+#include "utils/log/LoggerManager.hpp"
+#include "utils/log/Logger.hpp"
+
+#include <memory>
+
 namespace sip0x
 {
   namespace Logic
@@ -31,23 +36,24 @@ namespace sip0x
       TRANSACTION_STATE_TERMINATED,
     };
 
+    
     //! A Transaction is a pair of Request and response
     class Transaction {
     protected:
-      std::shared_ptr<Logger> _logger;
+      std::shared_ptr<sip0x::Utils::Log::Logger> _logger;
       // TODO: Work on ID
     public:
       std::string id;
+      // Deprecated it is very bad idea !!!!
       void* opaque_data = nullptr;
       // State machine
       TransactionState state = TransactionState::TRANSACTION_STATE_UNKNOWN;
-      
       std::shared_ptr<SIPRequest> request;
       std::shared_ptr<SIPResponse> response;
 
     public:
       Transaction(void) {
-        _logger = LoggerManager::get_logger("sip0x.Logic.Transaction");
+        _logger = sip0x::Utils::Log::LoggerManager::get_logger("sip0x.Logic.Transaction");
       }
 
       virtual ~Transaction(void) {
@@ -61,6 +67,7 @@ namespace sip0x
       //! \returns true if message was accepted by state machine otherwise false.
       bool update_state_machine(std::shared_ptr<SIPMessage> const& message, bool timer_J, bool transport_failure) {
         bool ret = false;
+        TransactionState prev_state = state;
         switch (state)
         {
         case TransactionState::TRANSACTION_STATE_UNKNOWN:
@@ -73,7 +80,6 @@ namespace sip0x
             ret = true;
             LOG_DEBUG(_logger, "Transaction@%p go to TRANSACTION_STATE_TRYING state.");
           }
-
           else {
             LOG_ERROR(_logger, "Invalid message for state machine. Transaction wasn't initialized and transaction could not initialized with a non request message.");
           }
@@ -131,17 +137,12 @@ namespace sip0x
         // Complete
         // Timer J go to Terminated
 
+        if (prev_state != state) {
+          // Logging for every cases
+        }
+
         return ret;
       }
-    };
-
-    //! \brief Transaction callbacks.
-    class TransactionListener {
-    public:
-      virtual void on_trying(Transaction* tran) = 0;
-      virtual void on_processing(Transaction* tran) = 0;
-      virtual void on_completed(Transaction* tran) = 0;
-      virtual void on_terminated(Transaction* tran) = 0;
     };
   }
 }

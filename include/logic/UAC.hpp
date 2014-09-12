@@ -41,7 +41,7 @@ namespace sip0x
     //! 
     //! \author Matteo Valdina  
     //!
-    class UAC : public TransactionListener, UA {
+    class UAC : public UA {
     protected:
       TransactionLayer _transaction_layer;
       std::default_random_engine _random_engine;
@@ -70,21 +70,9 @@ namespace sip0x
       //! Transaction listener impl.
       //!
 
-      virtual void on_trying(Transaction* tran) override {
+      virtual void on_incoming_response(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPResponse>& response) override {
+        raise_listener(tran, response);
       }
-
-      virtual void on_processing(Transaction* tran) override {
-
-      }
-
-      virtual void on_completed(Transaction* tran) override {
-
-      }
-
-      virtual void on_terminated(Transaction* tran) override {
-
-      }
-
 
       //!
       //! Request creation.

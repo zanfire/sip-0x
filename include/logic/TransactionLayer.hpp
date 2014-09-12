@@ -33,6 +33,13 @@ namespace sip0x
     using namespace sip0x::Utils::Log;
     using namespace sip0x;
 
+    class TransactionLayerListener {
+    public:
+      virtual void on_incoming_request(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPRequest>& request) {};
+      virtual void on_incoming_response(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPResponse>& response) {};
+    };
+
+
     //! \brief Provides handling and processing for bunch of Transaction.
     //! 
     //! Process REQUEST and RESPONSE. 
@@ -42,14 +49,14 @@ namespace sip0x
       std::shared_ptr<Logger> _logger;
       bool _act_has_server;
       // Listener
-      TransactionListener* _listener;
+      TransactionLayerListener* _listener;
       // Transactions.
       std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
       // Transport
       TransportLayer* _transport;
 
     public:
-      TransactionLayer(TransactionListener* listener, TransportLayer* transport, bool act_has_server) :
+      TransactionLayer(TransactionLayerListener* listener, TransportLayer* transport, bool act_has_server) :
           TransportListener(),
           _act_has_server(act_has_server),
           _listener(listener), 
@@ -62,37 +69,6 @@ namespace sip0x
       virtual ~TransactionLayer(void) {
       }
 
-      /*
-      void handle(std::shared_ptr<SIPRequest>& request) {
-        // Is a retransmission?
-        std::shared_ptr<Transaction> tran = create_transaction(request);
-        
-        tran
-
-        if (_act_has_server) {
-          // Callback 
-        }
-        else {
-          _transport->handle(request.get());
-        }
-
-        _listener->on_trying(tran);
-      }
-
-      void handle(Transaction* transaction, std::shared_ptr<SIPResponse>& response) {
-        
-        if (_act_has_server) {
-        }
-        else {
-          
-        }
-
-        // Inject this method in the state machine handler.
-      }
-
-      void handle(SIPResponse* response) {
-      }
-      */
 
       virtual void on_receive(std::shared_ptr<SIPMessage>& message, void* opaque_data) override {
         if (message->is_request) {
@@ -115,11 +91,11 @@ namespace sip0x
         }
         bool accepted = tran->update_state_machine(request, false, false);
         if (accepted) {
-          tran->opaque_data = opaque_data;
+          tran->opaque_data = opaque_data; // Ugly hack !!!!!
           // TODO: handling retransmission.
           // Notify the UA of the new transaction.
           if (from_remote) {
-            _listener->on_trying(tran.get());
+            _listener->on_incoming_request(tran, request);
           }
           else {
             // Send to the NETWORK!!!
@@ -131,19 +107,20 @@ namespace sip0x
       void process_response(std::shared_ptr<SIPResponse>& response, bool from_remote, void* opaque_data) {
         std::shared_ptr<Transaction> tran = get_transaction(response);
         if (tran != nullptr) {
-          tran->update_state_machine(response, false, false);
-          // Notify the UA of the new transaction.
-          // Move listener in state machine.
-          //_listener->on_trying(tran.get());
-        }
-        if (from_remote) {
-          //_listener->on_trying(tran.get());
-        }
-        else {
-          // Send to the NETWORK!!!
-          _transport->send(response, opaque_data);
+          TransactionState prev_state = tran->state;
+            bool accepted = tran->update_state_machine(response, false, false);
+            if (accepted) {
+            if (from_remote) {
+              _listener->on_incoming_response(tran, response);
+            }
+            else {
+              // Send to the NETWORK!!!
+              _transport->send(response, opaque_data);
+            }
+          }
         }
       }
+
 
     private:
 
