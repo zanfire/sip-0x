@@ -37,7 +37,7 @@ namespace sip0x
     //!
     //! \todo Design this 
     //!
-    class RegisterClient {
+    class RegisterClient : public UAListener {
     public:
       //! Enumeration of all possible registration status.
       enum RegisterStatus {
@@ -70,12 +70,15 @@ namespace sip0x
 
     public:
       RegisterClient(UAC* uac, std::string remote_server, int remote_port) : 
+        UAListener(),
         _uac(uac), _registrar_server(remote_server), _registrar_port(remote_port)
       {
         _logger = LoggerManager::get_logger("sip0x.Logic.RegisterClient");
+        _uac->add_listener(this);
       }
 
       virtual ~RegisterClient(void) {
+        _uac->remove_listener(this);
       }
 
       //! Set the desired amount of seconds of REGISTER expires. 
@@ -99,15 +102,35 @@ namespace sip0x
         else if (_status == REG_STATUS_REGISTERING) {
         }
         else if (_status == REG_STATUS_REGISTERED) {
+          // refresh registration if it's time
         }
         else if (_status == REG_STATUS_REGISTER_FAILED) {
         }
       }
 
       std::string describe_status(void) {
-        return "unimplemented!!!";
+        return to_string(_status);
       }
 
+
+      virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) override {
+        // Get expires timeout 
+        if (response->is_success()) {
+          _status = REG_STATUS_REGISTERED;
+        }
+        else if (!response->is_provisional()) {
+          _status = REG_STATUS_REGISTER_FAILED;
+        }
+      }
+
+      static char const* to_string(RegisterStatus status) {
+        if (status == RegisterStatus::REG_STATUS_NOT_REGISTERED)        return "REG_STATUS_NOT_REGISTERED";
+        else if (status == RegisterStatus::REG_STATUS_REGISTERED)       return "REG_STATUS_REGISTERED";
+        else if (status == RegisterStatus::REG_STATUS_REGISTERING)      return "REG_STATUS_REGISTERING";
+        else if (status == RegisterStatus::REG_STATUS_REGISTER_FAILED)  return "REG_STATUS_REGISTER_FAILED";
+        
+        return "???";
+      }
     };
   }
 }

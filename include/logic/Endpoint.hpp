@@ -66,6 +66,7 @@ namespace sip0x
       UAC* _uac = nullptr;
       UAS* _uas = nullptr;
       TransportLayer* _transport = nullptr;
+      TransactionLayer* _transaction = nullptr;
       std::set<RegisterClient*> _register_clients;
       //std::set<Call> _calls;
       //UserService _location_service;
@@ -99,9 +100,11 @@ namespace sip0x
         // Initialize transport layer.
         _transport = new TransportLayer(configuration.bind_address, configuration.bind_port);
         _transport->start();
-
-        _uac = new UAC(_transport, this, configuration.domainname, "sip0x-ua");
-        _uas = new UAS(_transport, this, configuration.domainname, "sip0x-ua");
+        // Initialize transaction layer
+        _transaction = new TransactionLayer(_transport);
+        // Initialize User agents
+        _uac = new UAC(_transaction, this, configuration.domainname, "sip0x-ua");
+        _uas = new UAS(_transaction, this, configuration.domainname, "sip0x-ua");
 
         _thread = new std::thread(&Endpoint::process, this);
 

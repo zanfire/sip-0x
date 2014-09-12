@@ -41,20 +41,22 @@ namespace sip0x
     //! 
     //! \author Matteo Valdina  
     //!
-    class UAC : public UA {
+    class UAC : public UA, TransactionLayerResponseListener {
     protected:
-      TransactionLayer _transaction_layer;
       std::default_random_engine _random_engine;
       std::uniform_int_distribution<int> _uniform_dist_Az;
 
     public:
-        UAC(TransportLayer* transport, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) 
-          : _transaction_layer(this, transport, false), _uniform_dist_Az('A', 'z'),
-          UA(application_delegate, domain, useragent) {
+        UAC(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) 
+          : UA(application_delegate, transaction, domain, useragent),
+            TransactionLayerResponseListener(),
+            _uniform_dist_Az('A', 'z') {
 
           // Seed with a real random value, if available
           std::random_device rd;
           _random_engine = std::default_random_engine(rd());
+
+          _transaction->set_listener_response(this);
       }
 
 
@@ -63,7 +65,7 @@ namespace sip0x
 
       //! Handle a SIP request.
       void handle(std::shared_ptr<SIPRequest> request) {
-        _transaction_layer.process_request(request, false, nullptr);
+        _transaction->process_request(request, false, nullptr);
       }
 
       //!

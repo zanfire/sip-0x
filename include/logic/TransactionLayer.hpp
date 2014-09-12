@@ -33,9 +33,13 @@ namespace sip0x
     using namespace sip0x::Utils::Log;
     using namespace sip0x;
 
-    class TransactionLayerListener {
+    class TransactionLayerRequestListener {
     public:
       virtual void on_incoming_request(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPRequest>& request) {};
+    };
+
+    class TransactionLayerResponseListener {
+    public:
       virtual void on_incoming_response(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPResponse>& response) {};
     };
 
@@ -47,19 +51,17 @@ namespace sip0x
     
     protected:
       std::shared_ptr<Logger> _logger;
-      bool _act_has_server;
       // Listener
-      TransactionLayerListener* _listener;
+      TransactionLayerRequestListener* _listener_request;
+      TransactionLayerResponseListener* _listener_response;
       // Transactions.
       std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
       // Transport
       TransportLayer* _transport;
 
     public:
-      TransactionLayer(TransactionLayerListener* listener, TransportLayer* transport, bool act_has_server) :
+      TransactionLayer(TransportLayer* transport) :
           TransportListener(),
-          _act_has_server(act_has_server),
-          _listener(listener), 
           _transport(transport) {
         _logger = LoggerManager::get_logger("sip0x.Logic.TransactionLayer");
 
@@ -69,6 +71,13 @@ namespace sip0x
       virtual ~TransactionLayer(void) {
       }
 
+      void set_listener_request(TransactionLayerRequestListener* listener) {
+        _listener_request = listener;
+      }
+
+      void set_listener_response(TransactionLayerResponseListener* listener) {
+        _listener_response = listener;
+      }
 
       virtual void on_receive(std::shared_ptr<SIPMessage>& message, void* opaque_data) override {
         if (message->is_request) {
@@ -95,7 +104,7 @@ namespace sip0x
           // TODO: handling retransmission.
           // Notify the UA of the new transaction.
           if (from_remote) {
-            _listener->on_incoming_request(tran, request);
+            _listener_request->on_incoming_request(tran, request);
           }
           else {
             // Send to the NETWORK!!!
@@ -111,7 +120,7 @@ namespace sip0x
             bool accepted = tran->update_state_machine(response, false, false);
             if (accepted) {
             if (from_remote) {
-              _listener->on_incoming_response(tran, response);
+              _listener_response->on_incoming_response(tran, response);
             }
             else {
               // Send to the NETWORK!!!

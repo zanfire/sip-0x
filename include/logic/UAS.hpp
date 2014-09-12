@@ -34,15 +34,16 @@ namespace sip0x
     //! 
     //! \author Matteo Valdina  
     //! 
-    class UAS : public UA {
+    class UAS : public UA, TransactionLayerRequestListener {
     protected:
-      TransactionLayer _transaction_layer;
       
     public:
-      UAS(TransportLayer* transport, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
-        UA(application_delegate, domain, useragent),
-        _transaction_layer(this, transport, true)  {
+      UAS(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
+        UA(application_delegate, transaction, domain, useragent),
+        TransactionLayerRequestListener() {
         _logger = LoggerManager::get_logger("sip0x.Logic.UAS");
+
+        _transaction->set_listener_request(this);
       }
 
       virtual ~UAS(void) {
@@ -70,7 +71,7 @@ namespace sip0x
         if (accepted) {
           // Create a valid response.
           std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 200, "OK");
-          _transaction_layer.process_response(response, false, transaction->opaque_data);
+          _transaction->process_response(response, false, transaction->opaque_data);
         }
         else {
           // Create an reject response

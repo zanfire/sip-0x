@@ -19,28 +19,32 @@ namespace sip0x
     class UAListener {
     public:
       // success
-      virtual void on_request(UAListener* listener, std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPRequest>& request) {}
-      virtual void on_response(UAListener* listener, std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {}
+      virtual void on_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPRequest>& request) {}
+      virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) = 0;
     };
 
     using namespace sip0x::Utils::Log;
 
     /// Implement basic logic of a SIP User-Agent.
-    class UA : public TransactionLayerListener  {
+    class UA {
     protected:
       std::shared_ptr<Logger> _logger;
       std::set<UAListener*> _listeners;
+      // Is it really needed??
       ApplicationDelegate* _application_delegate;
+
+      TransactionLayer* _transaction = nullptr;
       // SIP
       std::string _domain;
       std::string _useragent;
 
     public:
-      UA(ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
-        TransactionLayerListener(), 
+      UA(ApplicationDelegate* application_delegate, TransactionLayer* transaction, std::string domain, std::string useragent) :
         _application_delegate(application_delegate),
+        _transaction(transaction),
         _domain(domain),
         _useragent(useragent) {
+
       }
 
       virtual ~UA(void) {
@@ -58,7 +62,7 @@ namespace sip0x
 
       void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {
         for (auto listener : _listeners) {
-          listener->on_response(listener, tran, response);
+          listener->on_response(tran, response);
         }
       }
 
