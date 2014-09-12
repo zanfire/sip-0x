@@ -97,6 +97,13 @@ namespace sip0x
       is_request = false;
     }
 
+    bool is_provisional(void)     { return status_code >= 100 && status_code <= 199; }
+    bool is_success(void)         { return status_code >= 200 && status_code <= 299; }
+    bool is_redirection(void)     { return status_code >= 300 && status_code <= 399; }
+    bool is_client_error(void)    { return status_code >= 400 && status_code <= 499; }
+    bool is_server_error(void)    { return status_code >= 500 && status_code <= 599; }
+    bool is_global_failure(void)  { return status_code >= 600 && status_code <= 699; }
+
     virtual std::string to_string(void) const override {
       return version.to_string() + ' ' + std::to_string(status_code) + ' ' + reason_phrase + "\r\n" + SIPMessage::to_string();
     }
