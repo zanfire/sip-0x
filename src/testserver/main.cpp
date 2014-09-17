@@ -11,6 +11,7 @@ int main(int argc, char* argv[]) {
   sip0x::Logic::Endpoint endpoint;
   // Callbacks.
   endpoint.set_cb_registrar_update([](std::shared_ptr<sip0x::SIPRequest>&) { return true; });
+  endpoint.set_cb_registrar_get_expires([](std::shared_ptr<sip0x::SIPRequest>&) { return 30; });
   // Configuration.
   sip0x::Logic::Endpoint::EndpointConfig config;
   config.bind_address = "127.0.0.1";

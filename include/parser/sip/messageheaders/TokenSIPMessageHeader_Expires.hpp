@@ -1,5 +1,5 @@
-#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_EXPIRES_HPP__)
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_EXPIRES_HPP__
 
 #include "parser/base/TokenAbstract.hpp"
 #include "parser/base/Operators.hpp"
@@ -15,27 +15,19 @@ namespace sip0x
   namespace Parser
   {
 
-    // CSeq  =  "CSeq" HCOLON 1*DIGIT LWS Method
-    class TokenSIPMessageHeader_CSeq : public TokenSIPMessageHeader_base<Sequence<TokenRegex, TokenLWS, TokenSIPMethod>> {
+    // CSeq  =  "Expires" HCOLON 1*DIGIT
+    class TokenSIPMessageHeader_Expires : public TokenSIPMessageHeader_base<TokenDigits> {
 
     protected:
 
     public:
       //
-      TokenSIPMessageHeader_CSeq() : TokenSIPMessageHeader_base("CSeq", "CSeq",
-        Sequence<TokenRegex, TokenLWS, TokenSIPMethod>
-        (
-          TokenDigits(),
-          TokenLWS(),
-          TokenSIPMethod()
-        )
-      )
+      TokenSIPMessageHeader_Expires() : TokenSIPMessageHeader_base("Expires", "Expires", TokenDigits())
       {
-        _logger = LoggerManager::get_logger("sip0x.Parser.TokenSIPMessageHeader_CSeq");
       }
     };
 
   }
 }
 
-#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_CSEQ_HPP__
+#endif // SIP0X_PARSER_TOKENSIPMESSAGEHEADER_EXPIRES_HPP__

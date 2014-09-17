@@ -71,6 +71,13 @@ namespace sip0x
         if (accepted) {
           // Create a valid response.
           std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 200, "OK");
+
+          //
+          int expires = _application_delegate->raise_cb_registrar_get_expires(transaction->request);
+          if (expires >= 0) {
+            add_header_expires(response.get(), expires);
+          }
+
           _transaction->process_response(response, false, transaction->opaque_data);
         }
         else {

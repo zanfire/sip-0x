@@ -33,11 +33,16 @@ namespace sip0x
     // Registrar
     typedef std::function<bool(std::shared_ptr<SIPRequest>&)> RegistrarUpdateHandler;
 
+    // Get value custom value
+    typedef std::function<int(std::shared_ptr<SIPRequest>&)> GetHandler;
+
     class ApplicationDelegate {
     protected:
       SignalingHandler _signaling = nullptr;
       RegisterUpdateHandler _registration_update = nullptr;
       RegistrarUpdateHandler _registrar_update = nullptr;
+
+      GetHandler _get_registrar_expires = nullptr;
 
     public:
       // TODO: Add mtx
@@ -58,6 +63,18 @@ namespace sip0x
       bool raise_cb_registrar_update(std::shared_ptr<SIPRequest>& request) {
         if (_registrar_update != nullptr) return _registrar_update(request);
         else return false;
+      }
+
+
+      void set_cb_registrar_get_expires(GetHandler handler) { _get_registrar_expires = handler; }
+
+      int raise_cb_registrar_get_expires(std::shared_ptr<SIPRequest>& request) {
+        if (_get_registrar_expires != nullptr) {
+          return _get_registrar_expires(request);
+        }
+        else {
+          return false;
+        }
       }
     };
   }

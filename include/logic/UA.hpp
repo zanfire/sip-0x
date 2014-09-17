@@ -87,6 +87,15 @@ namespace sip0x
         message->headers.push_back(cseq);
       }
 
+
+      void add_header_expires(SIPMessage* message, int expires) {
+        std::shared_ptr<SIPMessageHeaderExpires> e = std::make_shared<SIPMessageHeaderExpires>();
+        e->expires = expires;
+
+        message->headers.push_back(e);
+      }
+
+
       void add_header_call_ID(SIPMessage* message, std::string const& callID) {
         std::shared_ptr<SIPMessageHeaderCall_ID> call_ID = std::make_shared<SIPMessageHeaderCall_ID>();
         call_ID->callID = callID;
