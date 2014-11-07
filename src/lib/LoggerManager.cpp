@@ -2,14 +2,54 @@
 
 #include <utils/IniFile.hpp>
 
+#include <mutex>
+
 using namespace sip0x::Utils::Log;
 
-std::once_flag  LoggerManager::_once;
+std::once_flag*  LoggerManager::_once = new std::once_flag();
 LoggerManager*	LoggerManager::_instance = nullptr;
+
+
+LoggerManager::LoggerManager(void) {
+  _mtx = new std::recursive_mutex();
+}
+
+LoggerManager::~LoggerManager(void) {
+  delete _mtx;
+}
+
+std::shared_ptr<Logger> LoggerManager::get_logger(char const* name) {
+  LoggerManager* manager = get_instance();
+
+  std::lock_guard<std::recursive_mutex> lock(*manager->_mtx);
+
+  std::shared_ptr<Logger> logger = manager->_loggers[name];
+  if (!logger) {
+    // Load configuration details 
+    logger.reset(new Logger(name, &std::cout));
+    logger->set_level(manager->_default_level);
+
+    manager->_loggers[name] = logger;
+  }
+
+  return logger;
+}
+
+//! Get singleton instance of LoggerManager.
+LoggerManager* LoggerManager::get_instance(void) {
+  std::call_once(*LoggerManager::_once,
+    []()
+  {
+    LoggerManager::_instance = new LoggerManager();
+  });
+
+  return LoggerManager::_instance;
+}
+
 
 // Load configuration from a INI file.
 bool LoggerManager::configure(std::string path) {
-  std::lock_guard<std::recursive_mutex> lock(_mtx);
+  std::lock_guard<std::recursive_mutex> lock(*_mtx);
 
   std::unique_ptr<IniFile> ini = IniFile::open(path);
   if (ini) {

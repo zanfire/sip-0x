@@ -3,7 +3,14 @@
 
 #include <memory>
 #include <unordered_map>
-#include <mutex>
+#ifdef _M_CEE
+namespace std {
+  struct once_flag;
+  class recursive_mutex;
+}
+#else
+# include <mutex>
+#endif
 #include <fstream>
 #include <cctype>
 #include <algorithm>
@@ -21,9 +28,9 @@ namespace sip0x
 
       protected:
         static LoggerManager* _instance;
-        static std::once_flag _once;
+        static std::once_flag* _once;
+        std::recursive_mutex* _mtx;
 
-        std::recursive_mutex _mtx;
         std::unordered_map<std::string, std::ostream*> _outputs;
         std::unordered_map<std::string, std::shared_ptr<Logger>> _loggers;
 
@@ -32,34 +39,9 @@ namespace sip0x
         Logger::LoggerLevel _default_level = Logger::LOG_DEBUG;
 
       public:
-        static std::shared_ptr<Logger> get_logger(char const* name) {
-          LoggerManager* manager = get_instance();
-
-          std::lock_guard<std::recursive_mutex> lock(manager->_mtx);
-
-          std::shared_ptr<Logger> logger = manager->_loggers[name];
-          if (!logger) {
-            // Load configuration details 
-            logger.reset(new Logger(name, &std::cout));
-            logger->set_level(manager->_default_level);
-
-            manager->_loggers[name] = logger;
-          }
-
-          return logger;
-        }
-
+        static std::shared_ptr<Logger> get_logger(char const* name);
         //! Get singleton instance of LoggerManager.
-        static LoggerManager* get_instance(void) {
-          std::call_once(LoggerManager::_once,
-            []()
-          {
-            LoggerManager::_instance = new LoggerManager();
-          });
-
-          return LoggerManager::_instance;
-        }
-
+        static LoggerManager* get_instance(void);
         
         bool configure(std::string path);
 
@@ -108,9 +90,7 @@ namespace sip0x
 
 
       protected:
-        LoggerManager(void) {
-        }
-
+        LoggerManager(void);
 
         static std::string trim(const std::string &s) {
           auto  wsfront = std::find_if_not(s.begin(), s.end(), std::isspace);
@@ -118,7 +98,7 @@ namespace sip0x
         }
 
       public:
-        virtual ~LoggerManager(void) {}
+        virtual ~LoggerManager(void);
       };
     }
   }

@@ -87,28 +87,105 @@ namespace sip0x
 
       void send(std::shared_ptr<SIPMessage> message, void* opaque_data) {
         std::string msg = message->to_string();
-        Connection* conn;
+        std::shared_ptr<Connection> conn;
 
         LOG_INFO(_logger_siptrace, "Send\n----\n%s\n----", message->to_string().c_str());
 
         if (message->is_request) {
+          /*
+          The destination for the request is then computed. 
+          Unless there is   local policy specifying otherwise, the destination 
+          MUST be determined   by applying the DNS procedures described in [4] as follows.
+          */
+
+          // Impl: Local policy, proposed a callback to the application layer for proxy.
+
+          // DNS procedures
+
+          // Get Route-set and after that to the Request-URI
+
+          /*
+          If the   first element in the route set indicated a strict router (resulting   
+          in forming the request as described in Section 12.2.1.1), the  
+          procedures MUST be applied to the Request-URI of the request.   
+          
+          Otherwise, the procedures are applied to the first Route header field
+          value in the request (if one exists), or to the request’s Request-URI
+          if there is no Route header field present.  These procedures yield an 
+          ordered set of address, port, and transports to attempt.  Independent
+          of which URI is used as input to the procedures of [4], if the
+          Request-URI specifies a SIPS resource, the UAC MUST follow the 
+          procedures of [4] as if the input URI were a SIPS URI.
+   Local policy MAY specify an alternate set of destinations to attempt. 
+   If the Request-URI contains a SIPS URI, any alternate destinations   MUST be contacted with TLS.  Beyond that, there are no restrictions   on the alternate destinations if the request contains no Route header   field.  This provides a simple alternative to a pre-existing route   set as a way to specify an outbound proxy.  However, that approach   for configuring an outbound proxy is NOT RECOMMENDED; a pre-existing   route set with a single URI SHOULD be used instead.  If the request   contains a Route header field, the request SHOULD be sent to the   locations derived from its topmost value, but MAY be sent to any   server that the UA is certain will honor the Route and Request-URI   policies specified in this document (as opposed to those in RFC   2543).  In particular, a UAC configured with an outbound proxy SHOULD
+   attempt to send the request to the location indicated in the first   Route header field value instead of adopting the policy of sending   all messages to the outbound proxy.
+      This ensures that outbound proxies that do not add Record-Route      header field values will drop out of the path of subsequent      requests.  It allows endpoints that cannot resolve the first Route      URI to delegate that task to an outbound proxy.
+   The UAC SHOULD follow the procedures defined in [4] for stateful   elements, trying each address until a server is contacted.  Each try   constitutes a new transaction, and therefore each carries a different   topmost Via header field value with a new branch parameter.   Furthermore, the transport value in the Via header field is set to   whatever transport was determined for the target server.
+          
+          */
           std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
           // Get destination from ReqeustURI.
           std::string host = request->uri.hostport.host;
           int port = request->uri.hostport.port;
-          // Check if for this destination is present a connection.
-          // Try to connect.
-          conn = connect(host, port).get();
+
+          //host;
+          conn = _connection_manager.get(0, port);
+          if (conn != nullptr) {
+            LOG_INFO(_logger, "Connection to %s:%d doesn't exists, trying to connect to remote host.", host, port);
+            conn = connect(host, port);
+          }
         }
         else {
-          std::shared_ptr<SIPResponse> request = std::dynamic_pointer_cast<SIPResponse>(message);
+          /*
+             The server transport uses the value of the top Via header field in
+             order to determine where to send a response.  It MUST follow the 
+             following process:
+                - If the "sent-protocol" is a reliable transport protocol such as
+                TCP or SCTP, or TLS over those, the response MUST be sent using
+                the existing connection to the source of the original request
+                that created the transaction, if that connection is still open.
+                This requires the server transport to maintain an association
+                between server transactions and transport connections.  If that
+                connection is no longer open, the server SHOULD open a
+                connection to the IP address in the "received" parameter, if
+                present, using the port in the "sent-by" value, or the default
+                port for that transport, if no port is specified.  If that
+                connection attempt fails, the server SHOULD use the procedures
+                in [4] for servers in order to determine the IP address and
+                port to open the connection and send the response to.
+                
+                - Otherwise, if the Via header field value contains a "maddr"
+                parameter, the response MUST be forwarded to the address listed
+                there, using the port indicated in "sent-by", or port 5060 if
+                none is present.  If the address is a multicast address, the
+                response SHOULD be sent using the TTL indicated in the "ttl"
+                parameter, or with a TTL of 1 if that parameter is not present.
+
+                -  Otherwise (for unreliable unicast transports), if the top Via
+                has a "received" parameter, the response MUST be sent to the
+                address in the "received" parameter, using the port indicated
+                in the "sent-by" value, or using port 5060 if none is specified
+                explicitly.  If this fails, for example, elicits an ICMP "port
+                unreachable" response, the procedures of Section 5 of [4]
+                SHOULD be used to determine where to send the response.
+                
+                - Otherwise, if it is not receiver-tagged, the response MUST be
+                sent to the address indicated by the "sent-by" value, using the
+                procedures in Section 5 of [4].
+          
+          */
+
+
+          std::shared_ptr<SIPResponse> response = std::dynamic_pointer_cast<SIPResponse>(message);
+
+          //response->
           // Get destination from ReqeustURI.
           //std::string host = request->uri.hostport.host;
           //int port = request->uri.hostport.port;
           // Check if for this destination is present a connection.
           // Try to connect.
           
-          conn = (Connection*)opaque_data;
+          //conn = (Connection*)opaque_data;
 
         }
         // TODO: Revise this invokation!!!

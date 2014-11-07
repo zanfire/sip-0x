@@ -47,6 +47,17 @@ namespace sip0x
       virtual ~Connection(void) {
       }
 
+      uint32_t get_remote_ip(void) {
+        // TODO: Write better code for these steps.
+        return _socket.remote_endpoint().address().to_v4().to_ulong();
+      }
+
+      uint16_t get_remote_port(void) {
+        // TODO: Write better code for these steps.
+        return _socket.remote_endpoint().port();
+      }
+
+
       void connect(asio::ip::tcp::resolver::iterator endpoint_iterator) {
         asio::connect(_socket, endpoint_iterator);
       }

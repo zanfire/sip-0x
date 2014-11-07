@@ -31,7 +31,6 @@
 #include <set>
 #include <thread>
 #include <condition_variable>
-#include <mutex>
 
 namespace sip0x
 {

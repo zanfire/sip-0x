@@ -19,6 +19,7 @@
     <ClInclude Include="..\include\logic\Dialog.hpp" />
     <ClInclude Include="..\include\logic\Endpoint.hpp" />
     <ClInclude Include="..\include\logic\RegisterClient.hpp" />
+    <ClInclude Include="..\include\logic\Registrar.hpp" />
     <ClInclude Include="..\include\logic\Transaction.hpp" />
     <ClInclude Include="..\include\logic\TransactionLayer.hpp" />
     <ClInclude Include="..\include\logic\TransportLayer.hpp" />

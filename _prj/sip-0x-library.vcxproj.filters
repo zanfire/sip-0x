@@ -376,6 +376,9 @@
     <ClInclude Include="..\include\logic\ApplicationDelegate.hpp">
       <Filter>logic</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\logic\Registrar.hpp">
+      <Filter>logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\lib\LoggerManager.cpp">
