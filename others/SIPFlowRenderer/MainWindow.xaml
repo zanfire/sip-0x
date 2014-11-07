@@ -146,11 +146,12 @@
                 </Button>
             </StackPanel>
 
-            <Button x:Name="_open" Click="_open_Click" Grid.Row="0" HorizontalAlignment="Left" Padding="10" Opacity="0.5" Background="White" BorderThickness="0">
+            <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal">
+            <Button x:Name="_open" Click="_open_Click" Opacity="0.5" Background="White" BorderThickness="0" ToolTip="Import from Google SIP viewer log.">
                 <Button.Template>
                 <ControlTemplate>
                     <Grid Name="bg">
-                        <Image Name="Image"  Source="Images/document127.png" Width="25" Margin="10" Opacity="0.5"/>
+                        <Image Name="Image"  Source="Images/appbar.page.text.png" Opacity="0.5"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -160,6 +161,22 @@
                 </ControlTemplate>
                 </Button.Template>
             </Button>
+                <Button x:Name="_open_ms" Click="_open_Click"  Opacity="0.5" Background="White" BorderThickness="0" ToolTip="Import from CallTrace log.">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Grid Name="bg">
+                            <Image Name="Image"  Source="Images/appbar.server.png" Opacity="0.5"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Image" Property="Opacity" Value="1" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            </StackPanel>
+
             <siflowrenderer:SIPFlowBoard x:Name="_sipflow" Grid.Row="1"/>
 
             <Thumb x:Name="ResizeGrip"

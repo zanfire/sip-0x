@@ -92,8 +92,15 @@ namespace SIPFlowRenderer
             {
                 // Open document
                 string filename = dlg.FileName;
-                //PlainTextLogLoader loader = new PlainTextLogLoader(filename);
-                MirialLogLoader loader = new MirialLogLoader(filename);
+                BaseLoader loader = null;
+                if (sender == _open)
+                {
+                    loader = new PlainTextLogLoader(filename);
+                }
+                else
+                {
+                    loader = new MirialLogLoader(filename);
+                }
                 loader.Load();
                 _current_start_point = 0;
                 RenderLoader(loader, _txbx_search.Text, _current_start_point);

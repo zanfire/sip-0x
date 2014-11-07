@@ -32,3 +32,5 @@ vendors/**
 *.opensdf
 obj/
 bin/
+*.cache
+*.metagen

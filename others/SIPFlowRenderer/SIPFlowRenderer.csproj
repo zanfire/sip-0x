@@ -133,9 +133,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\document127.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\arrow480.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\minimize.png" />
@@ -148,6 +145,12 @@
   <ItemGroup>
     <Resource Include="Images\appbar.chevron.left.png" />
     <Resource Include="Images\appbar.chevron.right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\appbar.server.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\appbar.page.text.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
