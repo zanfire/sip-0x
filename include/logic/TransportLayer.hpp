@@ -85,57 +85,29 @@ namespace sip0x
         }
       }
 
-      void send(std::shared_ptr<SIPMessage> message, void* opaque_data) {
+      void send(std::shared_ptr<Transaction>& trnasaction, std::shared_ptr<SIPMessage> const& message) {
         std::string msg = message->to_string();
-        std::shared_ptr<Connection> conn;
+        std::shared_ptr<Connection> conn = trnasaction->connection;
 
         LOG_INFO(_logger_siptrace, "Send\n----\n%s\n----", message->to_string().c_str());
 
         if (message->is_request) {
-          /*
-          The destination for the request is then computed. 
-          Unless there is   local policy specifying otherwise, the destination 
-          MUST be determined   by applying the DNS procedures described in [4] as follows.
-          */
+          if (conn == nullptr) {
+            std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
+            // Get destination from ReqeustURI.
+            std::string host = request->uri.hostport.host;
+            int port = request->uri.hostport.port;
 
-          // Impl: Local policy, proposed a callback to the application layer for proxy.
-
-          // DNS procedures
-
-          // Get Route-set and after that to the Request-URI
-
-          /*
-          If the   first element in the route set indicated a strict router (resulting   
-          in forming the request as described in Section 12.2.1.1), the  
-          procedures MUST be applied to the Request-URI of the request.   
-          
-          Otherwise, the procedures are applied to the first Route header field
-          value in the request (if one exists), or to the request’s Request-URI
-          if there is no Route header field present.  These procedures yield an 
-          ordered set of address, port, and transports to attempt.  Independent
-          of which URI is used as input to the procedures of [4], if the
-          Request-URI specifies a SIPS resource, the UAC MUST follow the 
-          procedures of [4] as if the input URI were a SIPS URI.
-   Local policy MAY specify an alternate set of destinations to attempt. 
-   If the Request-URI contains a SIPS URI, any alternate destinations   MUST be contacted with TLS.  Beyond that, there are no restrictions   on the alternate destinations if the request contains no Route header   field.  This provides a simple alternative to a pre-existing route   set as a way to specify an outbound proxy.  However, that approach   for configuring an outbound proxy is NOT RECOMMENDED; a pre-existing   route set with a single URI SHOULD be used instead.  If the request   contains a Route header field, the request SHOULD be sent to the   locations derived from its topmost value, but MAY be sent to any   server that the UA is certain will honor the Route and Request-URI   policies specified in this document (as opposed to those in RFC   2543).  In particular, a UAC configured with an outbound proxy SHOULD
-   attempt to send the request to the location indicated in the first   Route header field value instead of adopting the policy of sending   all messages to the outbound proxy.
-      This ensures that outbound proxies that do not add Record-Route      header field values will drop out of the path of subsequent      requests.  It allows endpoints that cannot resolve the first Route      URI to delegate that task to an outbound proxy.
-   The UAC SHOULD follow the procedures defined in [4] for stateful   elements, trying each address until a server is contacted.  Each try   constitutes a new transaction, and therefore each carries a different   topmost Via header field value with a new branch parameter.   Furthermore, the transport value in the Via header field is set to   whatever transport was determined for the target server.
-          
-          */
-          std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
-          // Get destination from ReqeustURI.
-          std::string host = request->uri.hostport.host;
-          int port = request->uri.hostport.port;
-
-          //host;
-          conn = _connection_manager.get(0, port);
-          if (conn != nullptr) {
-            LOG_INFO(_logger, "Connection to %s:%d doesn't exists, trying to connect to remote host.", host, port);
-            conn = connect(host, port);
+            conn = _connection_manager.get(resolve(host), port);
+            if (conn == nullptr) {
+              LOG_INFO(_logger, "Connection to %s:%d doesn't exists, trying to connect to remote host.", host.c_str(), port);
+              conn = connect(host, port);
+            }
           }
         }
         else {
+          std::shared_ptr<SIPResponse> response = std::dynamic_pointer_cast<SIPResponse>(message);
+
           /*
              The server transport uses the value of the top Via header field in
              order to determine where to send a response.  It MUST follow the 
@@ -153,14 +125,18 @@ namespace sip0x
                 connection attempt fails, the server SHOULD use the procedures
                 in [4] for servers in order to determine the IP address and
                 port to open the connection and send the response to.
-                
+                */
+          /*
                 - Otherwise, if the Via header field value contains a "maddr"
                 parameter, the response MUST be forwarded to the address listed
                 there, using the port indicated in "sent-by", or port 5060 if
                 none is present.  If the address is a multicast address, the
                 response SHOULD be sent using the TTL indicated in the "ttl"
                 parameter, or with a TTL of 1 if that parameter is not present.
-
+                */
+          auto via = response->get_first<SIPMessageHeaderVia>();
+          //std::string maddr = via->params[std::string("maddr")];
+          /*
                 -  Otherwise (for unreliable unicast transports), if the top Via
                 has a "received" parameter, the response MUST be sent to the
                 address in the "received" parameter, using the port indicated
@@ -176,8 +152,7 @@ namespace sip0x
           */
 
 
-          std::shared_ptr<SIPResponse> response = std::dynamic_pointer_cast<SIPResponse>(message);
-
+          
           //response->
           // Get destination from ReqeustURI.
           //std::string host = request->uri.hostport.host;
@@ -188,9 +163,16 @@ namespace sip0x
           //conn = (Connection*)opaque_data;
 
         }
-        // TODO: Revise this invokation!!!
-        conn->async_write((unsigned char*)msg.c_str(), msg.length());
-        // Fail-back on UDP.
+
+        if (conn != nullptr) {
+          conn->async_write((unsigned char*)msg.c_str(), msg.length());
+        }
+        else {
+          // Fail-back on UDP.
+          // Try to shrink message.
+          // Chunking UDP 
+          // Send chunks
+        }
       }
 
 
@@ -221,11 +203,21 @@ namespace sip0x
         InputTokenStream iss(buffer, size);
         std::shared_ptr<sip0x::SIPMessage> message = parser.parse(iss);
 
-        if (message != nullptr) {
+        if (message == nullptr) {
+          if (_logger_siptrace->get_level() >= Logger::LOG_DEBUG) {
+            LOG_DEBUG(_logger_siptrace, "Received un-decoded data: %s", iss.str());
+          }
+          else {
+            LOG_WARN(_logger_siptrace, "Received un-decoded data.");
+          }
+          
+          return;
+        }
+        else {
           LOG_INFO(_logger_siptrace, "Recv\n----\n%s\n----", message->to_string().c_str());
         }
 
-        if (message != nullptr && _listener != nullptr) {
+        if (_listener != nullptr) {
           _listener->on_receive(message, conn); 
         }
       }
@@ -238,6 +230,18 @@ namespace sip0x
         connection->connect(endpoint_iterator);
         _connection_manager.add(connection);
         return connection;
+      }
+
+
+      uint32_t resolve(std::string address) {
+        asio::ip::tcp::resolver resolver(_io_service);
+        asio::ip::tcp::resolver::query query(address, "");
+        for (asio::ip::tcp::resolver::iterator i = resolver.resolve(query); i != asio::ip::tcp::resolver::iterator(); ++i)
+        {
+          asio::ip::tcp::endpoint end = *i;
+          return end.address().to_v4().to_ulong();
+        }
+        return 0;
       }
     };
   }

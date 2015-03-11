@@ -26,7 +26,7 @@ namespace sip0x
     //! \brief Transport callbacks
     class TransportListener {
     public:
-      virtual void on_receive(std::shared_ptr<SIPMessage>& message, void* opaque_data) = 0;
+      virtual void on_receive(std::shared_ptr<SIPMessage>& message, std::shared_ptr<Connection> connection) = 0;
     };
   }
 }

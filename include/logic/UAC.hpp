@@ -64,7 +64,7 @@ namespace sip0x
       }
 
       //! Handle a SIP request.
-      void handle(std::shared_ptr<SIPRequest> request) {
+      void handle(std::shared_ptr<SIPRequest>& request) {
         _transaction->process_request(request, false, nullptr);
       }
 
@@ -72,7 +72,7 @@ namespace sip0x
       //! Transaction listener impl.
       //!
 
-      virtual void on_incoming_response(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPResponse>& response) override {
+      virtual void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) override {
         raise_listener(tran, response);
       }
 

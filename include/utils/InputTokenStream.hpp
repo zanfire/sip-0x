@@ -18,17 +18,17 @@ namespace sip0x
 
     protected:
       std::shared_ptr<Logger> _logger;
-      uint8_t  const* _content;
+      std::string _content;
       std::size_t const _size;
       unsigned long _pos = 0;
 
 
     public:
-      InputTokenStream(std::string& str) : _content((uint8_t const*)str.data()), _size(str.length()) {
+      InputTokenStream(std::string& str) : _content(str), _size(str.length()) {
         _logger = LoggerManager::get_logger("sip0x.Utils.InputTokenStream");
       }
 
-      InputTokenStream(uint8_t const* content, std::size_t const& size) : _content(content), _size(size) {
+      InputTokenStream(uint8_t const* content, std::size_t const& size) : _content((const char*)content, size), _size(size) {
         _logger = LoggerManager::get_logger("sip0x.Utils.InputTokenStream");
       }
 
@@ -53,11 +53,11 @@ namespace sip0x
       }
 
       std::string str(void) {
-        return std::string((char const*)_content, _size);
+        return _content;
       }
 
       std::string str(int pos, int chars) {
-        return std::string((char const*)(_content + pos), chars);
+        return std::string((char const*)(_content.c_str() + pos), chars);
       }
 
       std::string get(void) {
@@ -71,7 +71,7 @@ namespace sip0x
       }
 
       char const* get_cstr(void) {
-        return (char const*)(_content + _pos);
+        return (char const*)(_content.c_str() + _pos);
       }
 
       std::string unget(int chars) {

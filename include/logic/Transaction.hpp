@@ -2,7 +2,7 @@
 #define SIP0X_LOGIC_TRANSACTION_HPP__
 
 //!
-//! Copyright 2014 Matteo Valdina
+//! Copyright 2014-2015 Matteo Valdina
 //!
 //! Licensed under the Apache License, Version 2.0 (the "License");
 //! you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@
 //!
 
 #include "protocol/SIP.hpp"
+#include "logic/Connection.hpp"
 
 #include "utils/log/LoggerManager.hpp"
 #include "utils/log/Logger.hpp"
@@ -44,8 +45,11 @@ namespace sip0x
       // TODO: Work on ID
     public:
       std::string id;
-      // Deprecated it is very bad idea !!!!
-      void* opaque_data = nullptr;
+      //! Reference to the connection associated to this transaction.
+      //! \remark This connection is not available for UDP scenario.
+      std::shared_ptr<Connection> connection;
+      //! True if the origin of this transaction is from remote.
+      bool origin_remote = false;
       // State machine
       TransactionState state = TransactionState::TRANSACTION_STATE_UNKNOWN;
       std::shared_ptr<SIPRequest> request;

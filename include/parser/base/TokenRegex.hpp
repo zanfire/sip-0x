@@ -56,6 +56,8 @@ namespace sip0x
         int init_pos = iss.pos();
         char const* input = iss.get_cstr();
 
+        int test = strlen(input);
+
         //LOG_DEBUG(_logger, "Regex processing input: \"%s\".", input);
 
         //if (std::regex_search(input, pieces_match, _regex)) {

@@ -47,7 +47,7 @@ namespace sip0x
       public:
         Logger(std::string const& category, std::ostream* out) {
           _category = category;
-          _level = Logger::LOG_DEBUG;
+          _level = Logger::LOG_WARN;
           _out = out;
         }
 
@@ -55,6 +55,9 @@ namespace sip0x
         }
 
         void set_level(LoggerLevel level) { _level = level; }
+
+        LoggerLevel get_level(void) { return _level; }
+
 
         void log(LoggerLevel const& level, char const* filename, int line, char const* format, ...) {
           if (level > _level) return;

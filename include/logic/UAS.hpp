@@ -49,11 +49,11 @@ namespace sip0x
       virtual ~UAS(void) {
       }
 
-      virtual void on_incoming_request(std::shared_ptr<Transaction> tran, std::shared_ptr<SIPRequest>& request) override {
+      virtual void on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPRequest>& request) override {
         switch (request->method) {
           case SIPMethod::SIPMETHOD_REGISTER:
           {
-            process_REGISTER(tran.get());
+            process_REGISTER(tran);
             break;
           }
 
@@ -62,7 +62,7 @@ namespace sip0x
 
     private:
 
-      void process_REGISTER(Transaction* transaction) {
+      void process_REGISTER(std::shared_ptr<Transaction>& transaction) {
         // TODO: process and notify the Application of the register method.
 
         // Ask to the application layer if accept register from client
@@ -78,11 +78,17 @@ namespace sip0x
             add_header_expires(response.get(), expires);
           }
 
-          _transaction->process_response(response, false, transaction->opaque_data);
+          _transaction->process_response(transaction, response);
         }
         else {
           // Create an reject response
         }
+
+        // Create reject
+        // Create a valid response.
+        std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 500, "Server error");
+
+        _transaction->process_response(transaction, response);
       }
 
 

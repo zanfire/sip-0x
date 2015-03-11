@@ -67,6 +67,7 @@ namespace sip0x
         connection->close();
       }
 
+
       std::shared_ptr<Connection> get(uint32_t remote_ip, uint16_t remote_port) {
         _mtx.lock();
         std::shared_ptr<Connection> connection;
@@ -77,7 +78,8 @@ namespace sip0x
           }
         }
         _mtx.lock();
-        LOG_DEBUG(_logger, "Searching a connection %hhd.%hhd.%hhd.%hhd:%hd, result %p.", remote_ip, remote_port, connection.get());
+        void* c = connection.get();
+        LOG_DEBUG(_logger, "Searching a connection %hhu.%hhu.%hhu.%hhu:%hu, result %p.", remote_ip, remote_ip >> 8, remote_ip >> 16 , remote_ip >> 24, remote_port, connection.get());
         return connection;
       }
     };

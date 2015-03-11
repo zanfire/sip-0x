@@ -1,13 +1,15 @@
 #if !defined(SIP0X_LOGIC_CONNECTION_HPP__)
 #define SIP0X_LOGIC_CONNECTION_HPP__
 
+
+#include "utils/log/LoggerManager.hpp"
+#include "utils/log/Logger.hpp"
+
 #include "asio_header.hpp"
 
 #include <string>
 #include <memory>
 
-#include "utils/log/LoggerManager.hpp"
-#include "utils/log/Logger.hpp"
 //#include "utils/Listeners.hpp"
 
 
@@ -17,6 +19,7 @@ namespace sip0x
   {
     using namespace sip0x::Utils;
     using namespace sip0x::Utils::Log;
+
     class ConnectionManager;
     class Connection;
 
@@ -29,7 +32,7 @@ namespace sip0x
     class Connection : public std::enable_shared_from_this<Connection> {
     protected:
       // Infrastructure
-      Logger* _logger;
+      std::shared_ptr<Logger> _logger;
       // Network
       asio::ip::tcp::socket _socket;
       ConnectionManager* _manager;
@@ -41,7 +44,10 @@ namespace sip0x
       ConnectionListener* _listener;
 
     public:
-      Connection(asio::ip::tcp::socket socket, ConnectionManager* manager, ConnectionListener* listener) : _socket(std::move(socket)), _manager(manager), _listener(listener) {
+      Connection(asio::ip::tcp::socket socket, ConnectionManager* manager, ConnectionListener* listener) : 
+        _socket(std::move(socket)), _manager(manager), _listener(listener) {
+
+        _logger = LoggerManager::get_logger("sip0x.Connection");
       }
 
       virtual ~Connection(void) {
@@ -70,6 +76,7 @@ namespace sip0x
         asio::async_connect(_socket, endpoint_iterator,
         [this](std::error_code ec, asio::ip::tcp::resolver::iterator)
         {
+          LOG_DEBUG(_logger, "Async connection result: %d - %s", ec.value(), ec.message().c_str());
           if (!ec)
           {
             //do_read_header();
@@ -80,8 +87,9 @@ namespace sip0x
       void async_read(void) {
         auto self(shared_from_this());
         _socket.async_read_some(asio::buffer(_rbuffer, sizeof(_rbuffer)),
-        [this, self](std::error_code error, std::size_t length) {
-          if (!error) {
+        [this, self](std::error_code ec, std::size_t length) {
+          LOG_DEBUG(_logger, "Async read result: %d - %s", ec.value(), ec.message().c_str());
+          if (!ec) {
             _listener->on_incoming_data(this, _rbuffer, length);
           }
         });
@@ -92,11 +100,13 @@ namespace sip0x
         auto self(shared_from_this());
         asio::async_write(_socket, asio::buffer(_wbuffer, length),
         [this, self](std::error_code ec, std::size_t /*length*/) {
+          LOG_DEBUG(_logger, "Async write result: %d - %s", ec.value(), ec.message().c_str());
           if (!ec)
           {
           }
         });
       }
+
     };
   }
 }
