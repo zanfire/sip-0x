@@ -5,8 +5,8 @@
 #include <map>
 #include <mutex>
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 
 namespace Sip0x
 {

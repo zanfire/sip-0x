@@ -24,10 +24,12 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
 
   std::string time_str;
   time_t raw_time;
-  struct tm * timeinfo;
+  struct tm* timeinfo = NULL;
   time(&raw_time);
-  timeinfo = localtime(&raw_time);
-  strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", timeinfo);
+  localtime_s(timeinfo, &raw_time);
+  if (timeinfo != NULL) {
+    strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", timeinfo);
+  }
 
   int filename_len = strlen(filename);
   char const* truncated_filename = filename;
@@ -45,7 +47,7 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
   va_list args;
   buffer[0] = '\n';
   va_start(args, format);
-  vsnprintf(buffer, sizeof(buffer), format, args);
+  vsnprintf_s(buffer, sizeof(buffer), format, args);
   va_end(args);
 
   *_out << buffer << '\n';

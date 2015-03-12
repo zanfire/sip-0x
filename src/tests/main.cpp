@@ -2,7 +2,7 @@
 
 #include "test_prototypes.h"
 
-#include "utils/log/LoggerFactory.hpp"
+#include "utils/LoggerFactory.hpp"
 
 
 using namespace sip0x::Utils::Log;

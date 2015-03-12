@@ -6,8 +6,8 @@
 
 #include "parser/base/TokenAbstract.hpp"
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 
 
 namespace sip0x

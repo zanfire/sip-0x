@@ -11,8 +11,8 @@
 #include "parser/factory/FactoryContext.hpp"
 #include "parser/Parser.hpp"
 
-#include "utils/log/Logger.hpp"
-#include "utils/log/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
 
 #include "protocol/SIPMessage.hpp"
 

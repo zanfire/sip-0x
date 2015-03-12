@@ -9,8 +9,8 @@
 #include "logic/ApplicationDelegate.hpp"
 #include "logic/TransactionLayer.hpp"
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 
 namespace sip0x
 {

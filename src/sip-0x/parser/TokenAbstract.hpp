@@ -27,8 +27,8 @@
 #include "parser/factory/FactoryContext.hpp"
 
 #if defined(ENABLE_PARSER_LOGGING)
-  #include "utils/log/LoggerFactory.hpp"
-  #include "utils/log/Logger.hpp"
+  #include "utils/LoggerFactory.hpp"
+  #include "utils/Logger.hpp"
 #endif
 
 #include "utils/InputTokenStream.hpp"

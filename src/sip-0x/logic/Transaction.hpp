@@ -20,8 +20,8 @@
 #include "protocol/SIP.hpp"
 #include "logic/Connection.hpp"
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 
 #include <memory>
 

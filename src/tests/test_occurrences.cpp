@@ -4,8 +4,8 @@
 
 #include "parser/Parser.hpp"
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 #include "utils/IniFile.hpp"
 
 using namespace sip0x::Parser;

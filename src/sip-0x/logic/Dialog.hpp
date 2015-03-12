@@ -3,8 +3,8 @@
 
 #include "protocol/SIP.hpp"
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 #include "utils/InputTokenStream.hpp"
 
 namespace sip0x

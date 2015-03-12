@@ -17,8 +17,8 @@
 //! limitations under the License.
 //!
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 
 #include "logic/RegisterClient.hpp"
 #include "logic/UAC.hpp"

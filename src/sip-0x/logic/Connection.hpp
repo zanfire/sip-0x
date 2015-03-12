@@ -2,8 +2,8 @@
 #define SIP0X_LOGIC_CONNECTION_HPP__
 
 
-#include "utils/log/LoggerFactory.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 
 #include "asio_header.hpp"
 
