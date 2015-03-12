@@ -24,45 +24,53 @@ namespace sip0x
 {
   namespace Utils
   {
-      //! Logger facility
-      //!
-      //! Provide a logger facility for logging.
-      class Logger {
-
-        friend class LoggerFactory;
-        friend class std::shared_ptr<Logger>;
-
+    
+    //! Logger facility
+    //!
+    //! Provide a logger facility for logging.
+    class Logger {
+      class deleter;
+      friend class LoggerFactory;
+      friend class deleter;
+    private:
+      
+      class deleter {
       public:
-        enum LoggerLevel {
-          LOG_FATAL = 0,
-          LOG_ERROR = 1,
-          LOG_WARN  = 2,
-          LOG_INFO = 3,
-          LOG_DEBUG = 4
-        };
-
-      protected:
-        std::string _category;
-        LoggerLevel _level;
-        std::ostream* _out;
-
-      public:
-        // Level setter and getter
-        void set_level(LoggerLevel level) { _level = level; }
-        LoggerLevel get_level(void) { return _level; }
-
-        //! Log a line to the appender.
-        void log(LoggerLevel const& level, char const* filename, int line, char const* format, ...);
-
-        //! Returns a string  of LoggerLevel.
-        static char const* conv_level_to_chars(LoggerLevel const& level);
-
-      protected:
-        //! Logger is created via the get_logger method of LoggerFactory.
-        Logger(std::string const& category, std::ostream* out);
-        virtual ~Logger(void);
-
+        void operator()(Logger* ptr) { delete ptr; }
       };
+
+    public:
+      enum LoggerLevel {
+        LOG_FATAL = 0,
+        LOG_ERROR = 1,
+        LOG_WARN  = 2,
+        LOG_INFO = 3,
+        LOG_DEBUG = 4
+      };
+
+    protected:
+      std::string _category;
+      LoggerLevel _level;
+      std::ostream* _out;
+
+    public:
+      // Level setter and getter
+      void set_level(LoggerLevel level) { _level = level; }
+      LoggerLevel get_level(void) { return _level; }
+
+      //! Log a line to the appender.
+      void log(LoggerLevel const& level, char const* filename, int line, char const* format, ...);
+
+      //! Returns a string  of LoggerLevel.
+      static char const* conv_level_to_chars(LoggerLevel const& level);
+
+    protected:
+      //! Logger is created via the get_logger method of LoggerFactory.
+      Logger(std::string const& category, std::ostream* out);
+      virtual ~Logger(void);
+
+      static std::shared_ptr<Logger> create(std::string const& cat, std::ostream* out);
+    };
   }
 }
 

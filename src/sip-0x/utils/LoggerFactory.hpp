@@ -26,6 +26,11 @@ namespace sip0x
     //! Create or re-use a Logger instance using a configuration file.
     //! \author Matteo Valdina
     class LoggerFactory {
+    private:
+      class LoggerDeleter {
+      public:
+        void operator()(Logger* ptr) { delete ptr; }
+      };
 
     protected:
       static LoggerFactory* _instance;

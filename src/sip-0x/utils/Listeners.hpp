@@ -12,7 +12,7 @@ namespace Sip0x
 {
   namespace Utils
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace Sip0x::Utils;
 
     // Observer impl.
     template <class Type>

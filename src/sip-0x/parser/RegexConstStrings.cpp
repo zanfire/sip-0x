@@ -1,4 +1,4 @@
-#include "parser/common/RegexConstStrings.hpp"
+#include "parser/RegexConstStrings.hpp"
 
 #include <string>
 

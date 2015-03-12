@@ -11,6 +11,9 @@ Logger::Logger(std::string const& category, std::ostream* out) {
 Logger::~Logger(void) {
 }
 
+std::shared_ptr<Logger> Logger::create(std::string const& cat, std::ostream* out) {
+  return std::shared_ptr<Logger>(new Logger(cat, out), Logger::deleter());
+}
 
 void Logger::log(LoggerLevel const& level, char const* filename, int line, char const* format, ...) {
   if (level > _level) return;

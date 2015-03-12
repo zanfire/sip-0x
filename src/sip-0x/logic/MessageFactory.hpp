@@ -11,7 +11,7 @@ namespace Sip0x
 {
   namespace Logic
   {
-    using namespace Sip0x::Utils::Log;
+    using namespace Sip0x::Utils;
     using namespace Sip0x;
 
     //! Returns first occurrence of type T. If is not present in header vector it will be added.

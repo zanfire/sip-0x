@@ -26,7 +26,7 @@ std::shared_ptr<Logger> LoggerFactory::get_logger(char const* name) {
   std::shared_ptr<Logger> logger = manager->_loggers[name];
   if (!logger) {
     // Load configuration details 
-    logger.reset(new Logger(name, &std::cout));
+    logger = Logger::create(name, &std::cout);
     logger->set_level(manager->_default_level);
 
     manager->_loggers[name] = logger;
@@ -68,11 +68,8 @@ bool LoggerFactory::configure(std::string path) {
       }
     }
 
-
-
     // Reconfigure all logger and pre-create described logger.
     std::unordered_map<std::string, std::string> entries = ini->section("LOGGING");
-
 
     // Set default.
     _default_level = conv_logger_level_from_string(ini->entry("LOGGING", "default", "LOG_WARN"));
@@ -92,7 +89,7 @@ bool LoggerFactory::configure(std::string path) {
         out = &std::cout;
       }
       if (!current) {
-        current.reset(new Logger(entry.first, out));
+        current = Logger::create(entry.first, out);
       }
 
       current->set_level(level);
@@ -105,18 +102,7 @@ bool LoggerFactory::configure(std::string path) {
 }
 
 
-//! Convert level to enum value.
-static Logger::LoggerLevel conv_logger_level_from_string(std::string level) {
-  if (level.compare("FATAL") == 0) return Logger::LOG_FATAL;
-  if (level.compare("ERROR") == 0) return Logger::LOG_ERROR;
-  if (level.compare("WARN") == 0) return Logger::LOG_WARN;
-  if (level.compare("INFO") == 0) return Logger::LOG_INFO;
-  if (level.compare("DEBUG") == 0) return Logger::LOG_DEBUG;
-  return Logger::LOG_DEBUG;
-}
-
-//! \brief Parse logger entry.
-void parse_logger_configuration(std::string cfg, std::string& level, std::ostream** output) {
+void LoggerFactory::parse_logger_configuration(std::string cfg, std::string& level, std::ostream** output) {
   int idx = cfg.find_first_of(',');
   if (idx > 0) {
     level = trim(cfg.substr(0, idx));
@@ -128,7 +114,8 @@ void parse_logger_configuration(std::string cfg, std::string& level, std::ostrea
   }
 }
 
-std::ostream* parse_output_configuration(std::string cfg) {
+
+std::ostream* LoggerFactory::parse_output_configuration(std::string cfg) {
   if (cfg.compare("Console") == 0) {
     return &std::cout;
   }
@@ -147,3 +134,12 @@ std::ostream* parse_output_configuration(std::string cfg) {
   return &std::cout;
 }
 
+
+Logger::LoggerLevel LoggerFactory::conv_logger_level_from_string(std::string level) {
+  if (level.compare("FATAL") == 0) return Logger::LOG_FATAL;
+  if (level.compare("ERROR") == 0) return Logger::LOG_ERROR;
+  if (level.compare("WARN") == 0) return Logger::LOG_WARN;
+  if (level.compare("INFO") == 0) return Logger::LOG_INFO;
+  if (level.compare("DEBUG") == 0) return Logger::LOG_DEBUG;
+  return Logger::LOG_DEBUG;
+}
