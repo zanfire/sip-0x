@@ -11,7 +11,7 @@ using namespace sip0x::Utils::Log;
 using namespace std;
 
 void test_sipmessages_from_file(char const* path) {
-  std::shared_ptr<Logger> logger = LoggerManager::get_logger("Test.sipmessages");
+  std::shared_ptr<Logger> logger = LoggerFactory::get_logger("Test.sipmessages");
 
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.is_open()) {

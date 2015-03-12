@@ -4,7 +4,7 @@
 
 #include "parser/Parser.hpp"
 
-#include "utils/log/LoggerManager.hpp"
+#include "utils/log/LoggerFactory.hpp"
 #include "utils/log/Logger.hpp"
 #include "utils/IniFile.hpp"
 

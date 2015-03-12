@@ -2,7 +2,7 @@
 
 #include "test_prototypes.h"
 
-#include "utils/log/LoggerManager.hpp"
+#include "utils/log/LoggerFactory.hpp"
 
 
 using namespace sip0x::Utils::Log;
@@ -11,7 +11,7 @@ using namespace std;
 
 int main(int argc, char const* argv[]) {
   std::string str;
-  LoggerManager* loggermanager = LoggerManager::get_instance();
+  LoggerFactory* loggermanager = LoggerFactory::get_instance();
   loggermanager->configure("..\\docs\\logger.ini");
 
 

@@ -3,7 +3,7 @@
 #include "sip-0x.hpp"
 
 int main(int argc, char* argv[]) {
-  sip0x::Utils::Log::LoggerManager* loggermanager = sip0x::Utils::Log::LoggerManager::get_instance();
+  sip0x::Utils::Log::LoggerFactory* loggermanager = sip0x::Utils::Log::LoggerFactory::get_instance();
   loggermanager->configure("..\\..\\..\\docs\\logger.ini");
 
   std::cout << "SIP server\n\n";
