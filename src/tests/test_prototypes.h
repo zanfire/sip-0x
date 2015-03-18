@@ -3,9 +3,8 @@
 
 #include "parser/Parser.hpp"
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
+using namespace sip0x::parser;
+using namespace sip0x::utils;
 using namespace std;
 
 void run_test(TokenAbstract& token, std::string input, bool expected, bool factory = false);

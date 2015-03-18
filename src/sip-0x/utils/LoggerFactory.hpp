@@ -19,7 +19,7 @@ namespace std {
 
 namespace sip0x
 {
-  namespace Utils
+  namespace utils
   {
     //! Create or re-use a Logger instances.
     //!
@@ -41,7 +41,7 @@ namespace sip0x
       std::unordered_map<std::string, std::shared_ptr<Logger>> _loggers;
 
       // Default values.
-      Logger::LoggerLevel _default_level = Logger::LOG_DEBUG;
+      Logger::LoggerLevel _default_level = Logger::LEVEL_DEBUG;
 
     public:
       //! Get a reference to a Logger instance.

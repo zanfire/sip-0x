@@ -23,7 +23,7 @@ namespace sip0x
       virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) = 0;
     };
 
-    using namespace sip0x::Utils;
+    using namespace sip0x::utils;
 
     /// Implement basic logic of a SIP User-Agent.
     class UA {

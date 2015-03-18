@@ -4,7 +4,7 @@
 
 #include <mutex>
 
-using namespace sip0x::Utils;
+using namespace sip0x::utils;
 
 std::once_flag*  LoggerFactory::_once = new std::once_flag();
 LoggerFactory*	LoggerFactory::_instance = nullptr;
@@ -136,10 +136,10 @@ std::ostream* LoggerFactory::parse_output_configuration(std::string cfg) {
 
 
 Logger::LoggerLevel LoggerFactory::conv_logger_level_from_string(std::string level) {
-  if (level.compare("FATAL") == 0) return Logger::LOG_FATAL;
-  if (level.compare("ERROR") == 0) return Logger::LOG_ERROR;
-  if (level.compare("WARN") == 0) return Logger::LOG_WARN;
-  if (level.compare("INFO") == 0) return Logger::LOG_INFO;
-  if (level.compare("DEBUG") == 0) return Logger::LOG_DEBUG;
-  return Logger::LOG_DEBUG;
+  if (level.compare("FATAL") == 0) return Logger::LEVEL_FATAL;
+  if (level.compare("ERROR") == 0) return Logger::LEVEL_ERROR;
+  if (level.compare("WARN") == 0) return  Logger::LEVEL_WARN;
+  if (level.compare("INFO") == 0) return  Logger::LEVEL_INFO;
+  if (level.compare("DEBUG") == 0) return Logger::LEVEL_DEBUG;
+  return Logger::LEVEL_DEBUG;
 }

@@ -1,13 +1,13 @@
 #include "test_prototypes.h"
 
-#include "parser/sip/TokenSIPMessage.hpp"
+#include "parser/tokens/TokenSIPMessage.hpp"
 
 #include <fstream>
 
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
+using namespace sip0x::parser;
+using namespace sip0x::utils;
+
 using namespace std;
 
 void test_sipmessages_from_file(char const* path) {

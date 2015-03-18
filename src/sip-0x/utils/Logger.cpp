@@ -1,10 +1,10 @@
 #include "utils/Logger.hpp"
 
-using namespace sip0x::Utils;
+using namespace sip0x::utils;
 
 Logger::Logger(std::string const& category, std::ostream* out) {
   _category = category;
-  _level = Logger::LOG_WARN;
+  _level = Logger::LEVEL_WARN;
   _out = out;
 }
 
@@ -15,7 +15,7 @@ std::shared_ptr<Logger> Logger::create(std::string const& cat, std::ostream* out
   return std::shared_ptr<Logger>(new Logger(cat, out), Logger::deleter());
 }
 
-void Logger::log(LoggerLevel const& level, char const* filename, int line, char const* format, ...) {
+void Logger::log(LoggerLevel const& level, char const* filename, int line, char const* format, ...) const {
   if (level > _level) return;
 
   char buffer[1024 * 2];
@@ -58,10 +58,10 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
 }
 
 char const* Logger::conv_level_to_chars(LoggerLevel const& level) {
-  if (level == Logger::LOG_DEBUG) return "DEBUG";
-  if (level == Logger::LOG_INFO) return "INFO";
-  if (level == Logger::LOG_WARN) return "WARN";
-  if (level == Logger::LOG_ERROR) return "ERROR";
-  if (level == Logger::LOG_FATAL) return "FATAL";
+  if (level == Logger::LEVEL_DEBUG) return "DEBUG";
+  if (level == Logger::LEVEL_INFO) return "INFO";
+  if (level == Logger::LEVEL_WARN) return "WARN";
+  if (level == Logger::LEVEL_ERROR) return "ERROR";
+  if (level == Logger::LEVEL_FATAL) return "FATAL";
   return "UNKNOWN";
 }

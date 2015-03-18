@@ -32,7 +32,7 @@ namespace sip0x
 {
   namespace Logic
   {
-    using namespace sip0x::Utils;
+    using namespace sip0x::utils;
 
     //!
     //! \brief Models a SIP UAC (User Agent Client). 

@@ -41,7 +41,7 @@ namespace sip0x
     //! A Transaction is a pair of Request and response
     class Transaction {
     protected:
-      std::shared_ptr<sip0x::Utils::Logger> _logger;
+      std::shared_ptr<sip0x::utils::Logger> _logger;
       // TODO: Work on ID
     public:
       std::string id;
@@ -57,7 +57,7 @@ namespace sip0x
 
     public:
       Transaction(void) {
-        _logger = sip0x::Utils::LoggerFactory::get_logger("sip0x.Logic.Transaction");
+        _logger = sip0x::utils::LoggerFactory::get_logger("sip0x.Logic.Transaction");
       }
 
       virtual ~Transaction(void) {

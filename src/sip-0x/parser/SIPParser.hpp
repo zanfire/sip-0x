@@ -6,8 +6,7 @@
 #include <iostream>
 #include <memory>
 
-#include "parser/base/TokenAbstract.hpp"
-#include "parser/sip/TokenSIPMessage.hpp"
+#include "parser/tokens/TokenSIPMessage.hpp"
 #include "parser/factory/FactoryContext.hpp"
 #include "parser/Parser.hpp"
 
@@ -18,9 +17,9 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
-    using namespace sip0x::Utils;
+    using namespace sip0x::utils;
 
     class SIPParser {
     private:
@@ -30,10 +29,10 @@ namespace sip0x
       SIPParser(void) {}
       virtual ~SIPParser(void) {}
 
-      std::shared_ptr<sip0x::SIPMessage> parse(sip0x::Utils::InputTokenStream& iss) {
+      std::shared_ptr<sip0x::SIPMessage> parse(sip0x::utils::InputTokenStream& iss) {
         FactoryContext ctx;
 
-        ReadResult res = sip0x::Parser::parse(iss, grammar, &ctx);
+        ParserResult res = sip0x::Parser::parse(iss, grammar, &ctx);
         if (res.successes) {
           FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
           if (message != nullptr) {

@@ -5,12 +5,11 @@
 #include "utils/LoggerFactory.hpp"
 
 
-using namespace sip0x::Utils::Log;
+using namespace sip0x::utils;
 using namespace std;
 
 
 int main(int argc, char const* argv[]) {
-  std::string str;
   LoggerFactory* loggermanager = LoggerFactory::get_instance();
   loggermanager->configure("..\\docs\\logger.ini");
 
@@ -23,7 +22,7 @@ int main(int argc, char const* argv[]) {
   //test_token_regexconststrings();
   //test_token_ipv4();
   //test_occurrences();
-  
+  std::string str;
   getline(std::cin, str);
   return 0;
 }

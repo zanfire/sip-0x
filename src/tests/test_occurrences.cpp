@@ -1,6 +1,5 @@
-#include "parser/base/TokenRegex.hpp"
-#include "parser/common/TokenIPv4.hpp"
-
+#include "parser/tokens/TokenRegex.hpp"
+#include "parser/tokens/TokenIPv4.hpp"
 
 #include "parser/Parser.hpp"
 
@@ -8,9 +7,6 @@
 #include "utils/Logger.hpp"
 #include "utils/IniFile.hpp"
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
 using namespace std;
 
 

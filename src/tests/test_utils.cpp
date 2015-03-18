@@ -5,13 +5,13 @@
 void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
   cout << "Parsing string \"" << input << "\" .................. ";
   FactoryContext ctx;
-  sip0x::Parser::ReadResult r = sip0x::Parser::parse(input, token, &ctx);
+  ParserResult r = parse(input, token, &ctx);
 
-  cout << "res: " << ((r.successes) ? "OK" : "KO");
+  cout << "res: " << ((r.success()) ? "OK" : "KO");
   cout << ", exp: " << ((exp) ? "OK" : "KO");
-  cout << ", so: " << ((r.successes == exp) ? "OK" : "KO") << std::endl;
+  cout << ", so: " << ((r.success() == exp) ? "OK" : "KO") << std::endl;
 
-  if (!r.successes) {
+  if (!r.success()) {
     cout << endl;
     for (int i = 0; i < (int)input.length(); i++) {
       int x = i;

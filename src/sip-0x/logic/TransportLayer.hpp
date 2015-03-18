@@ -20,7 +20,7 @@ namespace sip0x
 {
   namespace Logic
   {
-    using namespace sip0x::Utils;
+    using namespace sip0x::utils;
 
     class TransportLayer : public ConnectionListener  {
     protected:

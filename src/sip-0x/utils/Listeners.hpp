@@ -10,9 +10,9 @@
 
 namespace Sip0x
 {
-  namespace Utils
+  namespace utils
   {
-    using namespace Sip0x::Utils;
+    using namespace Sip0x::utils;
 
     // Observer impl.
     template <class Type>

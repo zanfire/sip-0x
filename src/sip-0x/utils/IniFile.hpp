@@ -18,10 +18,8 @@
 
 namespace sip0x
 {
-  namespace Utils
+  namespace utils
   {
-    using namespace sip0x::Utils;
-
     // Wrapper over an INI file.
     class IniFile {
 

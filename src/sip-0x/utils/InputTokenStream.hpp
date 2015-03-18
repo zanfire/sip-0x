@@ -8,10 +8,8 @@
 
 namespace sip0x
 {
-  namespace Utils
+  namespace utils
   {
-    using namespace sip0x::Utils;
-
     // Helper class that handle a string as a seekable stream.
     // This class is not thread safe.
     class InputTokenStream {

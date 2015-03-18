@@ -1,19 +1,19 @@
 #include "test_prototypes.h"
 
-#include "parser/base/TokenRegex.hpp"
-#include "parser/common/RegexConstStrings.hpp"
-#include "parser/common/TokenPresets.hpp"
+#include "parser/tokens/TokenRegex.hpp"
+#include "parser/tokens/RegexConstStrings.hpp"
+#include "parser/tokens/TokenPresets.hpp"
 
-#include "parser/sip/TokenSIPMessage.hpp"
+#include "parser/tokens/TokenSIPMessage.hpp"
 #include "parser/Parser.hpp"
 
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
 #include "utils/IniFile.hpp"
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
+using namespace sip0x::parser;
+using namespace sip0x::utils;
+
 using namespace std;
 
 void test_token_regexconststrings() {

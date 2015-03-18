@@ -11,7 +11,7 @@ namespace sip0x
 {
   namespace Logic
   {
-    using namespace sip0x::Utils;
+    using namespace sip0x::utils;
     using namespace sip0x;
 
     class Dialog;
