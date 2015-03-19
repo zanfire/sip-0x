@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
 
     // CSeq  =  "Expires" HCOLON 1*DIGIT

@@ -70,7 +70,7 @@ namespace sip0x
         FactoryContext* tmp = new FactoryContext();
         ParserResult res = processing(iss, tmp, first(), rest());
 
-        if (res.successes) {
+        if (res.success()) {
           for (unsigned int i = 0; i < tmp->_children.size(); i++) {
             ctx->add_child(tmp->_children[i]);
           }
@@ -86,7 +86,7 @@ namespace sip0x
         LOG_DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
 #endif
         ParserResult result = f->read(iss, ctx);
-        if (result.successes) {
+        if (result.success()) {
 #if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "Alternative %s successes.", f->get_name().c_str());
 #endif
@@ -100,7 +100,7 @@ namespace sip0x
 #if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "No alternative parsed correctly.");
 #endif
-          return ParserResult(false);
+          return ParserResult(false, 0, 0);
         }
 
       }

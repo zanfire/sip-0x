@@ -9,7 +9,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
 
     // Max-Forwards  =  "Max-Forwards" HCOLON 1*DIGIT

@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // From        =  ( "From" / "f" ) HCOLON from-spec
     // from-spec   =  ( name-addr / addr-spec ) *( SEMI from-param )

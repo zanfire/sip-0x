@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
 
     // Authentication-Info  =  "Authentication-Info" HCOLON ainfo

@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
 
     // Content-Disposition   =  "Content-Disposition" HCOLON

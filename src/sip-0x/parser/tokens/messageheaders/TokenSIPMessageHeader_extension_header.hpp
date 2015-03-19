@@ -10,7 +10,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // extension-header  =  header-name HCOLON header-value
     // header-name       =  token

@@ -83,7 +83,7 @@ namespace sip0x
         FactoryContext* tmp = new FactoryContext();
         ParserResult res = processing(iss, tmp, first(), rest());
 
-        if (res.successes) {
+        if (res.success()) {
           for (unsigned int i = 0; i < tmp->_children.size(); i++) {
             ctx->add_child(tmp->_children[i]);
           }
@@ -100,10 +100,8 @@ namespace sip0x
 #endif
 
         ParserResult result = f->read(iss, ctx);
-        if (!result.successes) {
-          if (result.errorpos == -2) {
-            result.set_error(iss.pos(), "Expected token " + f->get_name());
-          }
+        if (!result.success()) {
+          result.push_event(ParserResult::TYPE_ERROR, iss.pos(), "Expected token " + f->get_name());
           return result;
         }
       
@@ -111,7 +109,7 @@ namespace sip0x
           return processing(iss, ctx, r.first(), r.rest());
         }
         else {
-          return ParserResult(true);
+          return ParserResult(true, 0, 0);
         }
       }
     };

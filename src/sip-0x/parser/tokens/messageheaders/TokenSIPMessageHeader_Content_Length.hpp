@@ -9,7 +9,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
 
     // Content-Length  =  ( "Content-Length" / "l" ) HCOLON 1*DIGIT

@@ -24,7 +24,7 @@ namespace sip0x
         int rem = iss.remains();
         std::string str = iss.get(rem);
         // TODO: Copy to local buffer...
-        return ParserResult(true);
+        return ParserResult(true, 0, 0);
       }
 
       virtual FactoryContext* create_factory(void) const override {

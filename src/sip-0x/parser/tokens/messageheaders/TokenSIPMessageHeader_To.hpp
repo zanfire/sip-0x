@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // To        =  ( "To" / "t" ) HCOLON ( name-addr
     //          / addr-spec ) *( SEMI to-param )

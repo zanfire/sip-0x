@@ -26,11 +26,10 @@ namespace sip0x
       virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         
         int occurrence = 0;
-        ParserResult output(false);
         while ((_max >= 0 && occurrence <= _max) || _max == -1) {
-          output = _token.read(iss, ctx);
+          ParserResult output = _token.read(iss, ctx);
 
-          if (!output.successes) {
+          if (!output.success()) {
             break;
           }
           occurrence++;
@@ -40,13 +39,13 @@ namespace sip0x
 #if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "Successes Occurrence@%p, occurrence: %d in range [%d - %d].", this, occurrence, _min, _max);
 #endif
-          return ParserResult(true);
+          return ParserResult(true, 0, 0);
         }
         else {
 #if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "Failed Occurrence@%p, occurrence: %d out of range [%d - %d].", this, occurrence, _min, _max);
 #endif
-          return output;
+          return ParserResult();
         }
       }
     };

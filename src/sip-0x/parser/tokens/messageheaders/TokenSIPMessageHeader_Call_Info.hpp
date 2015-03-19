@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // Call-Info   =  "Call-Info" HCOLON info *(COMMA info)
     // info        =  LAQUOT absoluteURI RAQUOT *( SEMI info-param)

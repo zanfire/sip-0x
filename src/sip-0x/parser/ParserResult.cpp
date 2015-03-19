@@ -41,9 +41,20 @@ void ParserResult::push_event(ParserEventType type, int pos, std::string message
 }
 
 
+ParserResult::ParserEvent ParserResult::get_error(int start_index) {
+  for (std::size_t i = start_index; i < _events.size(); i++) {
+    ParserEvent ev = _events.at(i);
+    if (ev.type == TYPE_ERROR) {
+      return ev;
+    }
+  }
+  return { TYPE_NOTICE, 0, 0 };
+}
+
+
 bool ParserResult::contains_events(ParserEventType type) {
   for (auto ev : _events) {
-    if (ev.eventType == type) return true;
+    if (ev.type == type) return true;
   }
   return false;
 }

@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // Authorization     =  "Authorization" HCOLON credentials
     // credentials       =  ("Digest" LWS digest-response)

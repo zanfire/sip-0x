@@ -19,7 +19,7 @@ namespace sip0x
       };
 
       struct ParserEvent {
-        ParserEventType eventType;
+        ParserEventType type;
         uint32_t position;
         std::string message;
       };
@@ -50,7 +50,10 @@ namespace sip0x
       //! Push a parser event in the result.
       //! If you push an ERROR type event the success state will be forced to false.
       void push_event(ParserEventType type, int pos, std::string message);
-    
+      //! Returns the events vector.
+      std::vector<ParserEvent>& get_events(void) { return _events; }
+      //! Returns the first error occurrence from index.
+      ParserEvent get_error(int start_index = 0);
     protected:
       //! Returns if events array contains one or more event of given type.
       bool contains_events(ParserEventType type);

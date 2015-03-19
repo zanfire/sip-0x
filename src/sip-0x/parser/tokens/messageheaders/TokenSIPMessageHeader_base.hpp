@@ -2,15 +2,15 @@
 #define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_BASE_HPP__
 
 #include "parser/tokens/TokenAbstract.hpp"
-#include "parser/tokens/Operators.hpp"
-
+#include "parser/tokens/TokenRegex.hpp"
 #include "parser/tokens/TokenPresets.hpp"
+#include "parser/tokens/Operators.hpp"
 
 #include "parser/factory/FactoryContextSIPMessageHeader.hpp"
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     template<class Tok>
     class TokenSIPMessageHeader_base : public TokenAbstract {
@@ -32,8 +32,8 @@ namespace sip0x
       virtual ~TokenSIPMessageHeader_base(void) { }
 
     protected:
-      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _sequence.read(iss, ctx);
+      virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ParserResult r = _sequence.read(iss, ctx);
         return r;
       }
 

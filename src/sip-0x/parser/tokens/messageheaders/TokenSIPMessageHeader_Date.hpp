@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // Date          =  "Date" HCOLON SIP-date
     // SIP-date      =  rfc1123-date

@@ -27,14 +27,15 @@ namespace sip0x
       // returns true if encountered the expected token.  
       virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* /*ctx*/) const override {
         char c;
+        int start = iss.pos();
         for (auto tc : _token) {
           c = iss.get_char();
           if (c != tc) {
-            return ParserResult(false);
+            return ParserResult();
           }
         }
          
-        return ParserResult(true);
+        return ParserResult(true, start, iss.pos() - start);
       }
 
       virtual FactoryContext* create_factory(void) const override {

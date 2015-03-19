@@ -6,6 +6,7 @@
 #include "parser/tokens/TokenRegex.hpp"
 
 #include <cstdint>
+#include <sstream>
 
 namespace sip0x
 {

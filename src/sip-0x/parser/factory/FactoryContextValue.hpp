@@ -1,7 +1,6 @@
 #if !defined(SIP0X_PARSER_FACTORYCONTEXTEX_HPP__)
 #define SIP0X_PARSER_FACTORYCONTEXTEX_HPP__
 
-namespace parser
 #include "parser/factory/FactoryContext.hpp"
 
 #include "protocol/SIP.hpp"

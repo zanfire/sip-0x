@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // Content-Type     =  ( "Content-Type" / "c" ) HCOLON media-type
     // media-type       =  m-type SLASH m-subtype *(SEMI m-parameter)

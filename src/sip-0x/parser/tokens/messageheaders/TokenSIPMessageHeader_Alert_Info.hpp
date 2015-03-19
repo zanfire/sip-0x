@@ -12,7 +12,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
 
     // Alert-Info   =  "Alert-Info" HCOLON alert-param *(COMMA alert-param)

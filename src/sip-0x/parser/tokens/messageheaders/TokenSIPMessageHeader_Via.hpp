@@ -13,7 +13,7 @@
 
 namespace sip0x
 {
-  namespace Parser
+  namespace parser
   {
     // sent-protocol     =  protocol-name SLASH protocol-version
     //                      SLASH transport
@@ -39,8 +39,8 @@ namespace sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _sequence.read(iss, ctx);
+      virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ParserResult r = _sequence.read(iss, ctx);
         return r;
       }
     };
@@ -76,8 +76,8 @@ namespace sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _alternative.read(iss, ctx);
+      virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ParserResult r = _alternative.read(iss, ctx);
         return r;
       }
     };
@@ -106,8 +106,8 @@ namespace sip0x
       }
 
     protected:
-      virtual ReadResult handle_read(sip0x::Utils::InputTokenStream& iss, FactoryContext* ctx) const override {
-        ReadResult r = _sequence.read(iss, ctx);
+      virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {
+        ParserResult r = _sequence.read(iss, ctx);
         return r;
       }
     };
