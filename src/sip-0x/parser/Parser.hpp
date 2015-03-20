@@ -21,7 +21,8 @@ namespace sip0x
     class TokenAbstract;
     class FactoryContext;
 
-    //class Parser {
+    class Parser {
+    public:
       //static ParserResult parse(sip0x::utils::InputTokenStream& iss, sip0x::parser::TokenAbstract const& root, sip0x::parser::FactoryContext* factory);
       static ParserResult parse(sip0x::utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory);
 
@@ -29,7 +30,7 @@ namespace sip0x
       static std::shared_ptr<sip0x::SIPMessage> parse(sip0x::utils::InputTokenStream& iss);
       // Deprecated stuff
 
-    //};
+    };
     //static ParserResult parse(std::string text, TokenAbstract& root, FactoryContext* factory);
     //static sip0x::SIPMessage* parse_sip_message(sip0x::utils::InputTokenStream&  iss);
     //static sip0x::SIPMessage* parse_sip_message(std::string text);

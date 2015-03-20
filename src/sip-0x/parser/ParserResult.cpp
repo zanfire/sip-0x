@@ -23,7 +23,7 @@ ParserResult::~ParserResult(void) {
 
 
 bool ParserResult::success(void) {
-  return (_pos == _len) && !contains_events(TYPE_ERROR);
+  return _success && !contains_events(TYPE_ERROR);
 }
 
 

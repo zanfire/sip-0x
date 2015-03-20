@@ -41,7 +41,7 @@ namespace sip0x
       std::unordered_map<std::string, std::shared_ptr<Logger>> _loggers;
 
       // Default values.
-      Logger::LoggerLevel _default_level = Logger::LEVEL_DEBUG;
+      Logger::LoggerLevel _default_level = Logger::LEVEL_ERROR;
 
     public:
       //! Get a reference to a Logger instance.

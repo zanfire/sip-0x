@@ -52,7 +52,7 @@ bool LoggerFactory::configure(std::string path) {
   std::lock_guard<std::recursive_mutex> lock(*_mtx);
 
   std::unique_ptr<IniFile> ini = IniFile::open(path);
-  if (ini) {
+  if (ini != nullptr) {
     // 1. Parse output, thay are needed by the logging.
     // Reconfigure all logger and pre-create described logger.
     {
@@ -96,6 +96,9 @@ bool LoggerFactory::configure(std::string path) {
 
       _loggers[entry.first] = current;
     }
+  }
+  else {
+    std::cout << "Failed to open file " << path << std::endl;
   }
   ini.release();
   return false;

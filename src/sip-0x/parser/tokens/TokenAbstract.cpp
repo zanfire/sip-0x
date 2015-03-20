@@ -14,7 +14,14 @@ using namespace sip0x::parser;
 
 // TODO: root is not a needed argument REMOVE
 TokenAbstract::TokenAbstract(std::string name, TokenAbstract* root) : _name(name) {
-  _logger = LoggerFactory::get_logger("sip0x.parser.Token");
+  std::string logger_category;
+  if (name.length() > 0) {
+    logger_category = "sip0x.parser.Token." + name;
+  }
+  else {
+    logger_category = "sip0x.parser.Token";
+  }
+  _logger = LoggerFactory::get_logger(logger_category.c_str());
 }
 
 TokenAbstract::~TokenAbstract(void) {
@@ -25,9 +32,7 @@ TokenAbstract::~TokenAbstract(void) {
 ParserResult TokenAbstract::read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const {
   int initial_pos = iss.pos();
   
-  if (_logger->get_level() >= Logger::LEVEL_DEBUG) {
-    LOG_DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
-  }
+  LOG_DEBUG(_logger, "Saved position %lld during parsing.", (long long)initial_pos);
 
   FactoryContext* factory = create_factory();
   ParserResult output = handle_read(iss, factory != nullptr ? factory : ctx);
@@ -37,9 +42,7 @@ ParserResult TokenAbstract::read(sip0x::utils::InputTokenStream& iss, FactoryCon
   }
   else {
     iss.seekg(initial_pos);
-    if (_logger->get_level() >= Logger::LEVEL_DEBUG) {
-      LOG_DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
-    }
+   LOG_DEBUG(_logger, "Restored position %lld during parsing.", (long long)initial_pos);
     output.push_event(ParserResult::TYPE_NOTICE, initial_pos, "Failed parsing token " + get_name());
   }
 

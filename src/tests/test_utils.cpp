@@ -10,7 +10,7 @@ void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
   cout << "Parsing string \"" << input << "\" .................. ";
   FactoryContext ctx;
   InputTokenStream iss(input);
-  ParserResult r = parse(iss, token, &ctx);
+  ParserResult r = Parser::parse(iss, token, &ctx);
 
   cout << "res: " << ((r.success()) ? "OK" : "KO");
   cout << ", exp: " << ((exp) ? "OK" : "KO");
@@ -48,14 +48,16 @@ void run_sip(std::string input) {
   InputTokenStream iss(input);
   
   auto t1 = std::chrono::high_resolution_clock::now();
-  std::shared_ptr<sip0x::SIPMessage> message = parse(iss);
+  std::shared_ptr<sip0x::SIPMessage> message = Parser::parse(iss);
   auto t2 = std::chrono::high_resolution_clock::now();
 
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-  std::cout << "Parsed in " << ms.count() << "ms\n";
-  
-  bool successes = message != nullptr;
-  cout << "res: " << ((successes) ? "OK" : "KO");
+  if (message != nullptr) {
+    std::cout << "Successfully parsed SIP message in " << ms.count() << "ms\n";
+  }
+  else {
+    std::cout << "Failed parsed SIP message in " << ms.count() << "ms\n";
+  }
 
   /*
   res: OKParsed in 93ms

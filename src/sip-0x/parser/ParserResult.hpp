@@ -41,9 +41,9 @@ namespace sip0x
       bool success(void);
       
       //! Get position relative to the input.
-      uint32_t position(void);
+      uint32_t position(void) { return _pos; }
       //! Get length of content relative to the input.
-      uint32_t length(void);
+      uint32_t length(void) { return _len; }
 
       // ??
       void set_position(int pos);

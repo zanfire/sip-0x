@@ -23,9 +23,6 @@ namespace sip0x
 
     public:
       Sequence(First f) : TokenAbstract("Sequence"), member(f) {
-#if defined(ENABLE_PARSER_LOGGING)
-        _logger = LoggerFactory::get_logger("sip0x.Parser.Sequence");
-#endif
         _name += "..." + f.get_name();
       }
 
@@ -95,12 +92,11 @@ namespace sip0x
 
       template<typename F, typename R>
       ParserResult processing(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
-#if defined(ENABLE_PARSER_LOGGING)
         LOG_DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
-#endif
 
         ParserResult result = f->read(iss, ctx);
         if (!result.success()) {
+          LOG_DEBUG(_logger, "Failed, expecting token %s.", f->get_name().c_str());
           result.push_event(ParserResult::TYPE_ERROR, iss.pos(), "Expected token " + f->get_name());
           return result;
         }

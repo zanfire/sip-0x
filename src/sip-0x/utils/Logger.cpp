@@ -27,12 +27,10 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
 
   std::string time_str;
   time_t raw_time;
-  struct tm* timeinfo = NULL;
+  struct tm timeinfo;
   time(&raw_time);
-  localtime_s(timeinfo, &raw_time);
-  if (timeinfo != NULL) {
-    strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", timeinfo);
-  }
+  localtime_s(&timeinfo, &raw_time);
+  strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", &timeinfo);
 
   int filename_len = strlen(filename);
   char const* truncated_filename = filename;
