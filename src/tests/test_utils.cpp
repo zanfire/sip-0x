@@ -6,39 +6,44 @@
 #include <chrono>
 using namespace sip0x::parser;
 
+static bool verbose = false;
+static bool only_failed = true;
+
 void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
-  cout << "Parsing string \"" << input << "\" .................. ";
   FactoryContext ctx;
   InputTokenStream iss(input);
   ParserResult r = Parser::parse(iss, token, &ctx);
 
-  cout << "res: " << ((r.success()) ? "OK" : "KO");
-  cout << ", exp: " << ((exp) ? "OK" : "KO");
-  cout << ", so: " << ((r.success() == exp) ? "OK" : "KO") << std::endl;
+  if (r.success() != exp || !only_failed) {
+    std::cout << "Test input: " << (verbose ? input : input.substr(0, 20)) << " \t\t" << ((r.success() == exp) ? "Passed" : "Failed") << std::endl;
+  }
+  if (verbose) {
+    if (r.success() != exp) {
+      if (!r.success()) {
 
-  if (!r.success()) {
+        ParserResult::ParserEvent ev = r.get_error();
+        cout << endl;
+        for (std::size_t i = 0; i < input.length(); i++) {
+          std::size_t x = i;
+          while (x < input.length()) {
+            cout << input[x];
+            if (input[x] == '\n') break;
+            x++;
+          }
 
-    ParserResult::ParserEvent ev = r.get_error();
-    cout << endl;
-    for (std::size_t i = 0; i < input.length(); i++) {
-      std::size_t x = i;
-      while (x < input.length()) {
-        cout << input[x];
-        if (input[x] == '\n') break;
-        x++;
-      }
-
-      if (i <= ev.position && ev.position <= x) {
-        cout.width(ev.position - i);
-        if (input[x] != '\n') {
-          cout << endl;
+          if (i <= ev.position && ev.position <= x) {
+            cout.width(ev.position - i);
+            if (input[x] != '\n') {
+              cout << endl;
+            }
+            cout << '^' << endl;
+          }
+          i = x;
         }
-        cout << '^' << endl;
-      }
-      i = x;
-    }
 
-    cout << "Parsing error (pos: " << ev.position << ") message: " << ev.message << endl;
+        cout << "Parsing error (pos: " << ev.position << ") message: " << ev.message << endl;
+      }
+    }
   }
 }
 

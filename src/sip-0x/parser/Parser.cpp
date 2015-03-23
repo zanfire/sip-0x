@@ -18,9 +18,8 @@ ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract& r
 
   ParserResult result = root.read(iss, factory);
 
-  if (!result.success() /*&& !iss.eof()*/) {
+  if (!iss.eof()) {
     // No consumed all input.
-    //result.successes = false;
     int cur_pos = iss.pos();
     result.push_event(ParserResult::TYPE_ERROR, cur_pos, "Left content.");
   }
