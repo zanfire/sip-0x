@@ -87,7 +87,13 @@ void test_token_sip_message() {
 
   TokenSIPMessageHeader_From from;
   run_test(from, "From: Alice <sip:alice@atlanta.com>;tag=1928301774", true, true);
+  
+  TokenRegex regex("(" + RegexConstStrings::token + RegexConstStrings::LWS + ")*");
+  run_test(regex, "Alice ", true, true);
 
+  TokenNameAddr nameAddr;
+  run_test(nameAddr, "Alice <sip:alice@atlanta.com>", true, true);
+  
   TokenSIPMessageHeader_Contact_param contact_param;
   run_test(contact_param, "<sip:alice@pc33.atlanta.com>", true);
 

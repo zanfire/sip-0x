@@ -32,7 +32,13 @@ namespace sip0x
           if (!output.success()) {
             break;
           }
-          occurrence++;
+          else {
+            occurrence++;
+          }
+          // Stop reading when match the max.
+          if (occurrence == _max) {
+            break;
+          }
         }
 
         if (occurrence >= _min && (occurrence <= _max || _max == -1)) {
