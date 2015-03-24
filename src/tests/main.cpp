@@ -23,6 +23,8 @@ int main(int argc, char const* argv[]) {
   test_token_regexconststrings();
   test_token_ipv4();
   test_occurrences();
+
+  cout << "Tests finished.";
   std::string str;
   getline(std::cin, str);
   return 0;

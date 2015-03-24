@@ -25,6 +25,9 @@
     <Filter Include="parser\tokens\messageheaders">
       <UniqueIdentifier>{3cbe941b-7cd0-44cd-9197-0e43573cf633}</UniqueIdentifier>
     </Filter>
+    <Filter Include="listeners">
+      <UniqueIdentifier>{b555d67c-bbd6-4edd-b0c5-7d2d36bcf9bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\docs\SIP_ABNF.txt">
@@ -46,57 +49,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\sip-0x\logic\ApplicationDelegate.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\ApplicationListener.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\asio_header.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\Connection.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\ConnectionManager.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\Dialog.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\Endpoint.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\MessageFactory.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\RegisterClient.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\Registrar.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\Transaction.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\TransactionLayer.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\TransportLayer.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\TransportListener.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\UA.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\UAC.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\logic\UAS.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\sip-0x\protocol\HostPort.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
@@ -145,7 +97,6 @@
     <ClInclude Include="..\src\sip-0x\parser\SIPParser.hpp">
       <Filter>parser</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\sip-0x\sip-0x.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp">
       <Filter>utils</Filter>
     </ClInclude>
@@ -404,6 +355,39 @@
     <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_WWW_Authenticate.hpp">
       <Filter>parser\tokens\messageheaders</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\sip-0x\ApplicationDelegate.hpp" />
+    <ClInclude Include="..\src\sip-0x\Dialog.hpp" />
+    <ClInclude Include="..\src\sip-0x\Endpoint.hpp" />
+    <ClInclude Include="..\src\sip-0x\MessageFactory.hpp" />
+    <ClInclude Include="..\src\sip-0x\RegisterClient.hpp" />
+    <ClInclude Include="..\src\sip-0x\Registrar.hpp" />
+    <ClInclude Include="..\src\sip-0x\Transaction.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransactionLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransportLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\UA.hpp" />
+    <ClInclude Include="..\src\sip-0x\UAC.hpp" />
+    <ClInclude Include="..\src\sip-0x\UAS.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\asio_header.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Connection.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\ConnectionManager.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\ApplicationListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\TransportListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\UAListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\ConnectionListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp">
@@ -424,11 +408,18 @@
     <ClCompile Include="..\src\sip-0x\parser\ParserResult.cpp">
       <Filter>parser</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\sip-0x\logic\Connection.cpp">
-      <Filter>logic</Filter>
+    <ClCompile Include="..\src\sip-0x\RegisterClient.cpp" />
+    <ClCompile Include="..\src\sip-0x\UA.cpp" />
+    <ClCompile Include="..\src\sip-0x\UAC.cpp" />
+    <ClCompile Include="..\src\sip-0x\UAS.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\Connection.cpp">
+      <Filter>utils</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\sip-0x\logic\ConnectionManager.cpp">
-      <Filter>logic</Filter>
+    <ClCompile Include="..\src\sip-0x\utils\ConnectionManager.cpp">
+      <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\sip-0x\Transaction.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransactionLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransportLayer.cpp" />
   </ItemGroup>
 </Project>

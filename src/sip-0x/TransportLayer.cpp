@@ -1,7 +1,4 @@
-#if !defined(SIP0X_LOGIC_TRANSPORTLAYER_HPP__)
-#define SIP0X_LOGIC_TRANSPORTLAYER_HPP__
-
-#include "asio_header.hpp"
+#include "TransportLayer.hpp"
 
 #include <string>
 #include <memory>

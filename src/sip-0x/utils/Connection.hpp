@@ -20,11 +20,6 @@ namespace sip0x
   class ConnectionManager;
   class Connection;
 
-  class ConnectionListener {
-  public:
-    virtual void on_incoming_data(Connection* conn, uint8_t* buffer, std::size_t size) = 0;
-  };
-
   class Connection : public std::enable_shared_from_this<Connection> {
   protected:
     // Infrastructure-

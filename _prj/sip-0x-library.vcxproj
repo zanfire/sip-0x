@@ -20,23 +20,22 @@
     <None Include="..\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\sip-0x\logic\ApplicationDelegate.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\ApplicationListener.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\asio_header.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\Connection.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\ConnectionManager.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\Dialog.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\Endpoint.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\MessageFactory.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\RegisterClient.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\Registrar.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\Transaction.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\TransactionLayer.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\TransportLayer.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\TransportListener.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\UA.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\UAC.hpp" />
-    <ClInclude Include="..\src\sip-0x\logic\UAS.hpp" />
+    <ClInclude Include="..\src\sip-0x\ApplicationDelegate.hpp" />
+    <ClInclude Include="..\src\sip-0x\Dialog.hpp" />
+    <ClInclude Include="..\src\sip-0x\Endpoint.hpp" />
+    <ClInclude Include="..\src\sip-0x\listeners\ApplicationListener.hpp" />
+    <ClInclude Include="..\src\sip-0x\listeners\ConnectionListener.hpp" />
+    <ClInclude Include="..\src\sip-0x\listeners\TransportListener.hpp" />
+    <ClInclude Include="..\src\sip-0x\listeners\UAListener.hpp" />
+    <ClInclude Include="..\src\sip-0x\MessageFactory.hpp" />
+    <ClInclude Include="..\src\sip-0x\RegisterClient.hpp" />
+    <ClInclude Include="..\src\sip-0x\Registrar.hpp" />
+    <ClInclude Include="..\src\sip-0x\Transaction.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransactionLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransportLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\UA.hpp" />
+    <ClInclude Include="..\src\sip-0x\UAC.hpp" />
+    <ClInclude Include="..\src\sip-0x\UAS.hpp" />
     <ClInclude Include="..\src\sip-0x\parser\factory\Factory.hpp" />
     <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContext.hpp" />
     <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextNameAddr.hpp" />
@@ -134,7 +133,9 @@
     <ClInclude Include="..\src\sip-0x\protocol\SIPResponse.hpp" />
     <ClInclude Include="..\src\sip-0x\protocol\SIPURI.hpp" />
     <ClInclude Include="..\src\sip-0x\protocol\SIPVersion.hpp" />
-    <ClInclude Include="..\src\sip-0x\sip-0x.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\asio_header.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\Connection.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\ConnectionManager.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\IniFile.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\InputTokenStream.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\Listeners.hpp" />
@@ -142,12 +143,19 @@
     <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\sip-0x\logic\Connection.cpp" />
-    <ClCompile Include="..\src\sip-0x\logic\ConnectionManager.cpp" />
+    <ClCompile Include="..\src\sip-0x\RegisterClient.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\Parser.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\ParserResult.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\tokens\RegexConstStrings.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\tokens\TokenAbstract.cpp" />
+    <ClCompile Include="..\src\sip-0x\Transaction.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransactionLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransportLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\UA.cpp" />
+    <ClCompile Include="..\src\sip-0x\UAC.cpp" />
+    <ClCompile Include="..\src\sip-0x\UAS.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\Connection.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\ConnectionManager.cpp" />
     <ClCompile Include="..\src\sip-0x\utils\Logger.cpp" />
     <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp" />
   </ItemGroup>

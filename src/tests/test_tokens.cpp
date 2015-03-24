@@ -19,8 +19,8 @@ using namespace std;
 void test_token_regexconststrings() {
   {
     TokenRegex token("unreserved", RegexConstStrings::unreserved + "+");
-    run_test(token, "pippo@dom.cnx", true);
-    run_test(token, "pipp*o@dom.cnx", true);
+    run_test(token, "pippo@dom.cnx", false);
+    run_test(token, "pipp*odom.cnx", true);
     run_test(token, "@dom.cnx", false);
     run_test(token, " @", false);
   }
