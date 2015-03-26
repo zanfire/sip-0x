@@ -5,11 +5,16 @@
 
 namespace sip0x
 {
-  class ConnectionListener {
-  public:
-    virtual void on_incoming_data(Connection* conn, uint8_t* buffer, std::size_t size) = 0;
-  };
+  namespace utils {
+    class Connection;
+  }
 
+  namespace listeners {
+    class ConnectionListener {
+    public:
+      virtual void on_incoming_data(std::shared_ptr<utils::Connection> conn, uint8_t const* buffer, std::size_t const size) = 0;
+    };
+  }
 }
 
 #endif // SIP0X_LOGIC_UALISTENER_HPP__

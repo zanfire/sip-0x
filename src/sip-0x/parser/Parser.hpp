@@ -10,9 +10,11 @@
 
 namespace sip0x
 {
-  class SIPMessage;
+  namespace protocol {
+    class SIPMessage;
+  }
 
-  namespace {
+  namespace utils {
     class InputTokenStream;
   }
 
@@ -23,17 +25,16 @@ namespace sip0x
 
     class Parser {
     public:
-      //static ParserResult parse(sip0x::utils::InputTokenStream& iss, sip0x::parser::TokenAbstract const& root, sip0x::parser::FactoryContext* factory);
-      static ParserResult parse(sip0x::utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory);
+      static TokenAbstract* sip_grammar;
 
+      //! Parse an input stream using the grammar root and building structure from factory.
+      static ParserResult parse(sip0x::utils::InputTokenStream& iss, TokenAbstract const& root, FactoryContext* factory);
 
-      static std::shared_ptr<sip0x::SIPMessage> parse(sip0x::utils::InputTokenStream& iss);
-      // Deprecated stuff
-
+      //! Parse an input stream to a SIPMessage.
+      //! \return NULL in case of failure.
+      static std::shared_ptr<sip0x::protocol::SIPMessage> parse(sip0x::utils::InputTokenStream& iss);
+      
     };
-    //static ParserResult parse(std::string text, TokenAbstract& root, FactoryContext* factory);
-    //static sip0x::SIPMessage* parse_sip_message(sip0x::utils::InputTokenStream&  iss);
-    //static sip0x::SIPMessage* parse_sip_message(std::string text);
   }
 }
 

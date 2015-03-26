@@ -1,17 +1,17 @@
-#include "Connection.hpp"
+#include "utils/Connection.hpp"
 
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
 
 #include "asio_header.hpp"
 
-#include <string>
-#include <memory>
+#include "listeners/ConnectionListener.hpp"
 
-using namespace sip0x;
 
-Connection::Connection(asio::ip::tcp::socket socket, ConnectionManager* manager, ConnectionListener* listener) :
-  _socket(std::move(socket)), _manager(manager), _listener(listener) {
+using namespace sip0x::utils;
+
+Connection::Connection(asio::ip::tcp::socket socket, std::shared_ptr<sip0x::listeners::ConnectionListener> listener) :
+  _socket(std::move(socket)), _listener(listener) {
 
   _logger = LoggerFactory::get_logger("sip0x.Connection");
 }
@@ -56,7 +56,7 @@ void Connection::async_read(void) {
     [this, self](std::error_code ec, std::size_t length) {
     LOG_DEBUG(_logger, "Async read result: %d - %s", ec.value(), ec.message().c_str());
     if (!ec) {
-      _listener->on_incoming_data(this, _rbuffer, length);
+      _listener->on_incoming_data(shared_from_this(), _rbuffer, length);
     }
   });
 }

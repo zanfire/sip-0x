@@ -22,40 +22,37 @@
 #include <memory>
 #include <set>
 
-
-
 namespace sip0x
 {
   namespace utils {
     class Logger;
+    class Connection;
+
+    //! Connections manager.
+    //!
+    //! This class handle multiple connections and provide a centralized access 
+    //! each connection.
+    class ConnectionManager {
+    protected:
+      std::shared_ptr<Logger> _logger;
+      std::recursive_mutex _mtx;
+
+      /// The managed connections.
+      std::set<std::shared_ptr<Connection>> _connections;
+
+    public:
+      ConnectionManager(void);
+      virtual ~ConnectionManager(void);
+
+      //! Add given connection to manager.
+      void add(std::shared_ptr<Connection>& connection);
+      //! Remove given connection from manager.
+      void remove(std::shared_ptr<Connection>& connection);
+
+      //! Search connection by IPv4 and port.
+      std::shared_ptr<Connection> get(uint32_t remote_ip, uint16_t remote_port);
+    };
   }
-
-  class Connection;
-  
-  //! Connections manager.
-  //!
-  //! This class handle multiple connections and provide a centralized access 
-  //! each connection.
-  class ConnectionManager {
-  protected:
-    std::shared_ptr<sip0x::utils::Logger> _logger;
-    std::recursive_mutex _mtx;
-      
-    /// The managed connections.
-    std::set<std::shared_ptr<sip0x::Connection>> _connections;
-
-  public:
-    ConnectionManager(void);
-    virtual ~ConnectionManager(void);
-
-    //! Add given connection to manager.
-    void add(std::shared_ptr<Connection>& connection);
-    //! Remove given connection from manager.
-    void remove(std::shared_ptr<Connection>& connection);
-
-    //! Search connection by IPv4 and port.
-    std::shared_ptr<Connection> get(uint32_t remote_ip, uint16_t remote_port);
-  };
 }
 
 #endif // SIP0X_LOGIC_CONNECTIONMANAGER_HPP__

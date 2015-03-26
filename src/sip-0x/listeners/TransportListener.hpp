@@ -17,16 +17,24 @@
 //! limitations under the License.
 //!
 
-#include "protocol/SIP.hpp"
+#include <memory>
 
 namespace sip0x
 {
-  namespace Logic
+  namespace protocol {
+    class SIPMessage;
+  }
+
+  namespace utils {
+    class Connection;
+  }
+
+  namespace listeners
   {
     //! \brief Transport callbacks
     class TransportListener {
     public:
-      virtual void on_receive(std::shared_ptr<SIPMessage>& message, std::shared_ptr<Connection> connection) = 0;
+      virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage>& message, std::shared_ptr<utils::Connection> connection) = 0;
     };
   }
 }

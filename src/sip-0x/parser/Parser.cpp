@@ -8,8 +8,11 @@
 
 using namespace sip0x::parser;
 
+// Initialize statically the grammar. 
+TokenAbstract* Parser::sip_grammar = new TokenSIPMessage();
 
-ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract& root, FactoryContext* factory) {
+
+ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract const& root, FactoryContext* factory) {
 
 #if defined(ENABLE_PARSER_LOGGING)
   std::shared_ptr<Logger> logger = LoggerFactory::get_logger("sip0x.Parser.Parser");
@@ -28,20 +31,19 @@ ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract& r
 
 
 
-std::shared_ptr<sip0x::SIPMessage> Parser::parse(sip0x::utils::InputTokenStream& iss) {
-  static TokenSIPMessage grammar;
-
+std::shared_ptr<sip0x::protocol::SIPMessage> Parser::parse(sip0x::utils::InputTokenStream& iss) {
+  
   FactoryContext ctx;
 
-  ParserResult res = parse(iss, grammar, &ctx);
+  ParserResult res = parse(iss, *sip_grammar, &ctx);
   if (res.success()) {
     FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
     if (message != nullptr) {
       if (message->is_request()) {
-        return std::shared_ptr<sip0x::SIPMessage>(new SIPRequest(message->request()));
+        return std::shared_ptr<sip0x::protocol::SIPMessage>(new protocol::SIPRequest(message->request()));
       }
       else {
-        return std::shared_ptr<sip0x::SIPMessage>(new SIPResponse(message->response()));
+        return std::shared_ptr<sip0x::protocol::SIPMessage>(new protocol::SIPResponse(message->response()));
       }
     }
   }

@@ -5,15 +5,33 @@
 #include <memory>
 #include <thread>
 
+#include "utils/ConnectionManager.hpp"
+#include "utils/asio_header.hpp"
+
+#include "listeners/ConnectionListener.hpp"
+
 namespace sip0x
 {
-  using namespace sip0x::utils;
+  class Transaction;
 
-  class TransportLayer : public ConnectionListener  {
+  namespace utils {
+    class Logger;
+  }
+
+  namespace listeners {
+    class TransportListener;
+  }
+
+  namespace protocol {
+    class SIPMessage;
+  }
+
+
+  class TransportLayer : public listeners::ConnectionListener, std::enable_shared_from_this<TransportLayer> {
   protected:
     // Infrastructure
-    std::shared_ptr<Logger> _logger;
-    std::shared_ptr<Logger> _logger_siptrace;
+    std::shared_ptr<utils::Logger> _logger;
+    std::shared_ptr<utils::Logger> _logger_siptrace;
     std::string _bind_address;
     int _bind_port;
     bool _thread_must_stop = false;
@@ -24,19 +42,16 @@ namespace sip0x
     asio::ip::tcp::socket _tcp_socket;
     //asio::ip::udp::socket _udp_socket; 
     asio::ip::tcp::acceptor _acceptor;
-    ConnectionManager _connection_manager;
-    // Parser
-    sip0x::Parser::SIPParser parser;
+    utils::ConnectionManager _connection_manager;
     // Callbakcs
-    TransportListener* _listener = nullptr;
+    listeners::TransportListener* _listener = nullptr;
 
   public:
     //! \todo Use bind address
     TransportLayer(std::string const& bind_address, int const& bind_port);
-
     virtual ~TransportLayer(void);
 
-    void set_listener(TransportListener* l)  { _listener  = l; }
+    //void set_listener(TransportListener* l)  { _listener  = l; }
 
     //! Start transport layer. 
     //! \returns true if transport layer was in
@@ -45,13 +60,13 @@ namespace sip0x
     //! Stop transport layer.
     //! \remark Returns in a synchronous way.
     void stop(void);
-    void send(std::shared_ptr<Transaction>& trnasaction, std::shared_ptr<SIPMessage> const& message) {
+    void send(std::shared_ptr<Transaction>& trnasaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message);
     //! Process network stuff.
-    void process(void) {
-    void async_accept(void) {
-    virtual void on_incoming_data(Connection* conn, uint8_t* buffer, std::size_t size) override {
-    std::shared_ptr<Connection> connect(std::string address, int port) {
-    uint32_t resolve(std::string address) {
+    void process(void);
+    void async_accept(void);
+    virtual void on_incoming_data(std::shared_ptr<utils::Connection> conn, uint8_t const* buffer, std::size_t const size) override;
+    std::shared_ptr<utils::Connection> connect(std::string address, int port);
+    uint32_t resolve(std::string address);
   };
 }
 

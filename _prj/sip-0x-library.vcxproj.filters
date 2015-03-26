@@ -67,12 +67,6 @@
     <ClInclude Include="..\src\sip-0x\protocol\SIPMethod.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\sip-0x\protocol\SIPRequest.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\protocol\SIPResponse.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\sip-0x\protocol\SIPURI.hpp">
       <Filter>protocol</Filter>
     </ClInclude>
@@ -92,9 +86,6 @@
       <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="..\src\sip-0x\parser\Parser.hpp">
-      <Filter>parser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\parser\SIPParser.hpp">
       <Filter>parser</Filter>
     </ClInclude>
     <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp">

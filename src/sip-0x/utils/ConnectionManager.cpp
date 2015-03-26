@@ -1,12 +1,11 @@
-#include "logic/ConnectionManager.hpp"
+#include "utils/ConnectionManager.hpp"
 
-#include "logic/Connection.hpp"
+#include "utils/Connection.hpp"
 
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
 
 
-using namespace sip0x; 
 using namespace sip0x::utils;
 
 ConnectionManager::ConnectionManager(void) {
