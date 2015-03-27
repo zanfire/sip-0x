@@ -412,5 +412,8 @@
     <ClCompile Include="..\src\sip-0x\Transaction.cpp" />
     <ClCompile Include="..\src\sip-0x\TransactionLayer.cpp" />
     <ClCompile Include="..\src\sip-0x\TransportLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessage.cpp">
+      <Filter>parser\factory</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

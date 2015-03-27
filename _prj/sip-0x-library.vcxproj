@@ -140,6 +140,7 @@
     <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessage.cpp" />
     <ClCompile Include="..\src\sip-0x\RegisterClient.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\Parser.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\ParserResult.cpp" />

@@ -39,12 +39,7 @@ std::shared_ptr<sip0x::protocol::SIPMessage> Parser::parse(sip0x::utils::InputTo
   if (res.success()) {
     FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
     if (message != nullptr) {
-      if (message->is_request()) {
-        return std::shared_ptr<sip0x::protocol::SIPMessage>(new protocol::SIPRequest(message->request()));
-      }
-      else {
-        return std::shared_ptr<sip0x::protocol::SIPMessage>(new protocol::SIPResponse(message->response()));
-      }
+      return message->get_message();
     }
   }
 
