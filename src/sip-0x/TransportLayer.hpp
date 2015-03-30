@@ -51,7 +51,8 @@ namespace sip0x
     TransportLayer(std::string const& bind_address, int const& bind_port);
     virtual ~TransportLayer(void);
 
-    //void set_listener(TransportListener* l)  { _listener  = l; }
+    // TODO: Revise this listener (add, shared_ptr).
+    void set_listener(listeners::TransportListener* l)  { _listener = l; }
 
     //! Start transport layer. 
     //! \returns true if transport layer was in

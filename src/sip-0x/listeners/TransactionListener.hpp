@@ -1,5 +1,5 @@
-#if !defined(SIP0X_LOGIC_TRANSPORTLISTENER_HPP__)
-#define SIP0X_LOGIC_TRANSPORTLISTENER_HPP__
+#if !defined(SIP0X_LOGIC_TRANSACTIONLISTENER_HPP__)
+#define SIP0X_LOGIC_TRANSACTIONLISTENER_HPP__
 
 //!
 //! Copyright 2014 Matteo Valdina
@@ -21,22 +21,25 @@
 
 namespace sip0x
 {
-  namespace protocol {
-    class SIPMessage;
-  }
+  class Transaction;
 
-  namespace utils {
-    class Connection;
+  namespace protocol {
+    class SIPRequest;
+    class SIPResponse;
   }
 
   namespace listeners
   {
-    //! \brief Transport callbacks
-    class TransportListener {
+    class TransactionLayerRequestListener {
     public:
-      virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage>& message, std::shared_ptr<utils::Connection>& connection) = 0;
+      virtual void on_incoming_request(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPRequest>& request) = 0;
+    };
+
+    class TransactionLayerResponseListener {
+    public:
+      virtual void on_incoming_response(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPResponse>& response) = 0;
     };
   }
 }
 
-#endif // SIP0X_LOGIC_TRANSPORTLISTENER_HPP__
+#endif // SIP0X_LOGIC_TRANSACTIONLISTENER_HPP__

@@ -25,6 +25,7 @@
     <ClInclude Include="..\src\sip-0x\Endpoint.hpp" />
     <ClInclude Include="..\src\sip-0x\listeners\ApplicationListener.hpp" />
     <ClInclude Include="..\src\sip-0x\listeners\ConnectionListener.hpp" />
+    <ClInclude Include="..\src\sip-0x\listeners\TransactionListener.hpp" />
     <ClInclude Include="..\src\sip-0x\listeners\TransportListener.hpp" />
     <ClInclude Include="..\src\sip-0x\listeners\UAListener.hpp" />
     <ClInclude Include="..\src\sip-0x\MessageFactory.hpp" />
