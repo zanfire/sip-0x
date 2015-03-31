@@ -34,10 +34,10 @@ namespace sip0x
 
   struct SIPMessageHeaderCSeq : public SIPMessageHeaderBase {
     unsigned long seq;
-    SIPMethod method;
+    protocol::SIPMethod method;
 
     virtual std::string param(void) const override { return "CSeq"; }
-    virtual std::string value(void) const override { return std::to_string(seq) + " " + convCharsFromSIPMethod(method); }
+    virtual std::string value(void) const override { return std::to_string(seq) + " " + protocol::convCharsFromSIPMethod(method); }
   };
 
   struct SIPMessageHeaderMax_Forwards : public SIPMessageHeaderBase {

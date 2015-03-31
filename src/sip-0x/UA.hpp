@@ -5,6 +5,7 @@
 #include <memory>
 #include <set>
 
+#include "protocol/SIPMethod.hpp"
 
 namespace sip0x
 {
@@ -12,7 +13,20 @@ namespace sip0x
     class Logger;
   }
 
-  class UAListener;
+  namespace protocol {
+    class SIPMessage;
+    class SIPRequest;
+    class SIPResponse;
+  }
+
+  namespace listeners {
+    class UAListener;
+  }
+
+  class ApplicationDelegate;
+  class Transaction;
+  class TransactionLayer;
+  class TransportLayer;
 
   //! Provide common logic implementation for User-Agent Server and Client.
   //! 
@@ -21,7 +35,7 @@ namespace sip0x
   class UA {
   protected:
     std::shared_ptr<utils::Logger> _logger;
-    std::set<std::shared_ptr<UAListener>> _listeners;
+    std::set<std::shared_ptr<listeners::UAListener>> _listeners;
     // Is it really needed??
     ApplicationDelegate* _application_delegate;
 
@@ -34,21 +48,20 @@ namespace sip0x
     UA(ApplicationDelegate* application_delegate, TransactionLayer* transaction, std::string domain, std::string useragent);
     virtual ~UA(void);
 
-    void add_listener(UAListener* listener);
-    void remove_listener(UAListener* listener);
+    void add_listener(std::shared_ptr<listeners::UAListener>& listener);
+    void remove_listener(std::shared_ptr<listeners::UAListener>& listener);
   protected:
 
-    void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response);
+    void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response);
 
     //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
-    void add_default_header_lines(SIPMessage* message);
-    void add_header_cseq(SIPMessage* message, SIPMethod method, int seq);
-    void add_header_expires(SIPMessage* message, int expires);
-    void add_header_call_ID(SIPMessage* message, std::string const& callID);
-    void add_header_via(SIPMessage* message, char const* transport, char const* branch);
-    void add_content(SIPMessage* message, uint8_t* content, std::size_t size);
+    void add_default_header_lines(protocol::SIPMessage* message);
+    void add_header_cseq(protocol::SIPMessage* message, protocol::SIPMethod method, int seq);
+    void add_header_expires(protocol::SIPMessage* message, int expires);
+    void add_header_call_ID(protocol::SIPMessage* message, std::string const& callID);
+    void add_header_via(protocol::SIPMessage* message, char const* transport, char const* branch);
+    void add_content(protocol::SIPMessage* message, uint8_t* content, std::size_t size);
   };
-  }
 }
 
 #endif // SIP0X_LOGIC_UA_HPP__

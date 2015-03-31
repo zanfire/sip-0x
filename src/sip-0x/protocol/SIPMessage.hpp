@@ -84,7 +84,7 @@ namespace sip0x
       }
 
       virtual std::string to_string(void) const override {
-        return sip0x::to_string(method) + ' ' + uri.to_string() + ' ' + version.to_string() + "\r\n" + SIPMessage::to_string();
+        return sip0x::protocol::to_string(method) + ' ' + uri.to_string() + ' ' + version.to_string() + "\r\n" + SIPMessage::to_string();
       }
     };
 
