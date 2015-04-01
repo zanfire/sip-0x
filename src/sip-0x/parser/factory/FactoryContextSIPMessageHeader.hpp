@@ -12,13 +12,13 @@ namespace sip0x
   {
     using namespace sip0x;
 
-    class FactoryContextSIPMessageHeader : public FactoryContextValue<std::shared_ptr<SIPMessageHeaderBase>> {
+    class FactoryContextSIPMessageHeader : public FactoryContextValue<std::shared_ptr<sip0x::protocol::SIPMessageHeaderBase>> {
     public:
       virtual void create(std::string const& text) override {
         if (_children.size() >= 1) {
           std::string param = _children[0]->text();
           if (param.compare("Call-ID") == 0) {
-            SIPMessageHeaderCall_ID* h = new SIPMessageHeaderCall_ID();
+            auto h = new sip0x::protocol::SIPMessageHeaderCall_ID();
             if (_children.size() >= 3) {
               h->callID = _children[2]->text();
               if (_children.size() == 4) {
@@ -28,12 +28,12 @@ namespace sip0x
             _value.reset(h);
           }
           else if(param.compare("Content-Length") == 0) {
-            SIPMessageHeaderContent_Length* h = new SIPMessageHeaderContent_Length();
+            auto h = new sip0x::protocol::SIPMessageHeaderContent_Length();
             extract_and_set_long(h->length);
             _value.reset(h);
           }
           else if (param.compare("CSeq") == 0) {
-            SIPMessageHeaderCSeq* h = new SIPMessageHeaderCSeq();
+            auto h = new sip0x::protocol::SIPMessageHeaderCSeq();
             if (_children.size() == 5) {
               extract_and_set_long(h->seq);
               FactoryContextSIPMethod* method = dynamic_cast<FactoryContextSIPMethod*>(_children[4]);
@@ -44,25 +44,25 @@ namespace sip0x
             _value.reset(h);
           }
           else if (param.compare("Expires") == 0) {
-            SIPMessageHeaderExpires* h = new SIPMessageHeaderExpires();
+            auto h = new sip0x::protocol::SIPMessageHeaderExpires();
             extract_and_set_long(h->expires);
             _value.reset(h);
           }
           else if (param.compare("Max-Forwards") == 0) {
-            SIPMessageHeaderMax_Forwards* h = new SIPMessageHeaderMax_Forwards();
+            auto h = new sip0x::protocol::SIPMessageHeaderMax_Forwards();
             extract_and_set_long(h->max);
             _value.reset(h);
           }
           else if (param.compare("To") == 0 || param.compare("From") == 0 || param.compare("Contact") == 0) {
-            SIPMessageHeaderWithNameAddr* h = nullptr;
+            sip0x::protocol::SIPMessageHeaderWithNameAddr* h = nullptr;
             if (param.compare("To") == 0) {
-              h = new SIPMessageHeaderTo();
+              h = new sip0x::protocol::SIPMessageHeaderTo();
             }
             else if (param.compare("From") == 0) {
-              h = new SIPMessageHeaderFrom();
+              h = new sip0x::protocol::SIPMessageHeaderFrom();
             }
             else if (param.compare("Contact") == 0) {
-              h = new SIPMessageHeaderContact();
+              h = new sip0x::protocol::SIPMessageHeaderContact();
             }
             if (_children.size() >= 3) {
               FactoryContextNameAddr* nameAddr = dynamic_cast<FactoryContextNameAddr*>(_children[2]);
@@ -80,7 +80,7 @@ namespace sip0x
             _value.reset(h);
           }
           else if (param.compare("Via") == 0) {
-            SIPMessageHeaderVia* h = new SIPMessageHeaderVia();
+            auto h = new sip0x::protocol::SIPMessageHeaderVia();
             if (_children.size() >= 9) {
               h->protocol = _children[2]->text();
               h->version = _children[4]->text();
@@ -100,7 +100,7 @@ namespace sip0x
             _value.reset(h);
           }
           else {
-            SIPMessageHeaderGeneric* gen = new SIPMessageHeaderGeneric();
+            auto gen = new sip0x::protocol::SIPMessageHeaderGeneric();
             gen->_name = param;
             if (_children.size() >= 3) {
               gen->_value = _children[2]->text();

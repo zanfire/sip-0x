@@ -20,11 +20,11 @@ namespace sip0x
     };
 
    
-    class FactoryContextSIPMethod : public FactoryContextValue<SIPMethod> {
+    class FactoryContextSIPMethod : public FactoryContextValue<protocol::SIPMethod> {
     protected:
     public:
       virtual void create(std::string const& text) override {
-        _value = convSIPMethodFromChars(text.c_str());
+        _value = protocol::convSIPMethodFromChars(text.c_str());
       }
     };
 

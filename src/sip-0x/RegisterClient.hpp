@@ -19,9 +19,17 @@
 
 #include "UAC.hpp"
 
+#include "listeners\UAListener.hpp"
+
+#include <memory>
+#include <chrono>
 
 namespace sip0x
 {
+  namespace utils {
+    class Logger;
+  }
+
   //!
   //! \brief Keeps a registration to a REGISTRAR server
   //!
@@ -30,7 +38,7 @@ namespace sip0x
   //!
   //! \todo Design this 
   //!
-  class RegisterClient : public UAListener {
+  class RegisterClient : public listeners::UAListener, public std::enable_shared_from_this<RegisterClient> {
   public:
     //! Enumeration of all possible registration status.
     enum RegisterStatus {
@@ -41,7 +49,7 @@ namespace sip0x
     };
 
   protected:
-    std::shared_ptr<Logger> _logger;
+    std::shared_ptr<utils::Logger> _logger;
     UAC* _uac;
     // TODO: Needed it is a network stuff?
     std::string _registrar_server;
@@ -74,7 +82,7 @@ namespace sip0x
     std::string describe_status(void);
 
     //!
-    virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) override;
+    virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response) override;
 
     //! Utility method that returns a string for each RegisterStatus.
     static char const* to_string(RegisterStatus status);

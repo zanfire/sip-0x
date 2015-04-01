@@ -9,7 +9,7 @@ namespace sip0x
 {
   namespace parser
   {
-    class FactoryContextNameAddr : public FactoryContextValue<NameAddr> {
+    class FactoryContextNameAddr : public FactoryContextValue<sip0x::protocol::NameAddr> {
     public:
       virtual void create(std::string const& text) override {
         int idx = 1;

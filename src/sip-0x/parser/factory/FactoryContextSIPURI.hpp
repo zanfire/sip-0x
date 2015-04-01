@@ -9,7 +9,7 @@ namespace sip0x
 {
   namespace parser
   {
-    class FactoryContextUserInfo : public FactoryContextValue<SIPURI::UserInfo> {
+    class FactoryContextUserInfo : public FactoryContextValue<sip0x::protocol::SIPURI::UserInfo> {
     public:
       virtual void create(std::string const& /*text*/) override {
         if (_children.size() >= 2) {
@@ -24,7 +24,7 @@ namespace sip0x
       }
     };
 
-    class FactoryContextURIParameter : public FactoryContextValue<SIPURI::Param> {
+    class FactoryContextURIParameter : public FactoryContextValue<sip0x::protocol::SIPURI::Param> {
     public:
       virtual void create(std::string const& text) override {
         if (_children.size() == 3) {
@@ -37,11 +37,11 @@ namespace sip0x
       }
     };
 
-    class FactoryContextURIParameters : public FactoryContextValue<std::vector<SIPURI::Param>> {
+    class FactoryContextURIParameters : public FactoryContextValue<std::vector<sip0x::protocol::SIPURI::Param>> {
     public:
       virtual void create(std::string const& /*text*/) override {
         for (unsigned int i = 1; i < _children.size(); i++) {
-          FactoryContextValue<SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<SIPURI::Param>*>(_children[i]);
+          FactoryContextValue<sip0x::protocol::SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<sip0x::protocol::SIPURI::Param>*>(_children[i]);
           if (fcv != nullptr) {
             _value.push_back(fcv->get());
           }
@@ -74,7 +74,7 @@ namespace sip0x
       }
     };
 
-    class FactoryContextSIPURI : public FactoryContextValue<SIPURI> {
+    class FactoryContextSIPURI : public FactoryContextValue<sip0x::protocol::SIPURI> {
     public:
       virtual void create(std::string const& text) override {
         if (_children.size() >= 3) {

@@ -3,30 +3,32 @@
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
 
-#include <chrono>
+#include "protocol/SIPMessage.hpp"
 
 using namespace sip0x;
 using namespace sip0x::utils;
+using namespace sip0x::protocol;
 
 RegisterClient::RegisterClient(UAC* uac, std::string remote_server, int remote_port) :
-  UAListener(),
+  listeners::UAListener(),
   _uac(uac), _registrar_server(remote_server), _registrar_port(remote_port)
 {
   _logger = LoggerFactory::get_logger("sip0x.RegisterClient");
-  _uac->add_listener(this);
+  // TODO: How to handle this stuff .. :-/
+  //_uac->add_listener(this);
 }
 
-virtual ~RegisterClient(void) {
-  _uac->remove_listener(this);
+RegisterClient::~RegisterClient(void) {
+  //_uac->remove_listener(this);
 }
 
 //! Set the desired amount of seconds of REGISTER expires. 
-void set_desired_expires(uint32_t e) {
+void RegisterClient::set_desired_expires(uint32_t e) {
   _desired_expires_secs = e;
 }
 
 //! Starts the registration process and keep refresh.
-void on_process(void) {
+void RegisterClient::on_process(void) {
   if (_status == REG_STATUS_NOT_REGISTERED) {
     // RegClient is not registered, so try to register.
 
@@ -61,12 +63,12 @@ void on_process(void) {
   }
 }
 
-std::string describe_status(void) {
+std::string RegisterClient::describe_status(void) {
   return to_string(_status);
 }
 
 
-virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) override {
+void RegisterClient::on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {
   // Get expires timeout 
   if (response->is_success()) {
     // The expires could be placed in different places.
@@ -114,7 +116,7 @@ virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIP
   }
 }
 
-static char const* to_string(RegisterStatus status) {
+char const* RegisterClient::to_string(RegisterStatus status) {
   if (status == RegisterStatus::REG_STATUS_NOT_REGISTERED)        return "REG_STATUS_NOT_REGISTERED";
   else if (status == RegisterStatus::REG_STATUS_REGISTERED)       return "REG_STATUS_REGISTERED";
   else if (status == RegisterStatus::REG_STATUS_REGISTERING)      return "REG_STATUS_REGISTERING";

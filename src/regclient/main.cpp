@@ -1,6 +1,9 @@
 #include <thread>
 
-#include "sip-0x.hpp"
+#include "utils\Logger.hpp"
+#include "utils\LoggerFactory.hpp"
+#include "Endpoint.hpp"
+
 
 int main(int argc, char* argv[]) {
   sip0x::Utils::Log::LoggerFactory* loggermanager = sip0x::Utils::Log::LoggerFactory::get_instance();

@@ -18,6 +18,10 @@
 //!
 
 #include "UA.hpp"
+#include "listeners\TransactionListener.hpp"
+#include "protocol\SIPURI.hpp"
+
+#include <random>
 
 namespace sip0x
 {
@@ -28,7 +32,7 @@ namespace sip0x
   //! 
   //! \author Matteo Valdina  
   //!
-  class UAC : public UA, TransactionLayerResponseListener {
+  class UAC : public UA, listeners::TransactionLayerResponseListener {
   protected:
     std::default_random_engine _random_engine;
     std::uniform_int_distribution<int> _uniform_dist_Az;
@@ -38,25 +42,23 @@ namespace sip0x
     virtual ~UAC(void);
     
     //! Handle a SIP request.
-    void handle(std::shared_ptr<SIPRequest>& request);
+    void handle(std::shared_ptr<protocol::SIPRequest>& request);
 
     //!
     //! Transaction listener impl.
     //!
 
-    virtual void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) override {
-      raise_listener(tran, response);
-    }
+    virtual void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response);
 
     //!
     //! Request creation.
     //!
 
     //! Create a generic REQUEST for this UAC.
-    std::shared_ptr<SIPRequest> create_REQUEST(std::string const& callID, SIPURI request_URI, SIPMethod method);
+    std::shared_ptr<protocol::SIPRequest> create_REQUEST(std::string const& callID, protocol::SIPURI request_URI, protocol::SIPMethod method);
 
     //! Create a REGISTER request for this UAC.
-    std::shared_ptr<SIPRequest> create_REGISTER();
+    std::shared_ptr<protocol::SIPRequest> create_REGISTER();
 
     //!
     //! Utils

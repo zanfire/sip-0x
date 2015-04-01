@@ -12,6 +12,7 @@
 
 using namespace sip0x;
 using namespace sip0x::utils;
+using namespace sip0x::protocol;
 
 UA::UA(ApplicationDelegate* application_delegate, TransactionLayer* transaction, std::string domain, std::string useragent) :
   _application_delegate(application_delegate),
@@ -35,7 +36,7 @@ void UA::remove_listener(std::shared_ptr<listeners::UAListener>& listener) {
 }
 
 
-void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response) {
+void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {
   for (auto listener : _listeners) {
     listener->on_response(tran, response);
   }
@@ -43,7 +44,7 @@ void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<prot
 
 
 //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
-void UA::add_default_header_lines(protocol::SIPMessage* message) {
+void UA::add_default_header_lines(SIPMessage* message) {
   // Max-Forwards: 70
   std::shared_ptr<SIPMessageHeaderMax_Forwards> max_forward = std::make_shared<SIPMessageHeaderMax_Forwards>();
   max_forward->max = 70;
@@ -54,7 +55,7 @@ void UA::add_default_header_lines(protocol::SIPMessage* message) {
   message->headers.push_back(user_agent);
 }
 
-void UA::add_header_cseq(protocol::SIPMessage* message, protocol::SIPMethod method, int seq) {
+void UA::add_header_cseq(SIPMessage* message, SIPMethod method, int seq) {
   std::shared_ptr<SIPMessageHeaderCSeq> cseq = std::make_shared<SIPMessageHeaderCSeq>();
   cseq->seq = seq;
   cseq->method = method;
@@ -63,7 +64,7 @@ void UA::add_header_cseq(protocol::SIPMessage* message, protocol::SIPMethod meth
 }
 
 
-void UA::add_header_expires(protocol::SIPMessage* message, int expires) {
+void UA::add_header_expires(SIPMessage* message, int expires) {
   std::shared_ptr<SIPMessageHeaderExpires> e = std::make_shared<SIPMessageHeaderExpires>();
   e->expires = expires;
 
@@ -71,13 +72,13 @@ void UA::add_header_expires(protocol::SIPMessage* message, int expires) {
 }
 
 
-void UA::add_header_call_ID(protocol::SIPMessage* message, std::string const& callID) {
+void UA::add_header_call_ID(SIPMessage* message, std::string const& callID) {
   std::shared_ptr<SIPMessageHeaderCall_ID> call_ID = std::make_shared<SIPMessageHeaderCall_ID>();
   call_ID->callID = callID;
   message->headers.push_back(call_ID);
 }
 
-void UA::add_header_via(protocol::SIPMessage* message, char const* transport, char const* branch) {
+void UA::add_header_via(SIPMessage* message, char const* transport, char const* branch) {
   // Via: SIP/2.0/UDP bobspc.biloxi.com:5060;branch=z9hG4bKnashds7
   std::shared_ptr<SIPMessageHeaderVia> via = std::make_shared<SIPMessageHeaderVia>();
   via->protocol = "SIP";
@@ -89,7 +90,7 @@ void UA::add_header_via(protocol::SIPMessage* message, char const* transport, ch
 
 }
 
-void UA::add_content(protocol::SIPMessage* message, uint8_t* content, std::size_t size) {
+void UA::add_content(SIPMessage* message, uint8_t* content, std::size_t size) {
   // Content-Length: 0
   std::shared_ptr<SIPMessageHeaderContent_Length> content_length = std::make_shared<SIPMessageHeaderContent_Length>();
   content_length->length = size;

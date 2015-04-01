@@ -53,7 +53,7 @@ void run_sip(std::string input) {
   InputTokenStream iss(input);
   
   auto t1 = std::chrono::high_resolution_clock::now();
-  std::shared_ptr<sip0x::SIPMessage> message = Parser::parse(iss);
+  std::shared_ptr<sip0x::protocol::SIPMessage> message = Parser::parse(iss);
   auto t2 = std::chrono::high_resolution_clock::now();
 
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);

@@ -117,7 +117,7 @@ std::shared_ptr<Transaction> TransactionLayer::create_transaction(std::shared_pt
     tran = std::make_shared<Transaction>();
     tran->origin_remote = origin_remote;
     tran->connection = connection;
-    tran->id = sip0x::to_string(request->method) + "_" + branch;
+    tran->id = sip0x::protocol::to_string(request->method) + "_" + branch;
     // TODO: Add check against present branch
     _transactions[tran->id] = tran;
   }
@@ -134,12 +134,12 @@ std::shared_ptr<Transaction> TransactionLayer::get_transaction(std::shared_ptr<S
     std::string method;
     if (message->is_request) {
       SIPRequest const* req = dynamic_cast<SIPRequest const*>(message.get());
-      method = sip0x::to_string(req->method);
+      method = sip0x::protocol::to_string(req->method);
     }
     else {
       std::shared_ptr<SIPMessageHeaderCSeq> cseq = message->get_first<SIPMessageHeaderCSeq>();
       if (cseq != nullptr) {
-        method = sip0x::to_string(cseq->method);
+        method = sip0x::protocol::to_string(cseq->method);
       }
     }
     if (!method.empty()) {

@@ -7,7 +7,7 @@ namespace sip0x
 {
   class Transaction;
   
-  namespace Protocol {
+  namespace protocol {
     class SIPRequest;
     class SIPResponse;
   }
