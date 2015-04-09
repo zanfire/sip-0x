@@ -34,9 +34,10 @@ void Connection::connect(asio::ip::tcp::resolver::iterator endpoint_iterator) {
   asio::connect(_socket, endpoint_iterator);
 }
 
-void close(void) {
 
+void Connection::close(void) {
 }
+
 
 void Connection::async_connect(asio::ip::tcp::resolver::iterator endpoint_iterator) {
   asio::async_connect(_socket, endpoint_iterator,

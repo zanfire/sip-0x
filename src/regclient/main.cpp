@@ -4,9 +4,8 @@
 #include "utils\LoggerFactory.hpp"
 #include "Endpoint.hpp"
 
-
 int main(int argc, char* argv[]) {
-  sip0x::Utils::Log::LoggerFactory* loggermanager = sip0x::Utils::Log::LoggerFactory::get_instance();
+  sip0x::utils::LoggerFactory* loggermanager = sip0x::utils::LoggerFactory::get_instance();
   loggermanager->configure("..\\..\\..\\docs\\logger.ini");
 
   std::cout << "REGISTER client\n\n";
@@ -15,9 +14,9 @@ int main(int argc, char* argv[]) {
   std::string registrar_server = "127.0.0.1";
   int registrar_port = 5060;
 
-  sip0x::Logic::Endpoint endpoint;
+  sip0x::Endpoint endpoint;
   
-  sip0x::Logic::Endpoint::EndpointConfig config;
+  sip0x::Endpoint::EndpointConfig config;
 
   config.bind_address = "127.0.0.1";
   config.bind_port = 55060;
