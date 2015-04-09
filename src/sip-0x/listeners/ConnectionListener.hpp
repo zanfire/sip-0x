@@ -1,5 +1,5 @@
-#if !defined(SIP0X_LOGIC_UALISTENER_HPP__)
-#define SIP0X_LOGIC_UALISTENER_HPP__
+#if !defined(SIP0X_CONNECTIONLISTENER_HPP__)
+#define SIP0X_CONNECTIONLISTENER_HPP__
 
 #include <memory>
 
@@ -17,4 +17,4 @@ namespace sip0x
   }
 }
 
-#endif // SIP0X_LOGIC_UALISTENER_HPP__
+#endif // SIP0X_CONNECTIONLISTENER_HPP__

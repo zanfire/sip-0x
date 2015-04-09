@@ -418,5 +418,6 @@
     <ClCompile Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessage.cpp">
       <Filter>parser\factory</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\sip-0x\Endpoint.cpp" />
   </ItemGroup>
 </Project>
