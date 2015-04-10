@@ -60,7 +60,7 @@ namespace sip0x
     bool _initialized = false;
     UAC* _uac = nullptr;
     UAS* _uas = nullptr;
-    TransportLayer* _transport = nullptr;
+    std::shared_ptr<TransportLayer> _transport = nullptr;
     TransactionLayer* _transaction = nullptr;
     std::set<RegisterClient*> _register_clients;
     //std::set<Call> _calls;

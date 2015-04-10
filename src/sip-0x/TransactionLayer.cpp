@@ -15,7 +15,7 @@ using namespace sip0x::utils;
 using namespace sip0x::protocol;
 
 
-TransactionLayer::TransactionLayer(TransportLayer* transport) :
+TransactionLayer::TransactionLayer(std::shared_ptr<TransportLayer>& transport) :
     TransportListener(),
     _transport(transport) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.TransactionLayer");

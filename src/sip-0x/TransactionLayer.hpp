@@ -49,7 +49,6 @@ namespace sip0x
   //! 
   //! Process REQUEST and RESPONSE. 
   class TransactionLayer : public sip0x::listeners::TransportListener {
-    
   protected:
     std::shared_ptr<utils::Logger> _logger;
     // Listener
@@ -58,10 +57,10 @@ namespace sip0x
     // Transactions.
     std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
     // Transport
-    TransportLayer* _transport;
+    std::shared_ptr<TransportLayer> _transport;
 
   public:
-    TransactionLayer(TransportLayer* transport);
+    TransactionLayer(std::shared_ptr<TransportLayer>& transport);
     virtual ~TransactionLayer(void);
 
     void set_listener_request(listeners::TransactionLayerRequestListener* listener) { _listener_request = listener; }
