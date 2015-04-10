@@ -21,10 +21,12 @@ using namespace sip0x::utils;
 
 Endpoint::Endpoint(void) {
   _logger = LoggerFactory::get_logger("sip0x.Endpoint");
+  LOG_DEBUG(_logger, "Endpoint ctor.");
 }
 
 
 Endpoint::~Endpoint(void) {
+  LOG_DEBUG(_logger, "Endpoint dtor.");
 }
 
 
@@ -34,7 +36,7 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
     return false;
   }
   // Initialize transport layer.
-  _transport = new TransportLayer(configuration.bind_address, configuration.bind_port);
+  _transport = TransportLayer::create(configuration.bind_address, configuration.bind_port);
   _transport->start();
   // Initialize transaction layer
   _transaction = new TransactionLayer(_transport);
@@ -53,10 +55,6 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
 bool Endpoint::unitialize(void) {
   // TODO: Unregister RegisterClients.
 
-  // TODO: Delete transport
-  delete _transport;
-  _transport = nullptr;
-  // TODO: delete thread
   delete _thread;
   _thread = nullptr;
   // TODO: delete UAC and move to the right place.
@@ -72,12 +70,10 @@ bool Endpoint::unitialize(void) {
 //! \arg remote_port remote port.
 //! \arg refresh_timeout_secs is desired refresh timeout in seconds.
 void Endpoint::register_to(std::string contact, std::string remote_server, int remote_port, uint32_t refresh_timeout_secs) {
-  // TODO: Check if a registration was established.
-        
+  LOG_DEBUG(_logger, "Endpoint (contact: %s) will register to %s:%d each %u seconds.", contact.c_str(), remote_server.c_str(), remote_port, refresh_timeout_secs);
   // Create a register client and start processing.
-        
   RegisterClient* reg = new RegisterClient(_uac, remote_server, remote_port);
-  reg->set_desired_expires(refresh_timeout_secs); // TODO:  Move to ctor.
+  reg->set_desired_expires(refresh_timeout_secs);
         
   _mtx.lock();
   _register_clients.insert(reg);

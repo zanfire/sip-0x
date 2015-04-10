@@ -27,8 +27,16 @@ namespace sip0x
   }
 
 
-  class TransportLayer : public listeners::ConnectionListener, std::enable_shared_from_this<TransportLayer> {
+  class TransportLayer : public listeners::ConnectionListener, public std::enable_shared_from_this<TransportLayer> {
+
   protected:
+    friend class deleter;
+
+    class deleter {
+    public:
+      void operator()(TransportLayer* ptr) { delete ptr; }
+    };
+
     // Infrastructure
     std::shared_ptr<utils::Logger> _logger;
     std::shared_ptr<utils::Logger> _logger_siptrace;
@@ -47,9 +55,7 @@ namespace sip0x
     listeners::TransportListener* _listener = nullptr;
 
   public:
-    //! \todo Use bind address
-    TransportLayer(std::string const& bind_address, int const& bind_port);
-    virtual ~TransportLayer(void);
+    static std::shared_ptr<TransportLayer> create(std::string const& bind_address, int bind_port);
 
     // TODO: Revise this listener (add, shared_ptr).
     void set_listener(listeners::TransportListener* l)  { _listener = l; }
@@ -66,8 +72,13 @@ namespace sip0x
     void process(void);
     void async_accept(void);
     virtual void on_incoming_data(std::shared_ptr<utils::Connection> conn, uint8_t const* buffer, std::size_t const size) override;
-    std::shared_ptr<utils::Connection> connect(std::string address, int port);
-    uint32_t resolve(std::string address);
+    std::shared_ptr<utils::Connection> connect(std::string const& address, int port);
+    uint32_t resolve(std::string const& address);
+
+  protected:
+    //! \todo Use bind address
+    TransportLayer(std::string const& bind_address, int bind_port);
+    virtual ~TransportLayer(void);
   };
 }
 

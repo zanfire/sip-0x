@@ -17,8 +17,12 @@ using namespace sip0x;
 using namespace sip0x::utils;
 using namespace sip0x::protocol;
 
+std::shared_ptr<TransportLayer> TransportLayer::create(std::string const& bind_address, int bind_port) {
+  return std::shared_ptr<TransportLayer>(new TransportLayer(bind_address, bind_port), TransportLayer::deleter());
+}
 
-TransportLayer::TransportLayer(std::string const& bind_address, int const& bind_port) :
+
+TransportLayer::TransportLayer(std::string const& bind_address, int bind_port) :
   ConnectionListener(),
   std::enable_shared_from_this<TransportLayer>(),
   _bind_address(bind_address),
@@ -192,7 +196,7 @@ void TransportLayer::on_incoming_data(std::shared_ptr<utils::Connection> conn, u
   }
 }
 
-std::shared_ptr<Connection> TransportLayer::connect(std::string address, int port) {
+std::shared_ptr<Connection> TransportLayer::connect(std::string const& address, int port) {
   asio::ip::tcp::resolver resolver(_io_service);
   auto endpoint_iterator = resolver.resolve({ address, std::to_string(port) });
 
@@ -203,7 +207,7 @@ std::shared_ptr<Connection> TransportLayer::connect(std::string address, int por
 }
 
 
-uint32_t TransportLayer::resolve(std::string address) {
+uint32_t TransportLayer::resolve(std::string const& address) {
   asio::ip::tcp::resolver resolver(_io_service);
   asio::ip::tcp::resolver::query query(address, "");
   for (asio::ip::tcp::resolver::iterator i = resolver.resolve(query); i != asio::ip::tcp::resolver::iterator(); ++i)

@@ -43,6 +43,6 @@ std::shared_ptr<Connection> ConnectionManager::get(uint32_t remote_ip, uint16_t 
   }
   _mtx.lock();
   void* c = connection.get();
-  LOG_DEBUG(_logger, "Searching a connection %hhu.%hhu.%hhu.%hhu:%hu, result %p.", remote_ip, remote_ip >> 8, remote_ip >> 16 , remote_ip >> 24, remote_port, connection.get());
+  LOG_DEBUG(_logger, "Searching a connection %hhu.%hhu.%hhu.%hhu:%hu, result %p.", (unsigned char)(remote_ip >> 24), (unsigned char)(remote_ip >> 16), (unsigned char)(remote_ip >> 8), (unsigned char)(remote_ip), remote_port, connection.get());
   return connection;
 }
