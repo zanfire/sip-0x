@@ -38,7 +38,7 @@ namespace sip0x
       InputTokenStream(InputTokenStream const&) = delete;
 
       // Returns the current position in the content.
-      int pos(void) { return _pos; }
+      unsigned long pos(void) { return _pos; }
 
       // Returns the number of chars available to get.
       int remains(void) { return _size - _pos; }

@@ -26,7 +26,7 @@ int main(int argc, char* argv[]) {
   // Initialize.
   endpoint.initialize(config);
   
-  std::chrono::milliseconds ms(3000);
+  std::chrono::milliseconds ms(30000);
   // Never ending loops.
   while (true) {
     std::cout << "Status: " << endpoint.describe_status() << '\n';

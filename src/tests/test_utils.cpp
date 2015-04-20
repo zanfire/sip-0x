@@ -48,7 +48,7 @@ void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
 }
 
 
-void run_sip(std::string input) {
+bool run_sip(std::string input) {
   //cout << "Parsing string\n" << input << "\n";
   InputTokenStream iss(input);
   
@@ -59,9 +59,11 @@ void run_sip(std::string input) {
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
   if (message != nullptr) {
     std::cout << "Successfully parsed SIP message in " << ms.count() << "ms\n";
+    return true;
   }
   else {
     std::cout << "Failed parsed SIP message in " << ms.count() << "ms\n";
+    return false;
   }
 
   /*

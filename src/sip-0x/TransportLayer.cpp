@@ -180,7 +180,7 @@ void TransportLayer::on_incoming_data(std::shared_ptr<utils::Connection> conn, u
 
   if (message == nullptr) {
     if (_logger_siptrace->get_level() >= Logger::LEVEL_DEBUG) {
-      LOG_DEBUG(_logger_siptrace, "Received un-decoded data: %s", iss.str());
+      LOG_DEBUG(_logger_siptrace, "Received un-decoded data: %s", iss.str().c_str());
     }
     else {
       LOG_WARN(_logger_siptrace, "Received un-decoded data.");

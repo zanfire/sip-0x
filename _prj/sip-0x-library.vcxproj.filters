@@ -382,6 +382,9 @@
     <ClInclude Include="..\src\sip-0x\listeners\TransactionListener.hpp">
       <Filter>listeners</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\utils.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp">

@@ -1,4 +1,14 @@
+--BEGIN--
+REGISTER sip:127.0.0.1:5060 SIP/2.0
+Via: SIP/2.0/TCP 127.0.0.1;branch=z9hG4bK_kMeJcNrmerawTLevhmvIUGMrklxsKMI
+Max-Forwards: 70
+User-Agent: sip0x-ua
+CSeq: 1 REGISTER
+Call-ID: ecfVebFtpkEApbV@127.0.0.1
+Content-Length: 0
+Expires: 3
 
+--END--
 --BEGIN--
 REGISTER sip:127.0.0.1:5060 SIP/2.0
 Via: SIP/2.0/TCP ;branch=z9hG4bKnashds7
@@ -13,7 +23,6 @@ ACK sip:bob:pwd@192.0.2.4:5060;method=INVITE?in=true&out=false SIP/2.0
 From: Alice <sip:alice@atlanta.com>;tag=1928301774
 
 --END--
-
 --BEGIN--
 ACK sip:bob@192.0.2.4 SIP/2.0
 Via: SIP/2.0/UDP pc33.atlanta.com;branch=z9hG4bKnashds9

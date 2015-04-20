@@ -15,8 +15,8 @@ int main(int argc, char const* argv[]) {
 
   cout << "sip-0x library tests..." << endl;
 
-  //test_sipmessages_from_file("..\\tests\\sip_requests.txt");
-  //test_sipmessages_from_file("..\\tests\\sip_responses.txt");
+  test_sipmessages_from_file("..\\tests\\sip_requests.txt", true);
+  test_sipmessages_from_file("..\\tests\\sip_responses.txt", false);
  
   test_token_sip_message();
   test_token_sipuri();
