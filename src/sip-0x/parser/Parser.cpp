@@ -9,11 +9,10 @@
 using namespace sip0x::parser;
 
 // Initialize statically the grammar. 
-TokenAbstract* Parser::sip_grammar = new TokenSIPMessage();
+TokenAbstract* Parser::sip_grammar = nullptr; 
 
 
 ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract const& root, FactoryContext* factory) {
-
 #if defined(ENABLE_PARSER_LOGGING)
   std::shared_ptr<Logger> logger = LoggerFactory::get_logger("sip0x.Parser.Parser");
   LOG_DEBUG(logger, "Parsing string \"%s\".", iss.str());
@@ -34,7 +33,7 @@ ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract co
 std::shared_ptr<sip0x::protocol::SIPMessage> Parser::parse(sip0x::utils::InputTokenStream& iss) {
   
   FactoryContext ctx;
-
+  if (sip_grammar == nullptr) sip_grammar = new TokenSIPMessage();
   ParserResult res = parse(iss, *sip_grammar, &ctx);
   if (res.success()) {
     FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
