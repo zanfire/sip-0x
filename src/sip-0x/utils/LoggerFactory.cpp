@@ -18,20 +18,30 @@ LoggerFactory::~LoggerFactory(void) {
   delete _mtx;
 }
 
-std::shared_ptr<Logger> LoggerFactory::get_logger(char const* name) {
+std::shared_ptr<Logger> LoggerFactory::get_logger(char const* n) {
+  std::string name(n);
+
   LoggerFactory* manager = get_instance();
 
   std::lock_guard<std::recursive_mutex> lock(*manager->_mtx);
+  std::size_t pos = std::string::npos;
+  // Search on sub-token
+  do {
+    // NOTE: Using count method to avoid the creation that happen with the operator[].
+    if (manager->_loggers.count(name) > 0) {
+      return manager->_loggers[name];
+    }
+    pos = name.find_last_of('.');
+    if (pos != std::string::npos) {
+      name = name.substr(0, pos);
+    }
+  } while (pos != std::string::npos);
 
-  std::shared_ptr<Logger> logger = manager->_loggers[name];
-  if (!logger) {
-    // Load configuration details 
-    logger = Logger::create(name, &std::cout);
-    logger->set_level(manager->_default_level);
 
-    manager->_loggers[name] = logger;
-  }
-
+  // Load configuration details, using the given name (n) instead of modified name.
+  std::shared_ptr<Logger> logger = Logger::create(n, &std::cout);
+  logger->set_level(manager->_default_level);
+  manager->_loggers[n] = logger;
   return logger;
 }
 

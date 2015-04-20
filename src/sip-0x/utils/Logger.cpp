@@ -30,7 +30,7 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
   struct tm timeinfo;
   time(&raw_time);
   localtime_s(&timeinfo, &raw_time);
-  strftime(timebuf, sizeof(timebuf), "%Y-%m-%d %H:%M:%S", &timeinfo);
+  strftime(timebuf, sizeof(timebuf), "%Y%m%d_%H%M%S", &timeinfo);
 
   int filename_len = strlen(filename);
   char const* truncated_filename = filename;
@@ -40,7 +40,7 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
   }
   truncated_filename += i + 1;
 
-  sprintf_s(buffer, sizeof(buffer), "%-22s|%5s|%s:%-4d|", timebuf, conv_level_to_chars(level), truncated_filename, line);
+  sprintf_s(buffer, sizeof(buffer), "%-16s|%s|%s:%-4d|", timebuf, conv_level_to_chars(level), truncated_filename, line);
           
   *_out << buffer;
   buffer[0] = '\n';
@@ -56,10 +56,10 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
 }
 
 char const* Logger::conv_level_to_chars(LoggerLevel const& level) {
-  if (level == Logger::LEVEL_DEBUG) return "DEBUG";
-  if (level == Logger::LEVEL_INFO) return "INFO";
-  if (level == Logger::LEVEL_WARN) return "WARN";
-  if (level == Logger::LEVEL_ERROR) return "ERROR";
-  if (level == Logger::LEVEL_FATAL) return "FATAL";
-  return "UNKNOWN";
+  if (level == Logger::LEVEL_DEBUG) return "D";
+  if (level == Logger::LEVEL_INFO)  return "I";
+  if (level == Logger::LEVEL_WARN)  return "W";
+  if (level == Logger::LEVEL_ERROR) return "E";
+  if (level == Logger::LEVEL_FATAL) return "F";
+  return "U";
 }
