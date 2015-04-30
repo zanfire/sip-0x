@@ -62,7 +62,7 @@ namespace sip0x
     UAS* _uas = nullptr;
     std::shared_ptr<TransportLayer> _transport = nullptr;
     TransactionLayer* _transaction = nullptr;
-    std::set<RegisterClient*> _register_clients;
+    std::set<std::shared_ptr<RegisterClient>> _register_clients;
     //std::set<Call> _calls;
     //UserService _location_service;
     //RoutingService

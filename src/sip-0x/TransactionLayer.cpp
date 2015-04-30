@@ -35,7 +35,7 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
       tran = create_transaction(request, connection, true);
     }
     if (tran != nullptr) {
-      process_request(tran, request);
+      process_request(tran, request, false);
     }
     else {
       LOG_INFO(_logger, "Ignoring request, transaction not available");
@@ -45,7 +45,7 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
     auto response = std::dynamic_pointer_cast<SIPResponse>(message);
     std::shared_ptr<Transaction> tran = get_transaction(message);
     if (tran != nullptr) {
-      process_response(tran, response);
+      process_response(tran, response, false);
     }
     else {
       LOG_INFO(_logger, "Ignoring response, transaction not available");
@@ -54,7 +54,7 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
 }
 
 
-void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPRequest>& request) {
+void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPRequest>& request, bool forward_to_transport) {
   bool accepted = transaction->update_state_machine(request, false, false);
   if (accepted) {
     // TODO: handling retransmission.
@@ -62,45 +62,28 @@ void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction
     if (transaction->origin_remote) {
       _listener_request->on_incoming_request(transaction, request);
     }
-    else {
-      // Send to the NETWORK!!!
+    
+    if (forward_to_transport) {
       _transport->send(transaction, request);
     }
   }
-}
-
-/*
-void process_response(std::shared_ptr<SIPResponse>& response, bool from_remote, void* opaque_data) {
-  std::shared_ptr<Transaction> tran = get_transaction(response);
-  if (tran != nullptr) {
-    TransactionState prev_state = tran->state;
-    bool accepted = tran->update_state_machine(response, false, false);
-    if (accepted) {
-      if (from_remote) {
-        _listener_response->on_incoming_response(tran, response);
-      }
-      else {
-        // Send to the NETWORK!!!
-        _transport->send(response, opaque_data);
-      }
-    }
+  else {
+    LOG_WARN(_logger, "Transaction@%p doesn't accept request@%p", transaction.get(), request.get());
   }
 }
-*/
 
-void TransactionLayer::process_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {
-  if (tran != nullptr) {
-    TransactionState prev_state = tran->state;
-      bool accepted = tran->update_state_machine(response, false, false);
-      if (accepted) {
-      if (tran->origin_remote) {
-        _listener_response->on_incoming_response(tran, response);
-      }
-      else {
-        // Send to the NETWORK!!!
-        _transport->send(tran, response);
-      }
+
+void TransactionLayer::process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPResponse>& response, bool forward_to_transport) {
+  TransactionState prev_state = transaction->state;
+  bool accepted = transaction->update_state_machine(response, false, false);
+  if (accepted) {
+    _listener_response->on_incoming_response(transaction, std::dynamic_pointer_cast<SIPResponse const>(response));
+    if (forward_to_transport) {
+      _transport->send(transaction, response);
     }
+  }
+  else {
+    LOG_WARN(_logger, "Transaction@%p doesn't accept request@%p", transaction.get(), response.get());
   }
 }
 

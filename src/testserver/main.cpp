@@ -14,7 +14,9 @@ int main(int argc, char* argv[]) {
 
   sip0x::Endpoint endpoint;
   // Callbacks.
-  endpoint.set_cb_registrar_update([](std::shared_ptr<sip0x::protocol::SIPRequest>&) { return true; });
+  endpoint.set_cb_registrar_update([](std::shared_ptr<sip0x::protocol::SIPRequest>&) { 
+    return true; 
+  });
   endpoint.set_cb_registrar_get_expires([](std::shared_ptr<sip0x::protocol::SIPRequest>&) { return 30; });
   // Configuration.
   sip0x::Endpoint::EndpointConfig config;

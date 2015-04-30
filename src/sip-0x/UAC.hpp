@@ -48,7 +48,7 @@ namespace sip0x
     //! Transaction listener impl.
     //!
 
-    virtual void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response);
+    virtual void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response) override;
 
     //!
     //! Request creation.

@@ -3,6 +3,8 @@
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
 
+#include "parser/Parser.hpp"
+
 #include "RegisterClient.hpp"
 #include "UAC.hpp"
 #include "UAS.hpp"
@@ -35,6 +37,9 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
     LOG_WARN(_logger, "Skipping initialization because Endpoint was initialized.");
     return false;
   }
+  // Pre-load SIP grammar.
+  parser::Parser::load_grammar();
+
   // Initialize transport layer.
   _transport = TransportLayer::create(configuration.bind_address, configuration.bind_port);
   _transport->start();
@@ -72,11 +77,12 @@ bool Endpoint::unitialize(void) {
 void Endpoint::register_to(std::string contact, std::string remote_server, int remote_port, uint32_t refresh_timeout_secs) {
   LOG_DEBUG(_logger, "Endpoint (contact: %s) will register to %s:%d each %u seconds.", contact.c_str(), remote_server.c_str(), remote_port, refresh_timeout_secs);
   // Create a register client and start processing.
-  RegisterClient* reg = new RegisterClient(_uac, remote_server, remote_port);
-  reg->set_desired_expires(refresh_timeout_secs);
+  std::shared_ptr<RegisterClient> regclient = RegisterClient::create(_uac, remote_server, remote_port);
+  regclient->set_desired_expires(refresh_timeout_secs);
+  regclient->start();
         
   _mtx.lock();
-  _register_clients.insert(reg);
+  _register_clients.insert(regclient);
   _mtx.unlock();
 }
 

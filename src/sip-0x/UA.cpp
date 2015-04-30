@@ -36,7 +36,7 @@ void UA::remove_listener(std::shared_ptr<listeners::UAListener>& listener) {
 }
 
 
-void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse>& response) {
+void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse const>& response) {
   for (auto listener : _listeners) {
     listener->on_response(tran, response);
   }

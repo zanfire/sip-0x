@@ -49,17 +49,17 @@ void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
       add_header_expires(response.get(), expires);
     }
 
-    _transaction->process_response(transaction, response);
+    _transaction->process_response(transaction, response, true);
+    return;
   }
   else {
-    // Create an reject response
+    // Create a reject response
   }
 
   // Create reject
   // Create a valid response.
   std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 500, "Server error");
-
-  _transaction->process_response(transaction, response);
+  _transaction->process_response(transaction, response, true);
 }
 
 

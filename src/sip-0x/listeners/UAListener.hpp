@@ -16,8 +16,8 @@ namespace sip0x
 
     class UAListener {
     public:
-      virtual void on_request(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPRequest>& request) {}
-      virtual void on_response(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPResponse>& response) {};
+      virtual void on_request(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPRequest const>& request) {}
+      virtual void on_response(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPResponse const>& response) {};
     };
   }
 }

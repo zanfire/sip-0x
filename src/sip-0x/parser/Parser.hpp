@@ -1,12 +1,10 @@
 #if !defined(SIP0X_PARSER_PARSER_HPP__)
 #define SIP0X_PARSER_PARSER_HPP__
 
-//#include "parser/factory/FactoryContext.hpp"
-//#include "parser/tokens/TokenAbstract.hpp"
-
 #include "utils/InputTokenStream.hpp"
 #include "parser/ParserResult.hpp"
 
+#include <mutex>
 
 namespace sip0x
 {
@@ -24,8 +22,16 @@ namespace sip0x
     class FactoryContext;
 
     class Parser {
+    private:
+      static std::recursive_mutex _sigleton_mtx;
+      static TokenAbstract* _sip_grammar;
+
+      Parser(void) {}
+      virtual ~Parser(void) {}
+
     public:
-      static TokenAbstract* sip_grammar;
+      //! Load grammar of SIP parser. This is high recommended because grammar load phase take several seconds.
+      static void load_grammar(void);
 
       //! Parse an input stream using the grammar root and building structure from factory.
       static ParserResult parse(sip0x::utils::InputTokenStream& iss, TokenAbstract const& root, FactoryContext* factory);

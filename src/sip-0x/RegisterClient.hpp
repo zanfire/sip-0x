@@ -20,14 +20,19 @@
 #include "UAC.hpp"
 
 #include "listeners\UAListener.hpp"
+#include "utils\utils.hpp"
 
 #include <memory>
 #include <chrono>
+#include <condition_variable>
 
 namespace sip0x
 {
   namespace utils {
     class Logger;
+  }
+  namespace protocol {
+    class SIPResponse;
   }
 
   //!
@@ -38,7 +43,9 @@ namespace sip0x
   //!
   //! \todo Design this 
   //!
-  class RegisterClient : public listeners::UAListener, public std::enable_shared_from_this<RegisterClient> {
+  class RegisterClient : public listeners::UAListener, public std::enable_shared_from_this<RegisterClient>, public sip0x::utils::enable_protected_dtor<RegisterClient> {
+    friend class sip0x::utils::enable_protected_dtor < RegisterClient > ;
+
   public:
     //! Enumeration of all possible registration status.
     enum RegisterStatus {
@@ -50,6 +57,7 @@ namespace sip0x
 
   protected:
     std::shared_ptr<utils::Logger> _logger;
+    std::recursive_mutex _mtx;
     UAC* _uac;
     // TODO: Needed it is a network stuff?
     std::string _registrar_server;
@@ -66,13 +74,15 @@ namespace sip0x
     RegisterStatus _status = REG_STATUS_NOT_REGISTERED;
     //!
     std::chrono::steady_clock::time_point _last_success_regsitration;
-      
-    //
-    //Transaction _curren_transaction;
+    //! Last unprocessed response.
+    std::shared_ptr<protocol::SIPResponse> _last_unporcessed_response;
 
-  public:
+  protected:
     RegisterClient(UAC* uac, std::string remote_server, int remote_port);
     virtual ~RegisterClient(void);
+  public:
+
+    void start(void);
 
     //! Set the desired amount of seconds of REGISTER expires. 
     void set_desired_expires(uint32_t e);
@@ -80,9 +90,8 @@ namespace sip0x
     //! Starts the registration process and keep refresh.
     void on_process(void);
     std::string describe_status(void);
-
     //!
-    virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response) override;
+    virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response) override;
 
     //! Utility method that returns a string for each RegisterStatus.
     static char const* to_string(RegisterStatus status);

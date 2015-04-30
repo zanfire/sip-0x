@@ -8,18 +8,26 @@
 
 using namespace sip0x::parser;
 
-// Initialize statically the grammar. 
-TokenAbstract* Parser::sip_grammar = nullptr; 
+std::recursive_mutex Parser::_sigleton_mtx;
+// Don't initialize statically sip grammar because it's depends on other 
+// statics (regex expressions). So, this lead to an incomplete initialization.
+TokenAbstract* Parser::_sip_grammar = nullptr; 
 
+void Parser::load_grammar(void) {
+  if (_sip_grammar != nullptr) return; // Loaded 
+  _sigleton_mtx.lock();
+  if (_sip_grammar == nullptr) {
+    _sip_grammar = new TokenSIPMessage();
+  }
+  _sigleton_mtx.unlock();
+}
 
 ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract const& root, FactoryContext* factory) {
 #if defined(ENABLE_PARSER_LOGGING)
   std::shared_ptr<Logger> logger = LoggerFactory::get_logger("sip0x.Parser.Parser");
   LOG_DEBUG(logger, "Parsing string \"%s\".", iss.str());
 #endif
-
   ParserResult result = root.read(iss, factory);
-
   if (!iss.eof()) {
     // No consumed all input.
     int cur_pos = iss.pos();
@@ -33,8 +41,8 @@ ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract co
 std::shared_ptr<sip0x::protocol::SIPMessage> Parser::parse(sip0x::utils::InputTokenStream& iss) {
   
   FactoryContext ctx;
-  if (sip_grammar == nullptr) sip_grammar = new TokenSIPMessage();
-  ParserResult res = parse(iss, *sip_grammar, &ctx);
+  load_grammar();
+  ParserResult res = parse(iss, *_sip_grammar, &ctx);
   if (res.success()) {
     FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
     if (message != nullptr) {
@@ -47,36 +55,3 @@ std::shared_ptr<sip0x::protocol::SIPMessage> Parser::parse(sip0x::utils::InputTo
   }
   return nullptr;
 }
-
-/*
-ParserResult parse(std::string text, TokenAbstract& root, FactoryContext* factory) {
-sip0x::utils::InputTokenStream iss(text);
-return parse(iss, root, factory);
-}
-
-sip0x::SIPMessage* parse_sip_message(sip0x::utils::InputTokenStream&  iss) {
-static TokenSIPMessage sip; // Expensive to build
-FactoryContext ctx;
-
-ParserResult res = parse(iss, sip, &ctx);
-if (res.successes) {
-FactoryContextSIPMessage* message = dynamic_cast<FactoryContextSIPMessage*>(ctx._children[0]);
-if (message != nullptr) {
-if (message->is_request()) {
-return new SIPRequest(message->request());
-}
-else {
-return new SIPResponse(message->response());
-}
-}
-}
-
-return nullptr;
-}
-
-
-sip0x::SIPMessage* parse_sip_message(std::string text) {
-sip0x::utils::InputTokenStream iss(text);
-return parse_sip_message(iss);
-}
-*/

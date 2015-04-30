@@ -144,6 +144,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\sip-0x\Endpoint.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessage.cpp" />
+    <ClCompile Include="..\src\sip-0x\protocol\SIPMessage.cpp" />
     <ClCompile Include="..\src\sip-0x\RegisterClient.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\Parser.cpp" />
     <ClCompile Include="..\src\sip-0x\parser\ParserResult.cpp" />

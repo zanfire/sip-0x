@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <ostream>
+#include <memory>
 
 #include "protocol/SIPURI.hpp"
 #include "protocol/SIPMethod.hpp"
@@ -19,17 +20,12 @@ namespace sip0x
       std::vector<std::shared_ptr<SIPMessageHeaderBase>> headers;
       std::vector<uint8_t> content;
 
-      virtual std::string to_string(void) const {
-        std::string out;
-        for (auto h : headers) {
-          out += h->to_string();
-        }
-        out += "\r\n";
-        //for (auto c : content) {
-        //  stream.put(c);
-        //}
-        return out;
-      }
+      SIPMessage(void) {}
+      virtual ~SIPMessage(void) {}
+
+      virtual std::string to_string(void) const;
+      SIPMessage* clone(void) const;
+      std::string get_Via_branch(void) const;
 
       //! Get or create an occurrence of given header line
       template<typename T>
@@ -49,7 +45,7 @@ namespace sip0x
       }
 
       template<typename T>
-      std::shared_ptr<T> get_first(void) {
+      std::shared_ptr<T> get_first(void) const {
         // Search and returns the first occurrence.
         for (std::shared_ptr<SIPMessageHeaderBase> h : headers) {
           T* cast = dynamic_cast<T*>(h.get());
@@ -60,17 +56,8 @@ namespace sip0x
         return nullptr;
       }
 
-      std::string get_Via_branch() {
-        std::shared_ptr<SIPMessageHeaderVia> via = get_first<SIPMessageHeaderVia>();
-        if (via != nullptr) {
-          for (auto param : via->params) {
-            if (param.first.compare("branch") == 0) {
-              return param.second;
-            }
-          }
-        }
-        return "";
-      }
+    protected:
+      virtual SIPMessage* impl_clone(void) const = 0;
     };
 
     class SIPRequest : public SIPMessage {
@@ -79,13 +66,12 @@ namespace sip0x
       SIPURI uri;
       SIPVersion version;
 
-      SIPRequest(void) : SIPMessage() {
-        is_request = true;
-      }
+      SIPRequest(void);
+      virtual ~SIPRequest(void) {}
 
-      virtual std::string to_string(void) const override {
-        return sip0x::protocol::to_string(method) + ' ' + uri.to_string() + ' ' + version.to_string() + "\r\n" + SIPMessage::to_string();
-      }
+      virtual std::string to_string(void) const override;
+    protected:
+      virtual SIPMessage* impl_clone(void) const override;
     };
 
     class SIPResponse : public SIPMessage {
@@ -94,20 +80,19 @@ namespace sip0x
       int status_code;
       std::string reason_phrase;
 
-      SIPResponse(void) : SIPMessage() {
-        is_request = false;
-      }
+      SIPResponse(void);
+      virtual ~SIPResponse(void) {}
 
-      bool is_provisional(void)     { return status_code >= 100 && status_code <= 199; }
-      bool is_success(void)         { return status_code >= 200 && status_code <= 299; }
-      bool is_redirection(void)     { return status_code >= 300 && status_code <= 399; }
-      bool is_client_error(void)    { return status_code >= 400 && status_code <= 499; }
-      bool is_server_error(void)    { return status_code >= 500 && status_code <= 599; }
-      bool is_global_failure(void)  { return status_code >= 600 && status_code <= 699; }
+      bool is_provisional(void) const     { return status_code >= 100 && status_code <= 199; }
+      bool is_success(void) const         { return status_code >= 200 && status_code <= 299; }
+      bool is_redirection(void) const     { return status_code >= 300 && status_code <= 399; }
+      bool is_client_error(void) const    { return status_code >= 400 && status_code <= 499; }
+      bool is_server_error(void) const    { return status_code >= 500 && status_code <= 599; }
+      bool is_global_failure(void) const  { return status_code >= 600 && status_code <= 699; }
 
-      virtual std::string to_string(void) const override {
-        return version.to_string() + ' ' + std::to_string(status_code) + ' ' + reason_phrase + "\r\n" + SIPMessage::to_string();
-      }
+      virtual std::string to_string(void) const override;
+    protected:
+      virtual SIPMessage* impl_clone(void) const override;
     };
   }
 }

@@ -422,5 +422,8 @@
       <Filter>parser\factory</Filter>
     </ClCompile>
     <ClCompile Include="..\src\sip-0x\Endpoint.cpp" />
+    <ClCompile Include="..\src\sip-0x\protocol\SIPMessage.cpp">
+      <Filter>protocol</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

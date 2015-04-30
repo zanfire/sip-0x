@@ -52,7 +52,7 @@ namespace sip0x
     void remove_listener(std::shared_ptr<listeners::UAListener>& listener);
   protected:
 
-    void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response);
+    void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response);
 
     //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
     void add_default_header_lines(protocol::SIPMessage* message);

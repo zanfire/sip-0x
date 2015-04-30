@@ -37,7 +37,7 @@ namespace sip0x
 
     class TransactionLayerResponseListener {
     public:
-      virtual void on_incoming_response(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPResponse>& response) = 0;
+      virtual void on_incoming_response(std::shared_ptr<sip0x::Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPResponse const>& response) = 0;
     };
   }
 }

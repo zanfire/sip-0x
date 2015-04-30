@@ -33,11 +33,11 @@ UAC::~UAC(void) {
 void UAC::handle(std::shared_ptr<protocol::SIPRequest>& request) {
   // TODO: Create transaction was placed here to allow compilation, check if is it right!!!
   auto transaction = _transaction->create_transaction(request, nullptr, false);
-  _transaction->process_request(transaction, request);
+  _transaction->process_request(transaction, request, true);
 }
 
 
-void UAC::on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse>& response) {
+void UAC::on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response) {
   raise_listener(tran, response);
 }
 

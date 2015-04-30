@@ -69,8 +69,8 @@ namespace sip0x
     // TODO: Move to protected/private?
     virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage>& message, std::shared_ptr<sip0x::utils::Connection>& connection) override;
 
-    void process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPRequest>& request);
-    void process_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPResponse>& response);
+    void process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPRequest>& request, bool forward_to_transport);
+    void process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPResponse>& response, bool forward_to_transport);
       
     //! Create a transaction.
     //! \param request The request that orgin the transaction.

@@ -1,5 +1,6 @@
 #include <thread>
 
+#include "utils\utils.hpp"
 #include "utils\Logger.hpp"
 #include "utils\LoggerFactory.hpp"
 #include "Endpoint.hpp"
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]) {
   endpoint.initialize(config);
   endpoint.register_to("regclient_1", registrar_server, registrar_port, 3600);
 
-  std::chrono::milliseconds ms(3000);
+  std::chrono::milliseconds ms(30000);
   // Never ending loops.
   while (true) {
     std::cout << "Status: " << endpoint.describe_status() << '\n';
