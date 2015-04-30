@@ -1,392 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="protocol">
-      <UniqueIdentifier>{1002323c-dccd-44b4-982a-53edd90de373}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="logic">
-      <UniqueIdentifier>{9e080e5a-7da6-4180-aab8-d6eec7101ddd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="parser">
-      <UniqueIdentifier>{c289780e-ccf6-49e1-a063-3b115506e12f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils">
-      <UniqueIdentifier>{0ec58865-95c3-4c34-b783-5ec4889e135f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="utils\log">
-      <UniqueIdentifier>{a6e7c8ca-deaa-4eea-b485-058038f2cd14}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="parser\sip">
-      <UniqueIdentifier>{8fd20539-e549-4137-b2fe-9ff28eab9d28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="parser\common">
-      <UniqueIdentifier>{40032e5c-9eaa-44d6-844b-7843cc33e161}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="parser\base">
-      <UniqueIdentifier>{d04c0865-0ecf-4879-91be-642fbdb2e3bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="parser\sip\messageheaders">
-      <UniqueIdentifier>{575f30cd-ed48-4a39-87e7-58ba9b4d06ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="parser\factory">
-      <UniqueIdentifier>{e0ea007a-235d-4039-9dde-df091498e4ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="docs">
       <UniqueIdentifier>{12089cca-26c9-44fb-984e-de5b754adb33}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\parser\base\TokenRegex.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\utils\log\Logger.hpp">
-      <Filter>utils\log</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\Token.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\utils\log\LoggerManager.hpp">
-      <Filter>utils\log</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\Parser.hpp">
-      <Filter>parser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\TokenAbstract.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\utils\IniFile.hpp">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenIPv4.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\ReadResult.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenIPv6.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenUserInfo.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\RegexConstStrings.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPURI.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenURIParameter.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\Alternative.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\Occurrence.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\Operators.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\Sequence.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenHostport.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\utils\InputTokenStream.hpp">
-      <Filter>utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPMessage.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPMessageHeader.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPRequestLine.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPMethod.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPVersion.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Accept.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Accept_Encoding.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Accept_Language.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Alert_Info.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Allow.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Authentication_Info.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Authorization.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_base.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Call_ID.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Call_Info.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Contact.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Content_Disposition.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Content_Encoding.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Content_Language.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Content_Length.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Content_Type.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_CSeq.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Date.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Error_Info.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Expires.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_extension_header.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_From.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_In_Reply_To.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Max_Forwards.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_MIME_Version.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Min_Expires.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Organization.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Priority.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Proxy_Authenticate.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Proxy_Authorization.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Proxy_Require.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Record_Route.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Reply_To.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Require.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Retry_After.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Route.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Server.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Subject.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Supported.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Timestamp.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_To.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Unsupported.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_User_Agent.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Via.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_Warning.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\messageheaders\TokenSIPMessageHeader_WWW_Authenticate.hpp">
-      <Filter>parser\sip\messageheaders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenGenericParam.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenQuotedString.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenPresets.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenNameAddr.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenAbsoluteURI.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\common\TokenMType.hpp">
-      <Filter>parser\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\TokenOctects.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenSIPStatusLine.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPMessage.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPMessageHeader.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPMethod.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIP.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContext.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContextValue.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPVersion.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContextSIPVersion.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\SIPURI.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContextSIPURI.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\sip\TokenURIHeaders.hpp">
-      <Filter>parser\sip</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\base\TokenContainer.hpp">
-      <Filter>parser\base</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessageHeader.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContextSIPMessage.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\UA.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\Connection.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\UAS.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\ConnectionManager.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\UAC.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\asio_header.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\Transaction.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\Dialog.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\NameAddr.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\FactoryContextNameAddr.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\parser\factory\Factory.hpp">
-      <Filter>parser\factory</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\protocol\HostPort.hpp">
-      <Filter>protocol</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\RegisterClient.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\Endpoint.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\TransactionLayer.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\TransportLayer.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\sip-0x.hpp" />
-    <ClInclude Include="..\include\parser\SIPParser.hpp">
-      <Filter>parser</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\TransportListener.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\ApplicationListener.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\ApplicationDelegate.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logic\Registrar.hpp">
-      <Filter>logic</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\lib\LoggerManager.cpp">
-      <Filter>utils\log</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\lib\RegexConstStrings.cpp">
-      <Filter>parser\common</Filter>
-    </ClCompile>
+    <Filter Include="logic">
+      <UniqueIdentifier>{72020770-e033-44cc-bac2-686a8d2c7282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser">
+      <UniqueIdentifier>{b091ddab-e618-40cf-9a65-eb1520f24ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{79495fab-e4af-4b6a-b090-9ecac9427a4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{a7db1a00-131c-400b-8600-0731f230ba83}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser\tokens">
+      <UniqueIdentifier>{04581a8a-04dc-4c2a-b854-1ebaac18b4ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser\factory">
+      <UniqueIdentifier>{8109c78f-c6eb-4900-b543-d31eb71658df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser\tokens\messageheaders">
+      <UniqueIdentifier>{3cbe941b-7cd0-44cd-9197-0e43573cf633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="listeners">
+      <UniqueIdentifier>{b555d67c-bbd6-4edd-b0c5-7d2d36bcf9bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\docs\SIP_ABNF.txt">
@@ -406,5 +47,383 @@
     <None Include="..\docs\ProjectDesign.md">
       <Filter>docs</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\sip-0x\protocol\HostPort.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\NameAddr.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\SIP.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\SIPMessage.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\SIPMessageHeader.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\SIPMethod.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\SIPURI.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\protocol\SIPVersion.hpp">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\IniFile.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\InputTokenStream.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Listeners.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Logger.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\Parser.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\Alternative.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\Occurrence.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\Operators.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\RegexConstStrings.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\Sequence.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\Token.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenAbsoluteURI.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenAbstract.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenContainer.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenGenericParam.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenHostport.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenIPv4.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenIPv6.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenMType.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenNameAddr.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenOctects.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenPresets.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenQuotedPair.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenQuotedString.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenRegex.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPMessage.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPMessageHeader.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPMethod.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPRequestLine.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPStatusLine.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPURI.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenSIPVersion.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenURIHeaders.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenURIParameter.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\TokenUserInfo.hpp">
+      <Filter>parser\tokens</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\ParserResult.hpp">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\Factory.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContext.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextNameAddr.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessage.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessageHeader.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextSIPURI.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextSIPVersion.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\factory\FactoryContextValue.hpp">
+      <Filter>parser\factory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Accept.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Accept_Encoding.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Accept_Language.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Alert_Info.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Allow.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Authentication_Info.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Authorization.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_base.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Call_ID.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Call_Info.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Contact.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Content_Disposition.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Content_Encoding.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Content_Language.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Content_Length.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Content_Type.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_CSeq.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Date.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Error_Info.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Expires.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_extension_header.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_From.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_In_Reply_To.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Max_Forwards.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_MIME_Version.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Min_Expires.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Organization.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Priority.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Proxy_Authenticate.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Proxy_Authorization.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Proxy_Require.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Record_Route.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Reply_To.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Require.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Retry_After.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Route.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Server.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Subject.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Supported.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Timestamp.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_To.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Unsupported.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_User_Agent.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Via.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_Warning.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\parser\tokens\messageheaders\TokenSIPMessageHeader_WWW_Authenticate.hpp">
+      <Filter>parser\tokens\messageheaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\ApplicationDelegate.hpp" />
+    <ClInclude Include="..\src\sip-0x\Dialog.hpp" />
+    <ClInclude Include="..\src\sip-0x\Endpoint.hpp" />
+    <ClInclude Include="..\src\sip-0x\MessageFactory.hpp" />
+    <ClInclude Include="..\src\sip-0x\RegisterClient.hpp" />
+    <ClInclude Include="..\src\sip-0x\Registrar.hpp" />
+    <ClInclude Include="..\src\sip-0x\Transaction.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransactionLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransportLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\UA.hpp" />
+    <ClInclude Include="..\src\sip-0x\UAC.hpp" />
+    <ClInclude Include="..\src\sip-0x\UAS.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\asio_header.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Connection.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\ConnectionManager.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\ApplicationListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\TransportListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\UAListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\ConnectionListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\listeners\TransactionListener.hpp">
+      <Filter>listeners</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\utils.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\utils\Logger.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\parser\Parser.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\parser\tokens\RegexConstStrings.cpp">
+      <Filter>parser\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\parser\tokens\TokenAbstract.cpp">
+      <Filter>parser\tokens</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\parser\ParserResult.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\RegisterClient.cpp" />
+    <ClCompile Include="..\src\sip-0x\UA.cpp" />
+    <ClCompile Include="..\src\sip-0x\UAC.cpp" />
+    <ClCompile Include="..\src\sip-0x\UAS.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\Connection.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\utils\ConnectionManager.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\Transaction.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransactionLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransportLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\parser\factory\FactoryContextSIPMessage.cpp">
+      <Filter>parser\factory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\Endpoint.cpp" />
+    <ClCompile Include="..\src\sip-0x\protocol\SIPMessage.cpp">
+      <Filter>protocol</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

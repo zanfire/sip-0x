@@ -1,19 +1,25 @@
-#include <thread>
+#include "utils\Logger.hpp"
+#include "utils\LoggerFactory.hpp"
+#include "Endpoint.hpp"
 
-#include "sip-0x.hpp"
+#include <thread>
+#include <string>
+#include <memory>
 
 int main(int argc, char* argv[]) {
-  sip0x::Utils::Log::LoggerManager* loggermanager = sip0x::Utils::Log::LoggerManager::get_instance();
+  sip0x::utils::LoggerFactory* loggermanager = sip0x::utils::LoggerFactory::get_instance();
   loggermanager->configure("..\\..\\..\\docs\\logger.ini");
 
   std::cout << "SIP server\n\n";
 
-  sip0x::Logic::Endpoint endpoint;
+  sip0x::Endpoint endpoint;
   // Callbacks.
-  endpoint.set_cb_registrar_update([](std::shared_ptr<sip0x::SIPRequest>&) { return true; });
-  endpoint.set_cb_registrar_get_expires([](std::shared_ptr<sip0x::SIPRequest>&) { return 30; });
+  endpoint.set_cb_registrar_update([](std::shared_ptr<sip0x::protocol::SIPRequest>&) { 
+    return true; 
+  });
+  endpoint.set_cb_registrar_get_expires([](std::shared_ptr<sip0x::protocol::SIPRequest>&) { return 30; });
   // Configuration.
-  sip0x::Logic::Endpoint::EndpointConfig config;
+  sip0x::Endpoint::EndpointConfig config;
   config.bind_address = "127.0.0.1";
   config.bind_port = 5060;
   config.username = "server";
@@ -22,7 +28,7 @@ int main(int argc, char* argv[]) {
   // Initialize.
   endpoint.initialize(config);
   
-  std::chrono::milliseconds ms(3000);
+  std::chrono::milliseconds ms(30000);
   // Never ending loops.
   while (true) {
     std::cout << "Status: " << endpoint.describe_status() << '\n';

@@ -1,54 +1,70 @@
 #include "test_prototypes.h"
 
+#include "parser/factory/FactoryContext.hpp"
+#include "parser/Parser.hpp"
+
 #include <chrono>
+using namespace sip0x::parser;
+
+static bool verbose = false;
+static bool only_failed = true;
 
 void run_test(TokenAbstract& token, std::string input, bool exp, bool factory) {
-  cout << "Parsing string \"" << input << "\" .................. ";
   FactoryContext ctx;
-  sip0x::Parser::ReadResult r = sip0x::Parser::parse(input, token, &ctx);
+  InputTokenStream iss(input);
+  ParserResult r = Parser::parse(iss, token, &ctx);
 
-  cout << "res: " << ((r.successes) ? "OK" : "KO");
-  cout << ", exp: " << ((exp) ? "OK" : "KO");
-  cout << ", so: " << ((r.successes == exp) ? "OK" : "KO") << std::endl;
+  if (r.success() != exp || !only_failed) {
+    std::cout << "Test input: " << (verbose ? input : input.substr(0, 20)) << " \t\t" << ((r.success() == exp) ? "Passed" : "Failed") << std::endl;
+  }
+  if (verbose) {
+    if (r.success() != exp) {
+      if (!r.success()) {
 
-  if (!r.successes) {
-    cout << endl;
-    for (int i = 0; i < (int)input.length(); i++) {
-      int x = i;
-      while (x < (int)input.length()) {
-        cout << input[x];
-        if (input[x] == '\n') break;
-        x++;
-      }
+        ParserResult::ParserEvent ev = r.get_error();
+        cout << endl;
+        for (std::size_t i = 0; i < input.length(); i++) {
+          std::size_t x = i;
+          while (x < input.length()) {
+            cout << input[x];
+            if (input[x] == '\n') break;
+            x++;
+          }
 
-      if (i <= r.errorpos && r.errorpos <= x) {
-        cout.width(r.errorpos - i);
-        if (input[x] != '\n') {
-          cout << endl;
+          if (i <= ev.position && ev.position <= x) {
+            cout.width(ev.position - i);
+            if (input[x] != '\n') {
+              cout << endl;
+            }
+            cout << '^' << endl;
+          }
+          i = x;
         }
-        cout << '^' << endl;
-      }
-      i = x;
-    }
 
-    cout << "Parsing error (pos: " << r.errorpos << ") message: " << r.errormessage << endl;
+        cout << "Parsing error (pos: " << ev.position << ") message: " << ev.message << endl;
+      }
+    }
   }
 }
 
 
-void run_sip(std::string input) {
+bool run_sip(std::string input) {
   //cout << "Parsing string\n" << input << "\n";
-  FactoryContext ctx;
+  InputTokenStream iss(input);
   
   auto t1 = std::chrono::high_resolution_clock::now();
-  sip0x::SIPMessage* message = sip0x::Parser::parse_sip_message(input);
+  std::shared_ptr<sip0x::protocol::SIPMessage> message = Parser::parse(iss);
   auto t2 = std::chrono::high_resolution_clock::now();
 
   auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1);
-  std::cout << "Parsed in " << ms.count() << "ms\n";
-  
-  bool successes = message != nullptr;
-  cout << "res: " << ((successes) ? "OK" : "KO");
+  if (message != nullptr) {
+    std::cout << "Successfully parsed SIP message in " << ms.count() << "ms\n";
+    return true;
+  }
+  else {
+    std::cout << "Failed parsed SIP message in " << ms.count() << "ms\n";
+    return false;
+  }
 
   /*
   res: OKParsed in 93ms

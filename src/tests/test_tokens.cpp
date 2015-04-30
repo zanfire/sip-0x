@@ -1,26 +1,26 @@
 #include "test_prototypes.h"
 
-#include "parser/base/TokenRegex.hpp"
-#include "parser/common/RegexConstStrings.hpp"
-#include "parser/common/TokenPresets.hpp"
+#include "parser/tokens/TokenRegex.hpp"
+#include "parser/tokens/RegexConstStrings.hpp"
+#include "parser/tokens/TokenPresets.hpp"
 
-#include "parser/sip/TokenSIPMessage.hpp"
+#include "parser/tokens/TokenSIPMessage.hpp"
 #include "parser/Parser.hpp"
 
-#include "utils/log/LoggerManager.hpp"
-#include "utils/log/Logger.hpp"
+#include "utils/LoggerFactory.hpp"
+#include "utils/Logger.hpp"
 #include "utils/IniFile.hpp"
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
+using namespace sip0x::parser;
+using namespace sip0x::utils;
+
 using namespace std;
 
 void test_token_regexconststrings() {
   {
     TokenRegex token("unreserved", RegexConstStrings::unreserved + "+");
-    run_test(token, "pippo@dom.cnx", true);
-    run_test(token, "pipp*o@dom.cnx", true);
+    run_test(token, "pippo@dom.cnx", false);
+    run_test(token, "pipp*odom.cnx", true);
     run_test(token, "@dom.cnx", false);
     run_test(token, " @", false);
   }
@@ -79,15 +79,21 @@ void test_token_sipuri() {
 
 void test_token_sip_message() {
   TokenSIPRequestLine rl;
-
+  
+  run_test(rl, "INVITE   sip:matteo@domain.cmx SIP/2.0\r\n", false);
   run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.0\r\n", true, true);
   run_test(rl, "INVITE sip:matteo@domain.cmx SIP/2.1\r\n", true);
-  run_test(rl, "INVITE   sip:matteo@domain.cmx SIP/2.0\r\n", false);
   run_test(rl, "INVITE sip:matteo@domain.cmx XSIP/2.0\r\n", false);
 
   TokenSIPMessageHeader_From from;
   run_test(from, "From: Alice <sip:alice@atlanta.com>;tag=1928301774", true, true);
+  
+  TokenRegex regex("(" + RegexConstStrings::token + RegexConstStrings::LWS + ")*");
+  run_test(regex, "Alice ", true, true);
 
+  TokenNameAddr nameAddr;
+  run_test(nameAddr, "Alice <sip:alice@atlanta.com>", true, true);
+  
   TokenSIPMessageHeader_Contact_param contact_param;
   run_test(contact_param, "<sip:alice@pc33.atlanta.com>", true);
 

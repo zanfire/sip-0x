@@ -3,13 +3,12 @@
 
 #include "parser/Parser.hpp"
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
+using namespace sip0x::parser;
+using namespace sip0x::utils;
 using namespace std;
 
 void run_test(TokenAbstract& token, std::string input, bool expected, bool factory = false);
-void run_sip(std::string input);
+bool run_sip(std::string input);
 
 
 // Test tokens common.
@@ -23,6 +22,6 @@ void test_token_sip_message();
 
 void test_occurrences();
 
-void test_sipmessages_from_file(char const* path);
+void test_sipmessages_from_file(char const* path, bool break_on_error);
 
 #endif 

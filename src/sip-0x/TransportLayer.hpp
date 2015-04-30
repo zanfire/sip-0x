@@ -1,0 +1,85 @@
+#if !defined(SIP0X_LOGIC_TRANSPORTLAYER_HPP__)
+#define SIP0X_LOGIC_TRANSPORTLAYER_HPP__
+
+#include <string>
+#include <memory>
+#include <thread>
+
+#include "utils/ConnectionManager.hpp"
+#include "utils/asio_header.hpp"
+
+#include "listeners/ConnectionListener.hpp"
+
+namespace sip0x
+{
+  class Transaction;
+
+  namespace utils {
+    class Logger;
+  }
+
+  namespace listeners {
+    class TransportListener;
+  }
+
+  namespace protocol {
+    class SIPMessage;
+  }
+
+
+  class TransportLayer : public listeners::ConnectionListener, public std::enable_shared_from_this<TransportLayer> {
+
+  protected:
+    friend class deleter;
+
+    class deleter {
+    public:
+      void operator()(TransportLayer* ptr) { delete ptr; }
+    };
+
+    // Infrastructure
+    std::shared_ptr<utils::Logger> _logger;
+    std::shared_ptr<utils::Logger> _logger_siptrace;
+    std::string _bind_address;
+    int _bind_port;
+    bool _thread_must_stop = false;
+    // Threading
+    std::thread* _thread = nullptr;
+    // Network
+    asio::io_service _io_service;
+    asio::ip::tcp::socket _tcp_socket;
+    //asio::ip::udp::socket _udp_socket; 
+    asio::ip::tcp::acceptor _acceptor;
+    utils::ConnectionManager _connection_manager;
+    // Callbakcs
+    listeners::TransportListener* _listener = nullptr;
+
+  public:
+    static std::shared_ptr<TransportLayer> create(std::string const& bind_address, int bind_port);
+
+    // TODO: Revise this listener (add, shared_ptr).
+    void set_listener(listeners::TransportListener* l)  { _listener = l; }
+
+    //! Start transport layer. 
+    //! \returns true if transport layer was in
+    void start(void);
+
+    //! Stop transport layer.
+    //! \remark Returns in a synchronous way.
+    void stop(void);
+    void send(std::shared_ptr<Transaction>& trnasaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message);
+    //! Process network stuff.
+    void process(void);
+    void async_accept(void);
+    virtual void on_incoming_data(std::shared_ptr<utils::Connection> conn, uint8_t const* buffer, std::size_t const size) override;
+    std::shared_ptr<utils::Connection> connect(std::string const& address, int port);
+    uint32_t resolve(std::string const& address);
+
+  protected:
+    //! \todo Use bind address
+    TransportLayer(std::string const& bind_address, int bind_port);
+    virtual ~TransportLayer(void);
+  };
+}
+
+#endif // SIP0X_LOGIC_UA_HPP__

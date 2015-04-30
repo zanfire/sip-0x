@@ -1,17 +1,17 @@
 #include "test_prototypes.h"
 
-#include "parser/sip/TokenSIPMessage.hpp"
+#include "parser/tokens/TokenSIPMessage.hpp"
 
 #include <fstream>
 
 
-using namespace sip0x::Parser;
-using namespace sip0x::Utils;
-using namespace sip0x::Utils::Log;
+using namespace sip0x::parser;
+using namespace sip0x::utils;
+
 using namespace std;
 
-void test_sipmessages_from_file(char const* path) {
-  std::shared_ptr<Logger> logger = LoggerManager::get_logger("Test.sipmessages");
+void test_sipmessages_from_file(char const* path, bool break_on_error) {
+  std::shared_ptr<Logger> logger = LoggerFactory::get_logger("Test.sipmessages");
 
   std::ifstream ifs(path, std::ifstream::in);
   if (!ifs.is_open()) {
@@ -34,7 +34,10 @@ void test_sipmessages_from_file(char const* path) {
       reading_content = true;
     }
     else if (reading_content && line.compare(end_marker) == 0) {
-      run_sip(content);
+      bool result = run_sip(content);
+      if (break_on_error && !result) {
+        break;
+      }
       reading_content = false;
     }
     else if (reading_content) {
