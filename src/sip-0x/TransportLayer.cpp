@@ -153,21 +153,21 @@ void TransportLayer::send(std::shared_ptr<Transaction>& trnasaction, std::shared
 
 //! Process network stuff.
 void TransportLayer::process(void) {
-  // TODO: logging
-  std::cout << "Process thread started.\n";
+  LOG_DEBUG(_logger, "Start processing thread.");
   while (!_thread_must_stop) {
     // Install async operation.
     async_accept();
     // process async operation.
     _io_service.run();
   }
-  std::cout << "Process thread ended.\n";
+  LOG_DEBUG(_logger, "End processing thread.");
 }
 
 void TransportLayer::async_accept(void) {
+  // TODO: Remove recursion after awhile this bring to a stack overflow.
   _acceptor.async_accept(_tcp_socket, [this](std::error_code ec) {
     if (!ec) {
-      _connection_manager.add(std::make_shared<Connection>(std::move(_tcp_socket), shared_from_this()));
+      _connection_manager.add(Connection::create(_tcp_socket, std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this())));
     }
     async_accept();
   });
@@ -200,7 +200,7 @@ std::shared_ptr<Connection> TransportLayer::connect(std::string const& address, 
   asio::ip::tcp::resolver resolver(_io_service);
   auto endpoint_iterator = resolver.resolve({ address, std::to_string(port) });
 
-  std::shared_ptr<Connection> connection = std::make_shared<Connection>(std::move(_tcp_socket), shared_from_this());
+  std::shared_ptr<Connection> connection = Connection::create(_tcp_socket, std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this()));
   connection->connect(endpoint_iterator);
   _connection_manager.add(connection);
   return connection;

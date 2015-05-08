@@ -7,6 +7,7 @@
 #include <string>
 #include <memory>
 
+#include <utils/utils.hpp>
 
 namespace sip0x
 {
@@ -19,7 +20,8 @@ namespace sip0x
     class ConnectionManager;
     class Logger;
     
-    class Connection : public std::enable_shared_from_this<Connection> {
+    class Connection : public std::enable_shared_from_this<Connection>, public sip0x::utils::enable_protected_dtor<Connection> {
+      friend class sip0x::utils::enable_protected_dtor<Connection>;
     protected:
       // Infrastructure-
       std::shared_ptr<sip0x::utils::Logger> _logger;
@@ -33,20 +35,24 @@ namespace sip0x
       std::shared_ptr<sip0x::listeners::ConnectionListener> _listener;
 
     public:
-      Connection(asio::ip::tcp::socket socket, std::shared_ptr<sip0x::listeners::ConnectionListener> listener);
-
-      virtual ~Connection(void);
-
       uint32_t get_remote_ip(void);
-
       uint16_t get_remote_port(void);
-
 
       void connect(asio::ip::tcp::resolver::iterator endpoint_iterator);
       void close(void);
-      void async_connect(asio::ip::tcp::resolver::iterator endpoint_iterator);
+      
       void async_read(void);
       void async_write(unsigned char* buffer, std::size_t length);
+
+    protected:
+      Connection(asio::ip::tcp::socket& socket, std::shared_ptr<sip0x::listeners::ConnectionListener>& listener);
+      virtual ~Connection(void);
+
+      void async_connect(asio::ip::tcp::resolver::iterator endpoint_iterator);
+      
+      //! Hanlde the result of read/write operation.
+      void handle_read(std::error_code ec, std::size_t length);
+      void handle_write(std::error_code ec, std::size_t length);
     };
   }
 }
