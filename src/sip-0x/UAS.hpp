@@ -37,6 +37,8 @@ namespace sip0x
     virtual ~UAS(void);
 
     virtual void on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPRequest>& request) override;
+
+
   private:
 
     void process_REGISTER(std::shared_ptr<Transaction>& transaction);

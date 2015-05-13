@@ -43,6 +43,10 @@ void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPR
 }
 
 
+void UA::on_process(void) {
+  _transaction->on_process();
+}
+
 //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
 void UA::add_default_header_lines(SIPMessage* message) {
   // Max-Forwards: 70

@@ -9,6 +9,7 @@
 #include "listeners/TransactionListener.hpp"
 #include "protocol/SIPMessage.hpp"
 
+#include <vector>
 
 using namespace sip0x;
 using namespace sip0x::utils;
@@ -55,7 +56,7 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
 
 
 void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPRequest>& request, bool forward_to_transport) {
-  bool accepted = transaction->update_state_machine(request, false, false);
+  bool accepted = transaction->on_message(request);
   if (accepted) {
     // TODO: handling retransmission.
     // Notify the UA of the new transaction.
@@ -75,7 +76,7 @@ void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction
 
 void TransactionLayer::process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPResponse>& response, bool forward_to_transport) {
   TransactionState prev_state = transaction->state;
-  bool accepted = transaction->update_state_machine(response, false, false);
+  bool accepted = transaction->on_message(response);
   if (accepted) {
     _listener_response->on_incoming_response(transaction, std::dynamic_pointer_cast<SIPResponse const>(response));
     if (forward_to_transport) {
@@ -132,4 +133,21 @@ std::shared_ptr<Transaction> TransactionLayer::get_transaction(std::shared_ptr<S
     }
   }
   return tran; // correct or empty.
+}
+
+
+void TransactionLayer::on_process(void) {
+  std::vector<std::string> vTransactionTerm;
+  // Process timers and collect transaction states.
+  for (auto t : _transactions) {
+    t.second->process_timers();
+    if (t.second->state == TransactionState::TRANSACTION_STATE_TERMINATED) {
+      vTransactionTerm.push_back(t.first);
+    }
+  }
+
+  // Remove terminated transaction.
+  for (auto id : vTransactionTerm) {
+    _transactions.erase(id);
+  }
 }

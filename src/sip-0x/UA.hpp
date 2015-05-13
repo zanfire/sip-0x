@@ -50,6 +50,8 @@ namespace sip0x
 
     void add_listener(std::shared_ptr<listeners::UAListener>& listener);
     void remove_listener(std::shared_ptr<listeners::UAListener>& listener);
+
+    virtual void on_process(void);
   protected:
 
     void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response);

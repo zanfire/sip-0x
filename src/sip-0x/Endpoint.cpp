@@ -114,7 +114,9 @@ void Endpoint::process(void) {
       reg->on_process();
     }
     // Handle UAC?
+    _uac->on_process();
     // Handle UAS?
+    _uas->on_process();
     _mtx.unlock();
 
     std::this_thread::sleep_for(ms); // TODO: Implement with a cond_var.
