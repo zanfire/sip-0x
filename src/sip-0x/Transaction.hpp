@@ -49,6 +49,8 @@
 
 namespace sip0x
 {
+  class TransportLayer;
+
   namespace utils {
     class Logger;
     class Connection;
@@ -69,10 +71,11 @@ namespace sip0x
 
     
   //! A Transaction is a pair of Request and response
-  class Transaction {
+  class Transaction : public std::enable_shared_from_this<Transaction> {
   protected:
     std::shared_ptr<sip0x::utils::Logger> _logger;
     std::recursive_mutex _mtx;
+    std::shared_ptr<TransportLayer> _transport;
     // TODO: Work on ID
   public:
     std::string id;
@@ -108,18 +111,16 @@ namespace sip0x
 
 
   public:
-    Transaction(void);
+    Transaction(std::shared_ptr<TransportLayer>& transport);
     virtual ~Transaction(void);
 
     //! Update Transaction state machine.
-    //! \arg message is new message processed.
+    //! \arg message is the message dispatched to transaction.
+    //! \arg forward mean that this message must be forwarded to the transport layer.
     //! \returns true if message was accepted by state machine otherwise false.
-    bool on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const& message);
+    bool on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const& message, bool forward);
     //! Evaluate all timers for this transaction.
     void process_timers(void);
-
-    //! Terminate this transaction.
-    void terminate(void);
 
     //! \returns true if this message was sent/recv on UDP.
     bool is_udp(void) const;
@@ -131,6 +132,11 @@ namespace sip0x
     //! Statics
     static char const* to_string(TransactionState state);
   protected:
+    //! Resend
+    void resend(void);
+    //! Terminate this transaction.
+    void terminate(void);
+
     //! Changes the current state.
     //! \returns true if the state was accepted.
     bool change_state(TransactionState new_state);

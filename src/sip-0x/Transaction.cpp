@@ -1,5 +1,6 @@
 #include "Transaction.hpp"
 
+#include "TransportLayer.hpp"
 #include "protocol/SIPMessage.hpp"
 
 #include "utils/Connection.hpp"
@@ -14,8 +15,8 @@ using namespace sip0x::protocol;
 
 namespace t = std::chrono;
 
-Transaction::Transaction(void) {
-  _logger = sip0x::utils::LoggerFactory::get_logger("sip0x.Logic.Transaction");
+Transaction::Transaction(std::shared_ptr<sip0x::TransportLayer>& tran) : _transport(tran) {
+  _logger = sip0x::utils::LoggerFactory::get_logger("sip0x.Transaction");
 }
 
 
@@ -23,7 +24,7 @@ Transaction::~Transaction(void) {
 }
 
 
-bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const& message) {
+bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const& message, bool forward) {
   std::lock_guard<std::recursive_mutex> guard(_mtx);
 
   if (state == TransactionState::TRANSACTION_STATE_COMPLETED || state == TransactionState::TRANSACTION_STATE_TERMINATED) {
@@ -41,6 +42,9 @@ bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const&
       LOG_DEBUG(_logger, "%s: set as T0 ref %lld ms.", to_string().c_str(), t::duration_cast<t::seconds>(_T0.time_since_epoch()).count());
       change_state(TransactionState::TRANSACTION_STATE_TRYING);
       request = std::dynamic_pointer_cast<SIPRequest>(message);
+      if (forward) {
+        _transport->send(shared_from_this(), message);
+      }     
       return true;
     }
     else {
@@ -57,12 +61,18 @@ bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const&
         // From trying go to proceeding or confirm proceeding.
         change_state(TransactionState::TRANSACTION_STATE_PROCEEDING);
         response = resp;
+        if (forward) {
+          _transport->send(shared_from_this(), message);
+        }
         return true;
       }
       else if (code >= 200 && code <= 699) {
         // Transaction go to complete.
         change_state(TransactionState::TRANSACTION_STATE_COMPLETED);
         response = resp;
+        if (forward) {
+          _transport->send(shared_from_this(), message);
+        }
         return true;
       }
     }
@@ -77,7 +87,7 @@ void Transaction::process_timers(void) {
   std::lock_guard<std::recursive_mutex> guard(_mtx);
 
   if (state == TransactionState::TRANSACTION_STATE_TERMINATED) {
-    // Transaction is in the latest state. it cannot change is state and in awhile could be destroyed.
+    // Transaction is in the last state. it cannot change in this state and in awhile could be destroyed.
     return;
   }
   // refresh registration if it's time
@@ -122,12 +132,13 @@ void Transaction::process_timers(void) {
     //          0s for TCP/SCTP
     LOG_DEBUG(_logger, "Timer I elapsed.");
   }
-  if (is_udp() && !is_INVITE() && elapsed_secs.count() >= _TimerJ_secs) {
+  if (is_udp() && !is_INVITE() && elapsed_secs.count() >= _TimerJ_secs &&  state == TransactionState::TRANSACTION_STATE_COMPLETED) {
     // Timer J  64*T1 for UDP    Section 17.2.2       Wait time for non-INVITE request retransmits 
     //          0s for TCP/SCTP
-    LOG_DEBUG(_logger, "Timer J elapsed.");
+    LOG_DEBUG(_logger, "%s: Timer J elapsed, transaction is going to the terminated state.", to_string().c_str());
+    terminate();
   }
-  if (!is_INVITE() && elapsed_secs.count() >= _TimerK_secs && state == TransactionState::TRANSACTION_STATE_COMPLETED) {
+  if (/*!is_udp() ??*/ !is_INVITE() && elapsed_secs.count() >= _TimerK_secs && state == TransactionState::TRANSACTION_STATE_COMPLETED) {
     LOG_DEBUG(_logger, "%s: Timer K elapsed, transaction is going to the terminated state.", to_string().c_str());
     terminate();
   }
@@ -137,6 +148,16 @@ void Transaction::terminate(void)  {
   LOG_DEBUG(_logger, "%s: Terminate transaction.", to_string().c_str());
 
   change_state(TransactionState::TRANSACTION_STATE_TERMINATED);
+}
+
+
+void Transaction::resend(void) {
+  if (state == TransactionState::TRANSACTION_STATE_TRYING) {
+    _transport->send(shared_from_this(), request);
+  }
+  else {
+    // Ignoring 
+  }
 }
 
 bool Transaction::is_udp(void) const {

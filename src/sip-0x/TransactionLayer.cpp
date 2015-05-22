@@ -20,7 +20,6 @@ TransactionLayer::TransactionLayer(std::shared_ptr<TransportLayer>& transport) :
     TransportListener(),
     _transport(transport) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.TransactionLayer");
-
   _transport->set_listener(this);
 }
 
@@ -56,16 +55,12 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
 
 
 void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPRequest>& request, bool forward_to_transport) {
-  bool accepted = transaction->on_message(request);
+  bool accepted = transaction->on_message(request, forward_to_transport);
   if (accepted) {
     // TODO: handling retransmission.
     // Notify the UA of the new transaction.
     if (transaction->origin_remote) {
       _listener_request->on_incoming_request(transaction, request);
-    }
-    
-    if (forward_to_transport) {
-      _transport->send(transaction, request);
     }
   }
   else {
@@ -76,12 +71,9 @@ void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction
 
 void TransactionLayer::process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPResponse>& response, bool forward_to_transport) {
   TransactionState prev_state = transaction->state;
-  bool accepted = transaction->on_message(response);
+  bool accepted = transaction->on_message(response, forward_to_transport);
   if (accepted) {
     _listener_response->on_incoming_response(transaction, std::dynamic_pointer_cast<SIPResponse const>(response));
-    if (forward_to_transport) {
-      _transport->send(transaction, response);
-    }
   }
   else {
     LOG_WARN(_logger, "Transaction@%p doesn't accept request@%p", transaction.get(), response.get());
@@ -98,7 +90,7 @@ std::shared_ptr<Transaction> TransactionLayer::create_transaction(std::shared_pt
   // get from via the brach tag.
   std::string branch = request->get_Via_branch();
   if (!branch.empty()) {
-    tran = std::make_shared<Transaction>();
+    tran = std::make_shared<Transaction>(_transport);
     tran->origin_remote = origin_remote;
     tran->connection = connection;
     tran->id = sip0x::protocol::to_string(request->method) + "_" + branch;
