@@ -1,9 +1,9 @@
 #include <iostream>
 
 #include "test_prototypes.h"
-
 #include "utils/LoggerFactory.hpp"
 
+#include "unittests/TestExecutor.hpp"
 
 using namespace sip0x::utils;
 using namespace std;
@@ -14,6 +14,10 @@ int main(int argc, char const* argv[]) {
   loggermanager->configure("..\\docs\\logger.ini");
 
   cout << "sip-0x library tests..." << endl;
+
+  unittests::TestExecutor executor;
+
+  executor.add(std::make_shared<unittest::>)
 
   test_sipmessages_from_file("..\\tests\\sip_requests.txt", true);
   test_sipmessages_from_file("..\\tests\\sip_responses.txt", false);

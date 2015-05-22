@@ -16,6 +16,9 @@
     <ClCompile Include="..\src\tests\test_sipmessages.cpp" />
     <ClCompile Include="..\src\tests\test_tokens.cpp" />
     <ClCompile Include="..\src\tests\test_utils.cpp" />
+    <ClCompile Include="..\src\tests\unittests\BaseTest.cpp" />
+    <ClCompile Include="..\src\tests\unittests\SIPParserTest.cpp" />
+    <ClCompile Include="..\src\tests\unittests\TestExecutor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="sip-0x-library.vcxproj">
@@ -27,6 +30,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\tests\test_prototypes.h" />
+    <ClInclude Include="..\src\tests\unittests\BaseTest.hpp" />
+    <ClInclude Include="..\src\tests\unittests\SIPParserTest.hpp" />
+    <ClInclude Include="..\src\tests\unittests\TestExecutor.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\tests\sip_requests.txt" />

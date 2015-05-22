@@ -14,6 +14,15 @@
     <ClCompile Include="..\src\tests\test_sipmessages.cpp">
       <Filter>tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\tests\unittests\BaseTest.cpp">
+      <Filter>unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\tests\unittests\TestExecutor.cpp">
+      <Filter>unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\tests\unittests\SIPParserTest.cpp">
+      <Filter>unittests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\docs\logger.ini" />
@@ -22,10 +31,22 @@
     <Filter Include="tests">
       <UniqueIdentifier>{4da712d3-7392-4fff-b936-c63c405b8a39}</UniqueIdentifier>
     </Filter>
+    <Filter Include="unittests">
+      <UniqueIdentifier>{21bd0d19-d982-4392-9949-7d0548b8217b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\tests\test_prototypes.h">
       <Filter>tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\BaseTest.hpp">
+      <Filter>unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\TestExecutor.hpp">
+      <Filter>unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\SIPParserTest.hpp">
+      <Filter>unittests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
