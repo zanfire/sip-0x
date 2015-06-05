@@ -23,6 +23,12 @@
     <ClCompile Include="..\src\tests\unittests\SIPParserTest.cpp">
       <Filter>unittests</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\tests\unittests\TransactionTest.cpp">
+      <Filter>unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\tests\mocks\TransportLayerMock.cpp">
+      <Filter>mocks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\docs\logger.ini" />
@@ -33,6 +39,9 @@
     </Filter>
     <Filter Include="unittests">
       <UniqueIdentifier>{21bd0d19-d982-4392-9949-7d0548b8217b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mocks">
+      <UniqueIdentifier>{95c13117-4d28-48d8-abd5-cf1974d8e5d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -47,6 +56,15 @@
     </ClInclude>
     <ClInclude Include="..\src\tests\unittests\SIPParserTest.hpp">
       <Filter>unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\SIPParserFromFileTest.hpp">
+      <Filter>unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\TransactionTest.hpp">
+      <Filter>unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\mocks\TransportLayerMock.hpp">
+      <Filter>mocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

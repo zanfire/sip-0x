@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\tests\main.cpp" />
+    <ClCompile Include="..\src\tests\mocks\TransportLayerMock.cpp" />
     <ClCompile Include="..\src\tests\test_occurrences.cpp" />
     <ClCompile Include="..\src\tests\test_sipmessages.cpp" />
     <ClCompile Include="..\src\tests\test_tokens.cpp" />
@@ -19,6 +20,7 @@
     <ClCompile Include="..\src\tests\unittests\BaseTest.cpp" />
     <ClCompile Include="..\src\tests\unittests\SIPParserTest.cpp" />
     <ClCompile Include="..\src\tests\unittests\TestExecutor.cpp" />
+    <ClCompile Include="..\src\tests\unittests\TransactionTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="sip-0x-library.vcxproj">
@@ -29,10 +31,13 @@
     <None Include="..\docs\logger.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\tests\mocks\TransportLayerMock.hpp" />
     <ClInclude Include="..\src\tests\test_prototypes.h" />
     <ClInclude Include="..\src\tests\unittests\BaseTest.hpp" />
+    <ClInclude Include="..\src\tests\unittests\SIPParserFromFileTest.hpp" />
     <ClInclude Include="..\src\tests\unittests\SIPParserTest.hpp" />
     <ClInclude Include="..\src\tests\unittests\TestExecutor.hpp" />
+    <ClInclude Include="..\src\tests\unittests\TransactionTest.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\tests\sip_requests.txt" />

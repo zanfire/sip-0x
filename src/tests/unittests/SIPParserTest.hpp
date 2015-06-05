@@ -6,12 +6,11 @@
 namespace unittests
 {
   //! Model unit test interface.
-  class SIPParserTest : BaseTest {
-  protected:
+  class SIPParserTest : public BaseTest {
+  public:
     SIPParserTest();
     virtual ~SIPParserTest(void);
   
-  public:
     virtual void prepare(void) override;
     virtual bool execute(void) override;
   };

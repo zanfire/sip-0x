@@ -71,6 +71,7 @@ namespace sip0x
     //! Process network stuff.
     void process(void);
     void async_accept(void);
+
     virtual void on_incoming_data(std::shared_ptr<utils::Connection> conn, uint8_t const* buffer, std::size_t const size) override;
     std::shared_ptr<utils::Connection> connect(std::string const& address, int port);
     uint32_t resolve(std::string const& address);

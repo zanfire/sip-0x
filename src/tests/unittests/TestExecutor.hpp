@@ -16,6 +16,7 @@ namespace unittests
     std::vector<std::shared_ptr<unittests::BaseTest>> _tests;
     //!
     bool _stop_at_first_failure = true;
+    
   public:
     TestExecutor(void);
     virtual ~TestExecutor(void);

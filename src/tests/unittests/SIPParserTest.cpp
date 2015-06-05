@@ -1,6 +1,7 @@
 #include "SIPParserTest.hpp"
 
 #include "parser/Parser.hpp"
+#include "utils/InputTokenStream.hpp"
 
 using namespace unittests;
 
@@ -29,5 +30,13 @@ bool SIPParserTest::execute(void) {
   str += "Content-Length: 0\r\n";
   str += "\r\n";
   
-  std::shared_ptr<sip0x::protocol::SIPMessage> message = sip0x::parser::Parser::parse()
+  sip0x::utils::InputTokenStream iss(str);
+
+  std::shared_ptr<sip0x::protocol::SIPMessage> message = sip0x::parser::Parser::parse(iss);
+
+  if (message == nullptr) return false;
+
+  return true;
 }
+
+
