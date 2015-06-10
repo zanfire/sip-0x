@@ -1,11 +1,22 @@
-#include "BaseTest.hpp"
+#include "TransportLayerMock.hpp"
 
-using namespace unittests;
+using namespace sip0x;
+using namespace mocks;
 
-BaseTest::BaseTest(std::string const& name, std::string const& desc) : _name(name), _description(desc) {
+TransportLayerMock::TransportLayerMock(void) {
+
 }
 
 
-BaseTest::~BaseTest(void) {
+TransportLayerMock::~TransportLayerMock(void) {
+
 }
 
+void TransportLayerMock::send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message){
+
+}
+
+
+void TransportLayerMock::on_receive(std::shared_ptr<sip0x::protocol::SIPMessage> const& message) {
+
+}

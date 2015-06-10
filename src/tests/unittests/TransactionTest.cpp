@@ -21,7 +21,7 @@ void TransactionTest::prepare(void) {
 
 
 bool TransactionTest::execute(void) {
-  sip0x::TransactionLayer transactionLayer()
+  //sip0x::TransactionLayer transactionLayer()
 }
 
 

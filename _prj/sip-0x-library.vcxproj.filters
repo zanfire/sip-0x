@@ -385,6 +385,10 @@
     <ClInclude Include="..\src\sip-0x\utils\utils.hpp">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\sip-0x\TransportLayerTCP.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\ThreadedObject.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp">
@@ -425,5 +429,6 @@
     <ClCompile Include="..\src\sip-0x\protocol\SIPMessage.cpp">
       <Filter>protocol</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\sip-0x\TransportLayerTCP.cpp" />
   </ItemGroup>
 </Project>

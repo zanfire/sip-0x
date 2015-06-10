@@ -34,6 +34,7 @@
     <ClInclude Include="..\src\sip-0x\Transaction.hpp" />
     <ClInclude Include="..\src\sip-0x\TransactionLayer.hpp" />
     <ClInclude Include="..\src\sip-0x\TransportLayer.hpp" />
+    <ClInclude Include="..\src\sip-0x\TransportLayerTCP.hpp" />
     <ClInclude Include="..\src\sip-0x\UA.hpp" />
     <ClInclude Include="..\src\sip-0x\UAC.hpp" />
     <ClInclude Include="..\src\sip-0x\UAS.hpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="..\src\sip-0x\utils\Listeners.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\Logger.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\ThreadedObject.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +155,7 @@
     <ClCompile Include="..\src\sip-0x\Transaction.cpp" />
     <ClCompile Include="..\src\sip-0x\TransactionLayer.cpp" />
     <ClCompile Include="..\src\sip-0x\TransportLayer.cpp" />
+    <ClCompile Include="..\src\sip-0x\TransportLayerTCP.cpp" />
     <ClCompile Include="..\src\sip-0x\UA.cpp" />
     <ClCompile Include="..\src\sip-0x\UAC.cpp" />
     <ClCompile Include="..\src\sip-0x\UAS.cpp" />

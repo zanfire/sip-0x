@@ -8,7 +8,7 @@
 #include "RegisterClient.hpp"
 #include "UAC.hpp"
 #include "UAS.hpp"
-#include "TransportLayer.hpp"
+#include "TransportLayerTCP.hpp"
 #include "TransactionLayer.hpp"
 #include "ApplicationDelegate.hpp"
 
@@ -41,10 +41,10 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
   parser::Parser::load_grammar();
 
   // Initialize transport layer.
-  _transport = TransportLayer::create(configuration.bind_address, configuration.bind_port);
+  _transport = TransportLayerTCP::create(configuration.bind_address, configuration.bind_port);
   _transport->start();
   // Initialize transaction layer
-  _transaction = new TransactionLayer(_transport);
+  _transaction = new TransactionLayer(std::dynamic_pointer_cast<TransportLayer>(_transport));
   // Initialize User agents
   _uac = new UAC(_transaction, this, configuration.domainname, "sip0x-ua");
   _uas = new UAS(_transaction, this, configuration.domainname, "sip0x-ua");

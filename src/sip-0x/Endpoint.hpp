@@ -33,7 +33,7 @@ namespace sip0x
 
   class UAC;
   class UAS;
-  class TransportLayer;
+  class TransportLayerTCP;
   class TransactionLayer;
   class RegisterClient;
 
@@ -60,7 +60,7 @@ namespace sip0x
     bool _initialized = false;
     UAC* _uac = nullptr;
     UAS* _uas = nullptr;
-    std::shared_ptr<TransportLayer> _transport = nullptr;
+    std::shared_ptr<TransportLayerTCP> _transport = nullptr;
     TransactionLayer* _transaction = nullptr;
     std::set<std::shared_ptr<RegisterClient>> _register_clients;
     //std::set<Call> _calls;
