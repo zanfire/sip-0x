@@ -76,7 +76,7 @@ namespace sip0x
   protected:
     std::shared_ptr<sip0x::utils::Logger> _logger;
     std::recursive_mutex _mtx;
-    std::shared_ptr<TransportLayer> _transport;
+    std::shared_ptr<TransportLayer> _transport = nullptr;
     // TODO: Work on ID
   public:
     std::string id;

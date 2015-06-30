@@ -15,7 +15,7 @@ using namespace sip0x::protocol;
 
 namespace t = std::chrono;
 
-Transaction::Transaction(std::shared_ptr<sip0x::TransportLayer>& tran) : _transport(tran) {
+Transaction::Transaction(std::shared_ptr<sip0x::TransportLayer>& tran) : _mtx(), _transport(tran) {
   _logger = sip0x::utils::LoggerFactory::get_logger("sip0x.Transaction");
 }
 
