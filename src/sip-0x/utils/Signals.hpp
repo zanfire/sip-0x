@@ -61,7 +61,7 @@ namespace sip0x
       void connect(AbstractDelegate<Args...> &s){ v.push_back(&s); s.add(this); }
       void disconnect(AbstractDelegate<Args...> &s){ v.erase(std::remove(v.begin(), v.end(), &s), v.end()); }
 
-      void operator()(Args... args){ for (auto i : v) i->call(args...); }
+      void emit(Args... args){ for (auto i : v) i->call(args...); }
 
     private:
       Event(const Event&);

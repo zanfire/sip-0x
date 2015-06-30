@@ -29,6 +29,9 @@ TransportLayerTCP::TransportLayerTCP(std::string const& bind_address, int bind_p
   _acceptor(_io_service, asio::ip::tcp::endpoint(asio::ip::tcp::v4(), bind_port)) {
 }
 
+TransportLayerTCP::~TransportLayerTCP() {
+}
+
 
 void TransportLayerTCP::process(void) {
   LOG_DEBUG(_logger, "Start processing thread.");
@@ -66,8 +69,9 @@ void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::sha
       std::string host = request->uri.hostport.host;
       int port = request->uri.hostport.port;
 
+      remote = std::make_shared<RemotePeerTCP>();
       remote->connection = _connection_manager.get(resolve(host), port);
-      if (remote == nullptr) {
+      if (remote->connection == nullptr) {
         LOG_INFO(_logger, "Connection to %s:%d doesn't exists, trying to connect to remote host.", host.c_str(), port);
         remote->connection = connect(host, port);
       }
@@ -163,7 +167,7 @@ void TransportLayerTCP::on_incoming_data(std::shared_ptr<utils::Connection> conn
   std::shared_ptr<RemotePeerTCP> remote = std::make_shared<RemotePeerTCP>();
   remote->connection = conn;
 
-  received(message, std::static_pointer_cast<RemotePeer>(remote)); 
+  received.emit(message, std::static_pointer_cast<RemotePeer>(remote)); 
 }
 
 std::shared_ptr<Connection> TransportLayerTCP::connect(std::string const& address, int port) {

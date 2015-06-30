@@ -14,8 +14,8 @@ namespace sip0x
     //! when process implementation must exit from processing loop.
     class ThreadedObject {
     protected:
-      std::thread* _thread;
-      bool _thread_must_stop;
+      std::thread* _thread = nullptr;
+      bool _thread_must_stop = false;
 
     public:
       ThreadedObject(void) {}
