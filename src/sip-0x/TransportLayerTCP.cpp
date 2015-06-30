@@ -9,8 +9,6 @@
 #include "utils/ConnectionManager.hpp"
 #include "utils/InputTokenStream.hpp"
 
-#include "listeners/TransportListener.hpp"
-
 #include "parser/Parser.hpp"
 
 using namespace sip0x;
@@ -57,21 +55,21 @@ void TransportLayerTCP::async_accept(void) {
 
 void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message) {
   std::string msg = message->to_string();
-  std::shared_ptr<Connection> conn = transaction->connection;
+  std::shared_ptr<RemotePeerTCP> remote = std::static_pointer_cast<RemotePeerTCP>(transaction->remotepeer);
 
   LOG_INFO(_logger_siptrace, "Send\n----\n%s\n----", message->to_string().c_str());
 
   if (message->is_request) {
-    if (conn == nullptr) {
+    if (remote == nullptr) {
       std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
       // Get destination from ReqeustURI.
       std::string host = request->uri.hostport.host;
       int port = request->uri.hostport.port;
 
-      conn = _connection_manager.get(resolve(host), port);
-      if (conn == nullptr) {
+      remote->connection = _connection_manager.get(resolve(host), port);
+      if (remote == nullptr) {
         LOG_INFO(_logger, "Connection to %s:%d doesn't exists, trying to connect to remote host.", host.c_str(), port);
-        conn = connect(host, port);
+        remote->connection = connect(host, port);
       }
     }
   }
@@ -134,8 +132,8 @@ void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::sha
 
   }
 
-  if (conn != nullptr) {
-    conn->async_write((unsigned char*)msg.c_str(), msg.length());
+  if (remote != nullptr) {
+    remote->connection->async_write((unsigned char*)msg.c_str(), msg.length());
   }
   else {
     // Fail-back on UDP.
@@ -162,10 +160,10 @@ void TransportLayerTCP::on_incoming_data(std::shared_ptr<utils::Connection> conn
   else {
     LOG_INFO(_logger_siptrace, "Recv\n----\n%s\n----", message->to_string().c_str());
   }
+  std::shared_ptr<RemotePeerTCP> remote = std::make_shared<RemotePeerTCP>();
+  remote->connection = conn;
 
-  if (_listener != nullptr) {
-    _listener->on_receive(message, conn); 
-  }
+  received(message, std::static_pointer_cast<RemotePeer>(remote)); 
 }
 
 std::shared_ptr<Connection> TransportLayerTCP::connect(std::string const& address, int port) {

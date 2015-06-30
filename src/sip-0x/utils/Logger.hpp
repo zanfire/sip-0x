@@ -13,7 +13,7 @@
 #include <cstdio>
 
 //! Use define to provide more information to the logger facility.
-//! /remark The check against the level is perfromed before logger to avoid evaluate variant.
+//! /remark The check against the level is performed before logger to avoid evaluate variant.
 #define LOG_FATAL(logger, format, ...)  if (logger && logger->get_level() >= sip0x::utils::Logger::LEVEL_FATAL) logger->log(sip0x::utils::Logger::LEVEL_FATAL, __FILE__, __LINE__, format, __VA_ARGS__)
 #define LOG_ERROR(logger, format, ...)  if (logger && logger->get_level() >= sip0x::utils::Logger::LEVEL_ERROR) logger->log(sip0x::utils::Logger::LEVEL_ERROR, __FILE__, __LINE__, format, __VA_ARGS__)
 #define LOG_WARN(logger, format, ...)   if (logger && logger->get_level() >= sip0x::utils::Logger::LEVEL_WARN) logger->log(sip0x::utils::Logger::LEVEL_WARN, __FILE__, __LINE__, format, __VA_ARGS__)

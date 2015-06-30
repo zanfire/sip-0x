@@ -4,7 +4,10 @@
 #include <string>
 #include <memory>
 
+#include "RemotePeer.hpp"
+
 #include "utils/utils.hpp"
+#include "utils/Signals.hpp"
 
 namespace sip0x
 {
@@ -12,10 +15,6 @@ namespace sip0x
 
   namespace utils {
     class Logger;
-  }
-
-  namespace listeners {
-    class TransportListener;
   }
 
   namespace protocol {
@@ -31,13 +30,13 @@ namespace sip0x
     std::shared_ptr<utils::Logger> _logger;
     std::shared_ptr<utils::Logger> _logger_siptrace;
 
-    listeners::TransportListener* _listener = nullptr;
+  public:
+    ///! Event of received message on specify remote peer.
+    sip0x::utils::Event<std::shared_ptr<sip0x::protocol::SIPMessage>&, std::shared_ptr<sip0x::RemotePeer>&> received;
 
   public:
     TransportLayer(void);
     virtual ~TransportLayer(void);
-
-    void set_listener(listeners::TransportListener* l)  { _listener = l; }
 
     //! Send data to the lower layer (impl. dependent) like network or mock layer.
     virtual void send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message) = 0;

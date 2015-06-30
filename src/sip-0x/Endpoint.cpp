@@ -21,7 +21,7 @@ using namespace sip0x;
 using namespace sip0x::utils;
 
 
-Endpoint::Endpoint(void) {
+Endpoint::Endpoint(void) : ThreadedObject() {
   _logger = LoggerFactory::get_logger("sip0x.Endpoint");
   LOG_DEBUG(_logger, "Endpoint ctor.");
 }
@@ -49,7 +49,7 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
   _uac = new UAC(_transaction, this, configuration.domainname, "sip0x-ua");
   _uas = new UAS(_transaction, this, configuration.domainname, "sip0x-ua");
 
-  _thread = new std::thread(&Endpoint::process, this);
+  start();
 
   _initialized = true;
   LOG_INFO(_logger, "Endpoint initialized.");
@@ -59,9 +59,7 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
 
 bool Endpoint::unitialize(void) {
   // TODO: Unregister RegisterClients.
-
-  delete _thread;
-  _thread = nullptr;
+  stop();
   // TODO: delete UAC and move to the right place.
   delete _uac;
   _uac = nullptr;

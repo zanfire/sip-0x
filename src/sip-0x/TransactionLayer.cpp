@@ -5,7 +5,7 @@
 
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
-#include "listeners/TransportListener.hpp"
+#include "utils/Signals.hpp"
 #include "listeners/TransactionListener.hpp"
 #include "protocol/SIPMessage.hpp"
 
@@ -16,23 +16,22 @@ using namespace sip0x::utils;
 using namespace sip0x::protocol;
 
 
-TransactionLayer::TransactionLayer(std::shared_ptr<TransportLayer>& transport) :
-    TransportListener(),
-    _transport(transport) {
+TransactionLayer::TransactionLayer(std::shared_ptr<TransportLayer>& transport) : _transport(transport) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.TransactionLayer");
-  _transport->set_listener(this);
+
+  _delegate.connect(this, &TransactionLayer::on_receive, _transport->received);
 }
 
 TransactionLayer::~TransactionLayer(void) {
 }
 
 
-void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::shared_ptr<Connection>& connection) {
+void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::shared_ptr<RemotePeer>& remote) {
   if (message->is_request) {
     auto request = std::dynamic_pointer_cast<SIPRequest>(message);
     std::shared_ptr<Transaction> tran = get_transaction(message);
     if (tran == nullptr) {
-      tran = create_transaction(request, connection, true);
+      tran = create_transaction(request, remote, true);
     }
     if (tran != nullptr) {
       process_request(tran, request, false);
@@ -84,7 +83,7 @@ void TransactionLayer::process_response(std::shared_ptr<Transaction>& transactio
 //! \param request The request that orgin the transaction.
 //! \param connection The TCP connection used to receive/send the transaction.
 //! \param origin_remote true if the origin of request is from a remote peer.
-std::shared_ptr<Transaction> TransactionLayer::create_transaction(std::shared_ptr<SIPRequest> const& request, std::shared_ptr<Connection> connection, bool origin_remote) {
+std::shared_ptr<Transaction> TransactionLayer::create_transaction(std::shared_ptr<SIPRequest> const& request, std::shared_ptr<RemotePeer> remote, bool origin_remote) {
   std::shared_ptr<Transaction> tran;
   //tran->request = request;
   // get from via the brach tag.
@@ -92,7 +91,7 @@ std::shared_ptr<Transaction> TransactionLayer::create_transaction(std::shared_pt
   if (!branch.empty()) {
     tran = std::make_shared<Transaction>(_transport);
     tran->origin_remote = origin_remote;
-    tran->connection = connection;
+    tran->remotepeer = remote;
     tran->id = sip0x::protocol::to_string(request->method) + "_" + branch;
     // TODO: Add check against present branch
     _transactions[tran->id] = tran;

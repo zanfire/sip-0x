@@ -20,10 +20,10 @@
 #include <string>
 #include <memory>
 #include <set>
-#include <thread>
 #include <condition_variable>
 
 #include "ApplicationDelegate.hpp"
+#include "utils/ThreadedObject.hpp"
 
 namespace sip0x
 {
@@ -43,7 +43,7 @@ namespace sip0x
   //! \remarks This class is thread safe.
   //! \author Matteo Valdina  
   //!
-  class Endpoint : public ApplicationDelegate {
+  class Endpoint : public ApplicationDelegate, public utils::ThreadedObject {
   public:
     //! \brief Endpoint configuration.
     struct EndpointConfig {
@@ -68,8 +68,6 @@ namespace sip0x
     //RoutingService
 
     // Threading stuff.
-    std::thread* _thread = nullptr;
-    bool _thread_must_stop = false;
     const int _thread_min_resolution_ms = 20;
     std::recursive_mutex _mtx;
       
@@ -102,8 +100,8 @@ namespace sip0x
 
     //! Returns a friendly description of endpoint status.
     std::string describe_status();
-  private:
-    void process(void);
+  protected:
+    virtual void process(void) override;
   };
 }
 

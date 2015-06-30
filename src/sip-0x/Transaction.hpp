@@ -50,6 +50,7 @@
 namespace sip0x
 {
   class TransportLayer;
+  class RemotePeer;
 
   namespace utils {
     class Logger;
@@ -79,9 +80,10 @@ namespace sip0x
     // TODO: Work on ID
   public:
     std::string id;
+    // TODO: Revise this comment.
     //! Reference to the connection associated to this transaction.
     //! \remark This connection is not available for UDP scenario.
-    std::shared_ptr<utils::Connection> connection;
+    std::shared_ptr<RemotePeer> remotepeer;
     //! True if the origin of this transaction is from remote.
     bool origin_remote = false;
     // State machine

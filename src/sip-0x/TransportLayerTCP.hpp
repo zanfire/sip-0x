@@ -30,8 +30,6 @@ namespace sip0x
     //asio::ip::udp::socket _udp_socket; 
     asio::ip::tcp::acceptor _acceptor;
     utils::ConnectionManager _connection_manager;
-    // Callbakcs
-    listeners::TransportListener* _listener = nullptr;
 
   public:
     //! Process network stuff.
