@@ -32,7 +32,7 @@ namespace sip0x
 
   public:
     ///! Event of received message on specify remote peer.
-    sip0x::utils::Event<std::shared_ptr<sip0x::protocol::SIPMessage>&, std::shared_ptr<sip0x::RemotePeer>&> received;
+    sip0x::utils::Signal<std::shared_ptr<sip0x::protocol::SIPMessage>&, std::shared_ptr<sip0x::RemotePeer>&> received;
 
   public:
     TransportLayer(void);

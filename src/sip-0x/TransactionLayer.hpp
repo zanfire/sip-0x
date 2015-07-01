@@ -59,8 +59,8 @@ namespace sip0x
     std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
     // Transport
     std::shared_ptr<TransportLayer> _transport;
-    // Delegate handler.
-    utils::Delegate _delegate;
+    // Slot handler.
+    utils::Slot _slot;
 
   public:
     TransactionLayer(std::shared_ptr<TransportLayer>& transport);

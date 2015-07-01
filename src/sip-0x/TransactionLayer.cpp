@@ -19,7 +19,7 @@ using namespace sip0x::protocol;
 TransactionLayer::TransactionLayer(std::shared_ptr<TransportLayer>& transport) : _transport(transport) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.TransactionLayer");
 
-  _delegate.connect(this, &TransactionLayer::on_receive, _transport->received);
+  _slot.connect(this, &TransactionLayer::on_receive, _transport->received);
 }
 
 TransactionLayer::~TransactionLayer(void) {

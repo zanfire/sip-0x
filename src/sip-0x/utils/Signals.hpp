@@ -4,7 +4,8 @@
 #include <memory>
 #include <vector>
 
-//! These are a set of classes for the signal slot pattern implementation.
+//! This module implement the Signal/Slot pattern.
+//! Usage: Classes must define a Signal that must be connected with a slot.
 //! - Signal
 //! - Slot
 namespace sip0x
@@ -12,39 +13,39 @@ namespace sip0x
   namespace utils
   {
     // Forward declaration.
-    template<class... Args> class Event;
+    template<class... Args> class Signal;
 
-    class BaseDelegate {
+    class BaseSlot {
     public:
-      BaseDelegate(void) = default;
-      virtual ~BaseDelegate(void) = default;
+      BaseSlot(void) = default;
+      virtual ~BaseSlot(void) = default;
     };
 
-    template<class... Args> class AbstractDelegate : public BaseDelegate
+    template<class... Args> class AbstractSlot : public BaseSlot
     {
     protected:
-      virtual ~AbstractDelegate();
+      virtual ~AbstractSlot();
 
-      friend class Event<Args...>;
+      friend class Signal<Args...>;
 
-      void add(Event<Args...> *s){ v.push_back(s); }
-      void remove(Event<Args...> *s){ v.erase(std::remove(v.begin(), v.end(), s), v.end()); }
+      void add(Signal<Args...> *s){ v.push_back(s); }
+      void remove(Signal<Args...> *s){ v.erase(std::remove(v.begin(), v.end(), s), v.end()); }
 
       virtual void call(Args... args) = 0;
 
-      std::vector<Event<Args...>*> v;
+      std::vector<Signal<Args...>*> v;
     };
 
-    template<class T, class... Args> class ConcreteDelegate : public AbstractDelegate<Args...>
+    template<class T, class... Args> class ConcreteSlot : public AbstractSlot<Args...>
     {
     public:
-      ConcreteDelegate(T *t, void(T::*f)(Args...), Event<Args...> &s);
+      ConcreteSlot(T *t, void(T::*f)(Args...), Signal<Args...> &s);
 
     private:
-      ConcreteDelegate(const ConcreteDelegate&);
-      void operator=(const ConcreteDelegate&);
+      ConcreteSlot(const ConcreteSlot&);
+      void operator=(const ConcreteSlot&);
 
-      friend class Event<Args...>;
+      friend class Signal<Args...>;
 
       virtual void call(Args... args){ (t->*f)(args...); }
 
@@ -52,47 +53,46 @@ namespace sip0x
       void(T::*f)(Args...);
     };
 
-    template<class... Args> class Event
-    {
+    //! This class define the signal entity in the signal/slot pattern.
+    template<class... Args> class Signal {
+    private:
+      std::vector<AbstractSlot<Args...>*> v;
     public:
-      Event(){ }
-      ~Event(){ for (auto i : v) i->remove(this); }
+      Signal(void){ }
+      ~Signal(void){ for (auto i : v) i->remove(this); }
 
-      void connect(AbstractDelegate<Args...> &s){ v.push_back(&s); s.add(this); }
-      void disconnect(AbstractDelegate<Args...> &s){ v.erase(std::remove(v.begin(), v.end(), &s), v.end()); }
+      Signal(const Signal&) = delete;
+      void operator=(const Signal&) = delete;
+
+      void connect(AbstractSlot<Args...> &s){ v.push_back(&s); s.add(this); }
+      void disconnect(AbstractSlot<Args...> &s){ v.erase(std::remove(v.begin(), v.end(), &s), v.end()); }
 
       void emit(Args... args){ for (auto i : v) i->call(args...); }
-
-    private:
-      Event(const Event&);
-      void operator=(const Event&);
-
-      std::vector<AbstractDelegate<Args...>*> v;
     };
 
-    template<class... Args> AbstractDelegate<Args...>::~AbstractDelegate()
+    template<class... Args> AbstractSlot<Args...>::~AbstractSlot()
     {
       for (auto i : v) i->disconnect(*this);
     }
 
-    template<class T, class... Args> ConcreteDelegate<T, Args...>::ConcreteDelegate(T *t, void(T::*f)(Args...), Event<Args...> &s) : t(t), f(f)
+    template<class T, class... Args> ConcreteSlot<T, Args...>::ConcreteSlot(T *t, void(T::*f)(Args...), Signal<Args...> &s) : t(t), f(f)
     {
       s.connect(*this);
     }
 
-    class Delegate
-    {
-    public:
-      Delegate(){ }
-      ~Delegate(){ for (auto i : v) delete i; }
-
-      template<class T, class... Args> void connect(T *t, void(T::*f)(Args...), Event<Args...> &s){ v.push_back(new ConcreteDelegate<T, Args...>(t, f, s)); }
-
+    class Slot {
     private:
-      Delegate(const Delegate&);
-      void operator=(const Delegate&);
+      std::vector<BaseSlot*> v;
+    
+    public:
+      Slot(void) = default;
+      ~Slot(void) { for (auto i : v) delete i; }
 
-      std::vector<BaseDelegate*> v;
+      template<class T, class... Args> void connect(T *t, void(T::*f)(Args...), Signal<Args...> &s){ v.push_back(new ConcreteSlot<T, Args...>(t, f, s)); }
+
+      Slot(const Slot&) = delete;
+      void operator=(const Slot&) = delete;
+
     };
   }
 }
