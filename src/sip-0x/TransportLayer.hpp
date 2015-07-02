@@ -40,7 +40,6 @@ namespace sip0x
 
     //! Send data to the lower layer (impl. dependent) like network or mock layer.
     virtual void send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message) = 0;
-    virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage> const& message) = 0;
   };
 }
 

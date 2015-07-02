@@ -7,15 +7,17 @@
 
 namespace mocks
 {
-  //! Model unit test interface.
+  //! Mock object for testing objected tied on transport.
   class TransportLayerMock : public sip0x::TransportLayer {
-  protected:
+  public:
   
     TransportLayerMock(void);
     virtual ~TransportLayerMock(void);
   
+    //! Inject message into the 
+    void inject_message(uint8_t const* buffer, std::size_t size);
+
     virtual void send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message) override;
-    virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage> const& message) override;
   public:
   };
 }

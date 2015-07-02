@@ -141,6 +141,7 @@
     <ClInclude Include="..\src\sip-0x\utils\Logger.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\LoggerFactory.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\Signals.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\Signals2.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\ThreadedObject.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\utils.hpp" />
   </ItemGroup>

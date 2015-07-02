@@ -5,6 +5,7 @@
 
 #include "unittests/TestExecutor.hpp"
 #include "unittests/SIPParserTest.hpp"
+#include "unittests/TransactionTest.hpp"
 #include "unittests/SIPParserFromFileTest.hpp"
 
 
@@ -19,6 +20,7 @@ int main(int argc, char const* argv[]) {
   cout << "sip-0x library tests..." << endl;
 
   unittests::TestExecutor executor;
+  executor.add(std::make_shared<unittests::TransactionTest>());
   executor.add(std::make_shared<unittests::SIPParserTest>());
   executor.add(std::make_shared<unittests::SIPParserFromFileTest>("..\\tests\\sip_requests.txt"));
   executor.add(std::make_shared<unittests::SIPParserFromFileTest>("..\\tests\\sip_responses.txt"));

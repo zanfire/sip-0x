@@ -167,7 +167,7 @@ void TransportLayerTCP::on_incoming_data(std::shared_ptr<utils::Connection> conn
   std::shared_ptr<RemotePeerTCP> remote = std::make_shared<RemotePeerTCP>();
   remote->connection = conn;
 
-  received.emit(message, std::static_pointer_cast<RemotePeer>(remote)); 
+  received.emit(message, std::static_pointer_cast<RemotePeer>(remote));
 }
 
 std::shared_ptr<Connection> TransportLayerTCP::connect(std::string const& address, int port) {

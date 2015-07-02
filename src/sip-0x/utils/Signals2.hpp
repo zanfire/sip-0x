@@ -1,5 +1,5 @@
-#if !defined(SIP0X_UTILS_SIGNALS_HPP__)
-#define SIP0X_UTILS_SIGNALS_HPP__
+#if !defined(SIP0X_UTILS_SIGNALS2_HPP__)
+#define SIP0X_UTILS_SIGNALS2_HPP__
 
 #include <memory>
 #include <vector>
@@ -83,7 +83,7 @@ namespace sip0x
     class Slot {
     private:
       std::vector<BaseSlot*> v;
-
+    
     public:
       Slot(void) = default;
       ~Slot(void) { for (auto i : v) delete i; }
@@ -92,8 +92,9 @@ namespace sip0x
 
       Slot(const Slot&) = delete;
       void operator=(const Slot&) = delete;
+
     };
   }
 }
 
-#endif // SIP0X_UTILS_SIGNALS_HPP__
+#endif // SIP0X_UTILS_SIGNALS2_HPP__

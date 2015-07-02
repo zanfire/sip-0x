@@ -53,8 +53,8 @@ namespace sip0x
   protected:
     std::shared_ptr<utils::Logger> _logger;
     // Listener
-    listeners::TransactionLayerRequestListener* _listener_request;
-    listeners::TransactionLayerResponseListener* _listener_response;
+    listeners::TransactionLayerRequestListener* _listener_request = nullptr;
+    listeners::TransactionLayerResponseListener* _listener_response = nullptr;
     // Transactions.
     std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
     // Transport

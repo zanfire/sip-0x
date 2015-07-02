@@ -390,6 +390,9 @@
     <ClInclude Include="..\src\sip-0x\utils\Signals.hpp">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Signals2.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp">
