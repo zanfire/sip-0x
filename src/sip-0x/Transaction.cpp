@@ -24,7 +24,7 @@ Transaction::~Transaction(void) {
 }
 
 
-bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const& message, bool forward) {
+bool Transaction::on_message(std::shared_ptr<const sip0x::protocol::SIPMessage>& message, bool forward) {
   std::lock_guard<std::recursive_mutex> guard(_mtx);
 
   if (state == TransactionState::TRANSACTION_STATE_COMPLETED || state == TransactionState::TRANSACTION_STATE_TERMINATED) {
@@ -41,7 +41,7 @@ bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const&
       update_timers_value();
       LOG_DEBUG(_logger, "%s: set as T0 ref %lld ms.", to_string().c_str(), t::duration_cast<t::seconds>(_T0.time_since_epoch()).count());
       change_state(TransactionState::TRANSACTION_STATE_TRYING);
-      request = std::dynamic_pointer_cast<SIPRequest>(message);
+      request = std::dynamic_pointer_cast<const SIPRequest>(message);
       if (forward) {
         _transport->send(shared_from_this(), message);
       }     
@@ -54,7 +54,7 @@ bool Transaction::on_message(std::shared_ptr<sip0x::protocol::SIPMessage> const&
   }
   if (state == TransactionState::TRANSACTION_STATE_TRYING || state == TransactionState::TRANSACTION_STATE_PROCEEDING) {
 
-    std::shared_ptr<SIPResponse> resp = std::dynamic_pointer_cast<SIPResponse>(message);
+    std::shared_ptr<const SIPResponse> resp = std::dynamic_pointer_cast<const SIPResponse>(message);
     if (resp != nullptr) {
       int code = resp->status_code;
       if (code >= 100 && code <= 199) {
@@ -153,7 +153,7 @@ void Transaction::terminate(void)  {
 
 void Transaction::resend(void) {
   if (state == TransactionState::TRANSACTION_STATE_TRYING) {
-    _transport->send(shared_from_this(), request);
+    _transport->send(shared_from_this(), std::dynamic_pointer_cast<const SIPMessage>(request));
   }
   else {
     // Ignoring 

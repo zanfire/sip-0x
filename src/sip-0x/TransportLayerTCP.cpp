@@ -56,7 +56,7 @@ void TransportLayerTCP::async_accept(void) {
 }
 
 
-void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message) {
+void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>&  message) {
   std::string msg = message->to_string();
   std::shared_ptr<RemotePeerTCP> remote = std::static_pointer_cast<RemotePeerTCP>(transaction->remotepeer);
 
@@ -64,7 +64,7 @@ void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::sha
 
   if (message->is_request) {
     if (remote == nullptr) {
-      std::shared_ptr<SIPRequest> request = std::dynamic_pointer_cast<SIPRequest>(message);
+      std::shared_ptr<const SIPRequest> request = std::dynamic_pointer_cast<const SIPRequest>(message);
       // Get destination from ReqeustURI.
       std::string host = request->uri.hostport.host;
       int port = request->uri.hostport.port;
@@ -78,7 +78,7 @@ void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::sha
     }
   }
   else {
-    std::shared_ptr<SIPResponse> response = std::dynamic_pointer_cast<SIPResponse>(message);
+    std::shared_ptr<const SIPResponse> response = std::dynamic_pointer_cast<const SIPResponse>(message);
 
     /*
         The server transport uses the value of the top Via header field in

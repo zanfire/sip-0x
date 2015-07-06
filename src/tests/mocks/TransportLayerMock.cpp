@@ -7,7 +7,7 @@
 using namespace sip0x;
 using namespace mocks;
 
-TransportLayerMock::TransportLayerMock(void) {
+TransportLayerMock::TransportLayerMock(void) : TransportLayer() {
 
 }
 
@@ -28,6 +28,7 @@ void TransportLayerMock::inject_message(uint8_t const* buffer, std::size_t size)
 }
 
 
-void TransportLayerMock::send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPMessage> const& message) {
+void TransportLayerMock::send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>& message) {
   // Mock received message dispatch to the testing 
+  _last_message = message;
 }

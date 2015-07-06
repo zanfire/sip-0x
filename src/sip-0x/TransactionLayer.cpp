@@ -54,11 +54,11 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
 
 
 void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPRequest>& request, bool forward_to_transport) {
-  bool accepted = transaction->on_message(request, forward_to_transport);
+  bool accepted = transaction->on_message(std::dynamic_pointer_cast<const SIPMessage>(request), forward_to_transport);
   if (accepted) {
     // TODO: handling retransmission.
     // Notify the UA of the new transaction.
-    if (transaction->origin_remote) {
+    if (transaction->origin_remote && _listener_request != nullptr) {
       _listener_request->on_incoming_request(transaction, request);
     }
   }
@@ -70,7 +70,7 @@ void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction
 
 void TransactionLayer::process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPResponse>& response, bool forward_to_transport) {
   TransactionState prev_state = transaction->state;
-  bool accepted = transaction->on_message(response, forward_to_transport);
+  bool accepted = transaction->on_message(std::dynamic_pointer_cast<const SIPMessage>(response), forward_to_transport);
   if (accepted) {
     _listener_response->on_incoming_response(transaction, std::dynamic_pointer_cast<SIPResponse const>(response));
   }

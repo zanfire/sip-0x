@@ -38,13 +38,13 @@ void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
 
   // Ask to the application layer if accept register from client
 
-  bool accepted = _application_delegate->raise_cb_registrar_update(transaction->request);
+  bool accepted = false; //_application_delegate->raise_cb_registrar_update(transaction->request);
   if (accepted) {
     // Create a valid response.
     std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 200, "OK");
 
     //
-    int expires = _application_delegate->raise_cb_registrar_get_expires(transaction->request);
+    int expires = 32; // _application_delegate->raise_cb_registrar_get_expires(transaction->request);
     if (expires >= 0) {
       add_header_expires(response.get(), expires);
     }
@@ -63,7 +63,7 @@ void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
 }
 
 
-std::shared_ptr<SIPResponse> UAS::create_RESPONSE_for(SIPRequest* request, int code, char const* phrase) {
+std::shared_ptr<SIPResponse> UAS::create_RESPONSE_for(const SIPRequest* request, int code, char const* phrase) {
   std::shared_ptr<SIPResponse> response = std::make_shared<SIPResponse>();
   response->status_code = code;
   response->reason_phrase = phrase;

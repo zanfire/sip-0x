@@ -37,6 +37,7 @@ bool TransactionTest::execute(void) {
         "\r\n";
 
   _transport->inject_message((uint8_t const*)reg_message, std::strlen(reg_message));
+  auto msg = _transport->get_last_message();
   return false;
 }
 
