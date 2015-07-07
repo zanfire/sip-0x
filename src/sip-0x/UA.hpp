@@ -6,6 +6,8 @@
 #include <set>
 
 #include "protocol/SIPMethod.hpp"
+#include "utils/Signals.hpp"
+
 
 namespace sip0x
 {
@@ -35,6 +37,7 @@ namespace sip0x
   class UA {
   protected:
     std::shared_ptr<utils::Logger> _logger;
+    utils::Slot _slot;
     std::set<std::shared_ptr<listeners::UAListener>> _listeners;
     // Is it really needed??
     ApplicationDelegate* _application_delegate;

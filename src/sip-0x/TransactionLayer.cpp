@@ -6,7 +6,6 @@
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
 #include "utils/Signals.hpp"
-#include "listeners/TransactionListener.hpp"
 #include "protocol/SIPMessage.hpp"
 
 #include <vector>
@@ -58,8 +57,8 @@ void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction
   if (accepted) {
     // TODO: handling retransmission.
     // Notify the UA of the new transaction.
-    if (transaction->origin_remote && _listener_request != nullptr) {
-      _listener_request->on_incoming_request(transaction, request);
+    if (transaction->origin_remote) {
+      received_request.emit(transaction, std::dynamic_pointer_cast<const SIPRequest>(request));
     }
   }
   else {
@@ -72,7 +71,7 @@ void TransactionLayer::process_response(std::shared_ptr<Transaction>& transactio
   TransactionState prev_state = transaction->state;
   bool accepted = transaction->on_message(std::dynamic_pointer_cast<const SIPMessage>(response), forward_to_transport);
   if (accepted) {
-    _listener_response->on_incoming_response(transaction, std::dynamic_pointer_cast<SIPResponse const>(response));
+    received_response.emit(transaction, std::dynamic_pointer_cast<const SIPResponse>(response));
   }
   else {
     LOG_WARN(_logger, "Transaction@%p doesn't accept request@%p", transaction.get(), response.get());

@@ -14,15 +14,12 @@ using namespace sip0x;
 using namespace sip0x::utils;
 
 UAC::UAC(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) 
-    : UA(application_delegate, transaction, domain, useragent),
-      listeners::TransactionLayerResponseListener(),
-      _uniform_dist_Az('A', 'z') {
+  : UA(application_delegate, transaction, domain, useragent), _uniform_dist_Az('A', 'z') {
+  // Seed with a real random value, if available
+  std::random_device rd;
+  _random_engine = std::default_random_engine(rd());
 
-    // Seed with a real random value, if available
-    std::random_device rd;
-    _random_engine = std::default_random_engine(rd());
-
-    _transaction->set_listener_response(this);
+  _slot.connect(this, &UAC::on_incoming_response, _transaction->received_response);
 }
 
 

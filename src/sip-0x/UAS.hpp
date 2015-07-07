@@ -17,7 +17,6 @@
 //! limitations under the License.
 //!
 
-#include "listeners/TransactionListener.hpp"
 #include "UA.hpp"
 
 #include <string>
@@ -29,14 +28,14 @@ namespace sip0x
   //! 
   //! \author Matteo Valdina  
   //! 
-  class UAS : public UA, listeners::TransactionLayerRequestListener {
+  class UAS : public UA {
   protected:
-      
+    
   public:
     UAS(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent);
     virtual ~UAS(void);
 
-    virtual void on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<sip0x::protocol::SIPRequest>& request) override;
+    void on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<const sip0x::protocol::SIPRequest>& request);
 
 
   private:

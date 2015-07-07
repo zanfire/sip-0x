@@ -52,9 +52,6 @@ namespace sip0x
   class TransactionLayer {
   protected:
     std::shared_ptr<utils::Logger> _logger;
-    // Listener
-    listeners::TransactionLayerRequestListener* _listener_request = nullptr;
-    listeners::TransactionLayerResponseListener* _listener_response = nullptr;
     // Transactions.
     std::unordered_map<std::string, std::shared_ptr<Transaction>> _transactions;
     // Transport
@@ -62,12 +59,13 @@ namespace sip0x
     // Slot handler.
     utils::Slot _slot;
 
+  public:  
+    utils::Signal<std::shared_ptr<sip0x::Transaction>&, std::shared_ptr<const sip0x::protocol::SIPRequest>&> received_request;
+    utils::Signal<std::shared_ptr<sip0x::Transaction>&, std::shared_ptr<const sip0x::protocol::SIPResponse>&> received_response;
+
   public:
     TransactionLayer(std::shared_ptr<TransportLayer>& transport);
     virtual ~TransactionLayer(void);
-
-    void set_listener_request(listeners::TransactionLayerRequestListener* listener) { _listener_request = listener; }
-    void set_listener_response(listeners::TransactionLayerResponseListener* listener) { _listener_response = listener; }
 
     virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage>& message, std::shared_ptr<sip0x::RemotePeer>& connection);
 

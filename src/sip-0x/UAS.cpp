@@ -12,17 +12,16 @@ using namespace sip0x::protocol;
 using namespace sip0x::utils;
 
 UAS::UAS(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
-  UA(application_delegate, transaction, domain, useragent),
-  TransactionLayerRequestListener() {
+UA(application_delegate, transaction, domain, useragent) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.UAS");
 
-  _transaction->set_listener_request(this);
+  _slot.connect(this, &UAS::on_incoming_request, _transaction->received_request);
 }
 
 UAS::~UAS(void) {
 }
 
-void UAS::on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPRequest>& request) {
+void UAS::on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<const SIPRequest>& request) {
   switch (request->method) {
     case SIPMethod::SIPMETHOD_REGISTER:
     {
@@ -51,7 +50,7 @@ void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
 
     _transaction->process_response(transaction, response, true);
     return;
-  }
+  }  
   else {
     // Create a reject response
   }

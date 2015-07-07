@@ -1,30 +1,31 @@
-#include "TransactionTest.hpp"
+#include "UACTest.hpp"
 
 #include "parser/Parser.hpp"
 #include "utils/InputTokenStream.hpp"
 
 #include "TransactionLayer.hpp"
-#include "UAS.hpp"
+#include "UAC.hpp"
 
 using namespace sip0x;
 using namespace unittests;
 using namespace mocks;
 
-TransactionTest::TransactionTest(void) : BaseTest("Transaction", "Test for Transaction.") {
+UACTest::UACTest(void) : BaseTest("UAS", "Test for UAS.") {
 }
 
 
-TransactionTest::~TransactionTest(void) {
+UACTest::~UACTest(void) {
 }
 
 
-void TransactionTest::prepare(void) {
+void UACTest::prepare(void) {
   _transport = std::make_shared<mocks::TransportLayerMock>();
 }
 
 
-bool TransactionTest::execute(void) {
+bool UACTest::execute(void) {
   sip0x::TransactionLayer tl(std::dynamic_pointer_cast<sip0x::TransportLayer>(_transport));
+  sip0x::UAC uac(&tl, nullptr, "testnetwork.cnx", "unittest-ua");
   
   char const* reg_message = "REGISTER sip:127.0.0.1:5060 SIP/2.0\r\n" \
         "Via : SIP/2.0/TCP 127.0.0.1;branch=z9hG4bK_kMeJcNrmerawTLevhmvIUGMrklxsKMI\r\n" \

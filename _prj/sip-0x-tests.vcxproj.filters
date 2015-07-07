@@ -29,6 +29,12 @@
     <ClCompile Include="..\src\tests\mocks\TransportLayerMock.cpp">
       <Filter>mocks</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\tests\unittests\UASTest.cpp">
+      <Filter>unittests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\tests\unittests\UACTest.cpp">
+      <Filter>unittests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\docs\logger.ini" />
@@ -65,6 +71,12 @@
     </ClInclude>
     <ClInclude Include="..\src\tests\mocks\TransportLayerMock.hpp">
       <Filter>mocks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\UASTest.hpp">
+      <Filter>unittests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\tests\unittests\UACTest.hpp">
+      <Filter>unittests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

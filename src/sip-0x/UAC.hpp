@@ -18,7 +18,6 @@
 //!
 
 #include "UA.hpp"
-#include "listeners\TransactionListener.hpp"
 #include "protocol\SIPURI.hpp"
 
 #include <random>
@@ -32,7 +31,7 @@ namespace sip0x
   //! 
   //! \author Matteo Valdina  
   //!
-  class UAC : public UA, listeners::TransactionLayerResponseListener {
+  class UAC : public UA {
   protected:
     std::default_random_engine _random_engine;
     std::uniform_int_distribution<int> _uniform_dist_Az;
@@ -44,11 +43,7 @@ namespace sip0x
     //! Handle a SIP request.
     void handle(std::shared_ptr<protocol::SIPRequest>& request);
 
-    //!
-    //! Transaction listener impl.
-    //!
-
-    virtual void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response) override;
+    void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<const protocol::SIPResponse>& response);
 
     //!
     //! Request creation.
