@@ -101,14 +101,20 @@ std::shared_ptr<Transaction> TransactionLayer::create_transaction(std::shared_pt
   return tran;
 }
 
-std::shared_ptr<Transaction> TransactionLayer::get_transaction(std::shared_ptr<SIPMessage> const& message) {
+std::shared_ptr<Transaction> TransactionLayer::get_transaction(const std::string& id) {
+  std::shared_ptr<Transaction> tran = _transactions[id];
+  LOG_DEBUG(_logger, "Searching transaction with id: \"%s\" result: %p.", id.c_str(), tran.get());
+  return tran;
+}
+
+std::shared_ptr<Transaction> TransactionLayer::get_transaction(const std::shared_ptr<SIPMessage>& message) {
   std::shared_ptr<Transaction> tran;
   std::string branch = message->get_Via_branch();
-  if (!branch.empty()) {
+  // This implementation expects only transaction with magic cookie z9hG4bK.
+  if (!branch.empty() && branch.find("z9hG4bK") == 0) {
     std::string method;
     if (message->is_request) {
-      SIPRequest const* req = dynamic_cast<SIPRequest const*>(message.get());
-      method = sip0x::protocol::to_string(req->method);
+      method = sip0x::protocol::to_string(dynamic_cast<SIPRequest const*>(message.get())->method);
     }
     else {
       std::shared_ptr<SIPMessageHeaderCSeq> cseq = message->get_first<SIPMessageHeaderCSeq>();
@@ -117,10 +123,12 @@ std::shared_ptr<Transaction> TransactionLayer::get_transaction(std::shared_ptr<S
       }
     }
     if (!method.empty()) {
-      std::string id = method + "_" + branch;
-      // TODO: Add check against present branch
-      tran = _transactions[id];
+      tran = get_transaction(method + "_" + branch);
     }
+  } 
+  else {
+    if (branch.empty()) LOG_WARN(_logger, "Searching a transaction with a SIP message without branch. Transaction unsearchable. Not matching min criteria skipping...");
+    else LOG_WARN(_logger, "Searching a transaction with a SIP message with a wrong branch (%s), possible old implementation. Not matching min criteria skipping...", branch.c_str());
   }
   return tran; // correct or empty.
 }

@@ -10,7 +10,7 @@ using namespace sip0x;
 using namespace unittests;
 using namespace mocks;
 
-UACTest::UACTest(void) : BaseTest("UAS", "Test for UAS.") {
+UACTest::UACTest(void) : BaseTest("UAC", "Test for UAC.") {
 }
 
 
@@ -41,5 +41,3 @@ bool UACTest::execute(void) {
   auto msg = _transport->get_last_message();
   return false;
 }
-
-

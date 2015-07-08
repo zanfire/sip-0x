@@ -26,9 +26,10 @@ bool TestExecutor::process(void) {
     bool r = t->execute();
     t->cleanup();
 
-    std::cout << r ? "OK" : "FAILED";
+    std::cout << (r ? "OK" : "FAILED") << std::endl;
     result &= r;
     if (!result &&_stop_at_first_failure) {
+      std::cout << "Interrupting unit test..." << std::endl;
       break;
     }
   }

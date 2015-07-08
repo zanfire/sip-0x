@@ -9,13 +9,13 @@ namespace unittests
 {
   class BaseTest;
 
-  //! Execute a set of test.
+  //! Execute a set of tests.
   class TestExecutor {
   protected:
     //! Collection of tests.
     std::vector<std::shared_ptr<unittests::BaseTest>> _tests;
-    //!
-    bool _stop_at_first_failure = true;
+    //! Stop test execution at first failure.
+    bool _stop_at_first_failure = false;
     
   public:
     TestExecutor(void);

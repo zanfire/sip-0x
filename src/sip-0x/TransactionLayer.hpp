@@ -77,7 +77,8 @@ namespace sip0x
     //! \param connection The TCP connection used to receive/send the transaction.
     //! \param origin_remote true if the origin of request is from a remote peer.
     std::shared_ptr<Transaction> create_transaction(std::shared_ptr<sip0x::protocol::SIPRequest> const& request, std::shared_ptr<sip0x::RemotePeer> remote, bool origin_remote);
-      
+    
+    std::shared_ptr<Transaction> TransactionLayer::get_transaction(const std::string& id);
     std::shared_ptr<Transaction> get_transaction(std::shared_ptr<sip0x::protocol::SIPMessage> const& message);
 
     //! Process timers for each transaction.
