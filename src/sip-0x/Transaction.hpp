@@ -19,7 +19,6 @@
 
 #include <memory>
 #include <string>
-#include <chrono>
 #include <mutex>
 
 /* 
@@ -93,7 +92,7 @@ namespace sip0x
   
   protected:
     //! Time point of first request sent/received. Every computation are get as delta from this time.
-    std::chrono::steady_clock::time_point _T0;
+    long long _T0_ms;
 
     // Timers ([timer name]_[description]_[units])
     long long const _T1_rtti_ms = 500;

@@ -2,6 +2,7 @@
 
 #include "parser/Parser.hpp"
 #include "utils/InputTokenStream.hpp"
+#include "utils/Clock.hpp"
 
 #include "TransactionLayer.hpp"
 #include "Transaction.hpp"
@@ -50,8 +51,12 @@ bool TransactionTest::execute(void) {
   auto transaction = tl.get_transaction("REGISTER_z9hG4bK_unittest");
   if (transaction->state != TransactionState::TRANSACTION_STATE_TRYING) return false;
   _transport->inject_message((uint8_t const*)res_message, std::strlen(reg_message));
-
   if (transaction->state != TransactionState::TRANSACTION_STATE_COMPLETED) return false;
+  sip0x::utils::Clock::add_offset(8 * 1000);
+  tl.on_process();
+  if (transaction->state != TransactionState::TRANSACTION_STATE_TERMINATED) return false;
+  // Cleanup we expect that tran is dtor with this reset.
+  transaction.reset();
 
   auto msg = _transport->get_last_message();
   return true;

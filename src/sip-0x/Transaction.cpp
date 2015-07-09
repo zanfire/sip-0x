@@ -6,6 +6,7 @@
 #include "utils/Connection.hpp"
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
+#include "utils/Clock.hpp"
 
 #include <memory>
 
@@ -13,7 +14,6 @@ using namespace sip0x;
 using namespace sip0x::utils;
 using namespace sip0x::protocol;
 
-namespace t = std::chrono;
 
 Transaction::Transaction(std::shared_ptr<sip0x::TransportLayer>& tran) : _mtx(), _transport(tran) {
   _logger = sip0x::utils::LoggerFactory::get_logger("sip0x.Transaction");
@@ -37,9 +37,9 @@ bool Transaction::on_message(std::shared_ptr<const sip0x::protocol::SIPMessage>&
     // initialize transaction
     if (message->is_request) {
       // Initializing timer.
-      _T0 = t::steady_clock::now();
+      _T0_ms = Clock::now_millis();
       update_timers_value();
-      LOG_DEBUG(_logger, "%s: set as T0 ref %lld ms.", to_string().c_str(), t::duration_cast<t::seconds>(_T0.time_since_epoch()).count());
+      LOG_DEBUG(_logger, "%s: set as T0 ref %lld ms.", to_string().c_str(), _T0_ms);
       change_state(TransactionState::TRANSACTION_STATE_TRYING);
       request = std::dynamic_pointer_cast<const SIPRequest>(message);
       if (forward) {
@@ -87,58 +87,57 @@ void Transaction::process_timers(void) {
   std::lock_guard<std::recursive_mutex> guard(_mtx);
 
   if (state == TransactionState::TRANSACTION_STATE_TERMINATED) {
-    // Transaction is in the last state. it cannot change in this state and in awhile could be destroyed.
     return;
   }
   // refresh registration if it's time
-  auto elapsed_secs = t::duration_cast<t::milliseconds>(t::steady_clock::now() - _T0);
+  auto elapsed_secs = (Clock::now_millis() - _T0_ms) / 1000;
 
   // Check if fire a timer event.
-  if (is_udp() && is_INVITE() && elapsed_secs.count() >= _TimerA_secs) {
+  if (is_udp() && is_INVITE() && elapsed_secs >= _TimerA_secs) {
     // Timer A  initially T1     Section 17.1.1.2     INVITE request retransmit interval, for UDP only 
     LOG_DEBUG(_logger, "Timer A elapsed.");
   }
-  if (is_INVITE() && elapsed_secs.count() >= _TimerB_secs) {
+  if (is_INVITE() && elapsed_secs >= _TimerB_secs) {
     // Timer B  64*T1            Section 17.1.1.2     INVITE transaction timeout timer 
     LOG_DEBUG(_logger, "Timer B elapsed.");
   }
-  if (is_INVITE() && elapsed_secs.count() >= _TimerC_secs) {
+  if (is_INVITE() && elapsed_secs >= _TimerC_secs) {
     // Timer C  > 3min           Section 16.6         proxy INVITE transaction bullet 11 timeout 
     LOG_DEBUG(_logger, "Timer C elapsed.");
   }
-  if (is_udp() && is_INVITE() && elapsed_secs.count() >= _TimerD_secs) {
+  if (is_udp() && is_INVITE() && elapsed_secs >= _TimerD_secs) {
     // Timer D  > 32s for UDP    Section 17.1.1.2     Wait time for response retransmits 
     //          0s for TCP/SCTP
     LOG_DEBUG(_logger, "Timer D elapsed.");
   }
-  if (is_udp() && !is_INVITE() && elapsed_secs.count() >= _TimerE_secs) {
+  if (is_udp() && !is_INVITE() && elapsed_secs >= _TimerE_secs) {
     // Timer E  initially T1     Section 17.1.2.2     non-INVITE request retransmit interval, UDP only 
     LOG_DEBUG(_logger, "Timer E elapsed.");
   }
-  if (!is_INVITE() && elapsed_secs.count() >= _TimerF_secs && state < TransactionState::TRANSACTION_STATE_COMPLETED) {
+  if (!is_INVITE() && elapsed_secs >= _TimerF_secs && state < TransactionState::TRANSACTION_STATE_COMPLETED) {
     LOG_DEBUG(_logger, "%s: Timer F elapsed. This transaction will be terminated.", to_string().c_str());
     terminate();
   }
-  if (is_INVITE() && elapsed_secs.count() >= _TimerG_secs) {
+  if (is_INVITE() && elapsed_secs >= _TimerG_secs) {
     // Timer G  initially T1     Section 17.2.1       INVITE response retransmit interval
     LOG_DEBUG(_logger, "Timer G elapsed.");
   }
-  if (is_INVITE() && elapsed_secs.count() >= _TimerH_secs) {
+  if (is_INVITE() && elapsed_secs >= _TimerH_secs) {
     // Timer H  64*T1            Section 17.2.1       Wait time for ACK receipt 
     LOG_DEBUG(_logger, "Timer H elapsed.");
   }
-  if (is_udp() && is_INVITE() && elapsed_secs.count() >= _TimerI_secs) {
+  if (is_udp() && is_INVITE() && elapsed_secs >= _TimerI_secs) {
     // Timer I  T4 for UDP       Section 17.2.1       Wait time for ACK retransmits 
     //          0s for TCP/SCTP
     LOG_DEBUG(_logger, "Timer I elapsed.");
   }
-  if (is_udp() && !is_INVITE() && elapsed_secs.count() >= _TimerJ_secs &&  state == TransactionState::TRANSACTION_STATE_COMPLETED) {
+  if (is_udp() && !is_INVITE() && elapsed_secs >= _TimerJ_secs &&  state == TransactionState::TRANSACTION_STATE_COMPLETED) {
     // Timer J  64*T1 for UDP    Section 17.2.2       Wait time for non-INVITE request retransmits 
     //          0s for TCP/SCTP
     LOG_DEBUG(_logger, "%s: Timer J elapsed, transaction is going to the terminated state.", to_string().c_str());
     terminate();
   }
-  if (/*!is_udp() ??*/ !is_INVITE() && elapsed_secs.count() >= _TimerK_secs && state == TransactionState::TRANSACTION_STATE_COMPLETED) {
+  if (/*!is_udp() ??*/ !is_INVITE() && elapsed_secs >= _TimerK_secs && state == TransactionState::TRANSACTION_STATE_COMPLETED) {
     LOG_DEBUG(_logger, "%s: Timer K elapsed, transaction is going to the terminated state.", to_string().c_str());
     terminate();
   }

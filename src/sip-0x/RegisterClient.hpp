@@ -23,7 +23,6 @@
 #include "utils\utils.hpp"
 
 #include <memory>
-#include <chrono>
 #include <condition_variable>
 
 namespace sip0x
