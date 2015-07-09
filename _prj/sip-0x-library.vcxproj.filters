@@ -387,6 +387,9 @@
     <ClInclude Include="..\src\sip-0x\utils\Signals2.hpp">
       <Filter>utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Clock.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\sip-0x\utils\LoggerFactory.cpp">
@@ -429,5 +432,8 @@
     </ClCompile>
     <ClCompile Include="..\src\sip-0x\TransportLayerTCP.cpp" />
     <ClCompile Include="..\src\sip-0x\RemotePeer.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\Clock.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

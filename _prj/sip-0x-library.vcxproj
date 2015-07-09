@@ -131,6 +131,7 @@
     <ClInclude Include="..\src\sip-0x\protocol\SIPURI.hpp" />
     <ClInclude Include="..\src\sip-0x\protocol\SIPVersion.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\asio_header.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\Clock.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\Connection.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\ConnectionManager.hpp" />
     <ClInclude Include="..\src\sip-0x\utils\IniFile.hpp" />
@@ -160,6 +161,7 @@
     <ClCompile Include="..\src\sip-0x\UA.cpp" />
     <ClCompile Include="..\src\sip-0x\UAC.cpp" />
     <ClCompile Include="..\src\sip-0x\UAS.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\Clock.cpp" />
     <ClCompile Include="..\src\sip-0x\utils\Connection.cpp" />
     <ClCompile Include="..\src\sip-0x\utils\ConnectionManager.cpp" />
     <ClCompile Include="..\src\sip-0x\utils\Logger.cpp" />
