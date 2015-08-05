@@ -367,22 +367,27 @@
     <ClInclude Include="..\src\sip-0x\utils\ConnectionManager.hpp">
       <Filter>utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\sip-0x\listeners\ApplicationListener.hpp">
-      <Filter>listeners</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\sip-0x\listeners\TransportListener.hpp">
-      <Filter>listeners</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\sip-0x\listeners\UAListener.hpp">
       <Filter>listeners</Filter>
     </ClInclude>
     <ClInclude Include="..\src\sip-0x\listeners\ConnectionListener.hpp">
       <Filter>listeners</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\sip-0x\listeners\TransactionListener.hpp">
-      <Filter>listeners</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\sip-0x\utils\utils.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\TransportLayerTCP.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\ThreadedObject.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\RemotePeer.hpp" />
+    <ClInclude Include="..\src\sip-0x\utils\Signals.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Signals2.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\sip-0x\utils\Clock.hpp">
       <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
@@ -424,6 +429,11 @@
     <ClCompile Include="..\src\sip-0x\Endpoint.cpp" />
     <ClCompile Include="..\src\sip-0x\protocol\SIPMessage.cpp">
       <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\sip-0x\TransportLayerTCP.cpp" />
+    <ClCompile Include="..\src\sip-0x\RemotePeer.cpp" />
+    <ClCompile Include="..\src\sip-0x\utils\Clock.cpp">
+      <Filter>utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

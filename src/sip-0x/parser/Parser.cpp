@@ -22,24 +22,18 @@ void Parser::load_grammar(void) {
   _sigleton_mtx.unlock();
 }
 
+
 ParserResult Parser::parse(sip0x::utils::InputTokenStream& iss, TokenAbstract const& root, FactoryContext* factory) {
-#if defined(ENABLE_PARSER_LOGGING)
-  std::shared_ptr<Logger> logger = LoggerFactory::get_logger("sip0x.Parser.Parser");
-  LOG_DEBUG(logger, "Parsing string \"%s\".", iss.str());
-#endif
   ParserResult result = root.read(iss, factory);
   if (!iss.eof()) {
     // No consumed all input.
-    int cur_pos = iss.pos();
-    result.push_event(ParserResult::TYPE_ERROR, cur_pos, "Left content.");
+    result.push_event(ParserResult::TYPE_ERROR, iss.pos(), "Left content.");
   }
   return result;
 }
 
 
-
 std::shared_ptr<sip0x::protocol::SIPMessage> Parser::parse(sip0x::utils::InputTokenStream& iss) {
-  
   FactoryContext ctx;
   load_grammar();
   ParserResult res = parse(iss, *_sip_grammar, &ctx);

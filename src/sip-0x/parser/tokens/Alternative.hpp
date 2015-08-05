@@ -2,6 +2,7 @@
 #define SIP0X_PARSER_ALTERNATIVE_HPP__
 
 #include "parser/tokens/TokenAbstract.hpp"
+#include "parser/factory/FactoryContext.hpp"
 
 namespace sip0x
 {
@@ -16,14 +17,14 @@ namespace sip0x
     class Alternative<First> : public TokenAbstract {
 
     protected:
-      First member;
+      const First member;
 
     public:
-      Alternative(First& f) : TokenAbstract("Alternative"), member(f) {
+      Alternative(const First& f) : TokenAbstract("Alternative"), member(f) {
 #if defined(ENABLE_PARSER_LOGGING)
         _logger = LoggerFactory::get_logger("sip0x.Parser.Alternative");
 #endif
-        _name += "..." + f.get_name();
+        this->_name += "..." + f.get_name();
       }
 
       virtual ~Alternative(void) {}
@@ -49,8 +50,8 @@ namespace sip0x
       First member;
     
     public:
-      Alternative(First& f, Rest&... rest) : Alternative<Rest...>(rest...), member(f) {
-        _name += "," + f.get_name();
+      Alternative(const First& f, const Rest&... rest) : Alternative<Rest...>(rest...), member(f) {
+        this->_name += "," + f.get_name();
       }
 
       virtual ~Alternative(void) {

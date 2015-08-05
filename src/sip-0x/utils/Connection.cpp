@@ -11,7 +11,7 @@
 
 using namespace sip0x::utils;
 
-Connection::Connection(asio::ip::tcp::socket& socket, std::shared_ptr<sip0x::listeners::ConnectionListener>& listener) :
+Connection::Connection(asio::ip::tcp::socket& socket, const std::shared_ptr<sip0x::listeners::ConnectionListener>& listener) :
   _socket(std::move(socket)), _listener(listener) {
   _logger = LoggerFactory::get_logger("sip0x.Connection");
 }
@@ -66,7 +66,7 @@ void Connection::handle_read(std::error_code ec, std::size_t length) {
   }
   else {
     // Stops read from this socket.
-    LOG_INFO(_logger, "Stop reading from connection@%p due to error %d - %s", this, ec.value(), ec.message());
+    LOG_INFO(_logger, "Stop reading from connection@%p due to error %d - %s", this, ec.value(), ec.message().c_str());
   }
 }
 

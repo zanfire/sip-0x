@@ -19,7 +19,7 @@ namespace sip0x
       Sequence<TokenRegex, TokenHCOLON, Tok> _sequence;
       
     public:
-      TokenSIPMessageHeader_base(std::string name, std::string fieldregex, Tok& token) : TokenAbstract(name),
+      TokenSIPMessageHeader_base(std::string name, std::string fieldregex, const Tok& token) : TokenAbstract(name),
         _sequence
         (
           TokenRegex(fieldregex),

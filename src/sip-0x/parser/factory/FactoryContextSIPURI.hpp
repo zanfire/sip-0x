@@ -10,8 +10,8 @@ namespace sip0x
   namespace parser
   {
     class FactoryContextUserInfo : public FactoryContextValue<sip0x::protocol::SIPURI::UserInfo> {
-    public:
-      virtual void create(std::string const& /*text*/) override {
+    protected:
+      virtual void impl_create(void) override {
         if (_children.size() >= 2) {
           _value.username = _children[0]->text();
         }
@@ -26,7 +26,7 @@ namespace sip0x
 
     class FactoryContextURIParameter : public FactoryContextValue<sip0x::protocol::SIPURI::Param> {
     public:
-      virtual void create(std::string const& text) override {
+      virtual void impl_create(void) override {
         if (_children.size() == 3) {
           _value.param = _children[0]->text();
           _value.value = _children[2]->text();
@@ -39,7 +39,7 @@ namespace sip0x
 
     class FactoryContextURIParameters : public FactoryContextValue<std::vector<sip0x::protocol::SIPURI::Param>> {
     public:
-      virtual void create(std::string const& /*text*/) override {
+      virtual void impl_create(void) override {
         for (unsigned int i = 1; i < _children.size(); i++) {
           FactoryContextValue<sip0x::protocol::SIPURI::Param>* fcv = dynamic_cast<FactoryContextValue<sip0x::protocol::SIPURI::Param>*>(_children[i]);
           if (fcv != nullptr) {
@@ -55,7 +55,7 @@ namespace sip0x
 
     class FactoryContextHostPort : public FactoryContextValue<HostPort> {
     public:
-      virtual void create(std::string const& /*text*/) override {
+      virtual void impl_create(void) override {
         std::size_t idx = 0;
         _value.host.clear();
         while (idx < _children.size()) {
@@ -76,7 +76,7 @@ namespace sip0x
 
     class FactoryContextSIPURI : public FactoryContextValue<sip0x::protocol::SIPURI> {
     public:
-      virtual void create(std::string const& text) override {
+      virtual void impl_create(void) override {
         if (_children.size() >= 3) {
           _value.secure = _children[0]->text().compare("sips:") == 0;
           FactoryContextUserInfo* userinfo = dynamic_cast<FactoryContextUserInfo*>(_children[1]);

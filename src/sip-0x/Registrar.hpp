@@ -22,7 +22,6 @@
 
 #include "logic/UAC.hpp"
 
-#include <chrono>
 
 namespace sip0x
 {

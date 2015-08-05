@@ -8,7 +8,7 @@
 #include "RegisterClient.hpp"
 #include "UAC.hpp"
 #include "UAS.hpp"
-#include "TransportLayer.hpp"
+#include "TransportLayerTCP.hpp"
 #include "TransactionLayer.hpp"
 #include "ApplicationDelegate.hpp"
 
@@ -21,7 +21,7 @@ using namespace sip0x;
 using namespace sip0x::utils;
 
 
-Endpoint::Endpoint(void) {
+Endpoint::Endpoint(void) : ThreadedObject() {
   _logger = LoggerFactory::get_logger("sip0x.Endpoint");
   LOG_DEBUG(_logger, "Endpoint ctor.");
 }
@@ -34,22 +34,24 @@ Endpoint::~Endpoint(void) {
 
 bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
   if (_initialized) {
-    LOG_WARN(_logger, "Skipping initialization because Endpoint was initialized.");
+    LOG_WARN_STR(_logger, "Skipping initialization because Endpoint was initialized.");
     return false;
   }
   // Pre-load SIP grammar.
   parser::Parser::load_grammar();
 
   // Initialize transport layer.
-  _transport = TransportLayer::create(configuration.bind_address, configuration.bind_port);
+  _transport = TransportLayerTCP::create(configuration.bind_address, configuration.bind_port);
   _transport->start();
   // Initialize transaction layer
-  _transaction = new TransactionLayer(_transport);
+  auto p = std::dynamic_pointer_cast<TransportLayer>(_transport);
+  _transaction = new TransactionLayer(p);
+  //_transaction = new TransactionLayer(std::dynamic_pointer_cast<TransportLayer>(_transport))
   // Initialize User agents
   _uac = new UAC(_transaction, this, configuration.domainname, "sip0x-ua");
   _uas = new UAS(_transaction, this, configuration.domainname, "sip0x-ua");
 
-  _thread = new std::thread(&Endpoint::process, this);
+  start();
 
   _initialized = true;
   LOG_INFO(_logger, "Endpoint initialized.");
@@ -59,9 +61,7 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
 
 bool Endpoint::unitialize(void) {
   // TODO: Unregister RegisterClients.
-
-  delete _thread;
-  _thread = nullptr;
+  stop();
   // TODO: delete UAC and move to the right place.
   delete _uac;
   _uac = nullptr;
@@ -114,7 +114,9 @@ void Endpoint::process(void) {
       reg->on_process();
     }
     // Handle UAC?
+    _uac->on_process();
     // Handle UAS?
+    _uas->on_process();
     _mtx.unlock();
 
     std::this_thread::sleep_for(ms); // TODO: Implement with a cond_var.

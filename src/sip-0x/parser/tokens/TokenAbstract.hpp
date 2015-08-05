@@ -26,11 +26,14 @@
 
 namespace sip0x
 {
+  namespace utils {
+    class Logger;
+  }
+
   namespace parser
   {
     class FactoryContext;
     class InputTokenStream;
-    class sip0x::utils::Logger;
     
     //! Abstract class of a Token.
     //!

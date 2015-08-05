@@ -13,7 +13,7 @@ namespace sip0x
 
     class FactoryContextSIPVersion : public FactoryContextValue<SIPVersion> {
     public:
-      virtual void create(std::string const& /*text*/) override {
+      virtual void impl_create(void) override {
         if (_children.size() == 4) {
           _value.major = ((FactoryContextDigits*)_children[1])->get();
           _value.minor = ((FactoryContextDigits*)_children[3])->get();

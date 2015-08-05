@@ -15,7 +15,7 @@ namespace std {
 #include <cctype>
 #include <algorithm>
 
-#include <utils/Logger.hpp>
+#include "utils/Logger.hpp"
 
 namespace sip0x
 {
@@ -63,13 +63,6 @@ namespace sip0x
 
       void parse_logger_configuration(std::string cfg, std::string& level, std::ostream** output);
       std::ostream* parse_output_configuration(std::string cfg);
-
-      // Move this method in a more generic Class/Headers.
-      static std::string trim(const std::string &s) {
-        auto  wsfront = std::find_if_not(s.begin(), s.end(), std::isspace);
-        return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c){return std::isspace(c); }).base());
-      }
-
     };
   }
 }

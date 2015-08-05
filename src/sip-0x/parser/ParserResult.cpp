@@ -10,7 +10,7 @@ ParserResult::ParserResult(void) {
 }
 
 
-ParserResult::ParserResult(bool success, uint32_t pos, uint32_t len) {
+ParserResult::ParserResult(bool success, unsigned long pos, unsigned long len) {
   _success = success;
   _pos = pos;
   _len = len;
@@ -27,12 +27,12 @@ bool ParserResult::success(void) {
 }
 
 
-void ParserResult::set_position(int pos) {
+void ParserResult::set_position(unsigned long pos) {
   _pos = pos;
 }
 
 
-void ParserResult::push_event(ParserEventType type, int pos, std::string message) {
+void ParserResult::push_event(ParserEventType type, unsigned long pos, std::string message) {
   ParserEvent ev = { type, pos, message };
   _events.push_back(ev);
   if (type == TYPE_ERROR) {

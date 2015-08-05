@@ -45,9 +45,9 @@ namespace sip0x
       virtual ~ConnectionManager(void);
 
       //! Add given connection to manager.
-      void add(std::shared_ptr<Connection>& connection);
+      void add(const std::shared_ptr<Connection>& connection);
       //! Remove given connection from manager.
-      void remove(std::shared_ptr<Connection>& connection);
+      void remove(const std::shared_ptr<Connection>& connection);
 
       //! Search connection by IPv4 and port.
       std::shared_ptr<Connection> get(uint32_t remote_ip, uint16_t remote_port);

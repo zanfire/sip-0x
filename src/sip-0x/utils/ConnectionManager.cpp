@@ -15,7 +15,7 @@ ConnectionManager::ConnectionManager(void) {
 ConnectionManager::~ConnectionManager(void) {
 }
 
-void ConnectionManager::add(std::shared_ptr<Connection>& connection) {
+void ConnectionManager::add(const std::shared_ptr<Connection>& connection) {
   _mtx.lock();
   _connections.insert(connection);
   _mtx.unlock();
@@ -24,7 +24,7 @@ void ConnectionManager::add(std::shared_ptr<Connection>& connection) {
   //connection->open();
 }
 
-void ConnectionManager::remove(std::shared_ptr<Connection>& connection) {
+void ConnectionManager::remove(const std::shared_ptr<Connection>& connection) {
   _mtx.lock();
   _connections.erase(connection);
   _mtx.unlock();

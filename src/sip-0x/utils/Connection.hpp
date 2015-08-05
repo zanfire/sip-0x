@@ -45,7 +45,7 @@ namespace sip0x
       void async_write(unsigned char* buffer, std::size_t length);
 
     protected:
-      Connection(asio::ip::tcp::socket& socket, std::shared_ptr<sip0x::listeners::ConnectionListener>& listener);
+      Connection(asio::ip::tcp::socket& socket, const std::shared_ptr<sip0x::listeners::ConnectionListener>& listener);
       virtual ~Connection(void);
 
       void async_connect(asio::ip::tcp::resolver::iterator endpoint_iterator);

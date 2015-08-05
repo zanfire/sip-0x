@@ -54,14 +54,9 @@ namespace sip0x
       virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* /*ctx*/) const override {
         //std::smatch pieces_match;
         std::cmatch pieces_match;
-        int init_pos = iss.pos();
+        unsigned int init_pos = iss.pos();
         char const* input = iss.get_cstr();
 
-        int test = strlen(input);
-
-        //LOG_DEBUG(_logger, "Regex processing input: \"%s\".", input);
-
-        //if (std::regex_search(input, pieces_match, _regex)) {
         if (std::regex_search(input, pieces_match, _regex)) {
 #if defined(ENABLE_PARSER_LOGGING)
           LOG_DEBUG(_logger, "Regex matched, found %d occurrences.", pieces_match.size());

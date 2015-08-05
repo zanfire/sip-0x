@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
   sip0x::utils::LoggerFactory* loggermanager = sip0x::utils::LoggerFactory::get_instance();
   loggermanager->configure("..\\..\\..\\docs\\logger.ini");
 
-  std::cout << "SIP server\n\n";
+  std::cout << "SIP Test server.\n\n";
 
   sip0x::Endpoint endpoint;
   // Callbacks.

@@ -10,7 +10,7 @@ namespace sip0x
 {
   namespace parser
   {
-    /// This parser expects a specific token and return an instance. 
+    //! This parser expects a specific token and return an instance.
     class Token : public TokenAbstract {
 
     protected:
@@ -27,7 +27,7 @@ namespace sip0x
       // returns true if encountered the expected token.  
       virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* /*ctx*/) const override {
         char c;
-        int start = iss.pos();
+        auto start = iss.pos();
         for (auto tc : _token) {
           c = iss.get_char();
           if (c != tc) {

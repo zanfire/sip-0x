@@ -7,6 +7,8 @@ namespace sip0x
 {
   namespace utils
   {
+
+    ///
     template<class T>
     class enable_protected_dtor {
       friend class deleter;
@@ -27,6 +29,8 @@ namespace sip0x
       enable_protected_dtor(void) {}
       virtual ~enable_protected_dtor(void) {}
     };
+
+    std::string trim(const std::string& input);
   }
 }
 

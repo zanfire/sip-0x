@@ -40,7 +40,8 @@ namespace sip0x
       Sequence<Token, Token, Alt> _sequence;
 
     public:
-      TokenURIParam_base(std::string name, std::string param, Alt& alternative) : TokenAbstract(name), _sequence(Token(param), Token("="), alternative) {}
+      TokenURIParam_base(std::string name, std::string param, const Alt& alternative) : 
+        TokenAbstract(name), _sequence(Token(param), Token("="), alternative) {}
 
     protected:
       virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {

@@ -15,6 +15,7 @@
 
 #include "utils/LoggerFactory.hpp"
 #include "utils/Logger.hpp"
+#include "utils/utils.hpp"
 
 namespace sip0x
 {
@@ -58,7 +59,7 @@ namespace sip0x
         while (ifs.good()) {
           std::getline(ifs, line);
 
-          line = trim(line);
+          line = utils::trim(line);
 
           // Add section.
           if (line[0] == '#') {
@@ -81,8 +82,8 @@ namespace sip0x
             // Add entry per section.
 
             unsigned found = line.find_first_of('=');
-            std::string key = trim(line.substr(0, found));
-            std::string value = trim(line.substr(found + 1));
+            std::string key = utils::trim(line.substr(0, found));
+            std::string value = utils::trim(line.substr(found + 1));
 
             cur_entries[key] = value;
 
@@ -108,20 +109,20 @@ namespace sip0x
         return ini;
       }
 
+      /*
       static std::string trim(const std::string &s) {
         auto  wsfront = std::find_if_not(s.begin(), s.end(), std::isspace);
         return std::string(wsfront, std::find_if_not(s.rbegin(), std::string::const_reverse_iterator(wsfront), [](int c){return std::isspace(c); }).base());
       }
-
-
+*/
       // Query for a value in the ini file.
-      std::string entry(std::string section, std::string key, std::string default = "") {
+      std::string entry(std::string section, std::string key, std::string def) {
         std::unordered_map<std::string, std::string> sec = _sections[section];
 
         std::unordered_map<std::string, std::string>::const_iterator got = sec.find(key);
 
         if (got == sec.cend()) {
-          return default;
+          return def;
         }
         else {
           return got->second;

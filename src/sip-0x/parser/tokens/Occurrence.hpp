@@ -14,20 +14,19 @@ namespace sip0x
       int _max;
 
     public:
-      Occurrence(T& f, int min = 0, int max = -1, bool disable_factory = false) : TokenContainer("Occurrence", f, disable_factory), _min(min), _max(max) {
-        _name += "." + f.get_name(); // + "[" + std::string(_min) + "," + std::string(_max) + "]";
+      Occurrence(const T& f, int min = 0, int max = -1, bool disable_factory = false) : TokenContainer<T>("Occurrence", f, disable_factory), _min(min), _max(max) {
+        this->_name += "." + f.get_name(); // + "[" + std::string(_min) + "," + std::string(_max) + "]";
 #if defined(ENABLE_PARSER_LOGGING)
         _logger = LoggerFactory::get_logger("sip0x.Parser.Occurrence");
 #endif
       }
 
-    protected:
-   
+    protected: 
       virtual ParserResult handle_read(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx) const override {
         
         int occurrence = 0;
         while ((_max >= 0 && occurrence <= _max) || _max == -1) {
-          ParserResult output = _token.read(iss, ctx);
+          ParserResult output = this->_token.read(iss, ctx);
 
           if (!output.success()) {
             break;

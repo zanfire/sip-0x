@@ -1,5 +1,5 @@
 #if !defined(SIP0X_PARSER_TOKENSIPMESSAGEHEADER_TO_HPP__)
-#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_TOHPP__
+#define SIP0X_PARSER_TOKENSIPMESSAGEHEADER_TO_HPP__
 
 #include "parser/tokens/TokenAbstract.hpp"
 #include "parser/tokens/Operators.hpp"

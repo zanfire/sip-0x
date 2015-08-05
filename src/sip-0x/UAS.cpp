@@ -12,46 +12,46 @@ using namespace sip0x::protocol;
 using namespace sip0x::utils;
 
 UAS::UAS(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent) :
-  UA(application_delegate, transaction, domain, useragent),
-  TransactionLayerRequestListener() {
+UA(application_delegate, transaction, domain, useragent) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.UAS");
 
-  _transaction->set_listener_request(this);
+  _slot.connect(this, &UAS::on_incoming_request, _transaction->received_request);
 }
 
 UAS::~UAS(void) {
 }
 
-void UAS::on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPRequest>& request) {
+void UAS::on_incoming_request(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<const SIPRequest>& request) {
   switch (request->method) {
     case SIPMethod::SIPMETHOD_REGISTER:
     {
       process_REGISTER(tran);
       break;
     }
-
+    default:
+      break;
   }
 }
 
-void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
+void UAS::process_REGISTER(const std::shared_ptr<Transaction>& transaction) {
   // TODO: process and notify the Application of the register method.
 
   // Ask to the application layer if accept register from client
 
-  bool accepted = _application_delegate->raise_cb_registrar_update(transaction->request);
+  bool accepted = false; //_application_delegate->raise_cb_registrar_update(transaction->request);
   if (accepted) {
     // Create a valid response.
     std::shared_ptr<SIPResponse> response = create_RESPONSE_for(transaction->request.get(), 200, "OK");
 
     //
-    int expires = _application_delegate->raise_cb_registrar_get_expires(transaction->request);
+    int expires = 32; // _application_delegate->raise_cb_registrar_get_expires(transaction->request);
     if (expires >= 0) {
       add_header_expires(response.get(), expires);
     }
 
     _transaction->process_response(transaction, response, true);
     return;
-  }
+  }  
   else {
     // Create a reject response
   }
@@ -63,7 +63,7 @@ void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
 }
 
 
-std::shared_ptr<SIPResponse> UAS::create_RESPONSE_for(SIPRequest* request, int code, char const* phrase) {
+std::shared_ptr<SIPResponse> UAS::create_RESPONSE_for(const SIPRequest* request, int code, char const* phrase) {
   std::shared_ptr<SIPResponse> response = std::make_shared<SIPResponse>();
   response->status_code = code;
   response->reason_phrase = phrase;

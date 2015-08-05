@@ -16,7 +16,7 @@ namespace sip0x
     protected:
       std::shared_ptr<protocol::SIPMessage> _message;
     public:
-      virtual void create(std::string const& /*text*/) override;
+      virtual void impl_create() override;
      
       std::shared_ptr<protocol::SIPMessage> get_message(void) {
         return _message;

@@ -1,0 +1,909 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		482E9BF41B6FD17F00CFBD80 /* asio_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE11B6FD17F00CFBD80 /* asio_header.hpp */; };
+		482E9BF51B6FD17F00CFBD80 /* Clock.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE21B6FD17F00CFBD80 /* Clock.hpp */; };
+		482E9BF61B6FD17F00CFBD80 /* Connection.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE31B6FD17F00CFBD80 /* Connection.hpp */; };
+		482E9BF71B6FD17F00CFBD80 /* ConnectionManager.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE41B6FD17F00CFBD80 /* ConnectionManager.hpp */; };
+		482E9BF81B6FD17F00CFBD80 /* IniFile.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE51B6FD17F00CFBD80 /* IniFile.hpp */; };
+		482E9BF91B6FD17F00CFBD80 /* InputTokenStream.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE61B6FD17F00CFBD80 /* InputTokenStream.hpp */; };
+		482E9BFA1B6FD17F00CFBD80 /* Listeners.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE71B6FD17F00CFBD80 /* Listeners.hpp */; };
+		482E9BFB1B6FD17F00CFBD80 /* Logger.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE81B6FD17F00CFBD80 /* Logger.hpp */; };
+		482E9BFC1B6FD17F00CFBD80 /* LoggerFactory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BE91B6FD17F00CFBD80 /* LoggerFactory.hpp */; };
+		482E9BFD1B6FD17F00CFBD80 /* Signals.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BEA1B6FD17F00CFBD80 /* Signals.hpp */; };
+		482E9BFE1B6FD17F00CFBD80 /* Signals2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BEB1B6FD17F00CFBD80 /* Signals2.hpp */; };
+		482E9BFF1B6FD17F00CFBD80 /* ThreadedObject.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BEC1B6FD17F00CFBD80 /* ThreadedObject.hpp */; };
+		482E9C001B6FD17F00CFBD80 /* utils.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9BED1B6FD17F00CFBD80 /* utils.hpp */; };
+		482E9C011B6FD17F00CFBD80 /* Clock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9BEE1B6FD17F00CFBD80 /* Clock.cpp */; };
+		482E9C021B6FD17F00CFBD80 /* Connection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9BEF1B6FD17F00CFBD80 /* Connection.cpp */; };
+		482E9C031B6FD17F00CFBD80 /* ConnectionManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9BF01B6FD17F00CFBD80 /* ConnectionManager.cpp */; };
+		482E9C041B6FD17F00CFBD80 /* Logger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9BF11B6FD17F00CFBD80 /* Logger.cpp */; };
+		482E9C051B6FD17F00CFBD80 /* LoggerFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9BF21B6FD17F00CFBD80 /* LoggerFactory.cpp */; };
+		482E9C061B6FD17F00CFBD80 /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9BF31B6FD17F00CFBD80 /* utils.cpp */; };
+		482E9C0C1B6FD19B00CFBD80 /* Parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C071B6FD19B00CFBD80 /* Parser.hpp */; };
+		482E9C0D1B6FD19B00CFBD80 /* ParserResult.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C081B6FD19B00CFBD80 /* ParserResult.hpp */; };
+		482E9C0E1B6FD19B00CFBD80 /* SIPParser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C091B6FD19B00CFBD80 /* SIPParser.hpp */; };
+		482E9C0F1B6FD19B00CFBD80 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9C0A1B6FD19B00CFBD80 /* Parser.cpp */; };
+		482E9C101B6FD19B00CFBD80 /* ParserResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9C0B1B6FD19B00CFBD80 /* ParserResult.cpp */; };
+		482E9C1D1B6FD1C400CFBD80 /* HostPort.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C121B6FD1C400CFBD80 /* HostPort.hpp */; };
+		482E9C1E1B6FD1C400CFBD80 /* NameAddr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C131B6FD1C400CFBD80 /* NameAddr.hpp */; };
+		482E9C1F1B6FD1C400CFBD80 /* SIP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C141B6FD1C400CFBD80 /* SIP.hpp */; };
+		482E9C201B6FD1C400CFBD80 /* SIPMessage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C151B6FD1C400CFBD80 /* SIPMessage.hpp */; };
+		482E9C211B6FD1C400CFBD80 /* SIPMessageHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C161B6FD1C400CFBD80 /* SIPMessageHeader.hpp */; };
+		482E9C221B6FD1C400CFBD80 /* SIPMethod.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C171B6FD1C400CFBD80 /* SIPMethod.hpp */; };
+		482E9C231B6FD1C400CFBD80 /* SIPRequest.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C181B6FD1C400CFBD80 /* SIPRequest.hpp */; };
+		482E9C241B6FD1C400CFBD80 /* SIPResponse.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C191B6FD1C400CFBD80 /* SIPResponse.hpp */; };
+		482E9C251B6FD1C400CFBD80 /* SIPURI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C1A1B6FD1C400CFBD80 /* SIPURI.hpp */; };
+		482E9C261B6FD1C400CFBD80 /* SIPVersion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C1B1B6FD1C400CFBD80 /* SIPVersion.hpp */; };
+		482E9C271B6FD1C400CFBD80 /* SIPMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9C1C1B6FD1C400CFBD80 /* SIPMessage.cpp */; };
+		482E9C331B6FD1FA00CFBD80 /* Factory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C2A1B6FD1F900CFBD80 /* Factory.hpp */; };
+		482E9C341B6FD1FA00CFBD80 /* FactoryContext.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C2B1B6FD1F900CFBD80 /* FactoryContext.hpp */; };
+		482E9C351B6FD1FA00CFBD80 /* FactoryContextNameAddr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C2C1B6FD1F900CFBD80 /* FactoryContextNameAddr.hpp */; };
+		482E9C361B6FD1FA00CFBD80 /* FactoryContextSIPMessage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C2D1B6FD1F900CFBD80 /* FactoryContextSIPMessage.hpp */; };
+		482E9C371B6FD1FA00CFBD80 /* FactoryContextSIPMessageHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C2E1B6FD1F900CFBD80 /* FactoryContextSIPMessageHeader.hpp */; };
+		482E9C381B6FD1FA00CFBD80 /* FactoryContextSIPURI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C2F1B6FD1FA00CFBD80 /* FactoryContextSIPURI.hpp */; };
+		482E9C391B6FD1FA00CFBD80 /* FactoryContextSIPVersion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C301B6FD1FA00CFBD80 /* FactoryContextSIPVersion.hpp */; };
+		482E9C3A1B6FD1FA00CFBD80 /* FactoryContextValue.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C311B6FD1FA00CFBD80 /* FactoryContextValue.hpp */; };
+		482E9C3B1B6FD1FA00CFBD80 /* FactoryContextSIPMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9C321B6FD1FA00CFBD80 /* FactoryContextSIPMessage.cpp */; };
+		482E9C5C1B6FD21E00CFBD80 /* Alternative.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C3C1B6FD21E00CFBD80 /* Alternative.hpp */; };
+		482E9C5D1B6FD21E00CFBD80 /* Occurrence.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C3D1B6FD21E00CFBD80 /* Occurrence.hpp */; };
+		482E9C5E1B6FD21E00CFBD80 /* Operators.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C3E1B6FD21E00CFBD80 /* Operators.hpp */; };
+		482E9C5F1B6FD21E00CFBD80 /* RegexConstStrings.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C3F1B6FD21E00CFBD80 /* RegexConstStrings.hpp */; };
+		482E9C601B6FD21E00CFBD80 /* Sequence.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C401B6FD21E00CFBD80 /* Sequence.hpp */; };
+		482E9C611B6FD21E00CFBD80 /* Token.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C411B6FD21E00CFBD80 /* Token.hpp */; };
+		482E9C621B6FD21E00CFBD80 /* TokenAbsoluteURI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C421B6FD21E00CFBD80 /* TokenAbsoluteURI.hpp */; };
+		482E9C631B6FD21E00CFBD80 /* TokenAbstract.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C431B6FD21E00CFBD80 /* TokenAbstract.hpp */; };
+		482E9C641B6FD21E00CFBD80 /* TokenContainer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C441B6FD21E00CFBD80 /* TokenContainer.hpp */; };
+		482E9C651B6FD21E00CFBD80 /* TokenGenericParam.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C451B6FD21E00CFBD80 /* TokenGenericParam.hpp */; };
+		482E9C661B6FD21E00CFBD80 /* TokenHostport.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C461B6FD21E00CFBD80 /* TokenHostport.hpp */; };
+		482E9C671B6FD21E00CFBD80 /* TokenIPv4.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C471B6FD21E00CFBD80 /* TokenIPv4.hpp */; };
+		482E9C681B6FD21E00CFBD80 /* TokenIPv6.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C481B6FD21E00CFBD80 /* TokenIPv6.hpp */; };
+		482E9C691B6FD21E00CFBD80 /* TokenMType.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C491B6FD21E00CFBD80 /* TokenMType.hpp */; };
+		482E9C6A1B6FD21E00CFBD80 /* TokenNameAddr.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C4A1B6FD21E00CFBD80 /* TokenNameAddr.hpp */; };
+		482E9C6B1B6FD21E00CFBD80 /* TokenOctects.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C4B1B6FD21E00CFBD80 /* TokenOctects.hpp */; };
+		482E9C6C1B6FD21E00CFBD80 /* TokenPresets.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C4C1B6FD21E00CFBD80 /* TokenPresets.hpp */; };
+		482E9C6D1B6FD21E00CFBD80 /* TokenQuotedPair.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C4D1B6FD21E00CFBD80 /* TokenQuotedPair.hpp */; };
+		482E9C6E1B6FD21E00CFBD80 /* TokenQuotedString.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C4E1B6FD21E00CFBD80 /* TokenQuotedString.hpp */; };
+		482E9C6F1B6FD21E00CFBD80 /* TokenRegex.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C4F1B6FD21E00CFBD80 /* TokenRegex.hpp */; };
+		482E9C701B6FD21E00CFBD80 /* TokenSIPMessage.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C501B6FD21E00CFBD80 /* TokenSIPMessage.hpp */; };
+		482E9C711B6FD21E00CFBD80 /* TokenSIPMessageHeader.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C511B6FD21E00CFBD80 /* TokenSIPMessageHeader.hpp */; };
+		482E9C721B6FD21E00CFBD80 /* TokenSIPMethod.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C521B6FD21E00CFBD80 /* TokenSIPMethod.hpp */; };
+		482E9C731B6FD21E00CFBD80 /* TokenSIPRequestLine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C531B6FD21E00CFBD80 /* TokenSIPRequestLine.hpp */; };
+		482E9C741B6FD21E00CFBD80 /* TokenSIPStatusLine.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C541B6FD21E00CFBD80 /* TokenSIPStatusLine.hpp */; };
+		482E9C751B6FD21E00CFBD80 /* TokenSIPURI.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C551B6FD21E00CFBD80 /* TokenSIPURI.hpp */; };
+		482E9C761B6FD21E00CFBD80 /* TokenSIPVersion.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C561B6FD21E00CFBD80 /* TokenSIPVersion.hpp */; };
+		482E9C771B6FD21E00CFBD80 /* TokenURIHeaders.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C571B6FD21E00CFBD80 /* TokenURIHeaders.hpp */; };
+		482E9C781B6FD21E00CFBD80 /* TokenURIParameter.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C581B6FD21E00CFBD80 /* TokenURIParameter.hpp */; };
+		482E9C791B6FD21E00CFBD80 /* TokenUserInfo.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C591B6FD21E00CFBD80 /* TokenUserInfo.hpp */; };
+		482E9C7A1B6FD21E00CFBD80 /* RegexConstStrings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9C5A1B6FD21E00CFBD80 /* RegexConstStrings.cpp */; };
+		482E9C7B1B6FD21E00CFBD80 /* TokenAbstract.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 482E9C5B1B6FD21E00CFBD80 /* TokenAbstract.cpp */; };
+		482E9CAB1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Encoding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C7D1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Encoding.hpp */; };
+		482E9CAC1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Language.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C7E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Language.hpp */; };
+		482E9CAD1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C7F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept.hpp */; };
+		482E9CAE1B6FD26300CFBD80 /* TokenSIPMessageHeader_Alert_Info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C801B6FD26300CFBD80 /* TokenSIPMessageHeader_Alert_Info.hpp */; };
+		482E9CAF1B6FD26300CFBD80 /* TokenSIPMessageHeader_Allow.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C811B6FD26300CFBD80 /* TokenSIPMessageHeader_Allow.hpp */; };
+		482E9CB01B6FD26300CFBD80 /* TokenSIPMessageHeader_Authentication_Info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C821B6FD26300CFBD80 /* TokenSIPMessageHeader_Authentication_Info.hpp */; };
+		482E9CB11B6FD26300CFBD80 /* TokenSIPMessageHeader_Authorization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C831B6FD26300CFBD80 /* TokenSIPMessageHeader_Authorization.hpp */; };
+		482E9CB21B6FD26300CFBD80 /* TokenSIPMessageHeader_base.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C841B6FD26300CFBD80 /* TokenSIPMessageHeader_base.hpp */; };
+		482E9CB31B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_ID.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C851B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_ID.hpp */; };
+		482E9CB41B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_Info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C861B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_Info.hpp */; };
+		482E9CB51B6FD26300CFBD80 /* TokenSIPMessageHeader_Contact.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C871B6FD26300CFBD80 /* TokenSIPMessageHeader_Contact.hpp */; };
+		482E9CB61B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Disposition.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C881B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Disposition.hpp */; };
+		482E9CB71B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Encoding.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C891B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Encoding.hpp */; };
+		482E9CB81B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Language.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C8A1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Language.hpp */; };
+		482E9CB91B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Length.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C8B1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Length.hpp */; };
+		482E9CBA1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Type.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C8C1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Type.hpp */; };
+		482E9CBB1B6FD26300CFBD80 /* TokenSIPMessageHeader_CSeq.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C8D1B6FD26300CFBD80 /* TokenSIPMessageHeader_CSeq.hpp */; };
+		482E9CBC1B6FD26300CFBD80 /* TokenSIPMessageHeader_Date.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C8E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Date.hpp */; };
+		482E9CBD1B6FD26300CFBD80 /* TokenSIPMessageHeader_Error_Info.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C8F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Error_Info.hpp */; };
+		482E9CBE1B6FD26300CFBD80 /* TokenSIPMessageHeader_Expires.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C901B6FD26300CFBD80 /* TokenSIPMessageHeader_Expires.hpp */; };
+		482E9CBF1B6FD26300CFBD80 /* TokenSIPMessageHeader_extension_header.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C911B6FD26300CFBD80 /* TokenSIPMessageHeader_extension_header.hpp */; };
+		482E9CC01B6FD26300CFBD80 /* TokenSIPMessageHeader_From.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C921B6FD26300CFBD80 /* TokenSIPMessageHeader_From.hpp */; };
+		482E9CC11B6FD26300CFBD80 /* TokenSIPMessageHeader_In_Reply_To.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C931B6FD26300CFBD80 /* TokenSIPMessageHeader_In_Reply_To.hpp */; };
+		482E9CC21B6FD26300CFBD80 /* TokenSIPMessageHeader_Max_Forwards.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C941B6FD26300CFBD80 /* TokenSIPMessageHeader_Max_Forwards.hpp */; };
+		482E9CC31B6FD26300CFBD80 /* TokenSIPMessageHeader_MIME_Version.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C951B6FD26300CFBD80 /* TokenSIPMessageHeader_MIME_Version.hpp */; };
+		482E9CC41B6FD26300CFBD80 /* TokenSIPMessageHeader_Min_Expires.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C961B6FD26300CFBD80 /* TokenSIPMessageHeader_Min_Expires.hpp */; };
+		482E9CC51B6FD26300CFBD80 /* TokenSIPMessageHeader_Organization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C971B6FD26300CFBD80 /* TokenSIPMessageHeader_Organization.hpp */; };
+		482E9CC61B6FD26300CFBD80 /* TokenSIPMessageHeader_Priority.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C981B6FD26300CFBD80 /* TokenSIPMessageHeader_Priority.hpp */; };
+		482E9CC71B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authenticate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C991B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authenticate.hpp */; };
+		482E9CC81B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authorization.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C9A1B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authorization.hpp */; };
+		482E9CC91B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Require.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C9B1B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Require.hpp */; };
+		482E9CCA1B6FD26300CFBD80 /* TokenSIPMessageHeader_Record_Route.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C9C1B6FD26300CFBD80 /* TokenSIPMessageHeader_Record_Route.hpp */; };
+		482E9CCB1B6FD26300CFBD80 /* TokenSIPMessageHeader_Reply_To.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C9D1B6FD26300CFBD80 /* TokenSIPMessageHeader_Reply_To.hpp */; };
+		482E9CCC1B6FD26300CFBD80 /* TokenSIPMessageHeader_Require.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C9E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Require.hpp */; };
+		482E9CCD1B6FD26300CFBD80 /* TokenSIPMessageHeader_Retry_After.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9C9F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Retry_After.hpp */; };
+		482E9CCE1B6FD26300CFBD80 /* TokenSIPMessageHeader_Route.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA01B6FD26300CFBD80 /* TokenSIPMessageHeader_Route.hpp */; };
+		482E9CCF1B6FD26300CFBD80 /* TokenSIPMessageHeader_Server.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA11B6FD26300CFBD80 /* TokenSIPMessageHeader_Server.hpp */; };
+		482E9CD01B6FD26300CFBD80 /* TokenSIPMessageHeader_Subject.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA21B6FD26300CFBD80 /* TokenSIPMessageHeader_Subject.hpp */; };
+		482E9CD11B6FD26300CFBD80 /* TokenSIPMessageHeader_Supported.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA31B6FD26300CFBD80 /* TokenSIPMessageHeader_Supported.hpp */; };
+		482E9CD21B6FD26300CFBD80 /* TokenSIPMessageHeader_Timestamp.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA41B6FD26300CFBD80 /* TokenSIPMessageHeader_Timestamp.hpp */; };
+		482E9CD31B6FD26300CFBD80 /* TokenSIPMessageHeader_To.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA51B6FD26300CFBD80 /* TokenSIPMessageHeader_To.hpp */; };
+		482E9CD41B6FD26300CFBD80 /* TokenSIPMessageHeader_Unsupported.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA61B6FD26300CFBD80 /* TokenSIPMessageHeader_Unsupported.hpp */; };
+		482E9CD51B6FD26300CFBD80 /* TokenSIPMessageHeader_User_Agent.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA71B6FD26300CFBD80 /* TokenSIPMessageHeader_User_Agent.hpp */; };
+		482E9CD61B6FD26300CFBD80 /* TokenSIPMessageHeader_Via.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA81B6FD26300CFBD80 /* TokenSIPMessageHeader_Via.hpp */; };
+		482E9CD71B6FD26300CFBD80 /* TokenSIPMessageHeader_Warning.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CA91B6FD26300CFBD80 /* TokenSIPMessageHeader_Warning.hpp */; };
+		482E9CD81B6FD26300CFBD80 /* TokenSIPMessageHeader_WWW_Authenticate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 482E9CAA1B6FD26300CFBD80 /* TokenSIPMessageHeader_WWW_Authenticate.hpp */; };
+		483264491B6F412C00D5EFD5 /* ApplicationDelegate.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264301B6F412C00D5EFD5 /* ApplicationDelegate.hpp */; };
+		4832644A1B6F412C00D5EFD5 /* Dialog.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264311B6F412C00D5EFD5 /* Dialog.hpp */; };
+		4832644B1B6F412C00D5EFD5 /* Endpoint.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264321B6F412C00D5EFD5 /* Endpoint.hpp */; };
+		4832644C1B6F412C00D5EFD5 /* MessageFactory.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264331B6F412C00D5EFD5 /* MessageFactory.hpp */; };
+		4832644D1B6F412C00D5EFD5 /* RegisterClient.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264341B6F412C00D5EFD5 /* RegisterClient.hpp */; };
+		4832644E1B6F412C00D5EFD5 /* Registrar.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264351B6F412C00D5EFD5 /* Registrar.hpp */; };
+		4832644F1B6F412C00D5EFD5 /* RemotePeer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264361B6F412C00D5EFD5 /* RemotePeer.hpp */; };
+		483264501B6F412C00D5EFD5 /* sip-0x.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264371B6F412C00D5EFD5 /* sip-0x.hpp */; };
+		483264511B6F412C00D5EFD5 /* Transaction.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264381B6F412C00D5EFD5 /* Transaction.hpp */; };
+		483264521B6F412C00D5EFD5 /* TransactionLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 483264391B6F412C00D5EFD5 /* TransactionLayer.hpp */; };
+		483264531B6F412C00D5EFD5 /* TransportLayer.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4832643A1B6F412C00D5EFD5 /* TransportLayer.hpp */; };
+		483264541B6F412C00D5EFD5 /* TransportLayerTCP.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4832643B1B6F412C00D5EFD5 /* TransportLayerTCP.hpp */; };
+		483264551B6F412C00D5EFD5 /* UA.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4832643C1B6F412C00D5EFD5 /* UA.hpp */; };
+		483264561B6F412C00D5EFD5 /* UAC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4832643D1B6F412C00D5EFD5 /* UAC.hpp */; };
+		483264571B6F412C00D5EFD5 /* UAS.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4832643E1B6F412C00D5EFD5 /* UAS.hpp */; };
+		483264581B6F412C00D5EFD5 /* Endpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4832643F1B6F412C00D5EFD5 /* Endpoint.cpp */; };
+		483264591B6F412C00D5EFD5 /* RegisterClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264401B6F412C00D5EFD5 /* RegisterClient.cpp */; };
+		4832645A1B6F412C00D5EFD5 /* RemotePeer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264411B6F412C00D5EFD5 /* RemotePeer.cpp */; };
+		4832645B1B6F412C00D5EFD5 /* Transaction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264421B6F412C00D5EFD5 /* Transaction.cpp */; };
+		4832645C1B6F412C00D5EFD5 /* TransactionLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264431B6F412C00D5EFD5 /* TransactionLayer.cpp */; };
+		4832645D1B6F412C00D5EFD5 /* TransportLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264441B6F412C00D5EFD5 /* TransportLayer.cpp */; };
+		4832645E1B6F412C00D5EFD5 /* TransportLayerTCP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264451B6F412C00D5EFD5 /* TransportLayerTCP.cpp */; };
+		4832645F1B6F412C00D5EFD5 /* UA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264461B6F412C00D5EFD5 /* UA.cpp */; };
+		483264601B6F412C00D5EFD5 /* UAC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264471B6F412C00D5EFD5 /* UAC.cpp */; };
+		483264611B6F412C00D5EFD5 /* UAS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 483264481B6F412C00D5EFD5 /* UAS.cpp */; };
+		484696851B6F427F00CC9008 /* ConnectionListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 484696831B6F427F00CC9008 /* ConnectionListener.hpp */; };
+		484696861B6F427F00CC9008 /* UAListener.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 484696841B6F427F00CC9008 /* UAListener.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		482E9BE11B6FD17F00CFBD80 /* asio_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = asio_header.hpp; path = "../src/sip-0x/utils/asio_header.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE21B6FD17F00CFBD80 /* Clock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Clock.hpp; path = "../src/sip-0x/utils/Clock.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE31B6FD17F00CFBD80 /* Connection.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Connection.hpp; path = "../src/sip-0x/utils/Connection.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE41B6FD17F00CFBD80 /* ConnectionManager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConnectionManager.hpp; path = "../src/sip-0x/utils/ConnectionManager.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE51B6FD17F00CFBD80 /* IniFile.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = IniFile.hpp; path = "../src/sip-0x/utils/IniFile.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE61B6FD17F00CFBD80 /* InputTokenStream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InputTokenStream.hpp; path = "../src/sip-0x/utils/InputTokenStream.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE71B6FD17F00CFBD80 /* Listeners.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Listeners.hpp; path = "../src/sip-0x/utils/Listeners.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE81B6FD17F00CFBD80 /* Logger.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Logger.hpp; path = "../src/sip-0x/utils/Logger.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BE91B6FD17F00CFBD80 /* LoggerFactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = LoggerFactory.hpp; path = "../src/sip-0x/utils/LoggerFactory.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BEA1B6FD17F00CFBD80 /* Signals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Signals.hpp; path = "../src/sip-0x/utils/Signals.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BEB1B6FD17F00CFBD80 /* Signals2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Signals2.hpp; path = "../src/sip-0x/utils/Signals2.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BEC1B6FD17F00CFBD80 /* ThreadedObject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ThreadedObject.hpp; path = "../src/sip-0x/utils/ThreadedObject.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BED1B6FD17F00CFBD80 /* utils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = utils.hpp; path = "../src/sip-0x/utils/utils.hpp"; sourceTree = SOURCE_ROOT; };
+		482E9BEE1B6FD17F00CFBD80 /* Clock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Clock.cpp; path = "../src/sip-0x/utils/Clock.cpp"; sourceTree = SOURCE_ROOT; };
+		482E9BEF1B6FD17F00CFBD80 /* Connection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Connection.cpp; path = "../src/sip-0x/utils/Connection.cpp"; sourceTree = SOURCE_ROOT; };
+		482E9BF01B6FD17F00CFBD80 /* ConnectionManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConnectionManager.cpp; path = "../src/sip-0x/utils/ConnectionManager.cpp"; sourceTree = SOURCE_ROOT; };
+		482E9BF11B6FD17F00CFBD80 /* Logger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Logger.cpp; path = "../src/sip-0x/utils/Logger.cpp"; sourceTree = SOURCE_ROOT; };
+		482E9BF21B6FD17F00CFBD80 /* LoggerFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LoggerFactory.cpp; path = "../src/sip-0x/utils/LoggerFactory.cpp"; sourceTree = SOURCE_ROOT; };
+		482E9BF31B6FD17F00CFBD80 /* utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = utils.cpp; path = "../src/sip-0x/utils/utils.cpp"; sourceTree = SOURCE_ROOT; };
+		482E9C071B6FD19B00CFBD80 /* Parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Parser.hpp; path = "../src/sip-0x/parser/Parser.hpp"; sourceTree = "<group>"; };
+		482E9C081B6FD19B00CFBD80 /* ParserResult.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ParserResult.hpp; path = "../src/sip-0x/parser/ParserResult.hpp"; sourceTree = "<group>"; };
+		482E9C091B6FD19B00CFBD80 /* SIPParser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPParser.hpp; path = "../src/sip-0x/parser/SIPParser.hpp"; sourceTree = "<group>"; };
+		482E9C0A1B6FD19B00CFBD80 /* Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Parser.cpp; path = "../src/sip-0x/parser/Parser.cpp"; sourceTree = "<group>"; };
+		482E9C0B1B6FD19B00CFBD80 /* ParserResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ParserResult.cpp; path = "../src/sip-0x/parser/ParserResult.cpp"; sourceTree = "<group>"; };
+		482E9C121B6FD1C400CFBD80 /* HostPort.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = HostPort.hpp; path = "../src/sip-0x/protocol/HostPort.hpp"; sourceTree = "<group>"; };
+		482E9C131B6FD1C400CFBD80 /* NameAddr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = NameAddr.hpp; path = "../src/sip-0x/protocol/NameAddr.hpp"; sourceTree = "<group>"; };
+		482E9C141B6FD1C400CFBD80 /* SIP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIP.hpp; path = "../src/sip-0x/protocol/SIP.hpp"; sourceTree = "<group>"; };
+		482E9C151B6FD1C400CFBD80 /* SIPMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPMessage.hpp; path = "../src/sip-0x/protocol/SIPMessage.hpp"; sourceTree = "<group>"; };
+		482E9C161B6FD1C400CFBD80 /* SIPMessageHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPMessageHeader.hpp; path = "../src/sip-0x/protocol/SIPMessageHeader.hpp"; sourceTree = "<group>"; };
+		482E9C171B6FD1C400CFBD80 /* SIPMethod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPMethod.hpp; path = "../src/sip-0x/protocol/SIPMethod.hpp"; sourceTree = "<group>"; };
+		482E9C181B6FD1C400CFBD80 /* SIPRequest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPRequest.hpp; path = "../src/sip-0x/protocol/SIPRequest.hpp"; sourceTree = "<group>"; };
+		482E9C191B6FD1C400CFBD80 /* SIPResponse.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPResponse.hpp; path = "../src/sip-0x/protocol/SIPResponse.hpp"; sourceTree = "<group>"; };
+		482E9C1A1B6FD1C400CFBD80 /* SIPURI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPURI.hpp; path = "../src/sip-0x/protocol/SIPURI.hpp"; sourceTree = "<group>"; };
+		482E9C1B1B6FD1C400CFBD80 /* SIPVersion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPVersion.hpp; path = "../src/sip-0x/protocol/SIPVersion.hpp"; sourceTree = "<group>"; };
+		482E9C1C1B6FD1C400CFBD80 /* SIPMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SIPMessage.cpp; path = "../src/sip-0x/protocol/SIPMessage.cpp"; sourceTree = "<group>"; };
+		482E9C2A1B6FD1F900CFBD80 /* Factory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Factory.hpp; path = "../src/sip-0x/parser/factory/Factory.hpp"; sourceTree = "<group>"; };
+		482E9C2B1B6FD1F900CFBD80 /* FactoryContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContext.hpp; path = "../src/sip-0x/parser/factory/FactoryContext.hpp"; sourceTree = "<group>"; };
+		482E9C2C1B6FD1F900CFBD80 /* FactoryContextNameAddr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContextNameAddr.hpp; path = "../src/sip-0x/parser/factory/FactoryContextNameAddr.hpp"; sourceTree = "<group>"; };
+		482E9C2D1B6FD1F900CFBD80 /* FactoryContextSIPMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContextSIPMessage.hpp; path = "../src/sip-0x/parser/factory/FactoryContextSIPMessage.hpp"; sourceTree = "<group>"; };
+		482E9C2E1B6FD1F900CFBD80 /* FactoryContextSIPMessageHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContextSIPMessageHeader.hpp; path = "../src/sip-0x/parser/factory/FactoryContextSIPMessageHeader.hpp"; sourceTree = "<group>"; };
+		482E9C2F1B6FD1FA00CFBD80 /* FactoryContextSIPURI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContextSIPURI.hpp; path = "../src/sip-0x/parser/factory/FactoryContextSIPURI.hpp"; sourceTree = "<group>"; };
+		482E9C301B6FD1FA00CFBD80 /* FactoryContextSIPVersion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContextSIPVersion.hpp; path = "../src/sip-0x/parser/factory/FactoryContextSIPVersion.hpp"; sourceTree = "<group>"; };
+		482E9C311B6FD1FA00CFBD80 /* FactoryContextValue.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FactoryContextValue.hpp; path = "../src/sip-0x/parser/factory/FactoryContextValue.hpp"; sourceTree = "<group>"; };
+		482E9C321B6FD1FA00CFBD80 /* FactoryContextSIPMessage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FactoryContextSIPMessage.cpp; path = "../src/sip-0x/parser/factory/FactoryContextSIPMessage.cpp"; sourceTree = "<group>"; };
+		482E9C3C1B6FD21E00CFBD80 /* Alternative.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Alternative.hpp; path = "../src/sip-0x/parser/tokens/Alternative.hpp"; sourceTree = "<group>"; };
+		482E9C3D1B6FD21E00CFBD80 /* Occurrence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Occurrence.hpp; path = "../src/sip-0x/parser/tokens/Occurrence.hpp"; sourceTree = "<group>"; };
+		482E9C3E1B6FD21E00CFBD80 /* Operators.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Operators.hpp; path = "../src/sip-0x/parser/tokens/Operators.hpp"; sourceTree = "<group>"; };
+		482E9C3F1B6FD21E00CFBD80 /* RegexConstStrings.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RegexConstStrings.hpp; path = "../src/sip-0x/parser/tokens/RegexConstStrings.hpp"; sourceTree = "<group>"; };
+		482E9C401B6FD21E00CFBD80 /* Sequence.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sequence.hpp; path = "../src/sip-0x/parser/tokens/Sequence.hpp"; sourceTree = "<group>"; };
+		482E9C411B6FD21E00CFBD80 /* Token.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Token.hpp; path = "../src/sip-0x/parser/tokens/Token.hpp"; sourceTree = "<group>"; };
+		482E9C421B6FD21E00CFBD80 /* TokenAbsoluteURI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenAbsoluteURI.hpp; path = "../src/sip-0x/parser/tokens/TokenAbsoluteURI.hpp"; sourceTree = "<group>"; };
+		482E9C431B6FD21E00CFBD80 /* TokenAbstract.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenAbstract.hpp; path = "../src/sip-0x/parser/tokens/TokenAbstract.hpp"; sourceTree = "<group>"; };
+		482E9C441B6FD21E00CFBD80 /* TokenContainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenContainer.hpp; path = "../src/sip-0x/parser/tokens/TokenContainer.hpp"; sourceTree = "<group>"; };
+		482E9C451B6FD21E00CFBD80 /* TokenGenericParam.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenGenericParam.hpp; path = "../src/sip-0x/parser/tokens/TokenGenericParam.hpp"; sourceTree = "<group>"; };
+		482E9C461B6FD21E00CFBD80 /* TokenHostport.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenHostport.hpp; path = "../src/sip-0x/parser/tokens/TokenHostport.hpp"; sourceTree = "<group>"; };
+		482E9C471B6FD21E00CFBD80 /* TokenIPv4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenIPv4.hpp; path = "../src/sip-0x/parser/tokens/TokenIPv4.hpp"; sourceTree = "<group>"; };
+		482E9C481B6FD21E00CFBD80 /* TokenIPv6.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenIPv6.hpp; path = "../src/sip-0x/parser/tokens/TokenIPv6.hpp"; sourceTree = "<group>"; };
+		482E9C491B6FD21E00CFBD80 /* TokenMType.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenMType.hpp; path = "../src/sip-0x/parser/tokens/TokenMType.hpp"; sourceTree = "<group>"; };
+		482E9C4A1B6FD21E00CFBD80 /* TokenNameAddr.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenNameAddr.hpp; path = "../src/sip-0x/parser/tokens/TokenNameAddr.hpp"; sourceTree = "<group>"; };
+		482E9C4B1B6FD21E00CFBD80 /* TokenOctects.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenOctects.hpp; path = "../src/sip-0x/parser/tokens/TokenOctects.hpp"; sourceTree = "<group>"; };
+		482E9C4C1B6FD21E00CFBD80 /* TokenPresets.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenPresets.hpp; path = "../src/sip-0x/parser/tokens/TokenPresets.hpp"; sourceTree = "<group>"; };
+		482E9C4D1B6FD21E00CFBD80 /* TokenQuotedPair.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenQuotedPair.hpp; path = "../src/sip-0x/parser/tokens/TokenQuotedPair.hpp"; sourceTree = "<group>"; };
+		482E9C4E1B6FD21E00CFBD80 /* TokenQuotedString.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenQuotedString.hpp; path = "../src/sip-0x/parser/tokens/TokenQuotedString.hpp"; sourceTree = "<group>"; };
+		482E9C4F1B6FD21E00CFBD80 /* TokenRegex.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenRegex.hpp; path = "../src/sip-0x/parser/tokens/TokenRegex.hpp"; sourceTree = "<group>"; };
+		482E9C501B6FD21E00CFBD80 /* TokenSIPMessage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessage.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPMessage.hpp"; sourceTree = "<group>"; };
+		482E9C511B6FD21E00CFBD80 /* TokenSIPMessageHeader.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPMessageHeader.hpp"; sourceTree = "<group>"; };
+		482E9C521B6FD21E00CFBD80 /* TokenSIPMethod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMethod.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPMethod.hpp"; sourceTree = "<group>"; };
+		482E9C531B6FD21E00CFBD80 /* TokenSIPRequestLine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPRequestLine.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPRequestLine.hpp"; sourceTree = "<group>"; };
+		482E9C541B6FD21E00CFBD80 /* TokenSIPStatusLine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPStatusLine.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPStatusLine.hpp"; sourceTree = "<group>"; };
+		482E9C551B6FD21E00CFBD80 /* TokenSIPURI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPURI.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPURI.hpp"; sourceTree = "<group>"; };
+		482E9C561B6FD21E00CFBD80 /* TokenSIPVersion.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPVersion.hpp; path = "../src/sip-0x/parser/tokens/TokenSIPVersion.hpp"; sourceTree = "<group>"; };
+		482E9C571B6FD21E00CFBD80 /* TokenURIHeaders.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenURIHeaders.hpp; path = "../src/sip-0x/parser/tokens/TokenURIHeaders.hpp"; sourceTree = "<group>"; };
+		482E9C581B6FD21E00CFBD80 /* TokenURIParameter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenURIParameter.hpp; path = "../src/sip-0x/parser/tokens/TokenURIParameter.hpp"; sourceTree = "<group>"; };
+		482E9C591B6FD21E00CFBD80 /* TokenUserInfo.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenUserInfo.hpp; path = "../src/sip-0x/parser/tokens/TokenUserInfo.hpp"; sourceTree = "<group>"; };
+		482E9C5A1B6FD21E00CFBD80 /* RegexConstStrings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegexConstStrings.cpp; path = "../src/sip-0x/parser/tokens/RegexConstStrings.cpp"; sourceTree = "<group>"; };
+		482E9C5B1B6FD21E00CFBD80 /* TokenAbstract.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TokenAbstract.cpp; path = "../src/sip-0x/parser/tokens/TokenAbstract.cpp"; sourceTree = "<group>"; };
+		482E9C7D1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Encoding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Accept_Encoding.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Accept_Encoding.hpp"; sourceTree = "<group>"; };
+		482E9C7E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Language.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Accept_Language.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Accept_Language.hpp"; sourceTree = "<group>"; };
+		482E9C7F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Accept.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Accept.hpp"; sourceTree = "<group>"; };
+		482E9C801B6FD26300CFBD80 /* TokenSIPMessageHeader_Alert_Info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Alert_Info.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Alert_Info.hpp"; sourceTree = "<group>"; };
+		482E9C811B6FD26300CFBD80 /* TokenSIPMessageHeader_Allow.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Allow.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Allow.hpp"; sourceTree = "<group>"; };
+		482E9C821B6FD26300CFBD80 /* TokenSIPMessageHeader_Authentication_Info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Authentication_Info.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Authentication_Info.hpp"; sourceTree = "<group>"; };
+		482E9C831B6FD26300CFBD80 /* TokenSIPMessageHeader_Authorization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Authorization.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Authorization.hpp"; sourceTree = "<group>"; };
+		482E9C841B6FD26300CFBD80 /* TokenSIPMessageHeader_base.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_base.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_base.hpp"; sourceTree = "<group>"; };
+		482E9C851B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_ID.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Call_ID.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Call_ID.hpp"; sourceTree = "<group>"; };
+		482E9C861B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_Info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Call_Info.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Call_Info.hpp"; sourceTree = "<group>"; };
+		482E9C871B6FD26300CFBD80 /* TokenSIPMessageHeader_Contact.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Contact.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Contact.hpp"; sourceTree = "<group>"; };
+		482E9C881B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Disposition.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Content_Disposition.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Content_Disposition.hpp"; sourceTree = "<group>"; };
+		482E9C891B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Encoding.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Content_Encoding.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Content_Encoding.hpp"; sourceTree = "<group>"; };
+		482E9C8A1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Language.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Content_Language.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Content_Language.hpp"; sourceTree = "<group>"; };
+		482E9C8B1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Length.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Content_Length.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Content_Length.hpp"; sourceTree = "<group>"; };
+		482E9C8C1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Type.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Content_Type.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Content_Type.hpp"; sourceTree = "<group>"; };
+		482E9C8D1B6FD26300CFBD80 /* TokenSIPMessageHeader_CSeq.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_CSeq.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_CSeq.hpp"; sourceTree = "<group>"; };
+		482E9C8E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Date.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Date.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Date.hpp"; sourceTree = "<group>"; };
+		482E9C8F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Error_Info.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Error_Info.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Error_Info.hpp"; sourceTree = "<group>"; };
+		482E9C901B6FD26300CFBD80 /* TokenSIPMessageHeader_Expires.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Expires.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Expires.hpp"; sourceTree = "<group>"; };
+		482E9C911B6FD26300CFBD80 /* TokenSIPMessageHeader_extension_header.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_extension_header.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_extension_header.hpp"; sourceTree = "<group>"; };
+		482E9C921B6FD26300CFBD80 /* TokenSIPMessageHeader_From.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_From.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_From.hpp"; sourceTree = "<group>"; };
+		482E9C931B6FD26300CFBD80 /* TokenSIPMessageHeader_In_Reply_To.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_In_Reply_To.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_In_Reply_To.hpp"; sourceTree = "<group>"; };
+		482E9C941B6FD26300CFBD80 /* TokenSIPMessageHeader_Max_Forwards.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Max_Forwards.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Max_Forwards.hpp"; sourceTree = "<group>"; };
+		482E9C951B6FD26300CFBD80 /* TokenSIPMessageHeader_MIME_Version.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_MIME_Version.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_MIME_Version.hpp"; sourceTree = "<group>"; };
+		482E9C961B6FD26300CFBD80 /* TokenSIPMessageHeader_Min_Expires.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Min_Expires.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Min_Expires.hpp"; sourceTree = "<group>"; };
+		482E9C971B6FD26300CFBD80 /* TokenSIPMessageHeader_Organization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Organization.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Organization.hpp"; sourceTree = "<group>"; };
+		482E9C981B6FD26300CFBD80 /* TokenSIPMessageHeader_Priority.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Priority.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Priority.hpp"; sourceTree = "<group>"; };
+		482E9C991B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authenticate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Proxy_Authenticate.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Proxy_Authenticate.hpp"; sourceTree = "<group>"; };
+		482E9C9A1B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authorization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Proxy_Authorization.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Proxy_Authorization.hpp"; sourceTree = "<group>"; };
+		482E9C9B1B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Require.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Proxy_Require.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Proxy_Require.hpp"; sourceTree = "<group>"; };
+		482E9C9C1B6FD26300CFBD80 /* TokenSIPMessageHeader_Record_Route.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Record_Route.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Record_Route.hpp"; sourceTree = "<group>"; };
+		482E9C9D1B6FD26300CFBD80 /* TokenSIPMessageHeader_Reply_To.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Reply_To.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Reply_To.hpp"; sourceTree = "<group>"; };
+		482E9C9E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Require.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Require.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Require.hpp"; sourceTree = "<group>"; };
+		482E9C9F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Retry_After.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Retry_After.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Retry_After.hpp"; sourceTree = "<group>"; };
+		482E9CA01B6FD26300CFBD80 /* TokenSIPMessageHeader_Route.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Route.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Route.hpp"; sourceTree = "<group>"; };
+		482E9CA11B6FD26300CFBD80 /* TokenSIPMessageHeader_Server.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Server.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Server.hpp"; sourceTree = "<group>"; };
+		482E9CA21B6FD26300CFBD80 /* TokenSIPMessageHeader_Subject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Subject.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Subject.hpp"; sourceTree = "<group>"; };
+		482E9CA31B6FD26300CFBD80 /* TokenSIPMessageHeader_Supported.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Supported.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Supported.hpp"; sourceTree = "<group>"; };
+		482E9CA41B6FD26300CFBD80 /* TokenSIPMessageHeader_Timestamp.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Timestamp.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Timestamp.hpp"; sourceTree = "<group>"; };
+		482E9CA51B6FD26300CFBD80 /* TokenSIPMessageHeader_To.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_To.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_To.hpp"; sourceTree = "<group>"; };
+		482E9CA61B6FD26300CFBD80 /* TokenSIPMessageHeader_Unsupported.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Unsupported.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Unsupported.hpp"; sourceTree = "<group>"; };
+		482E9CA71B6FD26300CFBD80 /* TokenSIPMessageHeader_User_Agent.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_User_Agent.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_User_Agent.hpp"; sourceTree = "<group>"; };
+		482E9CA81B6FD26300CFBD80 /* TokenSIPMessageHeader_Via.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Via.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Via.hpp"; sourceTree = "<group>"; };
+		482E9CA91B6FD26300CFBD80 /* TokenSIPMessageHeader_Warning.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_Warning.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_Warning.hpp"; sourceTree = "<group>"; };
+		482E9CAA1B6FD26300CFBD80 /* TokenSIPMessageHeader_WWW_Authenticate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TokenSIPMessageHeader_WWW_Authenticate.hpp; path = "../src/sip-0x/parser/tokens/messageheaders/TokenSIPMessageHeader_WWW_Authenticate.hpp"; sourceTree = "<group>"; };
+		483264301B6F412C00D5EFD5 /* ApplicationDelegate.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ApplicationDelegate.hpp; path = "../src/sip-0x/ApplicationDelegate.hpp"; sourceTree = SOURCE_ROOT; };
+		483264311B6F412C00D5EFD5 /* Dialog.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Dialog.hpp; path = "../src/sip-0x/Dialog.hpp"; sourceTree = SOURCE_ROOT; };
+		483264321B6F412C00D5EFD5 /* Endpoint.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Endpoint.hpp; path = "../src/sip-0x/Endpoint.hpp"; sourceTree = SOURCE_ROOT; };
+		483264331B6F412C00D5EFD5 /* MessageFactory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = MessageFactory.hpp; path = "../src/sip-0x/MessageFactory.hpp"; sourceTree = SOURCE_ROOT; };
+		483264341B6F412C00D5EFD5 /* RegisterClient.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RegisterClient.hpp; path = "../src/sip-0x/RegisterClient.hpp"; sourceTree = SOURCE_ROOT; };
+		483264351B6F412C00D5EFD5 /* Registrar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Registrar.hpp; path = "../src/sip-0x/Registrar.hpp"; sourceTree = SOURCE_ROOT; };
+		483264361B6F412C00D5EFD5 /* RemotePeer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RemotePeer.hpp; path = "../src/sip-0x/RemotePeer.hpp"; sourceTree = SOURCE_ROOT; };
+		483264371B6F412C00D5EFD5 /* sip-0x.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = "sip-0x.hpp"; path = "../src/sip-0x/sip-0x.hpp"; sourceTree = SOURCE_ROOT; };
+		483264381B6F412C00D5EFD5 /* Transaction.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Transaction.hpp; path = "../src/sip-0x/Transaction.hpp"; sourceTree = SOURCE_ROOT; };
+		483264391B6F412C00D5EFD5 /* TransactionLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TransactionLayer.hpp; path = "../src/sip-0x/TransactionLayer.hpp"; sourceTree = SOURCE_ROOT; };
+		4832643A1B6F412C00D5EFD5 /* TransportLayer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TransportLayer.hpp; path = "../src/sip-0x/TransportLayer.hpp"; sourceTree = SOURCE_ROOT; };
+		4832643B1B6F412C00D5EFD5 /* TransportLayerTCP.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TransportLayerTCP.hpp; path = "../src/sip-0x/TransportLayerTCP.hpp"; sourceTree = SOURCE_ROOT; };
+		4832643C1B6F412C00D5EFD5 /* UA.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UA.hpp; path = "../src/sip-0x/UA.hpp"; sourceTree = SOURCE_ROOT; };
+		4832643D1B6F412C00D5EFD5 /* UAC.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UAC.hpp; path = "../src/sip-0x/UAC.hpp"; sourceTree = SOURCE_ROOT; };
+		4832643E1B6F412C00D5EFD5 /* UAS.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UAS.hpp; path = "../src/sip-0x/UAS.hpp"; sourceTree = SOURCE_ROOT; };
+		4832643F1B6F412C00D5EFD5 /* Endpoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Endpoint.cpp; path = "../src/sip-0x/Endpoint.cpp"; sourceTree = SOURCE_ROOT; };
+		483264401B6F412C00D5EFD5 /* RegisterClient.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RegisterClient.cpp; path = "../src/sip-0x/RegisterClient.cpp"; sourceTree = SOURCE_ROOT; };
+		483264411B6F412C00D5EFD5 /* RemotePeer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RemotePeer.cpp; path = "../src/sip-0x/RemotePeer.cpp"; sourceTree = SOURCE_ROOT; };
+		483264421B6F412C00D5EFD5 /* Transaction.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Transaction.cpp; path = "../src/sip-0x/Transaction.cpp"; sourceTree = SOURCE_ROOT; };
+		483264431B6F412C00D5EFD5 /* TransactionLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransactionLayer.cpp; path = "../src/sip-0x/TransactionLayer.cpp"; sourceTree = SOURCE_ROOT; };
+		483264441B6F412C00D5EFD5 /* TransportLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransportLayer.cpp; path = "../src/sip-0x/TransportLayer.cpp"; sourceTree = SOURCE_ROOT; };
+		483264451B6F412C00D5EFD5 /* TransportLayerTCP.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransportLayerTCP.cpp; path = "../src/sip-0x/TransportLayerTCP.cpp"; sourceTree = SOURCE_ROOT; };
+		483264461B6F412C00D5EFD5 /* UA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UA.cpp; path = "../src/sip-0x/UA.cpp"; sourceTree = SOURCE_ROOT; };
+		483264471B6F412C00D5EFD5 /* UAC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UAC.cpp; path = "../src/sip-0x/UAC.cpp"; sourceTree = SOURCE_ROOT; };
+		483264481B6F412C00D5EFD5 /* UAS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UAS.cpp; path = "../src/sip-0x/UAS.cpp"; sourceTree = SOURCE_ROOT; };
+		484696831B6F427F00CC9008 /* ConnectionListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ConnectionListener.hpp; path = "../src/sip-0x/listeners/ConnectionListener.hpp"; sourceTree = "<group>"; };
+		484696841B6F427F00CC9008 /* UAListener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UAListener.hpp; path = "../src/sip-0x/listeners/UAListener.hpp"; sourceTree = "<group>"; };
+		48FB321B1B6F4076002D2892 /* libsip-0x.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libsip-0x.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		48FB32181B6F4076002D2892 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		482E9BDF1B6FD13300CFBD80 /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				482E9C291B6FD1DD00CFBD80 /* factory */,
+				482E9C281B6FD1CF00CFBD80 /* toekns */,
+				482E9C071B6FD19B00CFBD80 /* Parser.hpp */,
+				482E9C081B6FD19B00CFBD80 /* ParserResult.hpp */,
+				482E9C091B6FD19B00CFBD80 /* SIPParser.hpp */,
+				482E9C0A1B6FD19B00CFBD80 /* Parser.cpp */,
+				482E9C0B1B6FD19B00CFBD80 /* ParserResult.cpp */,
+			);
+			name = parser;
+			sourceTree = SOURCE_ROOT;
+		};
+		482E9BE01B6FD15700CFBD80 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				482E9BE11B6FD17F00CFBD80 /* asio_header.hpp */,
+				482E9BE21B6FD17F00CFBD80 /* Clock.hpp */,
+				482E9BE31B6FD17F00CFBD80 /* Connection.hpp */,
+				482E9BE41B6FD17F00CFBD80 /* ConnectionManager.hpp */,
+				482E9BE51B6FD17F00CFBD80 /* IniFile.hpp */,
+				482E9BE61B6FD17F00CFBD80 /* InputTokenStream.hpp */,
+				482E9BE71B6FD17F00CFBD80 /* Listeners.hpp */,
+				482E9BE81B6FD17F00CFBD80 /* Logger.hpp */,
+				482E9BE91B6FD17F00CFBD80 /* LoggerFactory.hpp */,
+				482E9BEA1B6FD17F00CFBD80 /* Signals.hpp */,
+				482E9BEB1B6FD17F00CFBD80 /* Signals2.hpp */,
+				482E9BEC1B6FD17F00CFBD80 /* ThreadedObject.hpp */,
+				482E9BED1B6FD17F00CFBD80 /* utils.hpp */,
+				482E9BEE1B6FD17F00CFBD80 /* Clock.cpp */,
+				482E9BEF1B6FD17F00CFBD80 /* Connection.cpp */,
+				482E9BF01B6FD17F00CFBD80 /* ConnectionManager.cpp */,
+				482E9BF11B6FD17F00CFBD80 /* Logger.cpp */,
+				482E9BF21B6FD17F00CFBD80 /* LoggerFactory.cpp */,
+				482E9BF31B6FD17F00CFBD80 /* utils.cpp */,
+			);
+			name = utils;
+			sourceTree = SOURCE_ROOT;
+		};
+		482E9C111B6FD1A900CFBD80 /* protocol */ = {
+			isa = PBXGroup;
+			children = (
+				482E9C121B6FD1C400CFBD80 /* HostPort.hpp */,
+				482E9C131B6FD1C400CFBD80 /* NameAddr.hpp */,
+				482E9C141B6FD1C400CFBD80 /* SIP.hpp */,
+				482E9C151B6FD1C400CFBD80 /* SIPMessage.hpp */,
+				482E9C161B6FD1C400CFBD80 /* SIPMessageHeader.hpp */,
+				482E9C171B6FD1C400CFBD80 /* SIPMethod.hpp */,
+				482E9C181B6FD1C400CFBD80 /* SIPRequest.hpp */,
+				482E9C191B6FD1C400CFBD80 /* SIPResponse.hpp */,
+				482E9C1A1B6FD1C400CFBD80 /* SIPURI.hpp */,
+				482E9C1B1B6FD1C400CFBD80 /* SIPVersion.hpp */,
+				482E9C1C1B6FD1C400CFBD80 /* SIPMessage.cpp */,
+			);
+			name = protocol;
+			sourceTree = SOURCE_ROOT;
+		};
+		482E9C281B6FD1CF00CFBD80 /* toekns */ = {
+			isa = PBXGroup;
+			children = (
+				482E9C7C1B6FD22400CFBD80 /* messageheaders */,
+				482E9C3C1B6FD21E00CFBD80 /* Alternative.hpp */,
+				482E9C3D1B6FD21E00CFBD80 /* Occurrence.hpp */,
+				482E9C3E1B6FD21E00CFBD80 /* Operators.hpp */,
+				482E9C3F1B6FD21E00CFBD80 /* RegexConstStrings.hpp */,
+				482E9C401B6FD21E00CFBD80 /* Sequence.hpp */,
+				482E9C411B6FD21E00CFBD80 /* Token.hpp */,
+				482E9C421B6FD21E00CFBD80 /* TokenAbsoluteURI.hpp */,
+				482E9C431B6FD21E00CFBD80 /* TokenAbstract.hpp */,
+				482E9C441B6FD21E00CFBD80 /* TokenContainer.hpp */,
+				482E9C451B6FD21E00CFBD80 /* TokenGenericParam.hpp */,
+				482E9C461B6FD21E00CFBD80 /* TokenHostport.hpp */,
+				482E9C471B6FD21E00CFBD80 /* TokenIPv4.hpp */,
+				482E9C481B6FD21E00CFBD80 /* TokenIPv6.hpp */,
+				482E9C491B6FD21E00CFBD80 /* TokenMType.hpp */,
+				482E9C4A1B6FD21E00CFBD80 /* TokenNameAddr.hpp */,
+				482E9C4B1B6FD21E00CFBD80 /* TokenOctects.hpp */,
+				482E9C4C1B6FD21E00CFBD80 /* TokenPresets.hpp */,
+				482E9C4D1B6FD21E00CFBD80 /* TokenQuotedPair.hpp */,
+				482E9C4E1B6FD21E00CFBD80 /* TokenQuotedString.hpp */,
+				482E9C4F1B6FD21E00CFBD80 /* TokenRegex.hpp */,
+				482E9C501B6FD21E00CFBD80 /* TokenSIPMessage.hpp */,
+				482E9C511B6FD21E00CFBD80 /* TokenSIPMessageHeader.hpp */,
+				482E9C521B6FD21E00CFBD80 /* TokenSIPMethod.hpp */,
+				482E9C531B6FD21E00CFBD80 /* TokenSIPRequestLine.hpp */,
+				482E9C541B6FD21E00CFBD80 /* TokenSIPStatusLine.hpp */,
+				482E9C551B6FD21E00CFBD80 /* TokenSIPURI.hpp */,
+				482E9C561B6FD21E00CFBD80 /* TokenSIPVersion.hpp */,
+				482E9C571B6FD21E00CFBD80 /* TokenURIHeaders.hpp */,
+				482E9C581B6FD21E00CFBD80 /* TokenURIParameter.hpp */,
+				482E9C591B6FD21E00CFBD80 /* TokenUserInfo.hpp */,
+				482E9C5A1B6FD21E00CFBD80 /* RegexConstStrings.cpp */,
+				482E9C5B1B6FD21E00CFBD80 /* TokenAbstract.cpp */,
+			);
+			name = toekns;
+			sourceTree = "<group>";
+		};
+		482E9C291B6FD1DD00CFBD80 /* factory */ = {
+			isa = PBXGroup;
+			children = (
+				482E9C2A1B6FD1F900CFBD80 /* Factory.hpp */,
+				482E9C2B1B6FD1F900CFBD80 /* FactoryContext.hpp */,
+				482E9C2C1B6FD1F900CFBD80 /* FactoryContextNameAddr.hpp */,
+				482E9C2D1B6FD1F900CFBD80 /* FactoryContextSIPMessage.hpp */,
+				482E9C2E1B6FD1F900CFBD80 /* FactoryContextSIPMessageHeader.hpp */,
+				482E9C2F1B6FD1FA00CFBD80 /* FactoryContextSIPURI.hpp */,
+				482E9C301B6FD1FA00CFBD80 /* FactoryContextSIPVersion.hpp */,
+				482E9C311B6FD1FA00CFBD80 /* FactoryContextValue.hpp */,
+				482E9C321B6FD1FA00CFBD80 /* FactoryContextSIPMessage.cpp */,
+			);
+			name = factory;
+			sourceTree = "<group>";
+		};
+		482E9C7C1B6FD22400CFBD80 /* messageheaders */ = {
+			isa = PBXGroup;
+			children = (
+				482E9C7D1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Encoding.hpp */,
+				482E9C7E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Language.hpp */,
+				482E9C7F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept.hpp */,
+				482E9C801B6FD26300CFBD80 /* TokenSIPMessageHeader_Alert_Info.hpp */,
+				482E9C811B6FD26300CFBD80 /* TokenSIPMessageHeader_Allow.hpp */,
+				482E9C821B6FD26300CFBD80 /* TokenSIPMessageHeader_Authentication_Info.hpp */,
+				482E9C831B6FD26300CFBD80 /* TokenSIPMessageHeader_Authorization.hpp */,
+				482E9C841B6FD26300CFBD80 /* TokenSIPMessageHeader_base.hpp */,
+				482E9C851B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_ID.hpp */,
+				482E9C861B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_Info.hpp */,
+				482E9C871B6FD26300CFBD80 /* TokenSIPMessageHeader_Contact.hpp */,
+				482E9C881B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Disposition.hpp */,
+				482E9C891B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Encoding.hpp */,
+				482E9C8A1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Language.hpp */,
+				482E9C8B1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Length.hpp */,
+				482E9C8C1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Type.hpp */,
+				482E9C8D1B6FD26300CFBD80 /* TokenSIPMessageHeader_CSeq.hpp */,
+				482E9C8E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Date.hpp */,
+				482E9C8F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Error_Info.hpp */,
+				482E9C901B6FD26300CFBD80 /* TokenSIPMessageHeader_Expires.hpp */,
+				482E9C911B6FD26300CFBD80 /* TokenSIPMessageHeader_extension_header.hpp */,
+				482E9C921B6FD26300CFBD80 /* TokenSIPMessageHeader_From.hpp */,
+				482E9C931B6FD26300CFBD80 /* TokenSIPMessageHeader_In_Reply_To.hpp */,
+				482E9C941B6FD26300CFBD80 /* TokenSIPMessageHeader_Max_Forwards.hpp */,
+				482E9C951B6FD26300CFBD80 /* TokenSIPMessageHeader_MIME_Version.hpp */,
+				482E9C961B6FD26300CFBD80 /* TokenSIPMessageHeader_Min_Expires.hpp */,
+				482E9C971B6FD26300CFBD80 /* TokenSIPMessageHeader_Organization.hpp */,
+				482E9C981B6FD26300CFBD80 /* TokenSIPMessageHeader_Priority.hpp */,
+				482E9C991B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authenticate.hpp */,
+				482E9C9A1B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authorization.hpp */,
+				482E9C9B1B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Require.hpp */,
+				482E9C9C1B6FD26300CFBD80 /* TokenSIPMessageHeader_Record_Route.hpp */,
+				482E9C9D1B6FD26300CFBD80 /* TokenSIPMessageHeader_Reply_To.hpp */,
+				482E9C9E1B6FD26300CFBD80 /* TokenSIPMessageHeader_Require.hpp */,
+				482E9C9F1B6FD26300CFBD80 /* TokenSIPMessageHeader_Retry_After.hpp */,
+				482E9CA01B6FD26300CFBD80 /* TokenSIPMessageHeader_Route.hpp */,
+				482E9CA11B6FD26300CFBD80 /* TokenSIPMessageHeader_Server.hpp */,
+				482E9CA21B6FD26300CFBD80 /* TokenSIPMessageHeader_Subject.hpp */,
+				482E9CA31B6FD26300CFBD80 /* TokenSIPMessageHeader_Supported.hpp */,
+				482E9CA41B6FD26300CFBD80 /* TokenSIPMessageHeader_Timestamp.hpp */,
+				482E9CA51B6FD26300CFBD80 /* TokenSIPMessageHeader_To.hpp */,
+				482E9CA61B6FD26300CFBD80 /* TokenSIPMessageHeader_Unsupported.hpp */,
+				482E9CA71B6FD26300CFBD80 /* TokenSIPMessageHeader_User_Agent.hpp */,
+				482E9CA81B6FD26300CFBD80 /* TokenSIPMessageHeader_Via.hpp */,
+				482E9CA91B6FD26300CFBD80 /* TokenSIPMessageHeader_Warning.hpp */,
+				482E9CAA1B6FD26300CFBD80 /* TokenSIPMessageHeader_WWW_Authenticate.hpp */,
+			);
+			name = messageheaders;
+			sourceTree = "<group>";
+		};
+		483264621B6F418000D5EFD5 /* listeners */ = {
+			isa = PBXGroup;
+			children = (
+				484696831B6F427F00CC9008 /* ConnectionListener.hpp */,
+				484696841B6F427F00CC9008 /* UAListener.hpp */,
+			);
+			name = listeners;
+			sourceTree = SOURCE_ROOT;
+		};
+		48FB32121B6F4076002D2892 = {
+			isa = PBXGroup;
+			children = (
+				48FB321D1B6F4076002D2892 /* sip-0x */,
+				48FB321C1B6F4076002D2892 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		48FB321C1B6F4076002D2892 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				48FB321B1B6F4076002D2892 /* libsip-0x.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		48FB321D1B6F4076002D2892 /* sip-0x */ = {
+			isa = PBXGroup;
+			children = (
+				482E9C111B6FD1A900CFBD80 /* protocol */,
+				482E9BE01B6FD15700CFBD80 /* utils */,
+				482E9BDF1B6FD13300CFBD80 /* parser */,
+				483264621B6F418000D5EFD5 /* listeners */,
+				483264301B6F412C00D5EFD5 /* ApplicationDelegate.hpp */,
+				483264311B6F412C00D5EFD5 /* Dialog.hpp */,
+				483264321B6F412C00D5EFD5 /* Endpoint.hpp */,
+				483264331B6F412C00D5EFD5 /* MessageFactory.hpp */,
+				483264341B6F412C00D5EFD5 /* RegisterClient.hpp */,
+				483264351B6F412C00D5EFD5 /* Registrar.hpp */,
+				483264361B6F412C00D5EFD5 /* RemotePeer.hpp */,
+				483264371B6F412C00D5EFD5 /* sip-0x.hpp */,
+				483264381B6F412C00D5EFD5 /* Transaction.hpp */,
+				483264391B6F412C00D5EFD5 /* TransactionLayer.hpp */,
+				4832643A1B6F412C00D5EFD5 /* TransportLayer.hpp */,
+				4832643B1B6F412C00D5EFD5 /* TransportLayerTCP.hpp */,
+				4832643C1B6F412C00D5EFD5 /* UA.hpp */,
+				4832643D1B6F412C00D5EFD5 /* UAC.hpp */,
+				4832643E1B6F412C00D5EFD5 /* UAS.hpp */,
+				4832643F1B6F412C00D5EFD5 /* Endpoint.cpp */,
+				483264401B6F412C00D5EFD5 /* RegisterClient.cpp */,
+				483264411B6F412C00D5EFD5 /* RemotePeer.cpp */,
+				483264421B6F412C00D5EFD5 /* Transaction.cpp */,
+				483264431B6F412C00D5EFD5 /* TransactionLayer.cpp */,
+				483264441B6F412C00D5EFD5 /* TransportLayer.cpp */,
+				483264451B6F412C00D5EFD5 /* TransportLayerTCP.cpp */,
+				483264461B6F412C00D5EFD5 /* UA.cpp */,
+				483264471B6F412C00D5EFD5 /* UAC.cpp */,
+				483264481B6F412C00D5EFD5 /* UAS.cpp */,
+			);
+			path = "sip-0x";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		48FB32191B6F4076002D2892 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				482E9C5E1B6FD21E00CFBD80 /* Operators.hpp in Headers */,
+				482E9CD11B6FD26300CFBD80 /* TokenSIPMessageHeader_Supported.hpp in Headers */,
+				483264561B6F412C00D5EFD5 /* UAC.hpp in Headers */,
+				482E9CCC1B6FD26300CFBD80 /* TokenSIPMessageHeader_Require.hpp in Headers */,
+				483264551B6F412C00D5EFD5 /* UA.hpp in Headers */,
+				482E9C0C1B6FD19B00CFBD80 /* Parser.hpp in Headers */,
+				484696851B6F427F00CC9008 /* ConnectionListener.hpp in Headers */,
+				482E9C361B6FD1FA00CFBD80 /* FactoryContextSIPMessage.hpp in Headers */,
+				482E9CCE1B6FD26300CFBD80 /* TokenSIPMessageHeader_Route.hpp in Headers */,
+				483264511B6F412C00D5EFD5 /* Transaction.hpp in Headers */,
+				482E9CB41B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_Info.hpp in Headers */,
+				482E9CD41B6FD26300CFBD80 /* TokenSIPMessageHeader_Unsupported.hpp in Headers */,
+				483264521B6F412C00D5EFD5 /* TransactionLayer.hpp in Headers */,
+				482E9BF71B6FD17F00CFBD80 /* ConnectionManager.hpp in Headers */,
+				482E9C681B6FD21E00CFBD80 /* TokenIPv6.hpp in Headers */,
+				482E9C631B6FD21E00CFBD80 /* TokenAbstract.hpp in Headers */,
+				482E9C381B6FD1FA00CFBD80 /* FactoryContextSIPURI.hpp in Headers */,
+				482E9CAC1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Language.hpp in Headers */,
+				482E9C001B6FD17F00CFBD80 /* utils.hpp in Headers */,
+				482E9CB71B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Encoding.hpp in Headers */,
+				482E9CCF1B6FD26300CFBD80 /* TokenSIPMessageHeader_Server.hpp in Headers */,
+				482E9CB61B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Disposition.hpp in Headers */,
+				482E9C601B6FD21E00CFBD80 /* Sequence.hpp in Headers */,
+				482E9BFD1B6FD17F00CFBD80 /* Signals.hpp in Headers */,
+				482E9C341B6FD1FA00CFBD80 /* FactoryContext.hpp in Headers */,
+				482E9C231B6FD1C400CFBD80 /* SIPRequest.hpp in Headers */,
+				4832644E1B6F412C00D5EFD5 /* Registrar.hpp in Headers */,
+				483264501B6F412C00D5EFD5 /* sip-0x.hpp in Headers */,
+				482E9C5F1B6FD21E00CFBD80 /* RegexConstStrings.hpp in Headers */,
+				482E9C221B6FD1C400CFBD80 /* SIPMethod.hpp in Headers */,
+				482E9C791B6FD21E00CFBD80 /* TokenUserInfo.hpp in Headers */,
+				4832644A1B6F412C00D5EFD5 /* Dialog.hpp in Headers */,
+				482E9C711B6FD21E00CFBD80 /* TokenSIPMessageHeader.hpp in Headers */,
+				4832644F1B6F412C00D5EFD5 /* RemotePeer.hpp in Headers */,
+				482E9BF41B6FD17F00CFBD80 /* asio_header.hpp in Headers */,
+				482E9C5D1B6FD21E00CFBD80 /* Occurrence.hpp in Headers */,
+				482E9CAD1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept.hpp in Headers */,
+				482E9BFB1B6FD17F00CFBD80 /* Logger.hpp in Headers */,
+				482E9CBD1B6FD26300CFBD80 /* TokenSIPMessageHeader_Error_Info.hpp in Headers */,
+				482E9CD71B6FD26300CFBD80 /* TokenSIPMessageHeader_Warning.hpp in Headers */,
+				482E9CB21B6FD26300CFBD80 /* TokenSIPMessageHeader_base.hpp in Headers */,
+				482E9C1E1B6FD1C400CFBD80 /* NameAddr.hpp in Headers */,
+				4832644C1B6F412C00D5EFD5 /* MessageFactory.hpp in Headers */,
+				482E9CD81B6FD26300CFBD80 /* TokenSIPMessageHeader_WWW_Authenticate.hpp in Headers */,
+				482E9CC91B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Require.hpp in Headers */,
+				482E9CBF1B6FD26300CFBD80 /* TokenSIPMessageHeader_extension_header.hpp in Headers */,
+				482E9C0E1B6FD19B00CFBD80 /* SIPParser.hpp in Headers */,
+				482E9CB51B6FD26300CFBD80 /* TokenSIPMessageHeader_Contact.hpp in Headers */,
+				482E9C351B6FD1FA00CFBD80 /* FactoryContextNameAddr.hpp in Headers */,
+				482E9C661B6FD21E00CFBD80 /* TokenHostport.hpp in Headers */,
+				482E9C5C1B6FD21E00CFBD80 /* Alternative.hpp in Headers */,
+				482E9BFF1B6FD17F00CFBD80 /* ThreadedObject.hpp in Headers */,
+				482E9CCA1B6FD26300CFBD80 /* TokenSIPMessageHeader_Record_Route.hpp in Headers */,
+				482E9C611B6FD21E00CFBD80 /* Token.hpp in Headers */,
+				482E9CD31B6FD26300CFBD80 /* TokenSIPMessageHeader_To.hpp in Headers */,
+				482E9C6D1B6FD21E00CFBD80 /* TokenQuotedPair.hpp in Headers */,
+				482E9CC01B6FD26300CFBD80 /* TokenSIPMessageHeader_From.hpp in Headers */,
+				482E9CC21B6FD26300CFBD80 /* TokenSIPMessageHeader_Max_Forwards.hpp in Headers */,
+				483264531B6F412C00D5EFD5 /* TransportLayer.hpp in Headers */,
+				482E9CC81B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authorization.hpp in Headers */,
+				482E9C0D1B6FD19B00CFBD80 /* ParserResult.hpp in Headers */,
+				482E9C1F1B6FD1C400CFBD80 /* SIP.hpp in Headers */,
+				482E9C751B6FD21E00CFBD80 /* TokenSIPURI.hpp in Headers */,
+				482E9C731B6FD21E00CFBD80 /* TokenSIPRequestLine.hpp in Headers */,
+				482E9C6B1B6FD21E00CFBD80 /* TokenOctects.hpp in Headers */,
+				482E9C741B6FD21E00CFBD80 /* TokenSIPStatusLine.hpp in Headers */,
+				483264541B6F412C00D5EFD5 /* TransportLayerTCP.hpp in Headers */,
+				482E9CD61B6FD26300CFBD80 /* TokenSIPMessageHeader_Via.hpp in Headers */,
+				482E9CC41B6FD26300CFBD80 /* TokenSIPMessageHeader_Min_Expires.hpp in Headers */,
+				482E9CBB1B6FD26300CFBD80 /* TokenSIPMessageHeader_CSeq.hpp in Headers */,
+				482E9C771B6FD21E00CFBD80 /* TokenURIHeaders.hpp in Headers */,
+				482E9CB81B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Language.hpp in Headers */,
+				482E9CAF1B6FD26300CFBD80 /* TokenSIPMessageHeader_Allow.hpp in Headers */,
+				482E9C391B6FD1FA00CFBD80 /* FactoryContextSIPVersion.hpp in Headers */,
+				482E9C621B6FD21E00CFBD80 /* TokenAbsoluteURI.hpp in Headers */,
+				482E9CC51B6FD26300CFBD80 /* TokenSIPMessageHeader_Organization.hpp in Headers */,
+				482E9CAE1B6FD26300CFBD80 /* TokenSIPMessageHeader_Alert_Info.hpp in Headers */,
+				482E9CB01B6FD26300CFBD80 /* TokenSIPMessageHeader_Authentication_Info.hpp in Headers */,
+				482E9CD21B6FD26300CFBD80 /* TokenSIPMessageHeader_Timestamp.hpp in Headers */,
+				483264491B6F412C00D5EFD5 /* ApplicationDelegate.hpp in Headers */,
+				483264571B6F412C00D5EFD5 /* UAS.hpp in Headers */,
+				482E9C3A1B6FD1FA00CFBD80 /* FactoryContextValue.hpp in Headers */,
+				4832644B1B6F412C00D5EFD5 /* Endpoint.hpp in Headers */,
+				482E9CBE1B6FD26300CFBD80 /* TokenSIPMessageHeader_Expires.hpp in Headers */,
+				482E9C201B6FD1C400CFBD80 /* SIPMessage.hpp in Headers */,
+				482E9C6F1B6FD21E00CFBD80 /* TokenRegex.hpp in Headers */,
+				482E9C261B6FD1C400CFBD80 /* SIPVersion.hpp in Headers */,
+				482E9C721B6FD21E00CFBD80 /* TokenSIPMethod.hpp in Headers */,
+				482E9BF91B6FD17F00CFBD80 /* InputTokenStream.hpp in Headers */,
+				482E9C651B6FD21E00CFBD80 /* TokenGenericParam.hpp in Headers */,
+				482E9BF61B6FD17F00CFBD80 /* Connection.hpp in Headers */,
+				482E9CB11B6FD26300CFBD80 /* TokenSIPMessageHeader_Authorization.hpp in Headers */,
+				482E9BFE1B6FD17F00CFBD80 /* Signals2.hpp in Headers */,
+				482E9C331B6FD1FA00CFBD80 /* Factory.hpp in Headers */,
+				482E9CCB1B6FD26300CFBD80 /* TokenSIPMessageHeader_Reply_To.hpp in Headers */,
+				482E9CC31B6FD26300CFBD80 /* TokenSIPMessageHeader_MIME_Version.hpp in Headers */,
+				484696861B6F427F00CC9008 /* UAListener.hpp in Headers */,
+				482E9BFA1B6FD17F00CFBD80 /* Listeners.hpp in Headers */,
+				482E9C241B6FD1C400CFBD80 /* SIPResponse.hpp in Headers */,
+				482E9C211B6FD1C400CFBD80 /* SIPMessageHeader.hpp in Headers */,
+				482E9C641B6FD21E00CFBD80 /* TokenContainer.hpp in Headers */,
+				482E9CBC1B6FD26300CFBD80 /* TokenSIPMessageHeader_Date.hpp in Headers */,
+				482E9CB31B6FD26300CFBD80 /* TokenSIPMessageHeader_Call_ID.hpp in Headers */,
+				482E9C701B6FD21E00CFBD80 /* TokenSIPMessage.hpp in Headers */,
+				482E9C6C1B6FD21E00CFBD80 /* TokenPresets.hpp in Headers */,
+				482E9C1D1B6FD1C400CFBD80 /* HostPort.hpp in Headers */,
+				482E9CAB1B6FD26300CFBD80 /* TokenSIPMessageHeader_Accept_Encoding.hpp in Headers */,
+				4832644D1B6F412C00D5EFD5 /* RegisterClient.hpp in Headers */,
+				482E9CB91B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Length.hpp in Headers */,
+				482E9C371B6FD1FA00CFBD80 /* FactoryContextSIPMessageHeader.hpp in Headers */,
+				482E9BF51B6FD17F00CFBD80 /* Clock.hpp in Headers */,
+				482E9CBA1B6FD26300CFBD80 /* TokenSIPMessageHeader_Content_Type.hpp in Headers */,
+				482E9C761B6FD21E00CFBD80 /* TokenSIPVersion.hpp in Headers */,
+				482E9BF81B6FD17F00CFBD80 /* IniFile.hpp in Headers */,
+				482E9C251B6FD1C400CFBD80 /* SIPURI.hpp in Headers */,
+				482E9CC61B6FD26300CFBD80 /* TokenSIPMessageHeader_Priority.hpp in Headers */,
+				482E9CD51B6FD26300CFBD80 /* TokenSIPMessageHeader_User_Agent.hpp in Headers */,
+				482E9CC71B6FD26300CFBD80 /* TokenSIPMessageHeader_Proxy_Authenticate.hpp in Headers */,
+				482E9CCD1B6FD26300CFBD80 /* TokenSIPMessageHeader_Retry_After.hpp in Headers */,
+				482E9CC11B6FD26300CFBD80 /* TokenSIPMessageHeader_In_Reply_To.hpp in Headers */,
+				482E9C6E1B6FD21E00CFBD80 /* TokenQuotedString.hpp in Headers */,
+				482E9C6A1B6FD21E00CFBD80 /* TokenNameAddr.hpp in Headers */,
+				482E9C671B6FD21E00CFBD80 /* TokenIPv4.hpp in Headers */,
+				482E9C781B6FD21E00CFBD80 /* TokenURIParameter.hpp in Headers */,
+				482E9C691B6FD21E00CFBD80 /* TokenMType.hpp in Headers */,
+				482E9CD01B6FD26300CFBD80 /* TokenSIPMessageHeader_Subject.hpp in Headers */,
+				482E9BFC1B6FD17F00CFBD80 /* LoggerFactory.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		48FB321A1B6F4076002D2892 /* sip-0x */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48FB32261B6F4076002D2892 /* Build configuration list for PBXNativeTarget "sip-0x" */;
+			buildPhases = (
+				48FB32171B6F4076002D2892 /* Sources */,
+				48FB32181B6F4076002D2892 /* Frameworks */,
+				48FB32191B6F4076002D2892 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "sip-0x";
+			productName = "sip-0x";
+			productReference = 48FB321B1B6F4076002D2892 /* libsip-0x.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		48FB32131B6F4076002D2892 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Matteo Valdina";
+				TargetAttributes = {
+					48FB321A1B6F4076002D2892 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 48FB32161B6F4076002D2892 /* Build configuration list for PBXProject "sip-0x-library" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 48FB32121B6F4076002D2892;
+			productRefGroup = 48FB321C1B6F4076002D2892 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				48FB321A1B6F4076002D2892 /* sip-0x */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		48FB32171B6F4076002D2892 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4832645E1B6F412C00D5EFD5 /* TransportLayerTCP.cpp in Sources */,
+				482E9C041B6FD17F00CFBD80 /* Logger.cpp in Sources */,
+				483264581B6F412C00D5EFD5 /* Endpoint.cpp in Sources */,
+				4832645C1B6F412C00D5EFD5 /* TransactionLayer.cpp in Sources */,
+				482E9C021B6FD17F00CFBD80 /* Connection.cpp in Sources */,
+				482E9C031B6FD17F00CFBD80 /* ConnectionManager.cpp in Sources */,
+				482E9C0F1B6FD19B00CFBD80 /* Parser.cpp in Sources */,
+				482E9C011B6FD17F00CFBD80 /* Clock.cpp in Sources */,
+				483264591B6F412C00D5EFD5 /* RegisterClient.cpp in Sources */,
+				482E9C7B1B6FD21E00CFBD80 /* TokenAbstract.cpp in Sources */,
+				482E9C051B6FD17F00CFBD80 /* LoggerFactory.cpp in Sources */,
+				4832645D1B6F412C00D5EFD5 /* TransportLayer.cpp in Sources */,
+				4832645F1B6F412C00D5EFD5 /* UA.cpp in Sources */,
+				482E9C7A1B6FD21E00CFBD80 /* RegexConstStrings.cpp in Sources */,
+				482E9C061B6FD17F00CFBD80 /* utils.cpp in Sources */,
+				483264601B6F412C00D5EFD5 /* UAC.cpp in Sources */,
+				482E9C271B6FD1C400CFBD80 /* SIPMessage.cpp in Sources */,
+				483264611B6F412C00D5EFD5 /* UAS.cpp in Sources */,
+				4832645B1B6F412C00D5EFD5 /* Transaction.cpp in Sources */,
+				4832645A1B6F412C00D5EFD5 /* RemotePeer.cpp in Sources */,
+				482E9C101B6FD19B00CFBD80 /* ParserResult.cpp in Sources */,
+				482E9C3B1B6FD1FA00CFBD80 /* FactoryContextSIPMessage.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		48FB32241B6F4076002D2892 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../src/sip-0x/",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "../src/sip-0x/ ../vendors/asio-1.10.6/include";
+			};
+			name = Debug;
+		};
+		48FB32251B6F4076002D2892 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../src/sip-0x/",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "../src/sip-0x/ ../vendors/asio-1.10.6/include";
+			};
+			name = Release;
+		};
+		48FB32271B6F4076002D2892 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		48FB32281B6F4076002D2892 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		48FB32161B6F4076002D2892 /* Build configuration list for PBXProject "sip-0x-library" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48FB32241B6F4076002D2892 /* Debug */,
+				48FB32251B6F4076002D2892 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48FB32261B6F4076002D2892 /* Build configuration list for PBXNativeTarget "sip-0x" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48FB32271B6F4076002D2892 /* Debug */,
+				48FB32281B6F4076002D2892 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 48FB32131B6F4076002D2892 /* Project object */;
+}

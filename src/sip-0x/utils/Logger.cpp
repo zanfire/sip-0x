@@ -1,5 +1,8 @@
 #include "utils/Logger.hpp"
 
+#include <ctime>
+#include <stdio.h>
+
 using namespace sip0x::utils;
 
 Logger::Logger(std::string const& category, std::ostream* out) {
@@ -29,7 +32,8 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
   time_t raw_time;
   struct tm timeinfo;
   time(&raw_time);
-  localtime_s(&timeinfo, &raw_time);
+  localtime_r(&raw_time, &timeinfo);
+  //localtime_s(&timeinfo, &raw_time);
   strftime(timebuf, sizeof(timebuf), "%Y%m%d_%H%M%S", &timeinfo);
 
   int filename_len = strlen(filename);
@@ -40,7 +44,8 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
   }
   truncated_filename += i + 1;
 
-  sprintf_s(buffer, sizeof(buffer), "%-16s|%s|%s:%-4d|", timebuf, conv_level_to_chars(level), truncated_filename, line);
+  //sprintf_s(buffer, sizeof(buffer), "%-16s|%s|%s:%-4d|", timebuf, conv_level_to_chars(level), truncated_filename, line);
+  std::sprintf(buffer, "%-16s|%s|%s:%-4d|", timebuf, conv_level_to_chars(level), truncated_filename, line);
           
   *_out << buffer;
   buffer[0] = '\n';
@@ -48,7 +53,7 @@ void Logger::log(LoggerLevel const& level, char const* filename, int line, char 
   va_list args;
   buffer[0] = '\n';
   va_start(args, format);
-  vsnprintf_s(buffer, sizeof(buffer), format, args);
+  std::vsnprintf(buffer, sizeof(buffer), format, args);
   va_end(args);
 
   *_out << buffer << '\n';

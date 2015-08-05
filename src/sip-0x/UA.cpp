@@ -26,22 +26,26 @@ UA::~UA(void) {
 }
 
 
-void UA::add_listener(std::shared_ptr<listeners::UAListener>& listener) {
+void UA::add_listener(const std::shared_ptr<listeners::UAListener>& listener) {
   _listeners.insert(listener);
 }
 
 
-void UA::remove_listener(std::shared_ptr<listeners::UAListener>& listener) {
+void UA::remove_listener(const std::shared_ptr<listeners::UAListener>& listener) {
   _listeners.erase(listener);
 }
 
 
-void UA::raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse const>& response) {
+void UA::raise_listener(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<SIPResponse const>& response) {
   for (auto listener : _listeners) {
     listener->on_response(tran, response);
   }
 }
 
+
+void UA::on_process(void) {
+  _transaction->on_process();
+}
 
 //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
 void UA::add_default_header_lines(SIPMessage* message) {
