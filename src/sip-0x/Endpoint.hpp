@@ -21,6 +21,7 @@
 #include <memory>
 #include <set>
 #include <condition_variable>
+#include <mutex>
 
 #include "ApplicationDelegate.hpp"
 #include "utils/ThreadedObject.hpp"

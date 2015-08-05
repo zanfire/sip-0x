@@ -15,7 +15,7 @@ using namespace sip0x::utils;
 using namespace sip0x::protocol;
 
 
-TransactionLayer::TransactionLayer(std::shared_ptr<TransportLayer>& transport) : _transport(transport) {
+TransactionLayer::TransactionLayer(const std::shared_ptr<TransportLayer>& transport) : _transport(transport) {
   _logger = LoggerFactory::get_logger("sip0x.Logic.TransactionLayer");
 
   _slot.connect(this, &TransactionLayer::on_receive, _transport->received);
@@ -25,7 +25,7 @@ TransactionLayer::~TransactionLayer(void) {
 }
 
 
-void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::shared_ptr<RemotePeer>& remote) {
+void TransactionLayer::on_receive(const std::shared_ptr<SIPMessage>& message, const std::shared_ptr<RemotePeer>& remote) {
   if (message->is_request) {
     auto request = std::dynamic_pointer_cast<SIPRequest>(message);
     std::shared_ptr<Transaction> tran = get_transaction(message);
@@ -52,7 +52,7 @@ void TransactionLayer::on_receive(std::shared_ptr<SIPMessage>& message, std::sha
 }
 
 
-void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPRequest>& request, bool forward_to_transport) {
+void TransactionLayer::process_request(const std::shared_ptr<Transaction>& transaction, const std::shared_ptr<SIPRequest>& request, bool forward_to_transport) {
   bool accepted = transaction->on_message(std::dynamic_pointer_cast<const SIPMessage>(request), forward_to_transport);
   if (accepted) {
     // TODO: handling retransmission.
@@ -67,7 +67,7 @@ void TransactionLayer::process_request(std::shared_ptr<Transaction>& transaction
 }
 
 
-void TransactionLayer::process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<SIPResponse>& response, bool forward_to_transport) {
+void TransactionLayer::process_response(const std::shared_ptr<Transaction>& transaction, const std::shared_ptr<SIPResponse>& response, bool forward_to_transport) {
   TransactionState prev_state = transaction->state;
   bool accepted = transaction->on_message(std::dynamic_pointer_cast<const SIPMessage>(response), forward_to_transport);
   if (accepted) {
@@ -127,8 +127,12 @@ std::shared_ptr<Transaction> TransactionLayer::get_transaction(const std::shared
     }
   } 
   else {
-    if (branch.empty()) LOG_WARN(_logger, "Searching a transaction with a SIP message without branch. Transaction unsearchable. Not matching min criteria skipping...");
-    else LOG_WARN(_logger, "Searching a transaction with a SIP message with a wrong branch (%s), possible old implementation. Not matching min criteria skipping...", branch.c_str());
+    if (branch.empty()) {
+      LOG_WARN(_logger, "Searching a transaction with a SIP message without branch. Transaction unsearchable. Not matching min criteria skipping...");
+    }
+    else {
+      LOG_WARN(_logger, "Searching a transaction with a SIP message with a wrong branch (%s), possible old implementation. Not matching min criteria skipping...", branch.c_str());
+    }
   }
   return tran; // correct or empty.
 }

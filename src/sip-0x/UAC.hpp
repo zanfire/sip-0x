@@ -18,7 +18,7 @@
 //!
 
 #include "UA.hpp"
-#include "protocol\SIPURI.hpp"
+#include "protocol/SIPURI.hpp"
 
 #include <random>
 
@@ -43,7 +43,7 @@ namespace sip0x
     //! Handle a SIP request.
     void handle(std::shared_ptr<protocol::SIPRequest>& request);
 
-    void on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<const protocol::SIPResponse>& response);
+    void on_incoming_response(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<const protocol::SIPResponse>& response);
 
     //!
     //! Request creation.

@@ -1,9 +1,10 @@
 #include "TransactionTest.hpp"
 
+#include "mocks/TransportLayerMock.hpp"
+
 #include "parser/Parser.hpp"
 #include "utils/InputTokenStream.hpp"
 #include "utils/Clock.hpp"
-
 #include "TransactionLayer.hpp"
 #include "Transaction.hpp"
 
@@ -49,6 +50,7 @@ bool TransactionTest::execute(void) {
   _transport->inject_message((uint8_t const*)reg_message, std::strlen(reg_message));
   // We expect that SIP request is accepted and TR is in TRYNG state.
   auto transaction = tl.get_transaction("REGISTER_z9hG4bK_unittest");
+  if (transaction == nullptr) return false;
   if (transaction->state != TransactionState::TRANSACTION_STATE_TRYING) return false;
   _transport->inject_message((uint8_t const*)res_message, std::strlen(reg_message));
   if (transaction->state != TransactionState::TRANSACTION_STATE_COMPLETED) return false;

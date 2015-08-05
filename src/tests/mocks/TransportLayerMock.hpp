@@ -3,8 +3,6 @@
 
 #include "TransportLayer.hpp"
 
-#include <string>
-
 namespace mocks
 {
   //! Mock object for testing objected tied on transport.
@@ -21,7 +19,7 @@ namespace mocks
     std::shared_ptr<const sip0x::protocol::SIPMessage> get_last_message(void) { return _last_message; }
 
 
-    virtual void send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>& message) override;
+    virtual void send(const std::shared_ptr<sip0x::Transaction>& transaction, const std::shared_ptr<const sip0x::protocol::SIPMessage>& message) override;
   public:
   };
 }

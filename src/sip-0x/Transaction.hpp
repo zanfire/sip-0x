@@ -119,7 +119,7 @@ namespace sip0x
     //! \arg message is the message dispatched to transaction.
     //! \arg forward mean that this message must be forwarded to the transport layer.
     //! \returns true if message was accepted by state machine otherwise false.
-    bool on_message(std::shared_ptr<const sip0x::protocol::SIPMessage>& message, bool forward);
+    bool on_message(const std::shared_ptr<const sip0x::protocol::SIPMessage>& message, bool forward);
     //! Evaluate all timers for this transaction.
     void process_timers(void);
 

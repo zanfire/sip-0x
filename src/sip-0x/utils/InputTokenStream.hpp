@@ -41,7 +41,7 @@ namespace sip0x
       unsigned long pos(void) { return _pos; }
 
       // Returns the number of chars available to get.
-      int remains(void) { return _size - _pos; }
+      unsigned long remains(void) { return _size - _pos; }
       
       char get_char(void) {
         if (_pos + 1 > _size) {
@@ -62,8 +62,8 @@ namespace sip0x
         return get(remains());
       }
 
-      std::string get(int chars) {
-        std::string s = str(_pos, chars);
+      std::string get(unsigned long chars) {
+        std::string s = str((int)_pos, chars);
         _pos += s.length();
         return s;
       }
@@ -72,11 +72,11 @@ namespace sip0x
         return (char const*)(_content.c_str() + _pos);
       }
 
-      std::string unget(int chars) {
+      void unget(unsigned long chars) {
         _pos -= chars;
       }
 
-      void seekg(int pos) {
+      void seekg(unsigned long pos) {
         _pos = pos;
       }
 

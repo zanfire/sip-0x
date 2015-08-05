@@ -35,12 +35,11 @@ namespace sip0x
     UAS(TransactionLayer* transaction, ApplicationDelegate* application_delegate, std::string domain, std::string useragent);
     virtual ~UAS(void);
 
-    void on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<const sip0x::protocol::SIPRequest>& request);
-
+    void on_incoming_request(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<const sip0x::protocol::SIPRequest>& request);
 
   private:
 
-    void process_REGISTER(std::shared_ptr<Transaction>& transaction);
+    void process_REGISTER(const std::shared_ptr<Transaction>& transaction);
     std::shared_ptr<sip0x::protocol::SIPResponse> create_RESPONSE_for(const sip0x::protocol::SIPRequest* request, int code, char const* phrase);
   };
 }

@@ -21,18 +21,19 @@ UA(application_delegate, transaction, domain, useragent) {
 UAS::~UAS(void) {
 }
 
-void UAS::on_incoming_request(std::shared_ptr<Transaction>& tran, std::shared_ptr<const SIPRequest>& request) {
+void UAS::on_incoming_request(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<const SIPRequest>& request) {
   switch (request->method) {
     case SIPMethod::SIPMETHOD_REGISTER:
     {
       process_REGISTER(tran);
       break;
     }
-
+    default:
+      break;
   }
 }
 
-void UAS::process_REGISTER(std::shared_ptr<Transaction>& transaction) {
+void UAS::process_REGISTER(const std::shared_ptr<Transaction>& transaction) {
   // TODO: process and notify the Application of the register method.
 
   // Ask to the application layer if accept register from client

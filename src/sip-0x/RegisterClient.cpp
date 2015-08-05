@@ -128,7 +128,7 @@ std::string RegisterClient::describe_status(void) {
 }
 
 
-void RegisterClient::on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<SIPResponse const>& response) {
+void RegisterClient::on_response(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<SIPResponse const>& response) {
   // Save the last response for future handling in on_process.
   _mtx.lock();
   _last_unporcessed_response.reset((SIPResponse*)response->clone());

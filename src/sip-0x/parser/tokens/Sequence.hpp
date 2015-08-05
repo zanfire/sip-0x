@@ -18,12 +18,12 @@ namespace sip0x
     class Sequence<First> : public TokenAbstract {
 
     protected:
-      First member;
-      bool _disable_factory;
+      const First member;
+      bool _disable_factory = true;
 
     public:
-      Sequence(First f) : TokenAbstract("Sequence"), member(f) {
-        _name += "..." + f.get_name();
+      Sequence(const First& f) : TokenAbstract("Sequence"), member(f) {
+        this->_name += "..." + f.get_name();
       }
 
       virtual ~Sequence(void) {}
@@ -59,8 +59,8 @@ namespace sip0x
     
     public:
       
-      Sequence(First& f, Rest&... rest) : Sequence<Rest...>(rest...), member(f) {
-        _name += "," + f.get_name();
+      Sequence(const First& f, const Rest&... rest) : Sequence<Rest...>(rest...), member(f) {
+        this->_name += "," + f.get_name();
       }
 
       virtual ~Sequence(void) {
@@ -92,11 +92,11 @@ namespace sip0x
 
       template<typename F, typename R>
       ParserResult processing(sip0x::utils::InputTokenStream& iss, FactoryContext* ctx, F const* f, R const& r) const {
-        LOG_DEBUG(_logger, "Processing %s ...", f->get_name().c_str());
+        LOG_DEBUG(this->_logger, "Processing %s ...", f->get_name().c_str());
 
         ParserResult result = f->read(iss, ctx);
         if (!result.success()) {
-          LOG_DEBUG(_logger, "Failed, expecting token %s.", f->get_name().c_str());
+          LOG_DEBUG(this->_logger, "Failed, expecting token %s.", f->get_name().c_str());
           result.push_event(ParserResult::TYPE_ERROR, iss.pos(), "Expected token " + f->get_name());
           return result;
         }

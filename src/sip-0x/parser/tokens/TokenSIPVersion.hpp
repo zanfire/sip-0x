@@ -19,9 +19,10 @@ namespace sip0x
       Sequence<Token, TokenDigits, Token, TokenDigits> _sequence;
       
     public:
-      TokenSIPVersion(void) : TokenAbstract("SIPResponse"), 
+      TokenSIPVersion(void) : TokenAbstract("SIPVersion"), 
         _sequence(Token("SIP/"), TokenDigits(), Token("."), TokenDigits())
       {
+        _sequence.disable_factory(true);
       }
 
       virtual ~TokenSIPVersion(void) { }

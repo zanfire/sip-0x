@@ -10,11 +10,11 @@ namespace sip0x
     template<class T>
     class TokenContainer : public TokenAbstract {
     protected:
-      T _token;
-      bool _disable_factory;
+      const T _token;
+      bool _disable_factory = true;
 
     public:
-      TokenContainer(std::string name, T token, bool disable_factory) : TokenAbstract(name), _token(token), _disable_factory(disable_factory) {
+      TokenContainer(std::string name, const T& token, bool disable_factory) : TokenAbstract(name), _token(token), _disable_factory(disable_factory) {
       }
 
       virtual FactoryContext* create_factory(void) const override {
@@ -35,4 +35,4 @@ namespace sip0x
   }
 }
 
-#endif // SIP0X_PARSER_OCCURRENCE_HPP__
+#endif // SIP0X_PARSER_TOKENCONTAINER_HPP__

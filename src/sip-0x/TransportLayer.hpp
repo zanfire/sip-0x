@@ -32,14 +32,14 @@ namespace sip0x
 
   public:
     ///! Event of received message on specify remote peer.
-    sip0x::utils::Signal<std::shared_ptr<sip0x::protocol::SIPMessage>&, std::shared_ptr<sip0x::RemotePeer>&> received;
+    sip0x::utils::Signal<const std::shared_ptr<sip0x::protocol::SIPMessage>&, const std::shared_ptr<sip0x::RemotePeer>&> received;
 
   public:
     TransportLayer(void);
     virtual ~TransportLayer(void);
 
     //! Send data to the lower layer (impl. dependent) like network or mock layer.
-    virtual void send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>& message) = 0;
+    virtual void send(const std::shared_ptr<sip0x::Transaction>& transaction, const std::shared_ptr<const sip0x::protocol::SIPMessage>& message) = 0;
   };
 }
 

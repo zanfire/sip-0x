@@ -60,17 +60,17 @@ namespace sip0x
     utils::Slot _slot;
 
   public:  
-    utils::Signal<std::shared_ptr<sip0x::Transaction>&, std::shared_ptr<const sip0x::protocol::SIPRequest>&> received_request;
-    utils::Signal<std::shared_ptr<sip0x::Transaction>&, std::shared_ptr<const sip0x::protocol::SIPResponse>&> received_response;
+    utils::Signal<const std::shared_ptr<sip0x::Transaction>&, const std::shared_ptr<const sip0x::protocol::SIPRequest>&> received_request;
+    utils::Signal<const std::shared_ptr<sip0x::Transaction>&, const std::shared_ptr<const sip0x::protocol::SIPResponse>&> received_response;
 
   public:
-    TransactionLayer(std::shared_ptr<TransportLayer>& transport);
+    TransactionLayer(const std::shared_ptr<TransportLayer>& transport);
     virtual ~TransactionLayer(void);
 
-    virtual void on_receive(std::shared_ptr<sip0x::protocol::SIPMessage>& message, std::shared_ptr<sip0x::RemotePeer>& connection);
+    virtual void on_receive(const std::shared_ptr<sip0x::protocol::SIPMessage>& message, const std::shared_ptr<sip0x::RemotePeer>& connection);
 
-    void process_request(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPRequest>& request, bool forward_to_transport);
-    void process_response(std::shared_ptr<Transaction>& transaction, std::shared_ptr<sip0x::protocol::SIPResponse>& response, bool forward_to_transport);
+    void process_request(const std::shared_ptr<Transaction>& transaction, const std::shared_ptr<sip0x::protocol::SIPRequest>& request, bool forward_to_transport);
+    void process_response(const std::shared_ptr<Transaction>& transaction, const std::shared_ptr<sip0x::protocol::SIPResponse>& response, bool forward_to_transport);
       
     //! Create a transaction.
     //! \param request The request that orgin the transaction.
@@ -78,7 +78,7 @@ namespace sip0x
     //! \param origin_remote true if the origin of request is from a remote peer.
     std::shared_ptr<Transaction> create_transaction(std::shared_ptr<sip0x::protocol::SIPRequest> const& request, std::shared_ptr<sip0x::RemotePeer> remote, bool origin_remote);
     
-    std::shared_ptr<Transaction> TransactionLayer::get_transaction(const std::string& id);
+    std::shared_ptr<Transaction> get_transaction(const std::string& id);
     std::shared_ptr<Transaction> get_transaction(std::shared_ptr<sip0x::protocol::SIPMessage> const& message);
 
     //! Process timers for each transaction.

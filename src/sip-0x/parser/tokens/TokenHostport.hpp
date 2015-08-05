@@ -19,8 +19,8 @@ namespace sip0x
     class TokenHostname : public TokenContainer<Sequence<Occurrence<Sequence<TokenRegex, Token>>, TokenRegex, Occurrence<Token>>> {
 
     public:
-      TokenHostname(void) : TokenContainer("hostname", Sequence<Occurrence<Sequence<TokenRegex, Token>>, TokenRegex, Occurrence<Token>>(
-        Occurrence<Sequence<TokenRegex, Token>>
+      TokenHostname(void) : TokenContainer("hostname", Sequence<Occurrence<Sequence<TokenRegex, Token> >, TokenRegex, Occurrence<Token> >(
+        Occurrence<Sequence<TokenRegex, Token> >
         (
           Sequence<TokenRegex, Token>
           (

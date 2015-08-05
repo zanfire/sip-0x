@@ -3,7 +3,9 @@
 
 #include "BaseTest.hpp"
 
-#include "../mocks/TransportLayerMock.hpp"
+namespace mocks {
+  class TransportLayerMock;
+}
 
 namespace unittests
 {

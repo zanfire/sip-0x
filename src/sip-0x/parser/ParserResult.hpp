@@ -20,36 +20,36 @@ namespace sip0x
 
       struct ParserEvent {
         ParserEventType type;
-        uint32_t position;
+        unsigned long position;
         std::string message;
       };
     private:
       //! True when parser is in a success state.
       bool _success;
       //! Current parser position.
-      uint32_t _pos = 0;
+      unsigned long _pos = 0;
       //! 
-      uint32_t _len = 0;
+      unsigned long _len = 0;
       //! Events.
       std::vector<ParserEvent> _events;
 
     public:
       ParserResult(void);
-      ParserResult(bool success, uint32_t pos, uint32_t len);
+      ParserResult(bool success, unsigned long pos, unsigned long len);
       virtual ~ParserResult(void);
       //! Return true if success.
       bool success(void);
       
       //! Get position relative to the input.
-      uint32_t position(void) { return _pos; }
+      unsigned long position(void) { return _pos; }
       //! Get length of content relative to the input.
-      uint32_t length(void) { return _len; }
+      unsigned long length(void) { return _len; }
 
       // ??
-      void set_position(int pos);
+      void set_position(unsigned long pos);
       //! Push a parser event in the result.
       //! If you push an ERROR type event the success state will be forced to false.
-      void push_event(ParserEventType type, int pos, std::string message);
+      void push_event(ParserEventType type, unsigned long pos, std::string message);
       //! Returns the events vector.
       std::vector<ParserEvent>& get_events(void) { return _events; }
       //! Returns the first error occurrence from index.

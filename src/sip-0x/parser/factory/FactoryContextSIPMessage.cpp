@@ -10,7 +10,7 @@
 using namespace sip0x::parser;
 using namespace sip0x::protocol;
 
-void FactoryContextSIPMessage::create(std::string const& /*text*/) {
+void FactoryContextSIPMessage::impl_create(void) {
   if (_children.size() >= 3) {
     SIPMessage* message = nullptr;
     FactoryContextSIPMethod* method = dynamic_cast<FactoryContextSIPMethod*>(_children[0]);
@@ -38,7 +38,7 @@ void FactoryContextSIPMessage::create(std::string const& /*text*/) {
         response->version = version->get();
       }
 
-      response->status_code = atol(_children[1]->text().c_str());
+      response->status_code = atoi(_children[1]->text().c_str());
       response->reason_phrase = _children[2]->text();
 
       _message.reset(response);

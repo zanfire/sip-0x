@@ -34,7 +34,7 @@ void UAC::handle(std::shared_ptr<protocol::SIPRequest>& request) {
 }
 
 
-void UAC::on_incoming_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response) {
+void UAC::on_incoming_response(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<protocol::SIPResponse const>& response) {
   raise_listener(tran, response);
 }
 

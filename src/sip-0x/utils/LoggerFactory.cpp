@@ -1,13 +1,14 @@
 #include "LoggerFactory.hpp"
 
 #include "IniFile.hpp"
+#include "utils.hpp"
 
 #include <mutex>
 
 using namespace sip0x::utils;
 
-std::once_flag*  LoggerFactory::_once = new std::once_flag();
-LoggerFactory*	LoggerFactory::_instance = nullptr;
+std::once_flag*   LoggerFactory::_once = new std::once_flag();
+LoggerFactory*    LoggerFactory::_instance = nullptr;
 
 
 LoggerFactory::LoggerFactory(void) {

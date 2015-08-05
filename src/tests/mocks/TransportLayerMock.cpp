@@ -28,7 +28,7 @@ void TransportLayerMock::inject_message(uint8_t const* buffer, std::size_t size)
 }
 
 
-void TransportLayerMock::send(std::shared_ptr<sip0x::Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>& message) {
+void TransportLayerMock::send(const std::shared_ptr<sip0x::Transaction>& transaction, const std::shared_ptr<const sip0x::protocol::SIPMessage>& message) {
   // Mock received message dispatch to the testing 
   _last_message = message;
 }

@@ -49,14 +49,16 @@ void TransportLayerTCP::async_accept(void) {
   // TODO: Remove recursion after awhile this bring to a stack overflow.
   _acceptor.async_accept(_tcp_socket, [this](std::error_code ec) {
     if (!ec) {
-      _connection_manager.add(Connection::create(_tcp_socket, std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this())));
+      //_connection_manager.add(Connection::create(_tcp_socket, std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this())))
+      auto a = std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this());
+      _connection_manager.add(Connection::create(_tcp_socket, a));
     }
     async_accept();
   });
 }
 
 
-void TransportLayerTCP::send(std::shared_ptr<Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>&  message) {
+void TransportLayerTCP::send(const std::shared_ptr<Transaction>& transaction, const std::shared_ptr<const sip0x::protocol::SIPMessage>&  message) {
   std::string msg = message->to_string();
   std::shared_ptr<RemotePeerTCP> remote = std::static_pointer_cast<RemotePeerTCP>(transaction->remotepeer);
 
@@ -174,7 +176,9 @@ std::shared_ptr<Connection> TransportLayerTCP::connect(std::string const& addres
   asio::ip::tcp::resolver resolver(_io_service);
   auto endpoint_iterator = resolver.resolve({ address, std::to_string(port) });
 
-  std::shared_ptr<Connection> connection = Connection::create(_tcp_socket, std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this()));
+  auto a = std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this());
+  //std::shared_ptr<Connection> connection = Connection::create(_tcp_socket, std::dynamic_pointer_cast<sip0x::listeners::ConnectionListener>(shared_from_this()))
+  auto connection = Connection::create(_tcp_socket, a);
   connection->connect(endpoint_iterator);
   _connection_manager.add(connection);
   return connection;

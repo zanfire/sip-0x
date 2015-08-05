@@ -19,8 +19,8 @@
 
 #include "UAC.hpp"
 
-#include "listeners\UAListener.hpp"
-#include "utils\utils.hpp"
+#include "listeners/UAListener.hpp"
+#include "utils/utils.hpp"
 
 #include <memory>
 #include <condition_variable>
@@ -90,7 +90,7 @@ namespace sip0x
     void on_process(void);
     std::string describe_status(void);
     //!
-    virtual void on_response(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response) override;
+    virtual void on_response(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<protocol::SIPResponse const>& response) override;
 
     //! Utility method that returns a string for each RegisterStatus.
     static char const* to_string(RegisterStatus status);

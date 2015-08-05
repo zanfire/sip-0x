@@ -34,7 +34,7 @@ Endpoint::~Endpoint(void) {
 
 bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
   if (_initialized) {
-    LOG_WARN(_logger, "Skipping initialization because Endpoint was initialized.");
+    LOG_WARN_STR(_logger, "Skipping initialization because Endpoint was initialized.");
     return false;
   }
   // Pre-load SIP grammar.
@@ -44,7 +44,9 @@ bool Endpoint::initialize(Endpoint::EndpointConfig const& configuration) {
   _transport = TransportLayerTCP::create(configuration.bind_address, configuration.bind_port);
   _transport->start();
   // Initialize transaction layer
-  _transaction = new TransactionLayer(std::dynamic_pointer_cast<TransportLayer>(_transport));
+  auto p = std::dynamic_pointer_cast<TransportLayer>(_transport);
+  _transaction = new TransactionLayer(p);
+  //_transaction = new TransactionLayer(std::dynamic_pointer_cast<TransportLayer>(_transport))
   // Initialize User agents
   _uac = new UAC(_transaction, this, configuration.domainname, "sip0x-ua");
   _uas = new UAS(_transaction, this, configuration.domainname, "sip0x-ua");

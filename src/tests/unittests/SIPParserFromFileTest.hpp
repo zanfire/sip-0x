@@ -78,7 +78,7 @@ namespace unittests
 
       std::ifstream ifs(_path, std::ifstream::in);
       if (!ifs.is_open()) {
-        LOG_ERROR(logger, "Failed to open INI file [%s].", _path);
+        LOG_ERROR(logger, "Failed to open INI file [%s].", _path.c_str());
         return false;
       }
 

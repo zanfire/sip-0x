@@ -1,0 +1,393 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		48D81C851B6FD84E000F90D1 /* libsip-0x.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48D81C841B6FD7B7000F90D1 /* libsip-0x.a */; };
+		48FB31EF1B6F3A95002D2892 /* test_occurrences.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB31E91B6F3A95002D2892 /* test_occurrences.cpp */; };
+		48FB31F01B6F3A95002D2892 /* test_sipmessages.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB31EB1B6F3A95002D2892 /* test_sipmessages.cpp */; };
+		48FB31F11B6F3A95002D2892 /* test_tokens.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB31EC1B6F3A95002D2892 /* test_tokens.cpp */; };
+		48FB31F21B6F3A95002D2892 /* test_utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB31ED1B6F3A95002D2892 /* test_utils.cpp */; };
+		48FB31F51B6F3AD0002D2892 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB31F31B6F3AD0002D2892 /* main.cpp */; };
+		48FB32071B6F3D85002D2892 /* BaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32011B6F3D85002D2892 /* BaseTest.cpp */; };
+		48FB32081B6F3D85002D2892 /* SIPParserTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32021B6F3D85002D2892 /* SIPParserTest.cpp */; };
+		48FB32091B6F3D85002D2892 /* TestExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32031B6F3D85002D2892 /* TestExecutor.cpp */; };
+		48FB320A1B6F3D85002D2892 /* TransactionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32041B6F3D85002D2892 /* TransactionTest.cpp */; };
+		48FB320B1B6F3D85002D2892 /* UACTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32051B6F3D85002D2892 /* UACTest.cpp */; };
+		48FB320C1B6F3D85002D2892 /* UASTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32061B6F3D85002D2892 /* UASTest.cpp */; };
+		48FB32111B6F3DBE002D2892 /* TransportLayerMock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 48FB32101B6F3DBE002D2892 /* TransportLayerMock.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		48D81C831B6FD7B7000F90D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 48D81C7F1B6FD7B7000F90D1 /* sip-0x-library.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 48FB321B1B6F4076002D2892;
+			remoteInfo = "sip-0x";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		48D1C9B11B6F3896003FCC50 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		48D1C9B31B6F3896003FCC50 /* testrunner */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testrunner; sourceTree = BUILT_PRODUCTS_DIR; };
+		48D81C7F1B6FD7B7000F90D1 /* sip-0x-library.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "sip-0x-library.xcodeproj"; sourceTree = "<group>"; };
+		48FB31E91B6F3A95002D2892 /* test_occurrences.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_occurrences.cpp; path = ../src/tests/test_occurrences.cpp; sourceTree = "<group>"; };
+		48FB31EA1B6F3A95002D2892 /* test_prototypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = test_prototypes.h; path = ../src/tests/test_prototypes.h; sourceTree = "<group>"; };
+		48FB31EB1B6F3A95002D2892 /* test_sipmessages.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_sipmessages.cpp; path = ../src/tests/test_sipmessages.cpp; sourceTree = "<group>"; };
+		48FB31EC1B6F3A95002D2892 /* test_tokens.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_tokens.cpp; path = ../src/tests/test_tokens.cpp; sourceTree = "<group>"; };
+		48FB31ED1B6F3A95002D2892 /* test_utils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = test_utils.cpp; path = ../src/tests/test_utils.cpp; sourceTree = "<group>"; };
+		48FB31F31B6F3AD0002D2892 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../src/tests/main.cpp; sourceTree = "<group>"; };
+		48FB31F61B6F3C9F002D2892 /* libsip0x.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libsip0x.a; path = "../src/sip-0x/libsip0x.a"; sourceTree = "<group>"; };
+		48FB31FA1B6F3D85002D2892 /* BaseTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BaseTest.hpp; path = ../src/tests/unittests/BaseTest.hpp; sourceTree = "<group>"; };
+		48FB31FB1B6F3D85002D2892 /* SIPParserFromFileTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPParserFromFileTest.hpp; path = ../src/tests/unittests/SIPParserFromFileTest.hpp; sourceTree = "<group>"; };
+		48FB31FC1B6F3D85002D2892 /* SIPParserTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SIPParserTest.hpp; path = ../src/tests/unittests/SIPParserTest.hpp; sourceTree = "<group>"; };
+		48FB31FD1B6F3D85002D2892 /* TestExecutor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TestExecutor.hpp; path = ../src/tests/unittests/TestExecutor.hpp; sourceTree = "<group>"; };
+		48FB31FE1B6F3D85002D2892 /* TransactionTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TransactionTest.hpp; path = ../src/tests/unittests/TransactionTest.hpp; sourceTree = "<group>"; };
+		48FB31FF1B6F3D85002D2892 /* UACTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UACTest.hpp; path = ../src/tests/unittests/UACTest.hpp; sourceTree = "<group>"; };
+		48FB32001B6F3D85002D2892 /* UASTest.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UASTest.hpp; path = ../src/tests/unittests/UASTest.hpp; sourceTree = "<group>"; };
+		48FB32011B6F3D85002D2892 /* BaseTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BaseTest.cpp; path = ../src/tests/unittests/BaseTest.cpp; sourceTree = "<group>"; };
+		48FB32021B6F3D85002D2892 /* SIPParserTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SIPParserTest.cpp; path = ../src/tests/unittests/SIPParserTest.cpp; sourceTree = "<group>"; };
+		48FB32031B6F3D85002D2892 /* TestExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestExecutor.cpp; path = ../src/tests/unittests/TestExecutor.cpp; sourceTree = "<group>"; };
+		48FB32041B6F3D85002D2892 /* TransactionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransactionTest.cpp; path = ../src/tests/unittests/TransactionTest.cpp; sourceTree = "<group>"; };
+		48FB32051B6F3D85002D2892 /* UACTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UACTest.cpp; path = ../src/tests/unittests/UACTest.cpp; sourceTree = "<group>"; };
+		48FB32061B6F3D85002D2892 /* UASTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UASTest.cpp; path = ../src/tests/unittests/UASTest.cpp; sourceTree = "<group>"; };
+		48FB320F1B6F3DBE002D2892 /* TransportLayerMock.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = TransportLayerMock.hpp; path = ../src/tests/mocks/TransportLayerMock.hpp; sourceTree = "<group>"; };
+		48FB32101B6F3DBE002D2892 /* TransportLayerMock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TransportLayerMock.cpp; path = ../src/tests/mocks/TransportLayerMock.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		48D1C9B01B6F3896003FCC50 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48D81C851B6FD84E000F90D1 /* libsip-0x.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		48D1C9AA1B6F3896003FCC50 = {
+			isa = PBXGroup;
+			children = (
+				48FB31F81B6F3D40002D2892 /* tests */,
+				48FB31F61B6F3C9F002D2892 /* libsip0x.a */,
+				48D1C9B41B6F3896003FCC50 /* Products */,
+				48D81C7F1B6FD7B7000F90D1 /* sip-0x-library.xcodeproj */,
+			);
+			sourceTree = "<group>";
+		};
+		48D1C9B41B6F3896003FCC50 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				48D1C9B31B6F3896003FCC50 /* testrunner */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		48D81C801B6FD7B7000F90D1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				48D81C841B6FD7B7000F90D1 /* libsip-0x.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		48FB31F81B6F3D40002D2892 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				48FB320D1B6F3D90002D2892 /* mock */,
+				48FB31F91B6F3D56002D2892 /* unittests */,
+				48FB31F31B6F3AD0002D2892 /* main.cpp */,
+				48FB31E91B6F3A95002D2892 /* test_occurrences.cpp */,
+				48FB31EA1B6F3A95002D2892 /* test_prototypes.h */,
+				48FB31EB1B6F3A95002D2892 /* test_sipmessages.cpp */,
+				48FB31EC1B6F3A95002D2892 /* test_tokens.cpp */,
+				48FB31ED1B6F3A95002D2892 /* test_utils.cpp */,
+			);
+			name = tests;
+			sourceTree = "<group>";
+		};
+		48FB31F91B6F3D56002D2892 /* unittests */ = {
+			isa = PBXGroup;
+			children = (
+				48FB31FA1B6F3D85002D2892 /* BaseTest.hpp */,
+				48FB31FB1B6F3D85002D2892 /* SIPParserFromFileTest.hpp */,
+				48FB31FC1B6F3D85002D2892 /* SIPParserTest.hpp */,
+				48FB31FD1B6F3D85002D2892 /* TestExecutor.hpp */,
+				48FB31FE1B6F3D85002D2892 /* TransactionTest.hpp */,
+				48FB31FF1B6F3D85002D2892 /* UACTest.hpp */,
+				48FB32001B6F3D85002D2892 /* UASTest.hpp */,
+				48FB32011B6F3D85002D2892 /* BaseTest.cpp */,
+				48FB32021B6F3D85002D2892 /* SIPParserTest.cpp */,
+				48FB32031B6F3D85002D2892 /* TestExecutor.cpp */,
+				48FB32041B6F3D85002D2892 /* TransactionTest.cpp */,
+				48FB32051B6F3D85002D2892 /* UACTest.cpp */,
+				48FB32061B6F3D85002D2892 /* UASTest.cpp */,
+			);
+			name = unittests;
+			sourceTree = "<group>";
+		};
+		48FB320D1B6F3D90002D2892 /* mock */ = {
+			isa = PBXGroup;
+			children = (
+				48FB320F1B6F3DBE002D2892 /* TransportLayerMock.hpp */,
+				48FB32101B6F3DBE002D2892 /* TransportLayerMock.cpp */,
+			);
+			name = mock;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		48D1C9B21B6F3896003FCC50 /* testrunner */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 48D1C9BA1B6F3896003FCC50 /* Build configuration list for PBXNativeTarget "testrunner" */;
+			buildPhases = (
+				48D1C9AF1B6F3896003FCC50 /* Sources */,
+				48D1C9B01B6F3896003FCC50 /* Frameworks */,
+				48D1C9B11B6F3896003FCC50 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = testrunner;
+			productName = testrunner;
+			productReference = 48D1C9B31B6F3896003FCC50 /* testrunner */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		48D1C9AB1B6F3896003FCC50 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = "Matteo Valdina";
+				TargetAttributes = {
+					48D1C9B21B6F3896003FCC50 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 48D1C9AE1B6F3896003FCC50 /* Build configuration list for PBXProject "sip-0x-tests" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 48D1C9AA1B6F3896003FCC50;
+			productRefGroup = 48D1C9B41B6F3896003FCC50 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 48D81C801B6FD7B7000F90D1 /* Products */;
+					ProjectRef = 48D81C7F1B6FD7B7000F90D1 /* sip-0x-library.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				48D1C9B21B6F3896003FCC50 /* testrunner */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		48D81C841B6FD7B7000F90D1 /* libsip-0x.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libsip-0x.a";
+			remoteRef = 48D81C831B6FD7B7000F90D1 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		48D1C9AF1B6F3896003FCC50 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48FB320A1B6F3D85002D2892 /* TransactionTest.cpp in Sources */,
+				48FB32091B6F3D85002D2892 /* TestExecutor.cpp in Sources */,
+				48FB32071B6F3D85002D2892 /* BaseTest.cpp in Sources */,
+				48FB32111B6F3DBE002D2892 /* TransportLayerMock.cpp in Sources */,
+				48FB320C1B6F3D85002D2892 /* UASTest.cpp in Sources */,
+				48FB31EF1B6F3A95002D2892 /* test_occurrences.cpp in Sources */,
+				48FB32081B6F3D85002D2892 /* SIPParserTest.cpp in Sources */,
+				48FB31F01B6F3A95002D2892 /* test_sipmessages.cpp in Sources */,
+				48FB31F21B6F3A95002D2892 /* test_utils.cpp in Sources */,
+				48FB31F51B6F3AD0002D2892 /* main.cpp in Sources */,
+				48FB31F11B6F3A95002D2892 /* test_tokens.cpp in Sources */,
+				48FB320B1B6F3D85002D2892 /* UACTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		48D1C9B81B6F3896003FCC50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../src/sip-0x/",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		48D1C9B91B6F3896003FCC50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"../src/sip-0x/",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		48D1C9BB1B6F3896003FCC50 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../src/tests,
+					"../src/sip-0x",
+					"../vendors/asio-1.10.6/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"../src/sip-0x/",
+					"/Users/mvaldina/GITLocal/sip-0x/src/sip-0x",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		48D1C9BC1B6F3896003FCC50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../src/tests,
+					"../src/sip-0x",
+					"../vendors/asio-1.10.6/include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"../src/sip-0x/",
+					"/Users/mvaldina/GITLocal/sip-0x/src/sip-0x",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		48D1C9AE1B6F3896003FCC50 /* Build configuration list for PBXProject "sip-0x-tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48D1C9B81B6F3896003FCC50 /* Debug */,
+				48D1C9B91B6F3896003FCC50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		48D1C9BA1B6F3896003FCC50 /* Build configuration list for PBXNativeTarget "testrunner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				48D1C9BB1B6F3896003FCC50 /* Debug */,
+				48D1C9BC1B6F3896003FCC50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 48D1C9AB1B6F3896003FCC50 /* Project object */;
+}

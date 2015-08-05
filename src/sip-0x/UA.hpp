@@ -38,7 +38,7 @@ namespace sip0x
   protected:
     std::shared_ptr<utils::Logger> _logger;
     utils::Slot _slot;
-    std::set<std::shared_ptr<listeners::UAListener>> _listeners;
+    std::set<std::shared_ptr<listeners::UAListener> > _listeners;
     // Is it really needed??
     ApplicationDelegate* _application_delegate;
 
@@ -51,13 +51,13 @@ namespace sip0x
     UA(ApplicationDelegate* application_delegate, TransactionLayer* transaction, std::string domain, std::string useragent);
     virtual ~UA(void);
 
-    void add_listener(std::shared_ptr<listeners::UAListener>& listener);
-    void remove_listener(std::shared_ptr<listeners::UAListener>& listener);
+    void add_listener(const std::shared_ptr<listeners::UAListener>& listener);
+    void remove_listener(const std::shared_ptr<listeners::UAListener>& listener);
 
     virtual void on_process(void);
   protected:
 
-    void raise_listener(std::shared_ptr<Transaction>& tran, std::shared_ptr<protocol::SIPResponse const>& response);
+    void raise_listener(const std::shared_ptr<Transaction>& tran, const std::shared_ptr<protocol::SIPResponse const>& response);
 
     //! \brief Add default header line. Ex: User agent, Max-Forwards, Via etc
     void add_default_header_lines(protocol::SIPMessage* message);

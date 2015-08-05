@@ -14,7 +14,7 @@ namespace sip0x
 
     class FactoryContextSIPMessageHeader : public FactoryContextValue<std::shared_ptr<sip0x::protocol::SIPMessageHeaderBase>> {
     public:
-      virtual void create(std::string const& text) override {
+      virtual void impl_create() override {
         if (_children.size() >= 1) {
           std::string param = _children[0]->text();
           if (param.compare("Call-ID") == 0) {

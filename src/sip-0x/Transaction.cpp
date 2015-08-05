@@ -24,7 +24,7 @@ Transaction::~Transaction(void) {
 }
 
 
-bool Transaction::on_message(std::shared_ptr<const sip0x::protocol::SIPMessage>& message, bool forward) {
+bool Transaction::on_message(const std::shared_ptr<const sip0x::protocol::SIPMessage>& message, bool forward) {
   std::lock_guard<std::recursive_mutex> guard(_mtx);
 
   if (state == TransactionState::TRANSACTION_STATE_COMPLETED || state == TransactionState::TRANSACTION_STATE_TERMINATED) {
@@ -212,7 +212,7 @@ bool Transaction::change_state(TransactionState new_state) {
 
 std::string Transaction::to_string(void) const {
   char buf[128];
-  sprintf_s(buf, "Transaction@%p", this);
+  std::snprintf(buf, sizeof(buf), "Transaction@%p", this);
   return std::string(buf);
 }
 

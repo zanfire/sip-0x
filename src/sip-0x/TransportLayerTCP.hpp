@@ -37,7 +37,7 @@ namespace sip0x
 
     void async_accept(void);
 
-    virtual void send(std::shared_ptr<Transaction>& transaction, std::shared_ptr<const sip0x::protocol::SIPMessage>& message) override;
+    virtual void send(const std::shared_ptr<Transaction>& transaction, const std::shared_ptr<const sip0x::protocol::SIPMessage>& message) override;
     
     virtual void on_incoming_data(std::shared_ptr<utils::Connection> conn, uint8_t const* buffer, std::size_t const size) override;
     
